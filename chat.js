@@ -120,6 +120,7 @@
     sendCooldown: false,
     ctaShown: false,
     demoMode: false, // true when API init fails (AI uses demo responses, but notifications still sent)
+    summaryShown: false,
     // Pre-scripted flow state
     profession: null,
     area: null,
@@ -928,12 +929,11 @@
 
     // Build structured summary and send to backend
     var summaryData = buildConversationSummary();
-    sendChatComplete(summaryData);
 
     // Warm encouragement messages based on engagement level
     var scoreMessages = {
       A: {
-        text: "お話を聞かせていただきありがとうございました。ぴったりの職場、一緒に見つけましょう。",
+        text: "お話を聞かせていただきありがとうございました。ぴったりの職場をお探しします。",
         sub: "担当エージェントが24時間以内にお電話いたします。",
       },
       B: {
@@ -941,26 +941,137 @@
         sub: "担当エージェントが24時間以内にお電話いたします。",
       },
       C: {
-        text: "ご相談ありがとうございました。まずは情報収集からでも大丈夫です。お気軽にどうぞ。",
-        sub: "担当エージェントからご連絡いたします。ご都合の良い時間帯があればお知らせください。",
+        text: "ご相談ありがとうございました。まずは情報収集からでも大丈夫です。",
+        sub: "気になる求人があればいつでもご相談ください。",
       },
       D: {
-        text: "お話しいただきありがとうございました。転職は大きな決断ですよね。いつでもご相談ください。",
+        text: "お話しいただきありがとうございました。転職は大きな決断ですよね。",
         sub: "気になることがあれば、いつでもまたお声がけくださいね。",
       },
     };
 
-    // After a short delay, show summary view
     var msg = scoreMessages[summaryData.score] || scoreMessages["C"];
+
+    // Send to backend and get matched facilities
+    sendChatComplete(summaryData).then(function (responseData) {
+      var facilities = (responseData && responseData.matchedFacilities) || [];
+
+      setTimeout(function () {
+        if (els.summaryText) {
+          els.summaryText.textContent = msg.text;
+        }
+        if (els.summaryScore) {
+          els.summaryScore.textContent = msg.sub;
+        }
+
+        // Render recommendation cards
+        renderRecommendations(facilities);
+
+        // Setup CTA button events
+        setupSummaryCTA();
+
+        showView("summary");
+      }, 1500);
+    });
+
+    // Fallback: if API takes too long, show summary without recommendations after 5s
     setTimeout(function () {
-      if (els.summaryText) {
-        els.summaryText.textContent = msg.text;
+      if (!chatState.summaryShown) {
+        chatState.summaryShown = true;
+        if (els.summaryText) {
+          els.summaryText.textContent = msg.text;
+        }
+        if (els.summaryScore) {
+          els.summaryScore.textContent = msg.sub;
+        }
+        setupSummaryCTA();
+        showView("summary");
       }
-      if (els.summaryScore) {
-        els.summaryScore.textContent = msg.sub;
+    }, 5000);
+  }
+
+  // --------------------------------------------------
+  // Render Recommendation Cards
+  // --------------------------------------------------
+  function renderRecommendations(facilities) {
+    chatState.summaryShown = true;
+    var container = document.getElementById("chatRecommendations");
+    if (!container || !facilities || facilities.length === 0) return;
+
+    container.innerHTML = "";
+
+    var title = document.createElement("p");
+    title.className = "chat-recommendations-title";
+    title.textContent = "あなたにぴったりの求人";
+    container.appendChild(title);
+
+    for (var i = 0; i < facilities.length; i++) {
+      var f = facilities[i];
+      var card = document.createElement("div");
+      card.className = "chat-recommendation-card";
+
+      // Header: name + match score
+      var header = document.createElement("div");
+      header.className = "chat-rec-header";
+
+      var nameEl = document.createElement("span");
+      nameEl.className = "chat-rec-name";
+      nameEl.textContent = f.name;
+      header.appendChild(nameEl);
+
+      var scoreEl = document.createElement("span");
+      scoreEl.className = "chat-match-score";
+      scoreEl.textContent = f.matchScore + "%";
+      header.appendChild(scoreEl);
+
+      card.appendChild(header);
+
+      // Type
+      var typeEl = document.createElement("div");
+      typeEl.className = "chat-rec-type";
+      typeEl.textContent = f.type + (f.beds ? " / " + f.beds + "床" : "");
+      card.appendChild(typeEl);
+
+      // Reasons
+      if (f.reasons && f.reasons.length > 0) {
+        var reasonsList = document.createElement("ul");
+        reasonsList.className = "chat-rec-reasons";
+        for (var r = 0; r < f.reasons.length; r++) {
+          var li = document.createElement("li");
+          li.textContent = f.reasons[r];
+          reasonsList.appendChild(li);
+        }
+        card.appendChild(reasonsList);
       }
-      showView("summary");
-    }, 2000);
+
+      // Details
+      var details = document.createElement("div");
+      details.className = "chat-rec-details";
+      var detailParts = [f.salary];
+      if (f.annualHolidays) detailParts.push("休" + f.annualHolidays + "日");
+      if (f.nightShift) detailParts.push(f.nightShift);
+      if (f.access) detailParts.push(f.access);
+      details.textContent = detailParts.join(" / ");
+      card.appendChild(details);
+
+      container.appendChild(card);
+    }
+  }
+
+  // --------------------------------------------------
+  // Setup Summary CTA Buttons
+  // --------------------------------------------------
+  function setupSummaryCTA() {
+    var registerBtn = document.getElementById("chatCtaRegister");
+    if (registerBtn) {
+      registerBtn.onclick = function () {
+        var registerSection = document.getElementById("registerSection") || document.getElementById("register");
+        if (registerSection) {
+          registerSection.scrollIntoView({ behavior: "smooth" });
+        }
+        closeChat();
+      };
+    }
   }
 
   // --------------------------------------------------
@@ -1079,9 +1190,9 @@
   }
 
   async function sendChatComplete(summaryData) {
-    if (!CHAT_CONFIG.workerEndpoint || chatState.messages.length < 2) return;
+    if (!CHAT_CONFIG.workerEndpoint || chatState.messages.length < 2) return null;
     try {
-      await fetchWithTimeout(CHAT_CONFIG.workerEndpoint + "/api/chat-complete", {
+      var response = await fetchWithTimeout(CHAT_CONFIG.workerEndpoint + "/api/chat-complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -1097,8 +1208,14 @@
           completedAt: summaryData ? summaryData.completedAt : new Date().toISOString(),
         }),
       }, 15000);
+      if (response.ok) {
+        var data = await response.json();
+        return data;
+      }
+      return null;
     } catch (err) {
       console.error("[Chat] chat-complete error:", err);
+      return null;
     }
   }
 

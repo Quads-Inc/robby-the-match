@@ -603,6 +603,121 @@
   letter-spacing: 0.5px;
 }
 
+/* ---------- Recommendation Cards ---------- */
+.chat-recommendations {
+  width: 100%;
+  margin-top: 12px;
+  text-align: left;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.chat-recommendations-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2D2D2D;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.chat-recommendation-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E0D5;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.chat-recommendation-card:last-child {
+  margin-bottom: 0;
+}
+.chat-rec-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.chat-rec-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2D2D2D;
+}
+.chat-match-score {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #5B787D;
+  color: #FFFFFF;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.chat-rec-type {
+  font-size: 0.72rem;
+  color: #8B8B8B;
+  margin-bottom: 6px;
+}
+.chat-rec-reasons {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 6px 0;
+}
+.chat-rec-reasons li {
+  font-size: 0.78rem;
+  color: #4A4A4A;
+  padding: 1px 0;
+}
+.chat-rec-reasons li::before {
+  content: "\2713 ";
+  color: #5B787D;
+  font-weight: 600;
+}
+.chat-rec-details {
+  font-size: 0.72rem;
+  color: #6B6B6B;
+  line-height: 1.4;
+}
+
+/* ---------- Summary CTA Buttons ---------- */
+.chat-summary-cta {
+  width: 100%;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.chat-cta-line {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #06C755;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.chat-cta-line:hover {
+  background: #05B54D;
+}
+.chat-cta-register {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  color: #5B787D;
+  border: 2px solid #5B787D;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  font-family: var(--font-main);
+}
+.chat-cta-register:hover {
+  background: rgba(91, 120, 125, 0.05);
+}
+
 /* ---------- Phone Gate ---------- */
 .chat-phone-gate {
   padding: 1.5rem;
