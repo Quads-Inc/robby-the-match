@@ -1,0 +1,439 @@
+{
+  "version": 1,
+  "created": "2026-02-21T15:32:19.570003",
+  "updated": "2026-02-21T15:32:19.570007",
+  "posts": [
+    {
+      "id": 1,
+      "content_id": "20260220_A01",
+      "batch": "standalone",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/20260220_A01",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/test_script_A01.json",
+      "caption": "看護師の転職相談、AIに整理してもらうと説得力が違う。師長も納得の論理的説明。#看護師 #転職 #AI #看護師あるある #神奈川",
+      "hashtags": [
+        "#看護師",
+        "#転職",
+        "#AI",
+        "#看護師あるある",
+        "#神奈川"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 2,
+      "content_id": "20260220_A02",
+      "batch": "generated",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/20260220_A02",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/20260220_A02.json",
+      "caption": "夜勤明けの顔、AIに年齢を聞いたら衝撃の結果が…😱 +10歳って言われた時の絶望感よ。夜勤の破壊力、数字で見せられると怖い。みんなも試してみて（覚悟して）",
+      "hashtags": [
+        "#看護師あるある",
+        "#夜勤明け",
+        "#看護師の日常",
+        "#AIやってみた",
+        "#ROBBYTHEMATCH"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 3,
+      "content_id": "day1",
+      "batch": "week2_batch_20260227",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day1",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day1.json",
+      "caption": "師長に「辞めたい」って3ヶ月言えなかった。AIに退職の伝え方を相談したら、めちゃくちゃ的確な台本作ってくれた。それ通りに言ったら師長が「応援する」って。言い方ひとつで反応変わるんだね。",
+      "hashtags": [
+        "#看護師あるある",
+        "#退職",
+        "#師長",
+        "#AI",
+        "#看護師転職"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 4,
+      "content_id": "day2",
+      "batch": "week2_batch_20260227",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day2",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day2.json",
+      "caption": "看護師5年目、転職するかしないか毎日考えてた。AIにデータで聞いたら「4-7年目が一番市場価値高い」って。8年超えると管理職前提の求人が増えて選択肢狭まるらしい。知ってるだけで違うよね。",
+      "hashtags": [
+        "#看護師転職",
+        "#キャリア",
+        "#経験年数",
+        "#AI",
+        "#市場価値"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 5,
+      "content_id": "day3",
+      "batch": "week2_batch_20260227",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day3",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day3.json",
+      "caption": "夜勤明けの顔をAIに年齢判定させたら+10歳って言われた。夜勤前は実年齢通りだったのに、16時間で11歳老けるの草。夜勤がんばってる人、全員に拍手だよ。まじで身体に気をつけてね。",
+      "hashtags": [
+        "#看護師あるある",
+        "#夜勤明け",
+        "#AI",
+        "#看護師",
+        "#夜勤"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 6,
+      "content_id": "day4",
+      "batch": "week2_batch_20260227",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day4",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day4.json",
+      "caption": "転職エージェントの手数料って看護師は払わないけど、病院は年収の20-30%払ってる。つまり1人採用するのに80-120万円。病院が「すぐ辞めないで」って言う理由これ。手数料10%のとこ使えば病院の負担も軽くなるし、採用されやすくなるよ。",
+      "hashtags": [
+        "#看護師転職",
+        "#手数料",
+        "#転職エージェント",
+        "#AI",
+        "#求人"
+      ],
+      "cta_type": "hard",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 7,
+      "content_id": "day5",
+      "batch": "week2_batch_20260227",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day5",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day5.json",
+      "caption": "患者さんの「大丈夫です」、看護師なら全員知ってるよね。あれほぼ嘘。AIに本音翻訳させたら「痛いけど迷惑かけたくない」だった。それを毎日察して動いてるのが看護師。この仕事、AIには絶対できない。",
+      "hashtags": [
+        "#看護師あるある",
+        "#患者さん",
+        "#本音",
+        "#AI",
+        "#看護師"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 8,
+      "content_id": "day6",
+      "batch": "week2_batch_20260227",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day6",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day6.json",
+      "caption": "夜勤手当の相場、施設タイプで全然違うって知ってた？大学病院と療養型で1回4,000円差。月4回で16,000円、年間約20万円も違う。自分の手当が相場以下なら交渉か転職の判断材料にして。この表は保存推奨。",
+      "hashtags": [
+        "#看護師",
+        "#夜勤手当",
+        "#給与",
+        "#相場",
+        "#転職"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 9,
+      "content_id": "day7",
+      "batch": "week2_batch_20260227",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day7",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/week2_batch_20260227/day7.json",
+      "caption": "お母さんに「看護師辞めたい」って言ったら、まさかのAIで論破された。「辞めたいのは看護師？それとも今の職場？」って。お母さんいつからそんなにAI使えるようになったの。でもその通りだった。環境変えるだけで変わることってあるよ。",
+      "hashtags": [
+        "#看護師",
+        "#お母さん",
+        "#AI",
+        "#転職",
+        "#相談"
+      ],
+      "cta_type": "hard",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 10,
+      "content_id": "day1_mon_A03",
+      "batch": "weekly_batch_20260220",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day1_mon_A03",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day1_mon_A03.json",
+      "caption": "夜勤中のナースコール3連続、あるあるすぎて泣ける。AIに同じ状況を再現させたら処理落ちしたの草。看護師ってAI超えてるんよ。夜勤がんばってる人、まじでお疲れさま。",
+      "hashtags": [
+        "#看護師あるある",
+        "#夜勤",
+        "#ナースコール",
+        "#AI",
+        "#神奈川"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 11,
+      "content_id": "day2_tue_B01",
+      "batch": "weekly_batch_20260220",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day2_tue_B01",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day2_tue_B01.json",
+      "caption": "同じ経験年数なのに年収100万違うの、ほんとにある話。AIにデータで計算させたら残酷な数字が出てきた。知ってるか知らないかで将来変わるよね。",
+      "hashtags": [
+        "#看護師転職",
+        "#年収",
+        "#キャリア",
+        "#AI",
+        "#神奈川"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 12,
+      "content_id": "day3_wed_A04",
+      "batch": "weekly_batch_20260220",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day3_wed_A04",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day3_wed_A04.json",
+      "caption": "「前にも言ったよね」って言われた瞬間の絶望感、看護師なら全員わかるよね。AIに同じこと100回聞いても笑顔で答えてくれた。こういう先輩がほしかった。",
+      "hashtags": [
+        "#看護師あるある",
+        "#新人看護師",
+        "#先輩",
+        "#AI",
+        "#看護師"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 13,
+      "content_id": "day4_thu_B02",
+      "batch": "weekly_batch_20260220",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day4_thu_B02",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day4_thu_B02.json",
+      "caption": "転職したいけど怖い、って夜中に考えちゃう人いない？AIに相談したら「怖いのは情報不足」って言われてハッとした。感情を数字に変えるだけで見え方が変わるよ。",
+      "hashtags": [
+        "#看護師転職",
+        "#転職",
+        "#キャリア",
+        "#AI",
+        "#看護師"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 14,
+      "content_id": "day5_fri_A05",
+      "batch": "weekly_batch_20260220",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day5_fri_A05",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day5_fri_A05.json",
+      "caption": "看護記録をAIに書かせたら形式は完璧だった。でも「患者さんの表情が和らいだ」みたいな観察はAIには無理だった。看護師の仕事ってやっぱりすごいよ。でも記録量は減らしてくれ。",
+      "hashtags": [
+        "#看護師あるある",
+        "#看護記録",
+        "#残業",
+        "#AI",
+        "#看護師"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 15,
+      "content_id": "day6_sat_C01",
+      "batch": "weekly_batch_20260220",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day6_sat_C01",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day6_sat_C01.json",
+      "caption": "神奈川の看護師年収、横浜と県西部で60万も違う。でも家賃と通勤時間を入れて再計算したら意外な結果に。年収だけで判断すると損するかも。保存して比較に使ってね。",
+      "hashtags": [
+        "#看護師",
+        "#年収",
+        "#神奈川",
+        "#転職",
+        "#給与"
+      ],
+      "cta_type": "soft",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    },
+    {
+      "id": 16,
+      "content_id": "day7_sun_T01",
+      "batch": "weekly_batch_20260220",
+      "slide_dir": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day7_sun_T01",
+      "json_path": "/Users/robby2/robby-the-match/content/generated/weekly_batch_20260220/day7_sun_T01.json",
+      "caption": "「夜勤って寝てるだけでしょ」って言われたことある人。AIに夜勤の中身を説明させたら彼氏が泣いた。頑張ってるのに理解されないのって辛いよね。今の環境がしんどい人、話聞くよ。",
+      "hashtags": [
+        "#看護師",
+        "#夜勤",
+        "#彼氏",
+        "#AI",
+        "#転職"
+      ],
+      "cta_type": "hard",
+      "status": "pending",
+      "video_path": null,
+      "posted_at": null,
+      "tiktok_url": null,
+      "error": null,
+      "performance": {
+        "views": null,
+        "likes": null,
+        "saves": null,
+        "comments": null
+      }
+    }
+  ]
+}

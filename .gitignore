@@ -8,6 +8,8 @@ node_modules/
 .DS_Store
 *.tmp
 .slack-prompt.tmp
+data/.tiktok_cookies.*
+content/temp_videos/
 api/.wrangler/
 Thumbs.db
 *.log

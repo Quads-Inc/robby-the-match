@@ -1,7 +1,7 @@
 # ROBBY THE MATCH Agent Team ロール定義
 
 ## 概要
-7エージェント体制でPDCAサイクルを自律運用する。
+8エージェント体制でPDCAサイクルを自律運用する。
 各エージェントはcronで起動し、STATE.md → agent_state.json を読んで状況を把握してから実行する。
 
 ## エージェント一覧
@@ -15,6 +15,7 @@
 | 5 | Daily Reviewer | 23:00 月-土 | FULL-AUTO | 日次KPIレビュー・進捗記録 |
 | 6 | Weekly Strategist | 日曜 06:00 | SEMI-AUTO | 週次戦略レビュー・方針調整 |
 | 7 | Slack Commander | */5分 | FULL-AUTO | Slack監視・指示受信・ルーティング |
+| 8 | SNS Poster | 17:30 月-土 | FULL-AUTO | TikTok/Instagram自動投稿・動画生成 |
 
 ## 自律レベルの定義
 
@@ -65,16 +66,46 @@
 - **権限**: data/slack_instructions.json への書き込み
 - **コマンド**: status, report, kpi, help, 自由テキスト指示
 
+### 8. SNS Poster（pdca_sns_post.sh）
+- **入力**: data/posting_queue.json、content/generated/ のスライド画像
+- **出力**: TikTok投稿（動画スライドショー）、投稿結果ログ
+- **権限**: FULL-AUTO — 毎日17:30に自動投稿実行
+- **ワークフロー**:
+  1. posting_queue.json から次の未投稿コンテンツを取得
+  2. ffmpegで6枚スライドからMP4動画を生成（各3秒 = 18秒）
+  3. tiktok-uploaderでTikTokにアップロード（Cookie認証）
+  4. 投稿結果をSlack通知 + キュー更新
+  5. 失敗時はSlackに手動投稿依頼を送信
+- **状態更新**: agentMemory.sns_poster
+- **投稿スケジュール**: 17:30（日勤後帰宅中の看護師ターゲット）
+- **フォールバック**: Cookie期限切れ/認証失敗時 → Slack通知で手動投稿依頼
+
 ## エージェント間の連携フロー
 
 ```
-Slack Commander → 指示受信 → data/slack_instructions.json
+Content Creator (15:00) → 台本JSON + スライド画像生成
+                                    ↓
+SNS Poster (17:30) → posting_queue.json確認 → ffmpeg動画生成 → TikTok投稿
+                                    ↓
+Slack Commander (*/5分) → 指示受信 → data/slack_instructions.json
                                     ↓
 各エージェント起動時 → slack_instructions.json 確認 → 指示があれば実行
                                     ↓
 実行結果 → agent_state.json 更新 → Slack通知
                                     ↓
-Daily Reviewer → 全結果集約 → PROGRESS.md + Slackレポート
+Daily Reviewer (23:00) → 全結果集約 → PROGRESS.md + Slackレポート
+```
+
+## SNS投稿パイプライン
+
+```
+1. Content Creator が台本JSON + スライド6枚を生成
+2. tiktok_post.py --init-queue でキューに追加
+3. pdca_sns_post.sh (cron 17:30) が次の未投稿を実行:
+   a. ffmpegで6枚PNGからMP4動画生成（各3秒=18秒）
+   b. tiktok-uploaderでTikTokに投稿
+   c. 結果をposting_queue.json + Slackに記録
+4. Daily Reviewer が投稿結果を集約してレポート
 ```
 
 ## 障害復旧フロー
