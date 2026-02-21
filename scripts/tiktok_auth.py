@@ -72,10 +72,45 @@ def setup_auth_interactive():
         driver.get("https://www.tiktok.com/login/phone-or-email/email")
         print("ブラウザが開きました。")
         print("→ 「Googleで続ける」をクリックしてログインしてください。")
-        print("→ ログイン完了後（TikTokのホーム画面が表示されたら）、")
+        print("→ ログイン完了を自動検知します（最大5分待機）")
         print()
 
-        input("ここに戻ってEnterを押してください...")
+        # ログイン完了をポーリングで自動検知（sessionid cookieの出現を待つ）
+        max_wait = 600  # 10分
+        poll_interval = 3
+        elapsed = 0
+        logged_in = False
+
+        while elapsed < max_wait:
+            time.sleep(poll_interval)
+            elapsed += poll_interval
+            try:
+                cookies = driver.get_cookies()
+                for c in cookies:
+                    if c["name"] == "sessionid" and c.get("value"):
+                        logged_in = True
+                        break
+                # sessionidがなくてもホームにリダイレクトされたか確認
+                if not logged_in and "tiktok.com/foryou" in driver.current_url:
+                    logged_in = True
+                if not logged_in and "tiktok.com/@" in driver.current_url:
+                    logged_in = True
+            except Exception:
+                pass
+
+            if logged_in:
+                print(f"✅ ログイン検知！（{elapsed}秒経過）")
+                time.sleep(3)  # Cookie安定待ち
+                break
+
+            if elapsed % 15 == 0:
+                print(f"   待機中... {elapsed}秒経過（ブラウザでログインしてください）")
+
+        if not logged_in:
+            print("⏰ タイムアウト（5分）。ブラウザは開いたまま。")
+            print("   ログイン後、再度このスクリプトを実行してください。")
+            driver.quit()
+            return False
 
         # Cookie保存（JSON形式）
         cookies = driver.get_cookies()

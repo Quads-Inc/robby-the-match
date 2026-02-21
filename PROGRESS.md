@@ -120,3 +120,6 @@ fatal: could not read Username for 'https://github.com': Device not configured
 ### 📱 コンテンツ生成（15:00:00）
 
 
+### sns_post（17:30:00）
+SNS投稿: 投稿: 0/16件完了
+

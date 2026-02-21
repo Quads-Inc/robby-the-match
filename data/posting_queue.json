@@ -1,7 +1,7 @@
 {
   "version": 1,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-21T15:32:19.570007",
+  "updated": "2026-02-21T17:30:06.554160",
   "posts": [
     {
       "id": 1,
@@ -18,8 +18,8 @@
         "#神奈川"
       ],
       "cta_type": "soft",
-      "status": "pending",
-      "video_path": null,
+      "status": "manual_required",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_20260220_A01_20260221.mp4",
       "posted_at": null,
       "tiktok_url": null,
       "error": null,
