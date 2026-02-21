@@ -1,37 +1,53 @@
 #!/bin/bash
+# ===========================================
+# ROBBY THE MATCH コンテンツ生成 v3.0
+# cron: 0 15 * * 1-6（月-土 15:00）
+# ===========================================
 source ~/robby-the-match/scripts/utils.sh
 init_log "pdca_content"
 update_agent_state "content_creator" "running"
 check_instructions "content_creator"
 
-run_claude "
-STATE.mdを読め。CLAUDE.mdも読め。今日は$(date +%A)（曜日${DOW}）。
+# === エージェント間タスク消費 ===
+echo "[INFO] タスク確認中..." >> "$LOG"
+TASKS=$(consume_agent_tasks "content_creator")
+echo "$TASKS" >> "$LOG"
 
-【コンテンツ高速生成サイクル】サブエージェントでTikTok+Instagram同時生成。
+# 緊急タスクがあればバッチサイズを増加
+FORCE_COUNT=0
+if echo "$TASKS" | grep -q "emergency_generate"; then
+    FORCE_COUNT=10
+    echo "[INFO] 緊急生成タスク検出 → 10本強制生成" >> "$LOG"
+elif echo "$TASKS" | grep -q "generate_batch"; then
+    FORCE_COUNT=7
+    echo "[INFO] バッチ生成タスク検出 → 7本強制生成" >> "$LOG"
+fi
 
-■ Check
-1. STATE.mdのSNS状態とKPIを確認
-2. content/generated/に今日分があるか確認
-   → あれば品質チェックのみ、なければ新規生成
+# === コンテンツパイプライン実行 ===
+echo "[INFO] Content Pipeline 実行開始" >> "$LOG"
 
-■ Plan
-3. PROGRESS.mdから高パフォーマンスパターン抽出（あれば）
-4. カテゴリMIX確認（40%あるある/25%転職/20%給与/5%紹介/10%トレンド）
+if [ "$FORCE_COUNT" -gt 0 ]; then
+    python3 "$PROJECT_DIR/scripts/content_pipeline.py" --force "$FORCE_COUNT" >> "$LOG" 2>&1
+    PIPELINE_EXIT=$?
+else
+    python3 "$PROJECT_DIR/scripts/content_pipeline.py" --auto >> "$LOG" 2>&1
+    PIPELINE_EXIT=$?
+fi
 
-■ Do（並行実行）
-5. TikTok台本JSON生成+スライド6枚（フック20文字、CTA 8:2）
-6. Instagram用カルーセル素材準備
-7. Slack通知（フック文+キャプション+17:30投稿予定）
-8. Postiz下書き or Slack送信
+if [ $PIPELINE_EXIT -eq 0 ]; then
+    echo "[OK] Content Pipeline 完了" >> "$LOG"
+    update_agent_state "content_creator" "completed"
+else
+    echo "[ERROR] Content Pipeline 失敗 (exit $PIPELINE_EXIT)" >> "$LOG"
+    handle_failure "content_creator" "Content Pipeline exit=$PIPELINE_EXIT"
+fi
 
-■ Act
-9. STATE.md更新（投稿数、今週分素材状況）
-10. PROGRESS.mdに記録（ID、カテゴリ、フック文）
-" 30
+# === 進捗記録 ===
+QUEUE_STATUS=$(python3 "$PROJECT_DIR/scripts/content_pipeline.py" --status 2>/dev/null | tail -5)
+update_progress "content" "コンテンツ生成: $QUEUE_STATUS"
 
+# === git同期 ===
 git_sync "content: ${TODAY} コンテンツ生成"
 update_state "コンテンツ生成"
-update_progress "📱 コンテンツ生成" "$(cat content/generated/${TODAY}_*.json 2>/dev/null | head -3 || echo 'ログ参照')"
-update_agent_state "content_creator" "completed"
-slack_notify "📱 投稿準備完了。17:30にTikTok確認→投稿ボタン。" "content"
+
 echo "[$TODAY] pdca_content完了" >> "$LOG"

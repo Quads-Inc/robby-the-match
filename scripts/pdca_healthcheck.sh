@@ -59,6 +59,70 @@ for agent, last_run in state.get('lastRun', {}).items():
             print(f'⚠️ {agent}: 一度も実行されていない')
 " >> "$LOG" 2>&1
 
+# === 自己修復アクション ===
+echo "[INFO] 自己修復チェック..." >> "$LOG"
+
+# 1. Failed状態のエージェントを24h後にリセット
+python3 -c "
+import json
+from datetime import datetime, timedelta
+try:
+    with open('$PROJECT_DIR/data/agent_state.json') as f:
+        state = json.load(f)
+    now = datetime.now()
+    healed = []
+    for agent, status in state.get('status', {}).items():
+        if status == 'failed':
+            last = state.get('lastRun', {}).get(agent)
+            if last:
+                last_dt = datetime.fromisoformat(last)
+                if (now - last_dt).total_seconds() > 86400:
+                    state['status'][agent] = 'pending'
+                    healed.append(agent)
+    if healed:
+        with open('$PROJECT_DIR/data/agent_state.json', 'w') as f:
+            json.dump(state, f, indent=2, ensure_ascii=False)
+        for a in healed:
+            print(f'[HEAL] {a}: failed -> pending (>24h)')
+except Exception as e:
+    print(f'[WARN] 自己修復失敗: {e}')
+" >> "$LOG" 2>&1
+
+# 2. キュー枯渇時の緊急タスク作成
+python3 -c "
+import json
+from datetime import datetime
+try:
+    with open('$PROJECT_DIR/data/posting_queue.json') as f:
+        q = json.load(f)
+    pending = sum(1 for p in q['posts'] if p['status'] == 'pending')
+    if pending < 3:
+        with open('$PROJECT_DIR/data/agent_state.json') as f:
+            state = json.load(f)
+        tasks = state.setdefault('pendingTasks', {}).setdefault('content_creator', [])
+        has_pending = any(t['status'] == 'pending' for t in tasks)
+        if not has_pending:
+            tasks.append({
+                'from': 'health_monitor',
+                'type': 'emergency_generate',
+                'details': f'キュー残り{pending}件。緊急コンテンツ生成必要。',
+                'created': datetime.now().isoformat(),
+                'status': 'pending'
+            })
+            with open('$PROJECT_DIR/data/agent_state.json', 'w') as f:
+                json.dump(state, f, indent=2, ensure_ascii=False)
+            print(f'[HEAL] content_creatorに緊急生成タスク作成（残{pending}件）')
+except Exception as e:
+    print(f'[WARN] キューチェック失敗: {e}')
+" >> "$LOG" 2>&1
+
+# 3. 古いログファイル削除（30日以上）
+OLD_LOGS=$(find "$PROJECT_DIR/logs/" -name "*.log" -mtime +30 2>/dev/null | wc -l)
+if [ "$OLD_LOGS" -gt 0 ]; then
+    find "$PROJECT_DIR/logs/" -name "*.log" -mtime +30 -delete 2>/dev/null
+    echo "[HEAL] ${OLD_LOGS}件の古いログ削除" >> "$LOG"
+fi
+
 # === レポート送信 ===
 if [ -n "$ISSUES" ]; then
   slack_notify "🏥 ヘルスチェック問題あり:\n$(echo -e "$ISSUES")" "alert"

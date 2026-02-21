@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
 """
-Slack Commander v2.0 — ROBBY THE MATCH
+Slack Commander v3.0 — ROBBY THE MATCH
 Slackチャンネルからのメッセージを監視し、コマンド実行 & 指示受けを行う。
 
 対応コマンド:
-  !status  → 現在のプロジェクト状態をSlackに報告
-  !kpi     → KPIダッシュボードを送信
-  !content → 今日のコンテンツ生成状態を報告
-  !seo     → SEOページの状態を報告
-  !site    → サイトページ数・リンク数を報告
-  !team    → チーム別作業レポートを送信
-  !push    → git commit & push を実行
-  !deploy  → デプロイ手順を案内
-  !tasks   → 指示キューの一覧を表示
-  !clear   → 指示キューをクリア
-  !help    → コマンド一覧を表示
+  !status   → 現在のプロジェクト状態をSlackに報告
+  !kpi      → KPIダッシュボードを送信
+  !content  → 今日のコンテンツ生成状態を報告
+  !seo      → SEOページの状態を報告
+  !site     → サイトページ数・リンク数を報告
+  !team     → チーム別作業レポートを送信
+  !push     → git commit & push を実行
+  !deploy   → デプロイ手順を案内
+  !generate → コンテンツ生成タスクを作成
+  !queue    → 投稿キュー状態を表示
+  !agents   → Agent Team状態一覧を表示
+  !tasks    → 指示キューの一覧を表示
+  !clear    → 指示キューをクリア
+  !help     → コマンド一覧を表示
 
 自由文メッセージ:
   !コマンド以外のメッセージ → 指示キューに保存（後でClaude Codeが処理）
@@ -409,12 +412,145 @@ def handle_deploy(channel: str, **kwargs):
     post_message(channel, blocks=blocks, text="デプロイ手順ガイド")
 
 
+def handle_generate(channel: str, **kwargs):
+    """!generate — コンテンツ生成タスクを作成"""
+    agent_state_file = project_root / "data" / "agent_state.json"
+    try:
+        with open(agent_state_file) as f:
+            state = json.load(f)
+        tasks = state.setdefault("pendingTasks", {}).setdefault("content_creator", [])
+        # 既存のpendingタスクがあるか確認
+        has_pending = any(t.get("status") == "pending" for t in tasks)
+        if has_pending:
+            post_message(channel, text="既にコンテンツ生成タスクがキューにあります。次回cron 15:00で実行されます。")
+            return
+        tasks.append({
+            "from": "slack_user",
+            "type": "generate_batch",
+            "details": "Slackから手動リクエスト",
+            "created": datetime.now().isoformat(),
+            "status": "pending",
+        })
+        with open(agent_state_file, "w") as f:
+            json.dump(state, f, indent=2, ensure_ascii=False)
+        post_message(channel, text="コンテンツ生成タスクを作成しました。次回のcron 15:00で実行されます。")
+    except Exception as e:
+        post_message(channel, text=f"タスク作成エラー: {e}")
+
+
+def handle_queue(channel: str, **kwargs):
+    """!queue — 投稿キューの状態を表示"""
+    queue_file = project_root / "data" / "posting_queue.json"
+    try:
+        with open(queue_file) as f:
+            q = json.load(f)
+        posts = q.get("posts", [])
+        posted = sum(1 for p in posts if p["status"] == "posted")
+        pending = sum(1 for p in posts if p["status"] == "pending")
+        failed = sum(1 for p in posts if p["status"] == "failed")
+        total = len(posts)
+        days_remaining = pending  # 1 post/day
+
+        # 直近の投稿
+        recent = [p for p in posts if p["status"] == "posted"]
+        recent_lines = ""
+        for p in recent[-3:]:
+            cid = p.get("content_id", "?")
+            date = (p.get("posted_at") or "")[:10]
+            recent_lines += f"\n  {cid} ({date})"
+
+        blocks = [
+            {
+                "type": "header",
+                "text": {"type": "plain_text", "text": "投稿キュー状態"},
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": (
+                        f"*合計:* {total}件\n"
+                        f"  :white_check_mark: 投稿済み: {posted}件\n"
+                        f"  :hourglass: 待機中: {pending}件\n"
+                        f"  :x: 失敗: {failed}件\n\n"
+                        f"*残り日数:* 約{days_remaining}日分"
+                        + (f"\n\n*直近の投稿:*{recent_lines}" if recent_lines else "")
+                        + ("\n\n:warning: *キュー残り少！* `!generate` でコンテンツ追加を" if pending < 5 else "")
+                    ),
+                },
+            },
+        ]
+        post_message(channel, blocks=blocks, text="投稿キュー状態")
+    except Exception as e:
+        post_message(channel, text=f"キュー読み込みエラー: {e}")
+
+
+def handle_agents(channel: str, **kwargs):
+    """!agents — 全エージェント状態一覧"""
+    agent_state_file = project_root / "data" / "agent_state.json"
+    try:
+        with open(agent_state_file) as f:
+            state = json.load(f)
+
+        status_emoji = {
+            "completed": ":white_check_mark:",
+            "running": ":arrows_counterclockwise:",
+            "failed": ":x:",
+            "pending": ":hourglass:",
+        }
+        agent_names = {
+            "seo_optimizer": "SEO Optimizer (04:00)",
+            "health_monitor": "Health Monitor (07:00)",
+            "competitor_analyst": "Competitor (10:00)",
+            "content_creator": "Content Creator (15:00)",
+            "sns_poster": "SNS Poster (17:30)",
+            "daily_reviewer": "Daily Reviewer (23:00)",
+            "weekly_strategist": "Weekly (日曜06:00)",
+            "slack_commander": "Slack Commander (*/5分)",
+        }
+
+        lines = []
+        for agent_id, display_name in agent_names.items():
+            s = state.get("status", {}).get(agent_id, "unknown")
+            emoji = status_emoji.get(s, ":question:")
+            last_run = state.get("lastRun", {}).get(agent_id)
+            if last_run:
+                last_str = last_run[:16].replace("T", " ")
+            else:
+                last_str = "未実行"
+            lines.append(f"{emoji} *{display_name}*\n      {s} | last: {last_str}")
+
+        # pendingTasks count
+        pending_tasks = state.get("pendingTasks", {})
+        task_count = sum(
+            sum(1 for t in tasks if t.get("status") == "pending")
+            for tasks in pending_tasks.values()
+        )
+
+        blocks = [
+            {
+                "type": "header",
+                "text": {"type": "plain_text", "text": "Agent Team 状態"},
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "\n".join(lines) + f"\n\n*未処理タスク:* {task_count}件",
+                },
+            },
+        ]
+        post_message(channel, blocks=blocks, text="Agent Team 状態")
+    except Exception as e:
+        post_message(channel, text=f"エージェント状態読み込みエラー: {e}")
+
+
 def handle_help(channel: str, **kwargs):
     """!help — コマンド一覧を表示"""
     blocks = [
         {
             "type": "header",
-            "text": {"type": "plain_text", "text": "ROBBY Commander v2.0"},
+            "text": {"type": "plain_text", "text": "ROBBY Commander v3.0"},
         },
         {
             "type": "section",
@@ -429,8 +565,12 @@ def handle_help(channel: str, **kwargs):
                     "  `!site`    — サイト構成レポート\n"
                     "  `!team`    — チーム別レポート\n\n"
                     "*アクション系:*\n"
-                    "  `!push`    — git push を実行\n"
-                    "  `!deploy`  — デプロイ手順\n\n"
+                    "  `!push`     — git push を実行\n"
+                    "  `!deploy`   — デプロイ手順\n"
+                    "  `!generate` — コンテンツ生成を要求\n\n"
+                    "*モニタリング:*\n"
+                    "  `!queue`   — 投稿キュー状態\n"
+                    "  `!agents`  — Agent Team状態一覧\n\n"
                     "*指示キュー:*\n"
                     "  `!tasks`   — 指示一覧\n"
                     "  `!clear`   — 指示キュークリア\n\n"
@@ -454,6 +594,9 @@ COMMANDS = {
     "!team": handle_team,
     "!push": handle_push,
     "!deploy": handle_deploy,
+    "!generate": handle_generate,
+    "!queue": handle_queue,
+    "!agents": handle_agents,
     "!tasks": handle_tasks,
     "!clear": handle_clear,
     "!help": handle_help,

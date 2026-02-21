@@ -227,23 +227,50 @@ def update_agent_memory(analysis):
         state = json.load(f)
 
     # content_creatorのメモリ更新
-    memory = state.get("agentMemory", {})
+    memory = state.setdefault("agentMemory", {})
     cc = memory.get("content_creator", {})
 
-    best = analysis.get("content_performance", {}).get("best_performing", [])
+    content_perf = analysis.get("content_performance", {})
+    best = content_perf.get("best_performing", [])
     cc["highPerformingPatterns"] = [b.get("content_id", "") for b in best]
 
-    worst = analysis.get("content_performance", {}).get("worst_performing", [])
+    # bestHookPatterns: フック文テキスト（台本JSONから取得可能な場合）
+    cc["bestHookPatterns"] = [b.get("caption", "")[:30] for b in best if b.get("caption")]
+
+    worst = content_perf.get("worst_performing", [])
     cc["failedPatterns"] = [w.get("content_id", "") for w in worst if w.get("views", 0) < 100]
 
-    cc["lastAnalysisDate"] = datetime.now().strftime("%Y-%m-%d")
+    # avgMetrics: 平均指標サマリ
+    cc["avgMetrics"] = {
+        "views": content_perf.get("avg_views", 0),
+        "likes": content_perf.get("avg_likes", 0),
+        "saves": content_perf.get("avg_saves", 0),
+        "saveRate": content_perf.get("save_rate", 0),
+        "likeRate": content_perf.get("like_rate", 0),
+    }
 
+    # bestCategories: CTA種別ごとの平均再生数
+    by_cta = content_perf.get("by_cta_type", {})
+    cc["bestCTATypes"] = {
+        cta: round(data["total_views"] / data["count"]) if data["count"] > 0 else 0
+        for cta, data in by_cta.items()
+    }
+
+    # contentMixActual: 実際のカテゴリ分布
+    content_mix = analysis.get("content_mix", {})
+    cc["contentMixActual"] = {
+        cat: data.get("actual", 0)
+        for cat, data in content_mix.get("mix", {}).items()
+    }
+
+    cc["lastAnalysisDate"] = datetime.now().strftime("%Y-%m-%d")
     memory["content_creator"] = cc
 
     # sns_posterのメモリ更新
     sp = memory.get("sns_poster", {})
-    sp["totalPosted"] = analysis.get("content_performance", {}).get("total_posted", 0)
-    sp["averageViews"] = analysis.get("content_performance", {}).get("avg_views", 0)
+    sp["totalPosted"] = content_perf.get("total_posted", 0)
+    sp["averageViews"] = content_perf.get("avg_views", 0)
+    sp["lastAnalysisDate"] = datetime.now().strftime("%Y-%m-%d")
     memory["sns_poster"] = sp
 
     state["agentMemory"] = memory

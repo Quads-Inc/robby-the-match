@@ -186,3 +186,112 @@ except Exception as e:
     print(f'[WARN] 指示チェック失敗: {e}')
 " 2>> "$LOG"
 }
+
+# ==========================================
+# エージェントメモリ・通信・自己修復
+# ==========================================
+
+read_agent_memory() {
+  local agent_name="$1"
+  local key="$2"
+  python3 -c "
+import json
+with open('$AGENT_STATE_FILE') as f:
+    state = json.load(f)
+val = state.get('agentMemory', {}).get('$agent_name', {}).get('$key', '')
+if isinstance(val, (dict, list)):
+    print(json.dumps(val, ensure_ascii=False))
+else:
+    print(val)
+" 2>/dev/null
+}
+
+write_agent_memory() {
+  local agent_name="$1"
+  local key="$2"
+  local value="$3"
+  python3 -c "
+import json, sys
+try:
+    with open('$AGENT_STATE_FILE') as f:
+        state = json.load(f)
+    mem = state.setdefault('agentMemory', {}).setdefault('${agent_name}', {})
+    try:
+        mem['${key}'] = json.loads('''${value}''')
+    except (json.JSONDecodeError, ValueError):
+        mem['${key}'] = '''${value}'''
+    with open('$AGENT_STATE_FILE', 'w') as f:
+        json.dump(state, f, indent=2, ensure_ascii=False)
+except Exception as e:
+    print(f'[WARN] write_agent_memory failed: {e}', file=sys.stderr)
+" 2>> "$LOG"
+}
+
+write_shared_context() {
+  local key="$1"
+  local value="$2"
+  python3 -c "
+import json, sys
+try:
+    with open('$AGENT_STATE_FILE') as f:
+        state = json.load(f)
+    ctx = state.setdefault('sharedContext', {})
+    try:
+        ctx['${key}'] = json.loads('''${value}''')
+    except (json.JSONDecodeError, ValueError):
+        ctx['${key}'] = '''${value}'''
+    with open('$AGENT_STATE_FILE', 'w') as f:
+        json.dump(state, f, indent=2, ensure_ascii=False)
+except Exception as e:
+    print(f'[WARN] write_shared_context failed: {e}', file=sys.stderr)
+" 2>> "$LOG"
+}
+
+create_agent_task() {
+  local from_agent="$1"
+  local to_agent="$2"
+  local task_type="$3"
+  local details="$4"
+  python3 -c "
+import json
+from datetime import datetime
+try:
+    with open('$AGENT_STATE_FILE') as f:
+        state = json.load(f)
+    tasks = state.setdefault('pendingTasks', {}).setdefault('${to_agent}', [])
+    tasks.append({
+        'from': '${from_agent}',
+        'type': '${task_type}',
+        'details': '''${details}''',
+        'created': datetime.now().isoformat(),
+        'status': 'pending'
+    })
+    with open('$AGENT_STATE_FILE', 'w') as f:
+        json.dump(state, f, indent=2, ensure_ascii=False)
+    print(f'[TASK] ${from_agent} -> ${to_agent}: ${task_type}')
+except Exception as e:
+    print(f'[WARN] create_agent_task failed: {e}')
+" 2>> "$LOG"
+}
+
+consume_agent_tasks() {
+  local agent_name="$1"
+  python3 -c "
+import json
+try:
+    with open('$AGENT_STATE_FILE') as f:
+        state = json.load(f)
+    tasks = state.get('pendingTasks', {}).get('${agent_name}', [])
+    pending = [t for t in tasks if t.get('status') == 'pending']
+    if pending:
+        for t in pending:
+            print(f'[TASK] from={t[\"from\"]} type={t[\"type\"]} details={t[\"details\"]}')
+            t['status'] = 'processing'
+        with open('$AGENT_STATE_FILE', 'w') as f:
+            json.dump(state, f, indent=2, ensure_ascii=False)
+    else:
+        print('[INFO] タスクなし')
+except Exception as e:
+    print(f'[WARN] consume_agent_tasks failed: {e}')
+" 2>> "$LOG"
+}

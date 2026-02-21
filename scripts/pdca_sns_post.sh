@@ -65,4 +65,18 @@ update_progress "sns_post" "SNS投稿: $QUEUE_STATUS"
 # Step 6: git同期
 git_sync "sns: $(date +%Y-%m-%d) SNS自動投稿"
 
+# === キュー枯渇警告 + エージェント間通信 ===
+PENDING_COUNT=$(python3 -c "
+import json
+with open('$PROJECT_DIR/data/posting_queue.json') as f:
+    q = json.load(f)
+print(sum(1 for p in q['posts'] if p['status'] == 'pending'))
+" 2>/dev/null || echo "0")
+
+if [ "$PENDING_COUNT" -lt 5 ]; then
+    echo "[WARN] キュー残り${PENDING_COUNT}件 → content_creatorにタスク作成" >> "$LOG"
+    create_agent_task "sns_poster" "content_creator" "generate_batch" "キュー残り${PENDING_COUNT}件。7本追加生成が必要。"
+    slack_notify "⚠️ 投稿キュー残り${PENDING_COUNT}件。コンテンツ生成を要請しました。"
+fi
+
 echo "=== [$TODAY $NOW] sns_post 完了 ===" >> "$LOG"

@@ -38,7 +38,23 @@
       "highPerformingPatterns": [],
       "failedPatterns": [],
       "contentIdCounter": 0,
-      "lastAnalysisDate": "2026-02-21"
+      "lastAnalysisDate": "2026-02-21",
+      "bestHookPatterns": [],
+      "avgMetrics": {
+        "views": 0,
+        "likes": 0,
+        "saves": 0,
+        "saveRate": 0,
+        "likeRate": 0
+      },
+      "bestCTATypes": {},
+      "contentMixActual": {
+        "あるある": 100,
+        "転職": 0,
+        "給与": 0,
+        "紹介": 0,
+        "トレンド": 0
+      }
     },
     "seo_optimizer": {
       "lastSitemapUpdate": null,
@@ -55,7 +71,8 @@
       "postingMethod": "tiktok-uploader",
       "authStatus": "cookie_required",
       "queueFile": "data/posting_queue.json",
-      "averageViews": 0
+      "averageViews": 0,
+      "lastAnalysisDate": "2026-02-21"
     }
   }
 }
