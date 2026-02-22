@@ -132,7 +132,7 @@ for (const area of AREA_DATABASE) {
 
 // 出力
 console.log("// ==========================================");
-console.log("// ROBBY THE MATCH - 施設データベース（自動生成）");
+console.log("// ナースロビー - 施設データベース（自動生成）");
 console.log("// Generated: " + new Date().toISOString());
 console.log("// Source: data/areas.js (" + AREA_DATABASE.length + "エリア)");
 console.log("// ==========================================");

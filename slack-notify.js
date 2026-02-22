@@ -1,5 +1,5 @@
 // ========================================
-// ROBBY THE MATCH - Slack通知ユーティリティ
+// ナースロビー - Slack通知ユーティリティ
 // プロジェクト進捗・指示受付用
 // ========================================
 // Usage: node slack-notify.js [command]
@@ -89,7 +89,7 @@ async function sendStatus() {
   const blocks = [
     {
       type: "header",
-      text: { type: "plain_text", text: "ROBBY THE MATCH - Project Status" },
+      text: { type: "plain_text", text: "ナースロビー - Project Status" },
     },
     { type: "divider" },
     {
@@ -130,7 +130,7 @@ async function sendStatus() {
     },
   ];
 
-  return sendBlocks("ROBBY THE MATCH - Project Status Update", blocks);
+  return sendBlocks("ナースロビー - Project Status Update", blocks);
 }
 
 // ---------- メッセージ読み取り ----------

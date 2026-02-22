@@ -1,5 +1,5 @@
 // ========================================
-// ROBBY THE MATCH - AI Chat Widget
+// NURSE ROBBY (ナースロビー) - AI Chat Widget
 // Phone-gated + hybrid pre-scripted/AI chat
 // ========================================
 
@@ -10,7 +10,7 @@
   // Configuration
   // --------------------------------------------------
   var CHAT_CONFIG = {
-    brandName: typeof CONFIG !== "undefined" ? CONFIG.BRAND_NAME : "ROBBY THE MATCH",
+    brandName: typeof CONFIG !== "undefined" ? CONFIG.BRAND_NAME : "ナースロビー",
     workerEndpoint: typeof CONFIG !== "undefined" ? CONFIG.API.workerEndpoint : "",
     hospitals: typeof CONFIG !== "undefined" ? CONFIG.HOSPITALS : [],
     stepLabels: [

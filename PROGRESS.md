@@ -1,4 +1,4 @@
-# ROBBY THE MATCH 進捗ログ
+# ナースロビー 進捗ログ
 
 ## 運用ルール
 - 各PDCAサイクルが自動で追記する
@@ -172,4 +172,10 @@ fatal: could not read Username for 'https://github.com': Device not configured
 
 ### sns_post（17:30:00）
 SNS投稿: 投稿: 0/16件完了
+
+
+## 2026-02-23
+
+### 🔍 SEO朝サイクル（04:00:00）
+seo: 2026-02-23 SEO改善+子ページ追加
 

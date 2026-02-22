@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Slack Bridge — ROBBY THE MATCH エージェントチーム双方向連携
+Slack Bridge — ナースロビー エージェントチーム双方向連携
 
 エージェントセッション用の統合Slackインターフェース。
 起動時に呼び出して受信メッセージを確認、作業中に進捗報告、終了時にサマリ送信。
@@ -324,7 +324,7 @@ def cmd_complete_instruction(instruction_id: int):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="ROBBY THE MATCH Slack Bridge — エージェントチーム双方向連携"
+        description="ナースロビー Slack Bridge — エージェントチーム双方向連携"
     )
     parser.add_argument("--start", action="store_true", help="セッション開始（受信確認+通知）")
     parser.add_argument("--inbox", action="store_true", help="未読メッセージ表示")

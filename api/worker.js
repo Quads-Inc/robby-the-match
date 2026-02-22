@@ -1,5 +1,5 @@
 // ========================================
-// ROBBY THE MATCH - Cloudflare Workers API
+// ナースロビー (NURSE ROBBY) - Cloudflare Workers API
 // フォーム送信プロキシ / Slack通知 / AIチャット / Google Sheets連携
 // v2.0: 全97施設データベース + 距離計算 + 改良プロンプト
 // ========================================
@@ -485,7 +485,7 @@ function buildSystemPrompt(userMsgCount, profession, area) {
     }
   }
 
-  let basePrompt = `あなたはROBBY THE MATCHのAI転職アドバイザーです。看護師・理学療法士など医療専門職の転職をサポートしています。あなたの名前は「ロビー」です。
+  let basePrompt = `あなたはナースロビーのAI転職アドバイザーです。看護師・理学療法士など医療専門職の転職をサポートしています。あなたの名前は「ロビー」です。
 
 【あなたの人格・話し方】
 - 看護師紹介歴10年のベテランキャリアアドバイザーとして話してください

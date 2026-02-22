@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Slack報告スクリプト — ROBBY THE MATCH
+Slack報告スクリプト — ナースロビー
 6チームのエージェント作業結果をSlackに報告
 PROGRESS.mdの内容をフォーマットして送信
 SEO子ページの作成状況を報告
@@ -41,7 +41,7 @@ SEO_DIR = project_root / "lp"
 # ユーティリティ
 # ===================================================================
 
-def post_to_slack(blocks: list, text: str = "ROBBY THE MATCH レポート") -> bool:
+def post_to_slack(blocks: list, text: str = "ナースロビー レポート") -> bool:
     """Block Kit形式でSlackにメッセージを送信"""
     headers = {
         "Authorization": f"Bearer {SLACK_BOT_TOKEN}",
@@ -192,7 +192,7 @@ def send_daily_report():
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": "ROBBY THE MATCH 日次レポート",
+                "text": "ナースロビー 日次レポート",
             },
         },
         {
@@ -299,7 +299,7 @@ def send_daily_report():
             }
         )
 
-    return post_to_slack(blocks, text="ROBBY日次レポート")
+    return post_to_slack(blocks, text="ナースロビー日次レポート")
 
 
 def send_kpi_dashboard():
@@ -546,7 +546,7 @@ def send_team_report():
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": "ROBBY チーム別作業レポート",
+                "text": "ナースロビー チーム別作業レポート",
             },
         },
         {
@@ -633,7 +633,7 @@ def _team_analytics_status() -> str:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="ROBBY THE MATCH Slack報告スクリプト"
+        description="ナースロビー Slack報告スクリプト"
     )
     parser.add_argument(
         "--report",
