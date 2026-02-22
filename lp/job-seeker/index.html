@@ -49,7 +49,7 @@
       "name": "ROBBY THE MATCH",
       "alternateName": "ROBBY THE MATCH",
       "url": "https://haruhi-medical.github.io/robby-the-match/",
-      "logo": "https://haruhi-medical.github.io/robby-the-match/lp/job-seeker/assets/logo.png",
+      "logo": "https://haruhi-medical.github.io/robby-the-match/assets/ogp.png",
       "description": "神奈川県西部を中心に、手数料10%の看護師転職サポートを提供する有料職業紹介事業者です。",
       "address": {
         "@type": "PostalAddress",
@@ -754,10 +754,7 @@
 
         /* TikTok welcome banner */
         .tiktok-welcome-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            position: relative;
             background: linear-gradient(135deg, #2a9d8f 0%, #20b2aa 100%);
             color: white;
             text-align: center;
@@ -766,12 +763,15 @@
             font-weight: 500;
             z-index: 2000;
             cursor: pointer;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
+            overflow: hidden;
+            max-height: 60px;
         }
 
         .tiktok-welcome-banner.hidden {
+            max-height: 0;
+            padding: 0 20px;
             opacity: 0;
-            transform: translateY(-100%);
             pointer-events: none;
         }
 
@@ -841,18 +841,35 @@
                 bottom: 100px !important;
                 right: 16px !important;
             }
+
+            /* Mobile hamburger navigation */
+            .site-nav-desktop {
+                display: none !important;
+            }
+            .site-nav-hamburger {
+                display: block !important;
+            }
+            .site-nav-mobile.open {
+                display: flex !important;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Site Header -->
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:#fff;border-bottom:2px solid #2a9d8f;">
+    <div class="site-header" style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:#fff;border-bottom:2px solid #2a9d8f;position:relative;">
         <a href="/robby-the-match/" style="font-size:1.2rem;font-weight:bold;color:#2a9d8f;text-decoration:none;">ROBBY THE MATCH</a>
-        <nav>
-            <a href="/robby-the-match/lp/job-seeker/area/" style="margin-left:20px;color:#555;text-decoration:none;font-size:0.9rem;">地域別求人</a>
-            <a href="/robby-the-match/lp/job-seeker/guide/" style="margin-left:20px;color:#555;text-decoration:none;font-size:0.9rem;">ガイド</a>
-            <a href="/robby-the-match/blog/" style="margin-left:20px;color:#555;text-decoration:none;font-size:0.9rem;">ブログ</a>
+        <nav class="site-nav-desktop" style="display:flex;gap:20px;">
+            <a href="/robby-the-match/lp/job-seeker/area/" style="color:#555;text-decoration:none;font-size:0.9rem;">地域別求人</a>
+            <a href="/robby-the-match/lp/job-seeker/guide/" style="color:#555;text-decoration:none;font-size:0.9rem;">ガイド</a>
+            <a href="/robby-the-match/blog/" style="color:#555;text-decoration:none;font-size:0.9rem;">ブログ</a>
         </nav>
+        <button class="site-nav-hamburger" onclick="this.parentElement.querySelector('.site-nav-mobile').classList.toggle('open')" aria-label="メニュー" style="display:none;background:none;border:none;font-size:1.5rem;color:#2a9d8f;cursor:pointer;padding:4px 8px;">&#9776;</button>
+        <div class="site-nav-mobile" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:2px solid #2a9d8f;padding:12px 20px;flex-direction:column;gap:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+            <a href="/robby-the-match/lp/job-seeker/area/" style="color:#555;text-decoration:none;font-size:1rem;padding:8px 0;border-bottom:1px solid #eee;">地域別求人</a>
+            <a href="/robby-the-match/lp/job-seeker/guide/" style="color:#555;text-decoration:none;font-size:1rem;padding:8px 0;border-bottom:1px solid #eee;">ガイド</a>
+            <a href="/robby-the-match/blog/" style="color:#555;text-decoration:none;font-size:1rem;padding:8px 0;">ブログ</a>
+        </div>
     </div>
     <!-- Breadcrumb Navigation -->
     <nav class="breadcrumb" aria-label="パンくずリスト">
@@ -1026,7 +1043,7 @@
                 </div>
             </div>
             <p style="text-align: center; margin-top: 10px; color: #666;">
-                有料職業紹介事業許可番号: 23-ユ-302928）
+                有料職業紹介事業許可番号: 23-ユ-302928
             </p>
         </div>
     </section>
@@ -1271,17 +1288,57 @@
     })();
     </script>
 
+    <!-- Scroll-triggered reveal animations -->
+    <script>
+    (function() {
+        var reveals = document.querySelectorAll('.advantage-card, .step, .faq-item, .proof-item, .trust-point, .comparison-table, .savings-note');
+        reveals.forEach(function(el) { el.classList.add('reveal'); });
+        var style = document.createElement('style');
+        style.textContent = '.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease;}.reveal.visible{opacity:1;transform:translateY(0);}';
+        document.head.appendChild(style);
+        if ('IntersectionObserver' in window) {
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            reveals.forEach(function(el) { obs.observe(el); });
+        } else {
+            reveals.forEach(function(el) { el.classList.add('visible'); });
+        }
+    })();
+    </script>
+
     <!-- FAQ Accordion -->
     <script>
     (function() {
         var faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(function(item) {
-            item.addEventListener('click', function() {
-                var wasOpen = this.classList.contains('open');
-                // Close all items first
-                faqItems.forEach(function(i) { i.classList.remove('open'); });
-                // Toggle clicked item
-                if (!wasOpen) { this.classList.add('open'); }
+        faqItems.forEach(function(item, index) {
+            var q = item.querySelector('.faq-q');
+            var a = item.querySelector('.faq-a');
+            // Set accessibility attributes
+            item.setAttribute('tabindex', '0');
+            item.setAttribute('role', 'button');
+            item.setAttribute('aria-expanded', 'false');
+            if (a) { a.id = a.id || ('faq-answer-' + index); item.setAttribute('aria-controls', a.id); }
+
+            function toggle() {
+                var wasOpen = item.classList.contains('open');
+                faqItems.forEach(function(i) {
+                    i.classList.remove('open');
+                    i.setAttribute('aria-expanded', 'false');
+                });
+                if (!wasOpen) {
+                    item.classList.add('open');
+                    item.setAttribute('aria-expanded', 'true');
+                }
+            }
+            item.addEventListener('click', toggle);
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
             });
         });
     })();

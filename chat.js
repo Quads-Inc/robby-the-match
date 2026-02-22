@@ -1249,7 +1249,7 @@
           }
         }
         var areaLabel = getAreaDisplayName(chatState.area) || "神奈川県西部";
-        socialEl.textContent = "今月 " + (3 + Math.floor(Math.random() * 5)) + " 名の方が" + areaLabel + "エリアでご相談されています";
+        socialEl.textContent = areaLabel + "エリアの看護師さんにご利用いただいています";
 
         // Setup CTA button events
         setupSummaryCTA();
@@ -1533,14 +1533,22 @@
   // Utilities
   // --------------------------------------------------
   function scrollToBottom() {
-    // Double-rAF ensures DOM has fully rendered before scrolling
+    // Strategy: override smooth scroll for instant jump + multiple fallback attempts
+    function doScroll() {
+      if (!els.body) return;
+      // Temporarily disable smooth scrolling to prevent stuck-scroll
+      els.body.style.scrollBehavior = "auto";
+      els.body.scrollTop = els.body.scrollHeight + 9999;
+      els.body.style.scrollBehavior = "";
+    }
+    // Primary: double-rAF for immediate DOM renders
     requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        if (els.body) {
-          els.body.scrollTop = els.body.scrollHeight;
-        }
-      });
+      requestAnimationFrame(doScroll);
     });
+    // Fallback 1: catch slow renders (images, CTA buttons)
+    setTimeout(doScroll, 80);
+    // Fallback 2: catch really delayed layout (iOS keyboard, flex recalc)
+    setTimeout(doScroll, 250);
   }
 
   // --------------------------------------------------
