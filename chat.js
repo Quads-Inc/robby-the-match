@@ -234,11 +234,31 @@
       }
     });
 
-    // Auto-resize textarea
+    // Auto-resize textarea + scroll chat to bottom on resize
     els.input.addEventListener("input", function () {
       els.input.style.height = "auto";
       els.input.style.height = Math.min(els.input.scrollHeight, 100) + "px";
+      scrollToBottom();
     });
+
+    // iOS virtual keyboard: adjust chat window height when keyboard appears
+    if (window.visualViewport) {
+      var lastVPHeight = window.visualViewport.height;
+      window.visualViewport.addEventListener("resize", function () {
+        if (!chatState.isOpen || window.innerWidth > 640) return;
+        var vpHeight = window.visualViewport.height;
+        if (vpHeight !== lastVPHeight) {
+          lastVPHeight = vpHeight;
+          els.window.style.height = vpHeight + "px";
+          scrollToBottom();
+        }
+      });
+      window.visualViewport.addEventListener("scroll", function () {
+        if (!chatState.isOpen || window.innerWidth > 640) return;
+        // Keep the chat window pinned to the top of the visual viewport
+        els.window.style.top = window.visualViewport.offsetTop + "px";
+      });
+    }
 
     // Focus trap and Escape key for chat window
     document.addEventListener("keydown", function (e) {
@@ -330,6 +350,9 @@
     chatState.isOpen = false;
     els.window.classList.remove("open");
     unlockBodyScroll();
+    // Reset visualViewport adjustments
+    els.window.style.height = "";
+    els.window.style.top = "";
     els.toggle.classList.remove("active");
     els.toggle.querySelector(".chat-toggle-icon").textContent = "\uD83D\uDCAC";
     els.toggle.focus();
