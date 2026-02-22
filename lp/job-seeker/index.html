@@ -188,6 +188,14 @@
             "@type": "Answer",
             "text": "AIを活用した業務効率化と、地域密着型の運営により、大手エージェントのような高額な広告費やオフィスコストを削減しています。そのコスト削減分を手数料の引き下げに還元しています。"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "入職後に合わなかった場合はどうなりますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "入職後3ヶ月以内の自己都合退職の場合、紹介手数料の50%を求人医療機関に返金する保証制度があります。求職者の方に費用負担は一切ありません。"
+          }
         }
       ]
     }
@@ -463,21 +471,53 @@
 
         .faq-item {
             background: #f8f9fa;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 20px 25px;
+            margin-bottom: 12px;
             border-radius: 10px;
             border-left: 4px solid #2a9d8f;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .faq-item:hover {
+            background: #edf2f2;
         }
 
         .faq-q {
             font-weight: bold;
             font-size: 1.1rem;
-            margin-bottom: 10px;
+            margin-bottom: 0;
             color: #2a9d8f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-q::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: #2a9d8f;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+            margin-left: 12px;
+            line-height: 1;
+        }
+
+        .faq-item.open .faq-q::after {
+            transform: rotate(45deg);
         }
 
         .faq-a {
             color: #555;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding-top 0.35s ease;
+            padding-top: 0;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 300px;
+            padding-top: 12px;
         }
 
         /* Area */
@@ -736,7 +776,7 @@
         }
 
         /* Responsive */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             h1 {
                 font-size: 1.5rem;
             }
@@ -795,6 +835,12 @@
             body {
                 padding-bottom: 90px;
             }
+
+            /* Push chat toggle above sticky CTA bar */
+            .chat-toggle {
+                bottom: 100px !important;
+                right: 16px !important;
+            }
         }
     </style>
 </head>
@@ -819,7 +865,7 @@
 
     <header>
         <div class="container">
-            <h1>神奈川県西部で看護師転職をお考えの方へ<br><small style="font-size: 0.7em;">小田原・秦野・平塚・南足柄エリアの求人をご紹介</small></h1>
+            <h1>看護師転職、手数料10%だから決まりやすい<br><small style="font-size: 0.7em;">神奈川県西部（小田原・秦野・平塚・南足柄）の求人をご紹介</small></h1>
             <p class="subtitle">手数料が安いから、病院が採用しやすい。<br>だから、あなたの転職がスムーズに進みます。</p>
             <div class="fee-highlight">紹介手数料 <span style="font-size: 1.8rem; color: #FFD700;">10%</span></div>
             <p style="margin-bottom: 30px;">大手エージェントは20-30% ── その差額は、すべて病院の負担です</p>
@@ -955,87 +1001,6 @@
         </div>
     </section>
 
-    <!-- Area - Regional Job Info -->
-    <section id="area">
-        <div class="container">
-            <h2>地域別求人情報</h2>
-            <p style="text-align: center; margin-bottom: 10px;">神奈川県西部の各市の求人・転職情報を詳しくご紹介しています</p>
-            <div class="area-cards">
-                <a href="area/odawara.html" class="area-card">
-                    <div class="area-card-name">小田原市</div>
-                    <div class="area-card-desc">県西部の中核都市</div>
-                </a>
-                <a href="area/hadano.html" class="area-card">
-                    <div class="area-card-name">秦野市</div>
-                    <div class="area-card-desc">丹沢のふもと</div>
-                </a>
-                <a href="area/hiratsuka.html" class="area-card">
-                    <div class="area-card-name">平塚市</div>
-                    <div class="area-card-desc">湘南エリア西部</div>
-                </a>
-                <a href="area/minamiashigara.html" class="area-card">
-                    <div class="area-card-name">南足柄市</div>
-                    <div class="area-card-desc">自然豊かな環境</div>
-                </a>
-                <a href="area/isehara.html" class="area-card">
-                    <div class="area-card-name">伊勢原市</div>
-                    <div class="area-card-desc">大学病院のまち</div>
-                </a>
-                <a href="area/atsugi.html" class="area-card">
-                    <div class="area-card-name">厚木市</div>
-                    <div class="area-card-desc">県央の拠点都市</div>
-                </a>
-                <a href="area/ebina.html" class="area-card">
-                    <div class="area-card-name">海老名市</div>
-                    <div class="area-card-desc">交通の要衝</div>
-                </a>
-                <a href="area/fujisawa.html" class="area-card">
-                    <div class="area-card-name">藤沢市</div>
-                    <div class="area-card-desc">湘南の中心都市</div>
-                </a>
-                <a href="area/chigasaki.html" class="area-card">
-                    <div class="area-card-name">茅ヶ崎市</div>
-                    <div class="area-card-desc">海辺の暮らし</div>
-                </a>
-            </div>
-            <p style="text-align: center; font-size: 0.9rem; color: #888;">上記以外のエリア（箱根町・湯河原町等）もお気軽にご相談ください</p>
-        </div>
-    </section>
-
-    <!-- Guide - Career Guides -->
-    <section id="guide" style="background: #f8f9fa;">
-        <div class="container">
-            <h2>転職お役立ちガイド</h2>
-            <p style="text-align: center; margin-bottom: 10px;">転職活動に役立つ情報をまとめています</p>
-            <div class="guide-cards">
-                <a href="guide/salary-comparison.html" class="guide-card">
-                    <div class="guide-card-title">神奈川県の看護師給与比較</div>
-                    <div class="guide-card-desc">地域別・経験年数別の平均年収データと年収アップのポイント</div>
-                </a>
-                <a href="guide/transfer-fee.html" class="guide-card">
-                    <div class="guide-card-title">転職エージェント手数料比較</div>
-                    <div class="guide-card-desc">知らないと損する手数料の仕組みと転職への影響</div>
-                </a>
-                <a href="guide/visiting-nurse.html" class="guide-card">
-                    <div class="guide-card-title">訪問看護 転職ガイド</div>
-                    <div class="guide-card-desc">訪問看護師の仕事内容・給与相場・やりがい</div>
-                </a>
-                <a href="guide/night-shift.html" class="guide-card">
-                    <div class="guide-card-title">夜勤なし求人特集</div>
-                    <div class="guide-card-desc">日勤のみで働ける職場の選び方と給与事情</div>
-                </a>
-                <a href="guide/interview-tips.html" class="guide-card">
-                    <div class="guide-card-title">面接対策ガイド</div>
-                    <div class="guide-card-desc">看護師転職の面接で聞かれることと対策法</div>
-                </a>
-                <a href="guide/first-transfer.html" class="guide-card">
-                    <div class="guide-card-title">はじめての転職ガイド</div>
-                    <div class="guide-card-desc">初めて転職する看護師向け、ステップ別の完全ガイド</div>
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Social Proof -->
     <section>
         <div class="container">
@@ -1063,6 +1028,21 @@
             <p style="text-align: center; margin-top: 10px; color: #666;">
                 有料職業紹介事業許可番号: 23-ユ-302928）
             </p>
+        </div>
+    </section>
+
+    <!-- Refund Guarantee -->
+    <section style="background: #fff;">
+        <div class="container">
+            <div style="background: #fff8e1; border: 2px solid #ffc107; border-radius: 12px; padding: 30px; text-align: center;">
+                <p style="font-size: 2rem; margin-bottom: 8px;">&#x1F6E1;&#xFE0F;</p>
+                <h2 style="color: #e65100; margin-bottom: 12px; font-size: 1.5rem;">入職後も安心の50%返金保証</h2>
+                <p style="font-size: 1.05rem; color: #555; line-height: 1.8;">
+                    入職後<strong>3ヶ月以内</strong>に自己都合で退職された場合、<br>
+                    紹介手数料の<strong style="color: #e65100; font-size: 1.2rem;">50%を病院に返金</strong>する保証制度があります。<br>
+                    <span style="font-size: 0.9rem; color: #888;">※ 求職者の方に費用負担は一切ありません</span>
+                </p>
+            </div>
         </div>
     </section>
 
@@ -1144,6 +1124,10 @@
                     <h3 class="faq-q">Q. なぜ手数料が安いのですか？</h3>
                     <p class="faq-a">A. AIを活用した業務効率化と、神奈川県西部への地域密着型運営により、大手エージェントのような高額な広告費やオフィスコストを削減しています。その<strong>コスト削減分を手数料の引き下げに還元</strong>しています。</p>
                 </div>
+                <div class="faq-item">
+                    <h3 class="faq-q">Q. 入職後に「合わなかった」場合はどうなりますか？</h3>
+                    <p class="faq-a">A. 入職後3ヶ月以内の自己都合退職の場合、紹介手数料の<strong>50%を病院に返金</strong>する保証制度があります。病院側も安心して採用できる仕組みです。求職者の方に費用負担は一切ありません。</p>
+                </div>
             </div>
             <!-- Inline CTA: After FAQ -->
             <div style="text-align: center; margin-top: 30px; padding: 25px; background: #f0f9f7; border-radius: 10px; border: 1px solid #d4edda;">
@@ -1162,6 +1146,87 @@
             <p style="font-size: 1.1rem; margin-bottom: 30px;">いつでもブロックOK。あなたのペースで転職活動を進められます。</p>
             <a href="https://lin.ee/HJwmQgp4" class="cta-button" style="background: white; color: #2a9d8f;" onclick="gtag('event', 'line_click', {'event_category': 'cta', 'event_label': 'footer_line_button'});" aria-label="LINE友だち追加で無料相談を始める">LINE 友だち追加</a>
             <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.85;">神奈川県西部（小田原・秦野・平塚・南足柄・伊勢原・厚木・海老名・藤沢・茅ヶ崎）の看護師転職はROBBY THE MATCHへ</p>
+        </div>
+    </section>
+
+    <!-- Area - Regional Job Info (SEO internal links, placed after main CTA) -->
+    <section id="area" style="background: #f8f9fa;">
+        <div class="container">
+            <h2>地域別求人情報</h2>
+            <p style="text-align: center; margin-bottom: 10px;">神奈川県西部の各市の求人・転職情報を詳しくご紹介しています</p>
+            <div class="area-cards">
+                <a href="area/odawara.html" class="area-card">
+                    <div class="area-card-name">小田原市</div>
+                    <div class="area-card-desc">県西部の中核都市</div>
+                </a>
+                <a href="area/hadano.html" class="area-card">
+                    <div class="area-card-name">秦野市</div>
+                    <div class="area-card-desc">丹沢のふもと</div>
+                </a>
+                <a href="area/hiratsuka.html" class="area-card">
+                    <div class="area-card-name">平塚市</div>
+                    <div class="area-card-desc">湘南エリア西部</div>
+                </a>
+                <a href="area/minamiashigara.html" class="area-card">
+                    <div class="area-card-name">南足柄市</div>
+                    <div class="area-card-desc">自然豊かな環境</div>
+                </a>
+                <a href="area/isehara.html" class="area-card">
+                    <div class="area-card-name">伊勢原市</div>
+                    <div class="area-card-desc">大学病院のまち</div>
+                </a>
+                <a href="area/atsugi.html" class="area-card">
+                    <div class="area-card-name">厚木市</div>
+                    <div class="area-card-desc">県央の拠点都市</div>
+                </a>
+                <a href="area/ebina.html" class="area-card">
+                    <div class="area-card-name">海老名市</div>
+                    <div class="area-card-desc">交通の要衝</div>
+                </a>
+                <a href="area/fujisawa.html" class="area-card">
+                    <div class="area-card-name">藤沢市</div>
+                    <div class="area-card-desc">湘南の中心都市</div>
+                </a>
+                <a href="area/chigasaki.html" class="area-card">
+                    <div class="area-card-name">茅ヶ崎市</div>
+                    <div class="area-card-desc">海辺の暮らし</div>
+                </a>
+            </div>
+            <p style="text-align: center; font-size: 0.9rem; color: #888;">上記以外のエリア（箱根町・湯河原町等）もお気軽にご相談ください</p>
+        </div>
+    </section>
+
+    <!-- Guide - Career Guides -->
+    <section id="guide">
+        <div class="container">
+            <h2>転職お役立ちガイド</h2>
+            <p style="text-align: center; margin-bottom: 10px;">転職活動に役立つ情報をまとめています</p>
+            <div class="guide-cards">
+                <a href="guide/salary-comparison.html" class="guide-card">
+                    <div class="guide-card-title">神奈川県の看護師給与比較</div>
+                    <div class="guide-card-desc">地域別・経験年数別の平均年収データと年収アップのポイント</div>
+                </a>
+                <a href="guide/transfer-fee.html" class="guide-card">
+                    <div class="guide-card-title">転職エージェント手数料比較</div>
+                    <div class="guide-card-desc">知らないと損する手数料の仕組みと転職への影響</div>
+                </a>
+                <a href="guide/visiting-nurse.html" class="guide-card">
+                    <div class="guide-card-title">訪問看護 転職ガイド</div>
+                    <div class="guide-card-desc">訪問看護師の仕事内容・給与相場・やりがい</div>
+                </a>
+                <a href="guide/night-shift.html" class="guide-card">
+                    <div class="guide-card-title">夜勤なし求人特集</div>
+                    <div class="guide-card-desc">日勤のみで働ける職場の選び方と給与事情</div>
+                </a>
+                <a href="guide/interview-tips.html" class="guide-card">
+                    <div class="guide-card-title">面接対策ガイド</div>
+                    <div class="guide-card-desc">看護師転職の面接で聞かれることと対策法</div>
+                </a>
+                <a href="guide/first-transfer.html" class="guide-card">
+                    <div class="guide-card-title">はじめての転職ガイド</div>
+                    <div class="guide-card-desc">初めて転職する看護師向け、ステップ別の完全ガイド</div>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -1202,6 +1267,22 @@
                 stickyCta.style.display = 'none';
             }
             lastScrollY = scrollY;
+        });
+    })();
+    </script>
+
+    <!-- FAQ Accordion -->
+    <script>
+    (function() {
+        var faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                var wasOpen = this.classList.contains('open');
+                // Close all items first
+                faqItems.forEach(function(i) { i.classList.remove('open'); });
+                // Toggle clicked item
+                if (!wasOpen) { this.classList.add('open'); }
+            });
         });
     })();
     </script>
