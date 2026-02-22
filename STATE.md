@@ -97,8 +97,9 @@
 11. **GitHub Pagesデプロイ**: commit acbcf82（git push main+master成功）
 
 ### ミッション達成への最大ボトルネック 🔴
-1. **ANTHROPIC_API_KEYがCloudflare Workerに未設定** — AIチャットが動作しない。平島禎之にキー提供を依頼済み（Slack通知済み）
+1. ~~ANTHROPIC_API_KEY未設定~~ → **Cloudflare Workers AI (Llama 3.3 70B) に切替済み。無料・キー不要で即時稼働。**
 2. **投稿頻度を上げてフォロワーを増やす** — 毎日17:30に自動投稿中（2本検証済み/14本待機中）。キュー枯渇時は自動補充が動く。
+3. **TikTokスライド品質修正済み** — 文字はみ出し問題を根本解決。全96枚再生成完了。
 
 ## KPI
 | 指標 | 目標 | 現在 | 状態 |
@@ -199,7 +200,7 @@
 | 8 | Slack Commander | */5分 | FULL-AUTO | 稼働中 |
 
 ## 問題・ブロッカー
-- **🔴 ANTHROPIC_API_KEY未設定**: Cloudflare Workerのシークレットに設定必要。`echo 'sk-ant-xxxxx' | CLOUDFLARE_API_TOKEN="" npx wrangler secret put ANTHROPIC_API_KEY`
+- ~~ANTHROPIC_API_KEY未設定~~ → Cloudflare Workers AI切替で解消
 - **TikTok Cookie認証未完了**: `python3 scripts/tiktok_auth.py` で解決
 - **Instagramアカウント未作成**: 手動作業必要
 - **github.ioサブドメイン**: SEO効果限定的。独自ドメインが必要

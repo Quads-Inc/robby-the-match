@@ -359,48 +359,28 @@
   }
 
   function showView(view) {
-    // Consent
-    if (view === "consent") {
-      els.consentView.classList.remove("hidden");
-      els.consentView.style.display = "flex";
-    } else {
-      els.consentView.classList.add("hidden");
-      els.consentView.style.display = "none";
-    }
-
-    // Phone gate
-    if (els.phoneGate) {
-      if (view === "phone") {
-        els.phoneGate.classList.remove("hidden");
-        els.phoneGate.style.display = "flex";
+    // Toggle each view using .hidden class only (no inline style.display)
+    var views = [
+      { key: "consent", el: els.consentView },
+      { key: "phone", el: els.phoneGate },
+      { key: "chat", el: els.chatView },
+      { key: "summary", el: els.summaryView },
+    ];
+    for (var i = 0; i < views.length; i++) {
+      if (!views[i].el) continue;
+      // Clear any lingering inline display override so CSS classes take effect
+      views[i].el.style.display = "";
+      if (views[i].key === view) {
+        views[i].el.classList.remove("hidden");
       } else {
-        els.phoneGate.classList.add("hidden");
-        els.phoneGate.style.display = "none";
+        views[i].el.classList.add("hidden");
       }
     }
 
-    // Chat
     if (view === "chat") {
-      els.chatView.classList.remove("hidden");
-      els.chatView.style.display = "flex";
-      // Restore scroll position after display:none → display:flex
       requestAnimationFrame(function () {
         scrollToBottom();
       });
-    } else {
-      els.chatView.classList.add("hidden");
-      els.chatView.style.display = "none";
-    }
-
-    // Summary
-    if (els.summaryView) {
-      if (view === "summary") {
-        els.summaryView.classList.remove("hidden");
-        els.summaryView.style.display = "flex";
-      } else {
-        els.summaryView.classList.add("hidden");
-        els.summaryView.style.display = "none";
-      }
     }
   }
 

@@ -207,6 +207,14 @@
   letter-spacing: 0.5px;
 }
 
+/* ---------- Chat View Container ---------- */
+#chatView {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 /* ---------- Chat Body ---------- */
 .chat-body {
   flex: 1;
