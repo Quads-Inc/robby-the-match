@@ -28,7 +28,7 @@
   var PRESCRIPTED = {
     professions: [
       { label: "看護師", value: "看護師" },
-      { label: "理学療法士", value: "理学療法士" },
+      { label: "リハビリ技師", value: "リハビリ技師" },
       { label: "その他の医療職", value: "その他" },
     ],
     areas: [
@@ -288,9 +288,26 @@
     }
   }
 
+  function lockBodyScroll() {
+    if (window.innerWidth <= 640) {
+      chatState._savedScrollY = window.pageYOffset || document.documentElement.scrollTop;
+      document.body.classList.add("chat-open-mobile");
+      document.body.style.top = "-" + chatState._savedScrollY + "px";
+    }
+  }
+
+  function unlockBodyScroll() {
+    if (document.body.classList.contains("chat-open-mobile")) {
+      document.body.classList.remove("chat-open-mobile");
+      document.body.style.top = "";
+      window.scrollTo(0, chatState._savedScrollY || 0);
+    }
+  }
+
   function openChat() {
     chatState.isOpen = true;
     els.window.classList.add("open");
+    lockBodyScroll();
     trackEvent("chat_open");
     els.toggle.classList.add("active");
     els.toggle.querySelector(".chat-toggle-icon").textContent = "\u2715";
@@ -312,6 +329,7 @@
   function closeChat() {
     chatState.isOpen = false;
     els.window.classList.remove("open");
+    unlockBodyScroll();
     els.toggle.classList.remove("active");
     els.toggle.querySelector(".chat-toggle-icon").textContent = "\uD83D\uDCAC";
     els.toggle.focus();
@@ -568,11 +586,84 @@
       hideTyping();
       showHospitalSummary();
 
-      // Value-First: show phone gate after showing value (hospital summary)
+      // Show continuation buttons after user has time to read (not auto-transition)
       setTimeout(function () {
-        showPhoneGateAfterValue();
-      }, 1500);
+        showContinuationButtons();
+      }, 2000);
     }, 800);
+  }
+
+  function showContinuationButtons() {
+    var options = [
+      { label: "もっと詳しく相談したい", value: "detail" },
+      { label: "LINEで直接相談する", value: "line" },
+      { label: "今はここまでで大丈夫", value: "stop" },
+    ];
+
+    var container = document.createElement("div");
+    container.className = "chat-quick-replies";
+    container.id = "chatContinuationGroup";
+
+    for (var i = 0; i < options.length; i++) {
+      (function (opt) {
+        var btn = document.createElement("button");
+        btn.className = "chat-quick-reply";
+        btn.textContent = opt.label;
+        btn.addEventListener("click", function () {
+          // Remove buttons
+          var group = document.getElementById("chatContinuationGroup");
+          if (group) group.remove();
+
+          addMessage("user", opt.label);
+
+          if (opt.value === "detail") {
+            // Show phone gate with context
+            showTyping();
+            setTimeout(function () {
+              hideTyping();
+              addMessage("ai", "ありがとうございます！\n\nより詳しい条件の確認や、非公開求人のご紹介のために、お電話番号を教えていただけますか？\n（専門エージェントから24時間以内にご連絡します）");
+              setTimeout(function () {
+                chatState.formShownAt = Date.now();
+                showPhoneGateAfterValue();
+              }, 1500);
+            }, 600);
+          } else if (opt.value === "line") {
+            trackEvent("chat_line_direct", { phase: "pre_phone" });
+            window.open("https://lin.ee/HJwmQgp4", "_blank");
+            showTyping();
+            setTimeout(function () {
+              hideTyping();
+              addMessage("ai", "LINEでのご相談、お待ちしています！\n友だち追加後にメッセージをお送りくださいね。");
+            }, 600);
+          } else {
+            showTyping();
+            setTimeout(function () {
+              hideTyping();
+              addMessage("ai", "もちろんです！気になることがあればいつでもまたお声がけくださいね。\n\nLINEでも気軽にご相談いただけます。");
+              // Show a subtle LINE CTA
+              setTimeout(function () {
+                var cta = document.createElement("a");
+                cta.className = "chat-inline-cta";
+                cta.style.background = "#06C755";
+                cta.href = "https://lin.ee/HJwmQgp4";
+                cta.target = "_blank";
+                cta.rel = "noopener";
+                cta.textContent = "LINEで気軽に相談する";
+                cta.onclick = function () {
+                  trackEvent("chat_line_click_final", { phase: "stop" });
+                };
+                els.body.appendChild(cta);
+                scrollToBottom();
+              }, 500);
+            }, 600);
+          }
+        });
+        container.appendChild(btn);
+      })(options[i]);
+    }
+
+    els.body.appendChild(container);
+    scrollToBottom();
   }
 
   // --------------------------------------------------
@@ -1442,8 +1533,13 @@
   // Utilities
   // --------------------------------------------------
   function scrollToBottom() {
+    // Double-rAF ensures DOM has fully rendered before scrolling
     requestAnimationFrame(function () {
-      els.body.scrollTop = els.body.scrollHeight;
+      requestAnimationFrame(function () {
+        if (els.body) {
+          els.body.scrollTop = els.body.scrollHeight;
+        }
+      });
     });
   }
 

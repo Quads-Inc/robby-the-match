@@ -212,6 +212,8 @@
   min-height: 300px;
   max-height: 400px;
   scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Scrollbar styling */
@@ -871,6 +873,14 @@
   padding: 6px 0;
 }
 
+/* ---------- Body scroll lock when chat is open (mobile) ---------- */
+body.chat-open-mobile {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
 /* ---------- Mobile Full Screen ---------- */
 @media (max-width: 640px) {
   .chat-window {
@@ -883,6 +893,7 @@
     max-height: 100%;
     border-radius: 0;
     border: none;
+    overscroll-behavior: contain;
   }
 
   .chat-window.open {
@@ -892,6 +903,7 @@
   .chat-body {
     max-height: none;
     flex: 1;
+    overscroll-behavior: contain;
   }
 
   .chat-toggle {
