@@ -260,10 +260,10 @@
 
     <style>
         :root {
-            --z-chat: 9999;
+            --z-chat: 10000;
             --transition: 0.3s ease;
             --radius: 8px;
-            --radius-xl: 16px;
+            --radius-xl: 24px;
             --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
         }
         * {
@@ -1407,14 +1407,14 @@
           <p class="chat-phone-note">&#x203B; 個人情報は厳重に管理いたします</p>
         </div>
       </div>
-      <div id="chatView" class="hidden" style="display:none; flex-direction: column; flex: 1; min-height: 0;">
+      <div id="chatView" class="hidden">
         <div class="chat-body" id="chatBody"></div>
         <div class="chat-input-area">
           <textarea class="chat-input" id="chatInput" placeholder="メッセージを入力..." rows="1" aria-label="メッセージ入力"></textarea>
           <button class="chat-send-btn" id="chatSendBtn" aria-label="送信">&#x27A4;</button>
         </div>
       </div>
-      <div class="chat-summary hidden" id="chatSummary" style="display:none;">
+      <div class="chat-summary hidden" id="chatSummary">
         <div class="chat-summary-icon">&#x2714;</div>
         <h4>ご相談ありがとうございました</h4>
         <p id="chatSummaryText">専門エージェントから24時間以内にご連絡いたします。</p>

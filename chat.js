@@ -595,11 +595,110 @@
       hideTyping();
       showHospitalSummary();
 
-      // Show continuation buttons after user has time to read (not auto-transition)
+      // Step 2: Summary card reflecting user's selections (sunk-cost activation)
       setTimeout(function () {
-        showContinuationButtons();
+        showConditionCard();
+
+        // Step 3: Bridge message → Unified LINE CTA
+        setTimeout(function () {
+          showBridgeMessageAndCTA();
+        }, 1500);
       }, 2000);
     }, 800);
+  }
+
+  // --------------------------------------------------
+  // Condition Summary Card (reflects user's selections)
+  // --------------------------------------------------
+  function showConditionCard() {
+    var areaLabel = getAreaDisplayName(chatState.area) || "未選択";
+    var stationLabel = chatState.station || "指定なし";
+    var matchCount = findMatchingHospitals(chatState.area).length;
+
+    var card = document.createElement("div");
+    card.className = "chat-condition-card";
+    card.innerHTML =
+      '<div class="chat-condition-card-header">あなたの転職条件</div>' +
+      '<div class="chat-condition-card-body">' +
+        '<div class="chat-condition-row"><span class="chat-condition-label">職種</span><span class="chat-condition-value">' + (chatState.profession || "看護師") + '</span></div>' +
+        '<div class="chat-condition-row"><span class="chat-condition-label">エリア</span><span class="chat-condition-value">' + areaLabel + '</span></div>' +
+        '<div class="chat-condition-row"><span class="chat-condition-label">最寄り駅</span><span class="chat-condition-value">' + stationLabel + '</span></div>' +
+        '<div class="chat-condition-row highlight"><span class="chat-condition-label">マッチ求人</span><span class="chat-condition-value">' + matchCount + '件以上</span></div>' +
+      '</div>';
+
+    els.body.appendChild(card);
+    scrollToBottom();
+  }
+
+  // --------------------------------------------------
+  // Bridge Message + Unified LINE CTA
+  // --------------------------------------------------
+  function showBridgeMessageAndCTA() {
+    var areaLabel = getAreaDisplayName(chatState.area) || "神奈川県西部";
+    var matchCount = findMatchingHospitals(chatState.area).length;
+
+    // Bridge message — natural transition to CTA
+    showTyping();
+    setTimeout(function () {
+      hideTyping();
+      addMessage("ai", areaLabel + "エリアで" + (chatState.profession || "看護師") + "の求人が" + matchCount + "件以上見つかりました。\n\nあなたの経験年数や細かい希望条件に合わせてさらに絞り込めます。LINEで続きをお話ししませんか？");
+
+      // Show unified LINE CTA card after bridge message
+      setTimeout(function () {
+        showUnifiedLineCTA();
+      }, 800);
+    }, 600);
+  }
+
+  function showUnifiedLineCTA() {
+    var ctaCard = document.createElement("div");
+    ctaCard.className = "chat-line-cta-card";
+    ctaCard.id = "chatLineCTACard";
+
+    ctaCard.innerHTML =
+      // Progress steps (Zeigarnik effect)
+      '<div class="cta-progress">' +
+        '<span class="cta-step done">条件ヒアリング</span>' +
+        '<span class="cta-arrow">&#x25B6;</span>' +
+        '<span class="cta-step current">LINE登録</span>' +
+        '<span class="cta-arrow">&#x25B6;</span>' +
+        '<span class="cta-step future">求人ご提案</span>' +
+      '</div>' +
+      '<p class="cta-heading">あと1ステップで求人をお届けできます</p>' +
+      // Primary CTA button
+      '<a href="https://lin.ee/HJwmQgp4" target="_blank" rel="noopener" class="chat-line-cta-btn" id="chatUnifiedLineBtn">' +
+        '<span>LINEで求人を受け取る<span class="btn-sub">30秒で完了 / 完全無料</span></span>' +
+      '</a>' +
+      // Trust signals (anxiety reducers)
+      '<div class="trust-row">' +
+        '<span class="trust-item"><span class="trust-check">&#x2713;</span> 電話なし</span>' +
+        '<span class="trust-item"><span class="trust-check">&#x2713;</span> 費用ゼロ</span>' +
+        '<span class="trust-item"><span class="trust-check">&#x2713;</span> 手数料10%</span>' +
+      '</div>' +
+      // Soft dismiss
+      '<button class="cta-dismiss" id="chatLineCTADismiss">もう少し自分で調べたい</button>';
+
+    els.body.appendChild(ctaCard);
+    scrollToBottom();
+
+    // CTA button tracking
+    var lineBtn = document.getElementById("chatUnifiedLineBtn");
+    if (lineBtn) {
+      lineBtn.addEventListener("click", function () {
+        trackEvent("chat_line_cta_unified", { phase: "prescripted_summary", area: chatState.area });
+      });
+    }
+
+    // Dismiss → show continuation buttons as fallback
+    var dismissBtn = document.getElementById("chatLineCTADismiss");
+    if (dismissBtn) {
+      dismissBtn.addEventListener("click", function () {
+        trackEvent("chat_line_cta_dismissed", { phase: "prescripted_summary" });
+        ctaCard.style.display = "none";
+        // Show continuation buttons (detail/line/stop)
+        showContinuationButtons();
+      });
+    }
   }
 
   function showContinuationButtons() {
@@ -648,21 +747,10 @@
             showTyping();
             setTimeout(function () {
               hideTyping();
-              addMessage("ai", "もちろんです！気になることがあればいつでもまたお声がけくださいね。\n\nLINEでも気軽にご相談いただけます。");
-              // Show a subtle LINE CTA
+              addMessage("ai", "もちろんです！気になることがあればいつでもまたお声がけくださいね。\n\n求人情報が気になったら、いつでもLINEでご相談いただけます。");
+              // Show unified LINE CTA card
               setTimeout(function () {
-                var cta = document.createElement("a");
-                cta.className = "chat-inline-cta";
-                cta.style.background = "#06C755";
-                cta.href = "https://lin.ee/HJwmQgp4";
-                cta.target = "_blank";
-                cta.rel = "noopener";
-                cta.textContent = "LINEで気軽に相談する";
-                cta.onclick = function () {
-                  trackEvent("chat_line_click_final", { phase: "stop" });
-                };
-                els.body.appendChild(cta);
-                scrollToBottom();
+                showUnifiedLineCTA();
               }, 500);
             }, 600);
           }
@@ -890,9 +978,10 @@
 
     // Session message limit check
     if (chatState.userMessageCount >= CLIENT_RATE_LIMIT.maxSessionMessages) {
-      addMessage("ai", "お話の内容をまとめました。詳しくはLINEで専門エージェントがご案内しますね。");
+      addMessage("ai", "たくさんお話しいただきありがとうございます。いただいた条件をもとに、ぴったりの求人をLINEでお届けしますね。");
       els.input.disabled = true;
       els.sendBtn.disabled = true;
+      showUnifiedLineCTA();
       return;
     }
 
@@ -1055,13 +1144,18 @@
   function maybeShowLineNudge() {
     if (chatState.userMessageCount === 4 && !chatState.lineNudgeShown) {
       chatState.lineNudgeShown = true;
-      var nudge = document.createElement("div");
+      // Show a gentle LINE nudge button (not the full CTA card)
+      var nudge = document.createElement("a");
       nudge.className = "chat-inline-cta";
       nudge.style.background = "#06C755";
-      nudge.innerHTML = "&#x1F4AC; LINEで続きを相談する";
+      nudge.style.textDecoration = "none";
+      nudge.style.color = "#FFFFFF";
+      nudge.href = "https://lin.ee/HJwmQgp4";
+      nudge.target = "_blank";
+      nudge.rel = "noopener";
+      nudge.textContent = "LINEで続きを相談する";
       nudge.onclick = function () {
         trackEvent("chat_line_nudge_click", { message_count: chatState.userMessageCount });
-        window.open("https://lin.ee/HJwmQgp4", "_blank");
       };
       els.body.appendChild(nudge);
       scrollToBottom();
