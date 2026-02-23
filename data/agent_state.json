@@ -4,7 +4,7 @@
     "health_monitor": "2026-02-23T07:00:11",
     "competitor_analyst": "2026-02-23T10:00:04",
     "content_creator": "2026-02-23T15:00:00",
-    "daily_reviewer": "2026-02-21T23:00:07",
+    "daily_reviewer": "2026-02-23T23:00:00",
     "weekly_strategist": "2026-02-22T06:00:05",
     "slack_commander": null,
     "sns_poster": "2026-02-23T17:32:03"
@@ -14,7 +14,7 @@
     "health_monitor": "completed",
     "competitor_analyst": "completed",
     "content_creator": "completed",
-    "daily_reviewer": "completed",
+    "daily_reviewer": "running",
     "weekly_strategist": "completed",
     "slack_commander": "pending",
     "sns_poster": "completed"
@@ -29,23 +29,23 @@
       "サービス紹介": 0,
       "トレンド": 0
     },
-    "totalPostsThisWeek": 2,
+    "totalPostsThisWeek": 3,
     "lastDeployTimestamp": null,
     "knownIssues": [],
-    "lastAnalysis": "2026-02-21T23:00:03",
+    "lastAnalysis": "2026-02-23T23:00:01",
     "recommendations": [
       "「転職」カテゴリの投稿が目標より不足。次バッチで重点生成。",
       "「給与」カテゴリの投稿が目標より不足。次バッチで重点生成。",
       "フォロワー0。投稿頻度を上げ、コメント返信でエンゲージメント向上を。"
     ],
-    "queueRemaining": 14
+    "queueRemaining": 13
   },
   "agentMemory": {
     "content_creator": {
       "highPerformingPatterns": [],
       "failedPatterns": [],
       "contentIdCounter": 0,
-      "lastAnalysisDate": "2026-02-22",
+      "lastAnalysisDate": "2026-02-23",
       "bestHookPatterns": [],
       "avgMetrics": {
         "views": 0,
@@ -73,13 +73,13 @@
       "trendingTopics": []
     },
     "sns_poster": {
-      "totalPosted": 2,
+      "totalPosted": 3,
       "lastPostedContentId": null,
       "postingMethod": "tiktok-uploader",
       "authStatus": "cookie_required",
       "queueFile": "data/posting_queue.json",
       "averageViews": 0,
-      "lastAnalysisDate": "2026-02-22"
+      "lastAnalysisDate": "2026-02-23"
     }
   }
 }
