@@ -1362,13 +1362,13 @@
     </button>
 
     <!-- Chat Window -->
-    <div class="chat-window" id="chatWindow" role="dialog" aria-label="AIチャット相談">
+    <div class="chat-window" id="chatWindow" role="dialog" aria-label="転職相談チャット">
       <div class="chat-header">
         <div class="chat-header-info">
           <div class="chat-avatar">R</div>
           <div class="chat-header-text">
-            <h3>AI転職相談</h3>
-            <p>ナースロビー</p>
+            <h3>ナースロビー</h3>
+            <p>看護師の転職相談</p>
           </div>
         </div>
         <div class="chat-header-actions">
@@ -1376,53 +1376,11 @@
           <button class="chat-close-btn" id="chatCloseBtn" aria-label="閉じる">&times;</button>
         </div>
       </div>
-      <div class="chat-step-indicator">
-        <span class="chat-step-dot active"></span>
-        <span class="chat-step-dot"></span>
-        <span class="chat-step-dot"></span>
-        <span class="chat-step-dot"></span>
-        <span class="chat-step-dot"></span>
-        <span class="chat-step-label" id="chatStepLabel">1/5 職種の確認</span>
-      </div>
-      <div class="chat-consent" id="chatConsent">
-        <h4>AI転職相談をはじめる</h4>
-        <p>
-          AIアシスタントが、あなたの希望条件をお伺いし、<br>
-          最適な求人をご提案します。（所要時間: 約5分）<br><br>
-          ご入力いただいた情報は、転職支援の目的でのみ使用します。<br>
-          <a href="../../privacy.html" target="_blank">個人情報保護方針</a>をご確認ください。
-        </p>
-        <button class="chat-consent-btn" id="chatConsentBtn">同意して相談を開始する</button>
-        <button class="chat-consent-decline" id="chatConsentDecline">今はやめておく</button>
-      </div>
-      <div id="chatPhoneGate" class="chat-phone-gate hidden" style="display:none;">
-        <div class="chat-phone-inner">
-          <p class="chat-phone-title">&#x1F4DE; お電話番号の入力</p>
-          <p class="chat-phone-desc">専門エージェントからご連絡する際の<br>お電話番号をご入力ください</p>
-          <input type="tel" id="chatPhoneInput" class="chat-phone-field"
-                 placeholder="例: 090-1234-5678" maxlength="13" autocomplete="tel">
-          <input type="text" id="chatHoneypot" class="chat-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p id="chatPhoneError" class="chat-phone-error" style="display:none;"></p>
-          <button id="chatPhoneSubmit" class="chat-phone-btn">チャットを開始する</button>
-          <p class="chat-phone-note">&#x203B; 個人情報は厳重に管理いたします</p>
-        </div>
-      </div>
-      <div id="chatView" class="hidden">
+      <div id="chatView">
         <div class="chat-body" id="chatBody"></div>
-        <div class="chat-input-area">
+        <div class="chat-input-area" style="display:none;">
           <textarea class="chat-input" id="chatInput" placeholder="メッセージを入力..." rows="1" aria-label="メッセージ入力"></textarea>
           <button class="chat-send-btn" id="chatSendBtn" aria-label="送信">&#x27A4;</button>
-        </div>
-      </div>
-      <div class="chat-summary hidden" id="chatSummary">
-        <div class="chat-summary-icon">&#x2714;</div>
-        <h4>ご相談ありがとうございました</h4>
-        <p id="chatSummaryText">専門エージェントから24時間以内にご連絡いたします。</p>
-        <span class="chat-score" id="chatSummaryScore"></span>
-        <div id="chatRecommendations" class="chat-recommendations"></div>
-        <div class="chat-summary-cta">
-          <a href="https://lin.ee/HJwmQgp4" target="_blank" rel="noopener" class="chat-cta-line" id="chatCtaLine">LINEで詳しく相談する</a>
-          <button class="chat-cta-register" id="chatCtaRegister">無料登録で求人を受け取る</button>
         </div>
       </div>
     </div>
