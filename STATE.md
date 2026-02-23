@@ -1,5 +1,5 @@
 # ナースロビー 状態ファイル
-# 最終更新: 2026-02-23 15:00 by コンテンツ生成
+# 最終更新: 2026-02-23 18:15 by 内部リンク最適化
 
 ## 運用ルール
 - 全PDCAサイクルはこのファイルを最初に読む（他を探し回るな）
@@ -143,13 +143,14 @@
 - git remote: origin https://github.com/haruhi-medical/robby-the-match.git
 - デプロイブランチ: master（mainからpush）
 - Cloudflare Worker: ✅ デプロイ済み（v: a8bcff75）
-- 最新push: 2026-02-23 18:10
+- 最新push: 2026-02-23 18:15
 
 ## SEO状態
 - 子ページ: area/15 + guide/41 = 計56ページ
 - ブログ: 15記事 + index
-- sitemap.xml: 76 URL
+- sitemap.xml: 78 URL
 - OGP画像: ナースロビーブランド対応（2026-02-23更新）
+- **内部リンク**: ブログ↔エリア↔ガイド相互リンク168本構築（2026-02-23）
 - GA4: ✅ G-X4G2BYW13B
 - Search Console: ✅ 登録済み
 - 構造化データ: index.html(5種) + LP-A(4種) + area(2種) + guide(2種)

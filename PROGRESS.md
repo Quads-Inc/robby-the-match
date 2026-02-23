@@ -18,6 +18,44 @@
 
 ---
 
+## 2026-02-23（日）
+
+### 今日やったこと
+
+#### セッション1: SEOコンテンツ拡充
+- ✅ ブログ記事5本新規作成（10→15記事）
+  - shoukai-tesuuryou.html（紹介手数料の相場ガイド）
+  - houmon-kango.html（訪問看護師転職完全ガイド）
+  - yakin-nashi.html（夜勤なし転職ガイド）
+  - tenshoku-timing.html（転職ベストタイミング）
+  - kanagawa-nurse-salary.html（神奈川県看護師年収ランキング）
+- ✅ OGP画像リニューアル（ナースロビーブランド、Pillow生成）
+- ✅ sitemap.xml更新（71→78 URL）
+- ✅ blog/index.html更新（5記事のカード追加）
+
+#### セッション2: 内部リンク最適化
+- ✅ 15エリアページに「おすすめブログ記事」リンクセクション追加（計48リンク）
+- ✅ 15ブログ記事に「エリア別求人情報」「転職ガイド」リンクセクション追加（計75リンク）
+- ✅ 15ガイドページに「おすすめブログ記事」リンクセクション追加（計45リンク）
+- ✅ privacy.html/terms.html meta description改善
+- **合計168本の新規内部リンクを構築**
+
+#### 技術的SEO監査
+- ✅ 全HTMLファイルのmeta/title/h1/canonical監査実施
+- ✅ sitemap重複チェック（問題なし）
+- ✅ robots.txt確認（問題なし）
+
+### コミット
+- 7b7ee91: ブログ5記事 + OGP + sitemap更新
+- 850cd95: 内部リンク最適化168本
+
+### 明日やること
+- Search Console sitemap再送信（78 URL）
+- TikTok Cookie認証セットアップ
+- SNSアカウント表示名更新（ナースロビー）
+
+---
+
 ## 2026-02-22（土）
 
 ### 今日やったこと
