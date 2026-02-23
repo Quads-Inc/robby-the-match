@@ -1,7 +1,7 @@
 {
   "version": 1,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-21T19:57:48.228416",
+  "updated": "2026-02-23T17:32:02.531430",
   "posts": [
     {
       "id": 1,
@@ -74,9 +74,9 @@
         "#看護師転職"
       ],
       "cta_type": "soft",
-      "status": "pending",
-      "video_path": null,
-      "posted_at": null,
+      "status": "posted",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day1_20260223.mp4",
+      "posted_at": "2026-02-23T17:32:02.531422",
       "tiktok_url": null,
       "error": null,
       "performance": {
@@ -84,7 +84,8 @@
         "likes": null,
         "saves": null,
         "comments": null
-      }
+      },
+      "verified": true
     },
     {
       "id": 4,
