@@ -374,7 +374,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Blog pages (11) -->
+  <!-- Blog pages (16) -->
   <url>
     <loc>https://haruhi-medical.github.io/robby-the-match/blog/</loc>
     <lastmod>2026-02-23</lastmod>
@@ -440,5 +440,35 @@
     <lastmod>2026-02-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://haruhi-medical.github.io/robby-the-match/blog/shoukai-tesuuryou.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://haruhi-medical.github.io/robby-the-match/blog/houmon-kango.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://haruhi-medical.github.io/robby-the-match/blog/yakin-nashi.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://haruhi-medical.github.io/robby-the-match/blog/tenshoku-timing.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://haruhi-medical.github.io/robby-the-match/blog/kanagawa-nurse-salary.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
