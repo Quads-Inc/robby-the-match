@@ -179,3 +179,17 @@ SNS投稿: 投稿: 0/16件完了
 ### 🔍 SEO朝サイクル（04:00:00）
 seo: 2026-02-23 SEO改善+子ページ追加
 
+### 🔎 競合監視（10:00:00）
+=== [2026-02-23 10:00:00] pdca_competitor 開始 ===
+[DEBUG] timeout_cmd=gtimeout, max=20min
+Not logged in · Please run /login
+To https://github.com/haruhi-medical/robby-the-match.git
+   f0a438b..f66c802  main -> main
+
+### content（15:00:00）
+コンテンツ生成:   id=11, content_id=day2_tue_B01, batch=weekly_batch_20260220, cta=soft
+  id=12, content_id=day3_wed_A04, batch=weekly_batch_20260220, cta=soft
+  ... 他 4件
+
+[NOTE] pending (14) >= threshold (7) -- --auto では生成スキップ
+
