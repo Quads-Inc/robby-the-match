@@ -1,7 +1,7 @@
 // ========================================
-// ナースロビー - AI Chat Widget v2.0
-// World-class conversion design
-// No consent gate, no phone gate, value-first
+// ナースロビー - AI Chat Widget v3.0
+// 行動経済学ドリブン コンバージョン設計
+// 即時性 + サンクコスト + 損失回避 + アンカリング
 // ========================================
 
 (function () {
@@ -17,13 +17,29 @@
   };
 
   // --------------------------------------------------
-  // Pre-scripted flow data
+  // 行動経済学: 年収推定データ（アンカリング用）
+  // --------------------------------------------------
+  var SALARY_ESTIMATES = {
+    kensei:       { min: 380, max: 520, avg: 440, top: 560 },
+    shonan_west:  { min: 400, max: 540, avg: 460, top: 580 },
+    shonan_east:  { min: 410, max: 560, avg: 470, top: 600 },
+    kenoh:        { min: 400, max: 550, avg: 465, top: 590 },
+    undecided:    { min: 390, max: 540, avg: 450, top: 570 },
+  };
+
+  // 経験年数別の補正係数
+  var EXP_MULTIPLIER = {
+    "1-3": 0.85, "3-5": 0.95, "5-10": 1.05, "10+": 1.15,
+  };
+
+  // --------------------------------------------------
+  // Pre-scripted flow data (行動経済学: 選択のパラドックス=3択以内)
   // --------------------------------------------------
   var PRESCRIPTED = {
     intents: [
-      { label: "求人を探したい", value: "search", emoji: "" },
-      { label: "転職の相談がしたい", value: "consult", emoji: "" },
-      { label: "まずは情報収集だけ", value: "browse", emoji: "" },
+      { label: "年収が相場より低いか知りたい", value: "search", emoji: "" },
+      { label: "転職すべきか診断したい", value: "consult", emoji: "" },
+      { label: "まずは情報だけほしい", value: "browse", emoji: "" },
     ],
     areas: [
       { label: "県西（小田原・南足柄）", value: "kensei" },
@@ -117,6 +133,10 @@
     intent: null,
     area: null,
     priority: null,
+    // 行動経済学: サンクコスト
+    conversationStartTime: null,
+    sunkCostShown: false,
+    estimatedSalary: null,
   };
 
   // --------------------------------------------------
@@ -139,6 +159,9 @@
         done: chatState.done,
         lineCtaShown: chatState.lineCtaShown,
         demoIndex: chatState.demoIndex,
+        conversationStartTime: chatState.conversationStartTime,
+        sunkCostShown: chatState.sunkCostShown,
+        estimatedSalary: chatState.estimatedSalary,
         savedAt: Date.now(),
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
@@ -166,6 +189,9 @@
       chatState.done = data.done || false;
       chatState.lineCtaShown = data.lineCtaShown || false;
       chatState.demoIndex = data.demoIndex || 0;
+      chatState.conversationStartTime = data.conversationStartTime || null;
+      chatState.sunkCostShown = data.sunkCostShown || false;
+      chatState.estimatedSalary = data.estimatedSalary || null;
       return true;
     } catch (e) {
       return false;
@@ -283,7 +309,7 @@
     peek.className = "chat-peek";
     peek.id = "chatPeek";
     peek.innerHTML =
-      '<div class="chat-peek-text">転職のこと、気軽に相談できますよ</div>' +
+      '<div class="chat-peek-text">あなたの年収、相場より低いかも？<br><strong>30秒で無料診断</strong></div>' +
       '<button class="chat-peek-close" aria-label="閉じる">&times;</button>';
 
     // Insert before toggle button
@@ -362,8 +388,9 @@
     }
 
     if (restored && chatState.messages.length > 0) {
-      // Restore chat view from saved state
+      // サンクコスト: 「前回の続きから再開」で離脱を防ぐ
       restoreChatView();
+      showResumeNotice();
     } else if (chatState.messages.length === 0) {
       // First open - start conversational flow
       setInputVisible(false);
@@ -388,6 +415,106 @@
     els.toggle.querySelector(".chat-toggle-icon").textContent = "\uD83D\uDCAC";
     els.toggle.focus();
     saveState();
+  }
+
+  // --------------------------------------------------
+  // サンクコスト: セッション復帰通知
+  // --------------------------------------------------
+  function showResumeNotice() {
+    if (!chatState.messages.length) return;
+    var notice = document.createElement("div");
+    notice.className = "chat-resume-notice";
+    notice.innerHTML = '<span>前回の続きから再開しています</span>';
+    els.body.appendChild(notice);
+    scrollToBottom();
+    // 3秒後にフェードアウト
+    setTimeout(function () {
+      notice.classList.add("chat-resume-hiding");
+      setTimeout(function () { if (notice.parentElement) notice.remove(); }, 500);
+    }, 3000);
+  }
+
+  // --------------------------------------------------
+  // サンクコスト: 3分タイマー → 「診断結果を保存しますか？」
+  // --------------------------------------------------
+  function startSunkCostTimer() {
+    if (chatState.sunkCostShown) return;
+    chatState.conversationStartTime = chatState.conversationStartTime || Date.now();
+    saveState();
+
+    // 3分（180秒）後にLINE保存誘導
+    var elapsed = Date.now() - chatState.conversationStartTime;
+    var remaining = Math.max(0, 180000 - elapsed);
+
+    setTimeout(function () {
+      if (chatState.sunkCostShown || chatState.done || !chatState.isOpen) return;
+      if (chatState.phase !== "ai") return;
+      chatState.sunkCostShown = true;
+      showSunkCostCTA();
+      saveState();
+    }, remaining);
+  }
+
+  function showSunkCostCTA() {
+    var cta = document.createElement("div");
+    cta.className = "chat-sunk-cost-cta";
+    var salaryText = chatState.estimatedSalary
+      ? "あなたの推定年収 " + chatState.estimatedSalary + "万円"
+      : "ここまでの相談内容";
+    cta.innerHTML =
+      '<div class="sunk-cost-header">' + escapeHtml(salaryText) + 'の診断結果を保存しませんか？</div>' +
+      '<a href="https://lin.ee/HJwmQgp4" target="_blank" rel="noopener" class="sunk-cost-btn">LINEで診断結果を受け取る</a>' +
+      '<div class="sunk-cost-note">ここまでの会話内容は24時間保存されます</div>';
+
+    els.body.appendChild(cta);
+    scrollToBottom();
+    trackEvent("chat_sunk_cost_shown", { elapsed_min: Math.round((Date.now() - chatState.conversationStartTime) / 60000) });
+
+    cta.querySelector(".sunk-cost-btn").addEventListener("click", function () {
+      trackEvent("chat_sunk_cost_line_click");
+    });
+  }
+
+  // --------------------------------------------------
+  // 行動経済学: 年収推定計算
+  // --------------------------------------------------
+  function estimateSalary(area, priority) {
+    var data = SALARY_ESTIMATES[area] || SALARY_ESTIMATES.undecided;
+    // アンカリング: 高い数字を先に見せる
+    var estimated = data.avg;
+    // 優先度によって表示を変える
+    if (priority === "salary") {
+      estimated = data.top; // 最高値をアンカーに
+    }
+    chatState.estimatedSalary = estimated;
+    return {
+      low: data.min,
+      estimated: estimated,
+      high: data.top,
+      avg: data.avg,
+    };
+  }
+
+  // --------------------------------------------------
+  // プログレスバー（サンクコスト強化）
+  // --------------------------------------------------
+  function updateProgress(step, total) {
+    var existing = document.getElementById("chatProgressBar");
+    if (existing) existing.remove();
+
+    var bar = document.createElement("div");
+    bar.className = "chat-progress-bar";
+    bar.id = "chatProgressBar";
+    var pct = Math.round((step / total) * 100);
+    bar.innerHTML =
+      '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
+      '<div class="progress-label">ステップ ' + step + '/' + total + ' 完了</div>';
+
+    // ヘッダーの直後に挿入
+    var header = els.window.querySelector(".chat-header");
+    if (header && header.nextSibling) {
+      header.parentElement.insertBefore(bar, header.nextSibling);
+    }
   }
 
   function showChatView() {
@@ -446,19 +573,24 @@
   // --------------------------------------------------
   function startConversation() {
     chatState.phase = "greeting";
+    chatState.conversationStartTime = Date.now();
     setInputVisible(false);
+    updateProgress(0, 3);
 
     showTyping();
     setTimeout(function () {
       hideTyping();
-      addMessage("ai", "こんにちは！ナースロビーのロビーです。\n\n神奈川県西部で看護師さんの転職をお手伝いしています。手数料は業界最安の10%なので、病院にも看護師さんにも喜ばれています。");
+      // 損失回避 + 即時性: 「損してるかも」フック → 30秒で診断
+      addMessage("ai", "こんにちは！ナースロビーのロビーです。\n\n看護師5年目の平均年収は480万円。でも、同じ経験年数でも年収に100万円以上の差があるのを知っていますか？");
 
       setTimeout(function () {
         showTyping();
         setTimeout(function () {
           hideTyping();
-          addMessage("ai", "今日はどんなことが気になりますか？");
+          // 即時性: 「30秒で」= 低コスト感
+          addMessage("ai", "30秒で、あなたの年収が相場と比べてどうか診断できます。何が気になりますか？");
           chatState.phase = "intent";
+          updateProgress(1, 3);
           showButtonGroup(PRESCRIPTED.intents, handleIntentSelect);
           saveState();
         }, 500);
@@ -474,16 +606,18 @@
 
     chatState.phase = "area";
 
+    // 損失回避フレーミング: 「知らないと損」を各意図に埋め込む
     var empathyMap = {
-      search: "求人をお探しなんですね！\n\n通勤のしやすさは大事ですよね。どのあたりのエリアをお考えですか？",
-      consult: "転職のご相談ですね。一緒に考えましょう。\n\nまず、どのあたりのエリアでお仕事を探されていますか？",
-      browse: "もちろんです！情報収集は大事な第一歩ですね。\n\nどのエリアの情報が気になりますか？",
+      search: "年収の相場を知らないまま転職すると、年間50万円以上損する可能性があります。\n\nまずエリアを教えてください。地域によって相場が大きく違います。",
+      consult: "転職すべきかどうか、まず今の年収が相場と比べてどうかを知ることが大切です。\n\nどのあたりのエリアでお仕事されていますか？",
+      browse: "情報を持っているかどうかで、転職の結果が大きく変わります。\n\nどのエリアの相場が気になりますか？",
     };
 
     showTyping();
     setTimeout(function () {
       hideTyping();
       addMessage("ai", empathyMap[value] || empathyMap.search);
+      updateProgress(1, 3);
       showButtonGroup(PRESCRIPTED.areas, handleAreaSelect);
       saveState();
     }, 600);
@@ -501,7 +635,10 @@
     setTimeout(function () {
       hideTyping();
       var areaName = getAreaDisplayName(value);
-      addMessage("ai", areaName + "エリアですね！\n\n転職で一番大切にしたいことを教えてください。あなたに合った求人を見つけやすくなります。");
+      var salaryData = SALARY_ESTIMATES[value] || SALARY_ESTIMATES.undecided;
+      // アンカリング: 高い数字を先に見せて「もらえるかも」感を出す
+      addMessage("ai", areaName + "エリアの看護師さんの年収は " + salaryData.min + "〜" + salaryData.top + "万円と幅があります。\n\n転職で一番大切にしたいことを教えてください。あなたの市場価値をもっと正確に診断できます。");
+      updateProgress(2, 3);
       showButtonGroup(PRESCRIPTED.priorities, handlePrioritySelect);
       saveState();
     }, 600);
@@ -527,15 +664,21 @@
       var areaName = getAreaDisplayName(chatState.area);
       var count = matches.length;
 
-      // Empathy + value message
-      var priorityMessages = {
-        salary: "お給料は大切ですよね。" + areaName + "エリアの看護師さんの求人を調べました。",
-        commute: "通勤時間は毎日のことですもんね。" + areaName + "エリアでアクセスの良い求人を集めました。",
-        wlb: "プライベートの時間も大事ですよね。" + areaName + "エリアで休日が多い求人を集めました。",
-        environment: "職場の雰囲気は実際に働く上で一番大事かもしれませんね。" + areaName + "エリアの求人をご紹介します。",
-      };
+      // 行動経済学: 年収推定を即時表示（即時性 + アンカリング）
+      var salary = estimateSalary(chatState.area, chatState.priority);
+      updateProgress(3, 3);
 
-      addMessage("ai", (priorityMessages[chatState.priority] || priorityMessages.salary) + "\n\n" + count + "件以上の求人があります。一部をご紹介しますね。");
+      // 損失回避: 「今の年収より高い可能性」を強調
+      var salaryMsg = "あなたの推定市場価値は年収 " + salary.estimated + "万円前後です。";
+      if (chatState.priority === "salary") {
+        salaryMsg += "\n条件次第で最大 " + salary.high + "万円も狙えます。";
+      }
+      salaryMsg += "\n\n" + areaName + "エリアで " + count + "件以上の求人を見つけました。";
+
+      // 年収推定カード表示
+      showSalaryEstimateCard(salary);
+
+      addMessage("ai", salaryMsg);
 
       // Show facility cards
       setTimeout(function () {
@@ -548,6 +691,30 @@
         }, 1500);
       }, 800);
     }, 1000);
+  }
+
+  // --------------------------------------------------
+  // 年収推定カード（即時価値提供 + アンカリング）
+  // --------------------------------------------------
+  function showSalaryEstimateCard(salary) {
+    var card = document.createElement("div");
+    card.className = "chat-salary-card";
+    card.innerHTML =
+      '<div class="salary-card-header">あなたの推定市場価値</div>' +
+      '<div class="salary-card-value">' +
+        '<span class="salary-card-amount">' + salary.estimated + '</span>' +
+        '<span class="salary-card-unit">万円/年</span>' +
+      '</div>' +
+      '<div class="salary-card-range">' +
+        '<span>' + salary.low + '万円</span>' +
+        '<span class="salary-card-bar"><span class="salary-card-fill" style="left:' + Math.round((salary.estimated - salary.low) / (salary.high - salary.low) * 100) + '%"></span></span>' +
+        '<span>' + salary.high + '万円</span>' +
+      '</div>' +
+      '<div class="salary-card-note">※経験年数・資格で変動します。詳細はLINEで無料診断</div>';
+
+    els.body.appendChild(card);
+    scrollToBottom();
+    trackEvent("chat_salary_estimate_shown", { estimated: salary.estimated, area: chatState.area });
   }
 
   // --------------------------------------------------
@@ -604,11 +771,13 @@
     showTyping();
     setTimeout(function () {
       hideTyping();
-      addMessage("ai", "気になる求人はありましたか？\n\nもっと詳しい条件や非公開求人の情報は、LINEでお伝えできます。もちろん、ここでもう少しお話しすることもできますよ。");
+      // 損失回避 + サンクコスト: ここまでの診断結果を「失いたくない」心理
+      var salaryText = chatState.estimatedSalary ? "推定年収 " + chatState.estimatedSalary + "万円" : "市場価値";
+      addMessage("ai", salaryText + "の診断結果をお送りしました。\n\nこの診断結果と、あなたに合った非公開求人の詳細をLINEでお届けできます。ここでもう少しお話しすることもできますよ。");
 
-      // Show options
+      // 選択のパラドックス: 3択（デフォルト効果: LINEが最初=推奨）
       var options = [
-        { label: "LINEで詳しく聞く", value: "line" },
+        { label: "LINEで診断結果を受け取る", value: "line" },
         { label: "もう少し相談したい", value: "ai" },
         { label: "今日はここまでで大丈夫", value: "close" },
       ];
@@ -642,7 +811,8 @@
       showTyping();
       setTimeout(function () {
         hideTyping();
-        addMessage("ai", "ありがとうございます！\n\nLINEでは、あなたの経験年数や細かい希望に合わせて、ぴったりの求人をお探しします。友だち追加後にメッセージをお送りくださいね。");
+        // 即時性: 「今すぐ届く」感
+        addMessage("ai", "ありがとうございます！\n\n診断結果と、あなたの経験に合った求人リストをLINEでお送りします。友だち追加するとすぐに届きます。");
         showLineCard();
         saveState();
       }, 500);
@@ -654,7 +824,8 @@
       showTyping();
       setTimeout(function () {
         hideTyping();
-        addMessage("ai", "もちろんです！またいつでもお気軽にお声がけくださいね。\n\n気になることが出てきたら、いつでもここで相談できますよ。");
+        // サンクコスト: 診断結果が消えることを暗示
+        addMessage("ai", "もちろんです！この診断結果は24時間保存されますので、またいつでも再開できます。\n\n気が向いたら、LINEで詳しい求人情報もチェックできますよ。");
         // Show a subtle LINE card even for close
         setTimeout(function () {
           showSoftLineCard();
@@ -669,7 +840,7 @@
     card.className = "chat-line-card";
     card.innerHTML =
       '<a href="https://lin.ee/HJwmQgp4" target="_blank" rel="noopener" class="chat-line-card-btn" id="chatLineMainBtn">' +
-        'LINEで相談する' +
+        'LINEで診断結果を受け取る' +
       '</a>' +
       '<div class="chat-line-card-trust">' +
         '<span>完全無料</span><span>手数料10%</span><span>しつこい電話なし</span>' +
@@ -706,15 +877,19 @@
     chatState.phase = "ai";
     setInputVisible(true);
 
+    // サンクコスト: 3分タイマー開始
+    startSunkCostTimer();
+
     // Try API init (no phone required now - anonymous session)
     initAPISession();
 
-    // Build context from pre-scripted flow
+    // Build context from pre-scripted flow + 年収推定
     var areaDisplay = getAreaDisplayName(chatState.area);
     var priorityLabels = { salary: "給与・待遇", commute: "通勤のしやすさ", wlb: "ワークライフバランス", environment: "職場の雰囲気" };
+    var salaryContext = chatState.estimatedSalary ? " / 推定市場価値: 年収" + chatState.estimatedSalary + "万円前後" : "";
     var contextMsg = "【事前ヒアリング結果】希望エリア: " + (areaDisplay || "未選択") +
-      " / 重視する条件: " + (priorityLabels[chatState.priority] || "未選択") +
-      "。これらの情報を踏まえて、転職の詳しい希望条件を丁寧にヒアリングしてください。共感を示しながら、1つずつ質問してください。";
+      " / 重視する条件: " + (priorityLabels[chatState.priority] || "未選択") + salaryContext +
+      "。\n\n重要ルール:\n1. 質問は1回の返答で必ず1つだけ\n2. 先に推定年収を伝えているので、それを踏まえて「もっと高い年収を狙えるかも」「この条件なら今より○万円アップできそう」のように具体的な数字で会話する\n3. 「知らないと損する」「年間○万円の差がつく」等の損失回避フレーミングを自然に使う\n4. 共感を示しながら、1つずつ質問してください。";
     chatState.apiMessages.push({ role: "user", content: contextMsg });
 
     showTyping();
@@ -906,7 +1081,7 @@
       nudge.className = "chat-line-nudge";
       nudge.innerHTML =
         '<a href="https://lin.ee/HJwmQgp4" target="_blank" rel="noopener" class="chat-line-nudge-btn">' +
-          'LINEでもっと詳しく相談する' +
+          'LINEで非公開求人を見る' +
         '</a>';
 
       els.body.appendChild(nudge);
@@ -933,17 +1108,18 @@
     // Send to backend
     sendChatComplete(summaryData);
 
-    // Warm closing message
+    // サンクコスト + 損失回避のクロージング
     var score = summaryData.score;
+    var salaryText = chatState.estimatedSalary ? "年収" + chatState.estimatedSalary + "万円" : "好条件";
     var closingMessages = {
-      A: "お話を聞かせていただきありがとうございました！あなたにぴったりの職場をお探しします。",
-      B: "詳しくお聞かせいただきありがとうございました！あなたの経験が活きる職場をお探しします。",
-      C: "ご相談ありがとうございました！まずは情報収集からでも大丈夫ですよ。",
-      D: "お話しいただきありがとうございました。転職は大きな決断ですよね。",
+      A: "詳しくお聞かせいただきありがとうございました！今の条件なら" + salaryText + "以上も十分狙えます。今動かないと、この好条件の求人が他の人に決まってしまう可能性もあります。",
+      B: "お話しいただきありがとうございました！あなたの経験なら" + salaryText + "レベルの職場が見つかる可能性が高いです。",
+      C: "ありがとうございました！相場を知っているだけで、転職の結果は大きく変わります。",
+      D: "お話しいただきありがとうございました。今回の診断結果は24時間保存されます。",
     };
 
     setTimeout(function () {
-      addMessage("ai", (closingMessages[score] || closingMessages.C) + "\n\nLINEで詳しい求人情報をお届けできます。気になったらいつでもどうぞ。");
+      addMessage("ai", (closingMessages[score] || closingMessages.C) + "\n\nここまでの診断結果と非公開求人をLINEでお届けします。");
       setTimeout(function () {
         showLineCard();
         saveState();
