@@ -1,7 +1,7 @@
 {
   "version": 2,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-24T20:12:36.484798",
+  "updated": "2026-02-24T21:16:41.891243",
   "posts": [
     {
       "id": 1,
@@ -144,6 +144,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 7,
+        "empathy": 9,
+        "issues": [
+          "CTAがソフトに感じるが、ナースロビーへの導線が不明瞭"
+        ],
+        "suggestion": "CTAをよりナースロビーのサービスに結び付けることで、ソフトなアプローチながらも効果的な導線を実現できる"
       }
     },
     {
@@ -172,6 +185,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 7,
+        "empathy": 9,
+        "issues": [
+          "ハッシュタグが5個以内ではない"
+        ],
+        "suggestion": "ハッシュタグを3-4個に絞り、より具体的で関連性の高いものを選ぶと効果的"
       }
     },
     {
@@ -200,6 +226,20 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 7,
+        "empathy": 9,
+        "issues": [
+          "CTAがソフトに感じられない",
+          "ハッシュタグが5個以内ではない"
+        ],
+        "suggestion": "CTAをよりソフトにし、ハッシュタグを調整することで投稿の品質を向上させることができる"
       }
     },
     {
@@ -228,6 +268,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 8,
+        "empathy": 9,
+        "issues": [
+          "ハッシュタグが5個以内であることを確認する必要がある"
+        ],
+        "suggestion": "より具体的なデータやグラフィカルな表現を追加して、看護師の関心を引き付けることを検討してください"
       }
     },
     {
@@ -256,6 +309,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 6,
+        "empathy": 9,
+        "issues": [
+          "CTAがハードに偏りすぎている"
+        ],
+        "suggestion": "ソフトCTAを追加して8:2のバランスを取る"
       }
     },
     {
@@ -284,6 +350,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 7,
+        "empathy": 9,
+        "issues": [
+          "CTAのソフトさがやや不足"
+        ],
+        "suggestion": "夜勤看護師のストレスをさらに具体的に描写し、CTAでナースロビーへの導線を強化する"
       }
     },
     {
@@ -312,6 +391,20 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 7,
+        "empathy": 9,
+        "issues": [
+          "CTAがソフトに過ぎる",
+          "スライド6のフォローの呼びかけが曖昧"
+        ],
+        "suggestion": "CTAを少しハードにし、スライド6のフォローの呼びかけを明確にする"
       }
     },
     {
@@ -340,6 +433,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 7,
+        "empathy": 9,
+        "issues": [
+          "CTAがやや直接的"
+        ],
+        "suggestion": "CTAをよりソフトに調整して、共感から信頼への導線を強化する"
       }
     },
     {
@@ -368,6 +474,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 7,
+        "empathy": 9,
+        "issues": [
+          "CTAがソフトすぎる"
+        ],
+        "suggestion": "CTAを少しハードに調整して、ユーザーに具体的な行動を促す"
       }
     },
     {
@@ -396,6 +515,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 9,
+        "empathy": 9,
+        "issues": [
+          "ハッシュタグが5個以内ではない"
+        ],
+        "suggestion": "ハッシュタグを調整し、より具体的なCTAを追加することで、投稿の効果を高めることができる"
       }
     },
     {
@@ -424,6 +556,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 9,
+        "empathy": 8,
+        "issues": [
+          "ハッシュタグが5個以内ではない"
+        ],
+        "suggestion": "ハッシュタグを調整し、より具体的なCTAを追加することで、投稿の効果を高めることができる"
       }
     },
     {
@@ -452,6 +597,19 @@
         "likes": null,
         "saves": null,
         "comments": null
+      },
+      "ai_score": 8,
+      "ai_review": {
+        "score": 8,
+        "persona_fit": 9,
+        "hook_strength": 8,
+        "legal_compliance": 10,
+        "cta_quality": 6,
+        "empathy": 9,
+        "issues": [
+          "CTAがハードに感じる"
+        ],
+        "suggestion": "CTAをソフトに変更し、相談の申し込みを促す"
       }
     }
   ]
