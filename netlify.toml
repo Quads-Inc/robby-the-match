@@ -1,0 +1,27 @@
+[build]
+  publish = "/"
+  command = ""
+
+# Redirect old GitHub Pages URL to custom domain
+[[redirects]]
+  from = "https://haruhi-medical.github.io/robby-the-match/*"
+  to = "https://quads-nurse.com/:splat"
+  status = 301
+  force = true
+
+# Redirect netlify.app subdomain to custom domain
+[[redirects]]
+  from = "https://delicate-katafi-1a74cb.netlify.app/*"
+  to = "https://quads-nurse.com/:splat"
+  status = 301
+  force = true
+
+# Security headers for all pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"

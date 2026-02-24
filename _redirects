@@ -1,0 +1,3 @@
+# Redirect netlify.app subdomain to custom domain
+https://delicate-katafi-1a74cb.netlify.app/* https://quads-nurse.com/:splat 301!
+http://delicate-katafi-1a74cb.netlify.app/* https://quads-nurse.com/:splat 301!
