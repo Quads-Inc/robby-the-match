@@ -144,28 +144,34 @@
 
 ### ⏳ 後回し
 - Googleビジネスプロフィール登録（手動）
-- 独自ドメイン取得（SEO効果が出てから）
+- ~~独自ドメイン取得~~ → ✅ quads-nurse.com 取得済み
 - LP-B施設向け（Phase2）
 
 ## デプロイ状態
-- GitHub Pages: ✅ 公開中
-- 公開URL: https://quads-nurse.com/
+- **Netlify**: ✅ 公開中（delicate-katafi-1a74cb.netlify.app → quads-nurse.com）
+- 公開URL: **https://quads-nurse.com/**
 - git remote: origin https://github.com/Quads-Inc/robby-the-match.git
 - デプロイブランチ: master（mainからpush）
 - Cloudflare Worker: ✅ デプロイ済み（v: a8bcff75）
-- 最新push: 2026-02-23（AIチャットv2.0 + ブログ3本 + sitemap81）
+- 最新push: 2026-02-24（ドメイン移行+SEO強化）
+- **SSL**: ✅ Let's Encrypt自動発行
+- **www→apex**: ✅ 301リダイレクト設定済み
+- **netlify.app→custom domain**: ✅ 301リダイレクト設定済み
 
 ## SEO状態
+- **ドメイン**: ✅ quads-nurse.com（2026-02-24取得、Netlifyホスティング）
 - 子ページ: area/15 + guide/41 = 計56ページ
 - ブログ: 18記事 + index
-- sitemap.xml: 81 URL
+- sitemap.xml: 81 URL（lastmod 2026-02-24更新済み）
 - OGP画像: ナースロビーブランド対応（2026-02-23更新）
 - **内部リンク**: ブログ↔エリア↔ガイド相互リンク168本構築（2026-02-23）
 - GA4: ✅ G-X4G2BYW13B
-- Search Console: ✅ 登録済み
+- Search Console: ⚠️ quads-nurse.comで再登録必要（手動）
 - 構造化データ: index.html(5種) + LP-A(4種) + area(2種) + guide(2種)
 - 競合ゼロKW: 「神奈川県西部 看護師」「紹介料 10%」
-- **課題**: github.ioサブドメインはドメイン権威ゼロ。独自ドメインがないとランキングは厳しい。
+- **Netlify SEO**: セキュリティヘッダー + キャッシュ最適化 + リダイレクト設定済み
+- **canonical/OGP**: 全81ページ quads-nurse.com に更新完了
+- **旧ドメインリダイレクト不要**: サイト開設5日でインデックス/被リンクほぼゼロのため
 
 ## SNS状態
 - TikTok: ✅ アカウント作成済み（@robby15051）
