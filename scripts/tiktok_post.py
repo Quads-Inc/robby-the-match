@@ -122,8 +122,8 @@ def verify_post(pre_count, max_wait=120):
 # 動画生成
 # ============================================================
 
-def create_video_slideshow(slide_dir, output_path, duration_per_slide=3):
-    """PNG スライドから動画スライドショーを生成（ffmpeg）"""
+def create_video_slideshow(slide_dir, output_path, duration_per_slide=3.5):
+    """PNG スライドからプロ品質動画スライドショーを生成（Ken Burns + クロスフェード）"""
     slide_dir = Path(slide_dir)
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -133,8 +133,86 @@ def create_video_slideshow(slide_dir, output_path, duration_per_slide=3):
         print(f"   ❌ スライド画像なし: {slide_dir}")
         return False
 
-    print(f"   🎬 動画生成: {len(slides)}枚 x {duration_per_slide}秒")
+    n = len(slides)
+    fps = 30
+    frames = int(duration_per_slide * fps)
+    fade_dur = 0.4  # クロスフェード秒数
+    zoom_speed = 0.001  # Ken Burnsズーム速度（微妙なモーション）
 
+    print(f"   🎬 動画生成: {n}枚 x {duration_per_slide}秒 (Ken Burns + クロスフェード)")
+
+    cmd = ["ffmpeg", "-y"]
+
+    # 入力
+    for slide in slides:
+        cmd.extend(["-loop", "1", "-t", str(duration_per_slide), "-framerate", str(fps), "-i", str(slide)])
+
+    # フィルター: Ken Burns → クロスフェード
+    filters = []
+
+    for i in range(n):
+        # 交互にズームイン/ズームアウト
+        if i % 2 == 0:
+            z_expr = f"zoom+{zoom_speed}"
+        else:
+            z_expr = f"1.08-{zoom_speed}*on"
+
+        filters.append(
+            f"[{i}]scale=4000:-1,"
+            f"zoompan=z='{z_expr}':"
+            f"x=iw/2-(iw/zoom/2):y=ih/2-(ih/zoom/2):"
+            f"d={frames}:s=1080x1920:fps={fps}[s{i}]"
+        )
+
+    # クロスフェードチェーン
+    if n == 1:
+        filters.append("[s0]null[out]")
+    else:
+        prev = "s0"
+        for i in range(1, n):
+            offset = round(i * duration_per_slide - i * fade_dur, 2)
+            out_label = f"f{i-1}" if i < n - 1 else "out"
+            filters.append(
+                f"[{prev}][s{i}]xfade=transition=fade:"
+                f"duration={fade_dur}:offset={offset}[{out_label}]"
+            )
+            prev = out_label
+
+    filter_str = ";".join(filters)
+    cmd.extend(["-filter_complex", filter_str, "-map", "[out]"])
+
+    # TikTok最適エンコード設定
+    cmd.extend([
+        "-c:v", "libx264",
+        "-profile:v", "high",
+        "-level", "4.2",
+        "-crf", "20",
+        "-preset", "fast",
+        "-pix_fmt", "yuv420p",
+        "-r", str(fps),
+        "-movflags", "+faststart",
+        str(output_path)
+    ])
+
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+        if result.returncode != 0:
+            print(f"   ⚠️ Ken Burns版失敗、シンプル版にフォールバック")
+            return _create_simple_slideshow(slides, output_path, duration_per_slide)
+
+        file_size = output_path.stat().st_size / (1024 * 1024)
+        print(f"   ✅ 動画生成完了: {output_path.name} ({file_size:.1f}MB)")
+        return True
+    except subprocess.TimeoutExpired:
+        print("   ⚠️ Ken Burns版タイムアウト、シンプル版にフォールバック")
+        return _create_simple_slideshow(slides, output_path, duration_per_slide)
+    except FileNotFoundError:
+        print("   ❌ ffmpegがインストールされていません")
+        return False
+
+
+def _create_simple_slideshow(slides, output_path, duration_per_slide=3):
+    """フォールバック: シンプルなconcatスライドショー"""
     filter_parts = []
     inputs = []
 
@@ -164,15 +242,11 @@ def create_video_slideshow(slide_dir, output_path, duration_per_slide=3):
         if result.returncode != 0:
             print(f"   ❌ ffmpeg失敗: {result.stderr[-500:]}")
             return False
-
         file_size = output_path.stat().st_size / (1024 * 1024)
-        print(f"   ✅ 動画生成完了: {output_path.name} ({file_size:.1f}MB)")
+        print(f"   ✅ 動画生成完了(シンプル版): {output_path.name} ({file_size:.1f}MB)")
         return True
-    except subprocess.TimeoutExpired:
-        print("   ❌ ffmpegタイムアウト")
-        return False
-    except FileNotFoundError:
-        print("   ❌ ffmpegがインストールされていません")
+    except Exception as e:
+        print(f"   ❌ ffmpegエラー: {e}")
         return False
 
 

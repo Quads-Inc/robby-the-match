@@ -100,4 +100,5 @@ fi
 update_progress "sns_post" "SNS自動投稿: IG済${POSTED_COUNT}件 / 未投稿${UNPOSTED}件"
 update_agent_state "sns_poster" "completed"
 
+write_heartbeat "sns_post" $?
 echo "=== [$TODAY $NOW] sns_post 完了 ===" >> "$LOG"

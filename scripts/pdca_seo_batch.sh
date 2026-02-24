@@ -36,4 +36,5 @@ update_state "SEO朝サイクル"
 update_progress "🔍 SEO朝サイクル" "$(git log -1 --pretty=%s 2>/dev/null)"
 update_agent_state "seo_optimizer" "completed"
 slack_notify "🔍 SEO改善完了。STATE.md参照。" "seo"
+write_heartbeat "seo_batch" $?
 echo "[$TODAY] pdca_seo_batch完了" >> "$LOG"

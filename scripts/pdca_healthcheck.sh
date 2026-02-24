@@ -131,4 +131,5 @@ else
 fi
 
 update_agent_state "health_monitor" "completed"
+write_heartbeat "healthcheck" $?
 echo "[$TODAY] healthcheck完了" >> "$LOG"

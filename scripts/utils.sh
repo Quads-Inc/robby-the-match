@@ -188,6 +188,28 @@ except Exception as e:
 }
 
 # ==========================================
+# ハートビート（自己修復ウォッチドッグ用）
+# ==========================================
+
+write_heartbeat() {
+  local job_name="$1"
+  local exit_code="${2:-0}"
+  mkdir -p "$PROJECT_DIR/data/heartbeats"
+  python3 -c "
+import json
+from datetime import datetime
+hb = {
+    'ts': datetime.now().isoformat(),
+    'exit_code': $exit_code,
+    'job': '$job_name',
+    'date': datetime.now().strftime('%Y-%m-%d')
+}
+with open('$PROJECT_DIR/data/heartbeats/${job_name}.json', 'w') as f:
+    json.dump(hb, f, indent=2, ensure_ascii=False)
+" 2>/dev/null || echo "[WARN] heartbeat書き込み失敗" >> "$LOG"
+}
+
+# ==========================================
 # エージェントメモリ・通信・自己修復
 # ==========================================
 

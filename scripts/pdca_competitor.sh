@@ -20,4 +20,5 @@ update_state "競合監視"
 update_progress "🔎 競合監視" "$(tail -5 logs/pdca_competitor_${TODAY}.log 2>/dev/null)"
 update_agent_state "competitor_analyst" "completed"
 slack_notify "🔎 競合監視完了。" "seo"
+write_heartbeat "competitor" $?
 echo "[$TODAY] pdca_competitor完了" >> "$LOG"

@@ -27,11 +27,11 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 CANVAS_W = 1080
 CANVAS_H = 1920
 
-# TikTok UI safe zones
-SAFE_TOP = 150
-SAFE_BOTTOM = 280
-SAFE_RIGHT = 100
-SAFE_LEFT = 40
+# TikTok UI safe zones (2026-02-25 updated: SAFE_BOTTOM拡大で文字被り防止)
+SAFE_TOP = 180
+SAFE_BOTTOM = 340
+SAFE_RIGHT = 140
+SAFE_LEFT = 50
 
 # Derived safe content area
 CONTENT_X = SAFE_LEFT
@@ -195,10 +195,20 @@ def draw_text_shadow(
     fill: tuple = COLOR_TEXT_WHITE,
     shadow_color: tuple = (0, 0, 0, 128),
     shadow_offset: int = 2,
+    outline: bool = True,
+    outline_color: tuple = (0, 0, 0, 180),
+    outline_width: int = 1,
 ):
-    """Draw text with a subtle drop shadow for readability on dark backgrounds."""
+    """Draw text with drop shadow + optional outline for maximum readability."""
     # Shadow
     draw.text((x + shadow_offset, y + shadow_offset), text, fill=shadow_color, font=font)
+    # Outline (4方向にずらして描画)
+    if outline:
+        for dx in range(-outline_width, outline_width + 1):
+            for dy in range(-outline_width, outline_width + 1):
+                if dx == 0 and dy == 0:
+                    continue
+                draw.text((x + dx, y + dy), text, fill=outline_color, font=font)
     # Main text
     draw.text((x, y), text, fill=fill, font=font)
 
@@ -550,11 +560,35 @@ def generate_slide_content(
             current_y += 30
 
     # --- Body text (supports bullet points with "・" prefix) ---
+    # オーバーフロー防止: 残り高さに応じてフォントサイズを自動調整
+    max_body_y = CANVAS_H - SAFE_BOTTOM - 80  # 装飾線+ブランドロゴ分の余白
+    available_height = max_body_y - current_y
+
     body_font_size = 30
+    # テキスト量が多い場合はフォントサイズを縮小
+    body_paragraphs = body.split("\n")
+    total_lines_estimate = 0
+    for para in body_paragraphs:
+        para = para.strip()
+        if not para:
+            total_lines_estimate += 0.5
+            continue
+        # 大まかに1行20文字として行数推定
+        total_lines_estimate += max(1, len(para) / 18)
+
+    estimated_height = int(total_lines_estimate * body_font_size * LINE_HEIGHT_RATIO)
+    if estimated_height > available_height and body_font_size > 22:
+        # フォントサイズを縮小して収める
+        for try_size in range(28, 20, -2):
+            est_h = int(total_lines_estimate * try_size * LINE_HEIGHT_RATIO)
+            if est_h <= available_height:
+                body_font_size = try_size
+                break
+        else:
+            body_font_size = 22  # 最小サイズ
+
     body_font = load_font(bold=False, size=body_font_size)
     body_color = COLOR_TEXT_WHITE if dark_theme else COLOR_TEXT_DARK
-
-    body_paragraphs = body.split("\n")
     line_h = int(body_font_size * LINE_HEIGHT_RATIO)
 
     for para in body_paragraphs:
@@ -562,6 +596,10 @@ def generate_slide_content(
         if not para:
             current_y += line_h // 2
             continue
+
+        # オーバーフロー防止: 残り領域をチェック
+        if current_y >= max_body_y:
+            break
 
         is_bullet = para.startswith("・") or para.startswith("- ") or para.startswith("* ")
         if is_bullet:
@@ -578,8 +616,10 @@ def generate_slide_content(
             dot_y = current_y + body_font_size // 2
             draw_colored_dot(draw, dot_x, dot_y, 6, (*accent_color[:3], 220))
 
-            # Draw wrapped text
+            # Draw wrapped text (with overflow check per line)
             for line in lines:
+                if current_y >= max_body_y:
+                    break
                 if dark_theme:
                     draw_text_shadow(draw, text_start_x, current_y, line, body_font, fill=body_color, shadow_offset=1)
                 else:
@@ -588,6 +628,12 @@ def generate_slide_content(
             current_y += 8  # extra spacing between bullets
         else:
             lines = wrap_text_jp(para, body_font, max_text_width)
+            # Overflow check before drawing
+            block_h = text_block_height(lines, body_font_size)
+            if current_y + block_h > max_body_y:
+                # 収まる分だけ描画
+                remaining_lines = int((max_body_y - current_y) / line_h)
+                lines = lines[:max(1, remaining_lines)]
             current_y = draw_centered_text_block(
                 draw, lines, body_font, body_font_size,
                 center_x, current_y,
