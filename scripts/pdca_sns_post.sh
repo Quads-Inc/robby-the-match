@@ -40,9 +40,19 @@ else
     echo "[WARN] Instagram投稿失敗 (exit=$IG_EXIT)" >> "$LOG"
 fi
 
-# Step 3: TikTok通知（手動アップ用）
-echo "[INFO] TikTok投稿通知..." >> "$LOG"
-python3 "$PROJECT_DIR/scripts/auto_post.py" --tiktok >> "$LOG" 2>&1
+# Step 3: TikTokカルーセル自動投稿（Upload-Post.com API）
+echo "[INFO] TikTokカルーセル投稿..." >> "$LOG"
+python3 "$PROJECT_DIR/scripts/tiktok_carousel.py" --post-next >> "$LOG" 2>&1
+TK_EXIT=$?
+
+if [ $TK_EXIT -eq 0 ]; then
+    echo "[INFO] TikTokカルーセル投稿処理完了" >> "$LOG"
+else
+    echo "[WARN] TikTokカルーセル投稿失敗 (exit=$TK_EXIT)" >> "$LOG"
+    # フォールバック: 旧方式のSlack通知
+    echo "[INFO] フォールバック: TikTok投稿通知..." >> "$LOG"
+    python3 "$PROJECT_DIR/scripts/auto_post.py" --tiktok >> "$LOG" 2>&1
+fi
 
 # Step 4: 投稿ステータス確認
 echo "[INFO] 投稿ステータス:" >> "$LOG"

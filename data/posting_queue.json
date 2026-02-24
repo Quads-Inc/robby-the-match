@@ -1,7 +1,7 @@
 {
   "version": 2,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-24T22:11:18.631609",
+  "updated": "2026-02-25T07:48:41.855982",
   "posts": [
     {
       "id": 1,
@@ -20,10 +20,10 @@
       "cta_type": "soft",
       "content_type": "aruaru",
       "status": "posted",
-      "video_path": "content/temp_videos/tiktok_20260220_A01_20260221.mp4",
-      "posted_at": "2026-02-21T19:56:32.249490",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_20260220_A01_20260225.mp4",
+      "posted_at": "2026-02-25T07:43:35.157241",
       "tiktok_url": null,
-      "error": null,
+      "error": "phantom_upload_reset_20260225",
       "performance": {
         "views": null,
         "likes": null,
@@ -49,10 +49,10 @@
       "cta_type": "soft",
       "content_type": "aruaru",
       "status": "posted",
-      "video_path": "content/temp_videos/tiktok_20260220_A02_20260221.mp4",
-      "posted_at": "2026-02-21T19:57:48.228400",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_20260220_A02_20260225.mp4",
+      "posted_at": "2026-02-25T07:44:40.217525",
       "tiktok_url": null,
-      "error": null,
+      "error": "phantom_upload_reset_20260225",
       "performance": {
         "views": null,
         "likes": null,
@@ -78,10 +78,10 @@
       "cta_type": "soft",
       "content_type": "aruaru",
       "status": "posted",
-      "video_path": "content/temp_videos/tiktok_day1_20260223.mp4",
-      "posted_at": "2026-02-23T17:32:02.531422",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day1_20260225.mp4",
+      "posted_at": "2026-02-25T07:45:48.446100",
       "tiktok_url": null,
-      "error": null,
+      "error": "phantom_upload_reset_20260225",
       "performance": {
         "views": null,
         "likes": null,
@@ -258,7 +258,7 @@
       ],
       "cta_type": "soft",
       "content_type": "salary",
-      "status": "pending",
+      "status": "ready",
       "video_path": "content/temp_videos/tiktok_day6.mp4",
       "posted_at": null,
       "tiktok_url": null,
@@ -299,9 +299,9 @@
       ],
       "cta_type": "hard",
       "content_type": "trend",
-      "status": "pending",
-      "video_path": "content/temp_videos/tiktok_day7.mp4",
-      "posted_at": null,
+      "status": "posted",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day7_20260225.mp4",
+      "posted_at": "2026-02-25T07:47:04.752512",
       "tiktok_url": null,
       "error": null,
       "performance": {
@@ -322,7 +322,8 @@
           "CTAがハードに偏りすぎている"
         ],
         "suggestion": "ソフトCTAを追加して8:2のバランスを取る"
-      }
+      },
+      "verified": true
     },
     {
       "id": 10,
@@ -340,9 +341,9 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "pending",
-      "video_path": "content/temp_videos/tiktok_day1_mon_A03.mp4",
-      "posted_at": null,
+      "status": "posted",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day1_mon_A03_20260225.mp4",
+      "posted_at": "2026-02-25T07:48:41.855979",
       "tiktok_url": null,
       "error": null,
       "performance": {
@@ -363,7 +364,8 @@
           "CTAのソフトさがやや不足"
         ],
         "suggestion": "夜勤看護師のストレスをさらに具体的に描写し、CTAでナースロビーへの導線を強化する"
-      }
+      },
+      "verified": true
     },
     {
       "id": 11,

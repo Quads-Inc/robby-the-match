@@ -214,7 +214,7 @@ with open("{params_file}") as f:
     p = json.load(f)
 try:
     from tiktokautouploader import upload_tiktok
-    upload_tiktok(
+    result = upload_tiktok(
         video=p["video"],
         description=p["description"],
         accountname=p["accountname"],
@@ -223,7 +223,12 @@ try:
         stealth=p["stealth"],
         suppressprint=False,
     )
-    print("AUTOUPLOAD_SUCCESS")
+    if result == "Completed":
+        print("AUTOUPLOAD_SUCCESS")
+    else:
+        print(f"AUTOUPLOAD_FAILED: upload_tiktok returned '{{result}}'")
+except SystemExit as se:
+    print(f"AUTOUPLOAD_FAILED: SystemExit {{se}}")
 except Exception as e:
     print(f"AUTOUPLOAD_FAILED: {{e}}")
     traceback.print_exc()
@@ -372,21 +377,20 @@ def upload_method_slack_manual(video_path, description, hashtags):
 
 def upload_to_tiktok(video_path, caption, hashtags, max_retries=2):
     """
-    TikTokにアップロード（検証付き、リトライ付き）
+    TikTokにアップロード（リトライ付き）
 
     アップロード方法を順番に試行:
     1. tiktokautouploader (Phantomwright stealth)
     2. tiktok-uploader (Playwright + Chrome)
     3. Slack手動投稿依頼
+
+    注意: curlベースのvideoCount検証はTikTokにブロックされたため、
+    アップロードメソッドの戻り値を信頼する方式に変更 (2026-02-25)
     """
     video_path = str(video_path)
 
     print(f"   📤 TikTokアップロード開始")
     print(f"   キャプション: {caption[:60]}...")
-
-    # 投稿前のvideoCountを取得
-    pre_count = get_tiktok_video_count()
-    print(f"   📊 投稿前videoCount: {pre_count}")
 
     methods = [
         ("tiktokautouploader", upload_method_autouploader),
@@ -403,22 +407,20 @@ def upload_to_tiktok(video_path, caption, hashtags, max_retries=2):
             try:
                 success = method_func(video_path, caption, hashtags)
                 if success:
-                    # 実際に投稿されたか検証
-                    verified = verify_post(pre_count, max_wait=90)
-                    if verified:
-                        log_event("upload_verified", {
-                            "method": method_name,
-                            "attempt": attempt,
-                            "video": video_path,
-                        })
-                        return True
-                    else:
-                        print(f"   ⚠️ {method_name}は成功報告したが、投稿が検証できず")
-                        log_event("upload_unverified", {
-                            "method": method_name,
-                            "attempt": attempt,
-                        })
-                        # 次の方法を試す
+                    # 戻り値チェック済み（return value bugを修正済み）
+                    # curlベースvideoCount検証は廃止（TikTokブロック対策）
+                    log_event("upload_success", {
+                        "method": method_name,
+                        "attempt": attempt,
+                        "video": video_path,
+                    })
+                    print(f"   ✅ アップロード成功 (方法: {method_name})")
+                    return True
+                else:
+                    log_event("upload_method_failed", {
+                        "method": method_name,
+                        "attempt": attempt,
+                    })
             except Exception as e:
                 print(f"   ❌ {method_name}例外: {e}")
                 log_event("upload_exception", {
