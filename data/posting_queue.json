@@ -1,7 +1,7 @@
 {
   "version": 1,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-23T17:32:02.531430",
+  "updated": "2026-02-24T17:46:52.001591",
   "posts": [
     {
       "id": 1,
@@ -102,11 +102,11 @@
         "#市場価値"
       ],
       "cta_type": "soft",
-      "status": "pending",
-      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day2.mp4",
+      "status": "failed",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day2_20260224.mp4",
       "posted_at": null,
       "tiktok_url": null,
-      "error": null,
+      "error": "all_upload_methods_failed",
       "performance": {
         "views": null,
         "likes": null,

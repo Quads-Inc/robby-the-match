@@ -300,3 +300,6 @@ To https://github.com/Quads-Inc/robby-the-match.git
 
 [NOTE] pending (13) >= threshold (7) -- --auto では生成スキップ
 
+### sns_post（17:30:00）
+SNS投稿: 投稿: 3件検証済み / 1件失敗 / 12件待機 / 16件合計
+
