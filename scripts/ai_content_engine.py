@@ -942,7 +942,7 @@ def _generate_content_with_ai(
 - カテゴリ: {category}
 - CTA種類: {cta_type}
 - {cta_instruction}
-{hint_text}{robby_context}
+{hint_text}{template_context}{robby_context}
 
 ## 構成
 - hook: 1枚目のフック文（20文字以内。「ロビー」の名前を含める。スクロール停止力が命）
