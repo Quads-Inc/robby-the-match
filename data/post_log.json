@@ -1,0 +1,41 @@
+[
+  {
+    "platform": "instagram",
+    "dir": "20260224_day2",
+    "timestamp": "2026-02-24T22:15:00",
+    "status": "success",
+    "url": "https://www.instagram.com/p/DVJGdXik7R3/",
+    "media_id": "3839628563730117751_45884164083"
+  },
+  {
+    "platform": "instagram",
+    "dir": "20260224_day3",
+    "timestamp": "2026-02-24T22:16:00",
+    "status": "success",
+    "url": "https://www.instagram.com/p/DVJGiBSk331/",
+    "media_id": "3839628883436731893_45884164083"
+  },
+  {
+    "platform": "instagram",
+    "dir": "20260224_day4",
+    "timestamp": "2026-02-24T22:17:00",
+    "status": "success",
+    "url": "https://www.instagram.com/p/DVJGog_k0OK/",
+    "media_id": "3839629329794548618_45884164083"
+  },
+  {
+    "platform": "instagram",
+    "dir": "20260224_day5",
+    "timestamp": "2026-02-24T22:18:00",
+    "status": "error",
+    "error": "This user is inactive so they cannot upload."
+  },
+  {
+    "platform": "instagram",
+    "dir": "20260224_day5",
+    "timestamp": "2026-02-24T22:30:11.698377",
+    "retry": true,
+    "status": "error",
+    "error": "{\"message\":\"This user is inactive so they cannot upload.\",\"status\":\"fail\"}"
+  }
+]

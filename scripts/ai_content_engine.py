@@ -191,13 +191,21 @@ for _t in TEMPLATES:
         TEMPLATES_BY_CATEGORY[_cat] = []
     TEMPLATES_BY_CATEGORY[_cat].append(_t)
 
+PSYCHOLOGY_ALIASES = {
+    "behavioral_economics": ["行動経済学", "損失回避", "アンカリング", "フレーミング", "サンクコスト", "社会的証明", "デフォルト効果", "現状維持", "IKEA効果", "初頭効果", "ハロー効果", "メンタルアカウンティング", "機会費用", "時間的割引", "ゼロリスク"],
+    "positive_psychology": ["ポジティブ心理学", "PERMA", "成長マインドセット", "フロー理論", "VIA", "感謝介入", "希望理論", "自己決定理論", "ポジティブ加齢"],
+    "philosophy": ["哲学", "ストア", "実存主義", "サルトル", "アドラー", "ニーチェ", "禅仏教", "マインドフルネス", "功利主義"],
+}
+
 def pick_template(category: str = None, psychology: str = None) -> Optional[Dict]:
     """Pick a random template, optionally filtered by category or psychology."""
     pool = TEMPLATES
     if category:
         pool = [t for t in pool if t.get("category") == category]
     if psychology:
-        pool = [t for t in pool if psychology.lower() in t.get("psychology", "").lower()]
+        # Support English alias keys (e.g. "behavioral_economics")
+        keywords = PSYCHOLOGY_ALIASES.get(psychology, [psychology])
+        pool = [t for t in pool if any(kw in t.get("psychology", "") for kw in keywords)]
     return random.choice(pool) if pool else None
 
 def get_template_for_generation(category: str, cta_type: str = "soft") -> Optional[Dict]:

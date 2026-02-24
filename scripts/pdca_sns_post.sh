@@ -1,19 +1,18 @@
 #!/bin/bash
 # ===========================================
-# ROBBY THE MATCH SNS投稿準備 v3.0
+# ナースロビー SNS自動投稿 v4.0
 # cron: 30 17 * * 1-6（月-土 17:30）
 #
-# このスクリプトは次のpending投稿をBufferアップロード用に準備する。
-# 自動アップロード（tiktok_post.py）は廃止。
-# 手動でBufferからアップロードした後、
-#   python3 scripts/sns_workflow.py --mark-posted <ID>
-# で完了マークをつける。
+# v4.0: 完全自動投稿（Instagram自動 + TikTok通知）
+# - auto_post.py でInstagramに自動投稿
+# - TikTokはSlack通知して手動アップ待ち
+# - キュー枯渇時はコンテンツ自動生成をトリガー
 # ===========================================
 
 source "$(dirname "$0")/utils.sh"
 init_log "sns_post"
 
-echo "[INFO] SNS投稿準備 v3.0 開始" >> "$LOG"
+echo "[INFO] SNS自動投稿 v4.0 開始" >> "$LOG"
 
 # エージェント状態更新
 update_agent_state "sns_poster" "running"
@@ -21,58 +20,74 @@ update_agent_state "sns_poster" "running"
 # 指示確認
 check_instructions "sns_poster"
 
-# Step 1: キューファイル存在確認
-if [ ! -f "$PROJECT_DIR/data/posting_queue.json" ]; then
-    echo "[ERROR] 投稿キューが見つかりません" >> "$LOG"
-    slack_notify "[SNS] 投稿キューが見つかりません。初期化が必要です。"
-    update_agent_state "sns_poster" "failed"
-    echo "=== [$TODAY $NOW] sns_post 終了（エラー） ===" >> "$LOG"
-    exit 1
+# Step 1: content/ready/ に投稿素材があるか確認
+READY_COUNT=$(ls -d "$PROJECT_DIR/content/ready"/*/ 2>/dev/null | wc -l | tr -d ' ')
+echo "[INFO] 準備済みコンテンツ: ${READY_COUNT}件" >> "$LOG"
+
+if [ "$READY_COUNT" -eq 0 ]; then
+    echo "[INFO] 準備済みコンテンツなし → sns_workflow.py で準備" >> "$LOG"
+    python3 "$PROJECT_DIR/scripts/sns_workflow.py" --prepare-next >> "$LOG" 2>&1
 fi
 
-# Step 2: 次の投稿を準備（スライド確認→readyフォルダ作成→Slack通知）
-echo "[INFO] 次の投稿を準備中..." >> "$LOG"
-python3 "$PROJECT_DIR/scripts/sns_workflow.py" --prepare-next >> "$LOG" 2>&1
-PREP_EXIT=$?
+# Step 2: Instagram自動投稿
+echo "[INFO] Instagram自動投稿..." >> "$LOG"
+python3 "$PROJECT_DIR/scripts/auto_post.py" --instagram >> "$LOG" 2>&1
+IG_EXIT=$?
 
-if [ $PREP_EXIT -eq 0 ]; then
-    echo "[INFO] 投稿準備成功" >> "$LOG"
-    update_agent_state "sns_poster" "completed"
+if [ $IG_EXIT -eq 0 ]; then
+    echo "[INFO] Instagram投稿処理完了" >> "$LOG"
 else
-    echo "[WARN] 投稿準備失敗 (exit=$PREP_EXIT)" >> "$LOG"
-    update_agent_state "sns_poster" "failed"
+    echo "[WARN] Instagram投稿失敗 (exit=$IG_EXIT)" >> "$LOG"
 fi
 
-# Step 3: キュー状態をログに記録
-python3 "$PROJECT_DIR/scripts/sns_workflow.py" --status >> "$LOG" 2>&1
+# Step 3: TikTok通知（手動アップ用）
+echo "[INFO] TikTok投稿通知..." >> "$LOG"
+python3 "$PROJECT_DIR/scripts/auto_post.py" --tiktok >> "$LOG" 2>&1
 
-# Step 4: 進捗記録
-QUEUE_STATUS=$(python3 -c "
+# Step 4: 投稿ステータス確認
+echo "[INFO] 投稿ステータス:" >> "$LOG"
+python3 "$PROJECT_DIR/scripts/auto_post.py" --status >> "$LOG" 2>&1
+
+# Step 5: キュー枯渇チェック
+READY_REMAINING=$(ls -d "$PROJECT_DIR/content/ready"/*/ 2>/dev/null | wc -l | tr -d ' ')
+POSTED_COUNT=$(python3 -c "
 import json
-with open('$PROJECT_DIR/data/posting_queue.json') as f:
-    q = json.load(f)
-posted = sum(1 for p in q['posts'] if p['status'] == 'posted')
-ready = sum(1 for p in q['posts'] if p['status'] == 'ready')
-failed = sum(1 for p in q['posts'] if p['status'] == 'failed')
-pending = sum(1 for p in q['posts'] if p['status'] == 'pending')
-total = len(q['posts'])
-print(f'投稿済み: {posted} / 準備済み: {ready} / 待機: {pending} / 失敗: {failed} / 合計: {total}')
-" 2>/dev/null || echo "状態取得失敗")
-
-update_progress "sns_post" "SNS投稿: $QUEUE_STATUS"
-
-# Step 5: キュー枯渇警告
-PENDING_COUNT=$(python3 -c "
-import json
-with open('$PROJECT_DIR/data/posting_queue.json') as f:
-    q = json.load(f)
-print(sum(1 for p in q['posts'] if p['status'] in ('pending', 'ready')))
+from pathlib import Path
+log_file = Path('$PROJECT_DIR/data/post_log.json')
+if log_file.exists():
+    log = json.loads(log_file.read_text())
+    posted = set(e['dir'] for e in log if e.get('status') == 'success' and e.get('platform') == 'instagram')
+    print(len(posted))
+else:
+    print(0)
 " 2>/dev/null || echo "0")
 
-if [ "$PENDING_COUNT" -lt 5 ]; then
-    echo "[WARN] キュー残り${PENDING_COUNT}件 → コンテンツ追加生成が必要" >> "$LOG"
-    create_agent_task "sns_poster" "content_creator" "generate_batch" "キュー残り${PENDING_COUNT}件。7本追加生成が必要。"
-    slack_notify "[SNS] 投稿キュー残り${PENDING_COUNT}件。コンテンツ生成を要請しました。"
+echo "[INFO] 投稿済み: ${POSTED_COUNT}件 / 残りready: ${READY_REMAINING}件" >> "$LOG"
+
+# 未投稿が3件未満ならコンテンツ生成をトリガー
+UNPOSTED=$(python3 -c "
+import json
+from pathlib import Path
+log_file = Path('$PROJECT_DIR/data/post_log.json')
+ready_dir = Path('$PROJECT_DIR/content/ready')
+posted = set()
+if log_file.exists():
+    log = json.loads(log_file.read_text())
+    posted = set(e['dir'] for e in log if e.get('status') == 'success' and e.get('platform') == 'instagram')
+dirs = [d.name for d in sorted(ready_dir.iterdir()) if d.is_dir() and d.name not in posted]
+print(len(dirs))
+" 2>/dev/null || echo "0")
+
+if [ "$UNPOSTED" -lt 3 ]; then
+    echo "[WARN] 未投稿コンテンツ残り${UNPOSTED}件 → 追加生成が必要" >> "$LOG"
+    # コンテンツ生成パイプラインをトリガー
+    python3 "$PROJECT_DIR/scripts/sns_workflow.py" --prepare-next >> "$LOG" 2>&1
+    create_agent_task "sns_poster" "content_creator" "generate_batch" "未投稿コンテンツ残り${UNPOSTED}件。追加生成が必要。"
+    slack_notify "[SNS] 未投稿コンテンツ残り${UNPOSTED}件。追加コンテンツ生成を要請しました。"
 fi
+
+# Step 6: 進捗記録
+update_progress "sns_post" "SNS自動投稿: IG済${POSTED_COUNT}件 / 未投稿${UNPOSTED}件"
+update_agent_state "sns_poster" "completed"
 
 echo "=== [$TODAY $NOW] sns_post 完了 ===" >> "$LOG"
