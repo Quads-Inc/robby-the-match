@@ -20,7 +20,7 @@ for cycle in pdca_seo_batch pdca_content pdca_review pdca_sns_post; do
 done
 
 # === サイト死活監視 ===
-PUBLIC_URL="https://haruhi-medical.github.io/robby-the-match/lp/job-seeker/"
+PUBLIC_URL="https://quads-nurse.com/lp/job-seeker/"
 HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$PUBLIC_URL" 2>/dev/null)
 [ "$HTTP_CODE" != "200" ] && ISSUES="${ISSUES}\n❌ サイト応答異常(${HTTP_CODE})"
 

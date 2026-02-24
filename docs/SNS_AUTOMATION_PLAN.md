@@ -379,7 +379,7 @@ python3 scripts/tiktok_auth.py --check
 # 「TikTokにログインして、@robby15051のプロフィールを設定して:
 #   - アイコン: content/base-images/robby_icon.png
 #   - BIO: 看護師の転職を、手数料10%で。AI×人のハイブリッドサポート。神奈川県西部。
-#   - リンク: https://haruhi-medical.github.io/robby-the-match/lp/job-seeker/
+#   - リンク: https://quads-nurse.com/lp/job-seeker/
 #   - 名前: ROBBY THE MATCH」
 ```
 

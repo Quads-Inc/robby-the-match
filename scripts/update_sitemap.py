@@ -25,7 +25,7 @@ from datetime import date
 from xml.dom.minidom import Document
 
 # === 設定 ===
-BASE_URL = "https://haruhi-medical.github.io/robby-the-match/"
+BASE_URL = "https://quads-nurse.com/"
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 出力先

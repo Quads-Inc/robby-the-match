@@ -1,5 +1,5 @@
 # ナースロビー 状態ファイル
-# 最終更新: 2026-02-24 10:00 by 競合監視
+# 最終更新: 2026-02-24 15:00 by コンテンツ生成
 
 ## 運用ルール
 - 全PDCAサイクルはこのファイルを最初に読む（他を探し回るな）
@@ -149,8 +149,8 @@
 
 ## デプロイ状態
 - GitHub Pages: ✅ 公開中
-- 公開URL: https://haruhi-medical.github.io/robby-the-match/
-- git remote: origin https://github.com/haruhi-medical/robby-the-match.git
+- 公開URL: https://quads-nurse.com/
+- git remote: origin https://github.com/Quads-Inc/robby-the-match.git
 - デプロイブランチ: master（mainからpush）
 - Cloudflare Worker: ✅ デプロイ済み（v: a8bcff75）
 - 最新push: 2026-02-23（AIチャットv2.0 + ブログ3本 + sitemap81）

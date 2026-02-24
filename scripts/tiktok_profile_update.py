@@ -22,7 +22,7 @@ TIKTOK_USERNAME = "robby15051"
 NEW_PROFILE = {
     "nickname": "ロビー｜看護師の転職10%",
     "signature": "神奈川県西部の看護師さんへ\n手数料10%だから病院がすぐ採用してくれる\nLINE登録で無料相談👇",
-    "bio_link": "https://haruhi-medical.github.io/robby-the-match/lp/job-seeker/?utm_source=tiktok&utm_medium=profile&utm_campaign=bio_link"
+    "bio_link": "https://quads-nurse.com/lp/job-seeker/?utm_source=tiktok&utm_medium=profile&utm_campaign=bio_link"
 }
 
 

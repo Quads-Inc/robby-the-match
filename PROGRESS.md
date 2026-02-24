@@ -267,7 +267,7 @@ seo: 2026-02-23 SEO改善+子ページ追加
 === [2026-02-23 10:00:00] pdca_competitor 開始 ===
 [DEBUG] timeout_cmd=gtimeout, max=20min
 Not logged in · Please run /login
-To https://github.com/haruhi-medical/robby-the-match.git
+To https://github.com/Quads-Inc/robby-the-match.git
    f0a438b..f66c802  main -> main
 
 ### content（15:00:00）
@@ -290,7 +290,7 @@ seo: 2026-02-24 SEO改善+子ページ追加
 === [2026-02-24 10:00:00] pdca_competitor 開始 ===
 [DEBUG] timeout_cmd=gtimeout, max=20min
 Not logged in · Please run /login
-To https://github.com/haruhi-medical/robby-the-match.git
+To https://github.com/Quads-Inc/robby-the-match.git
    a2953be..9b0b25a  main -> main
 
 ### content（15:00:01）

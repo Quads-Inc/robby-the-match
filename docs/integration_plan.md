@@ -51,7 +51,7 @@ robby-the-matchリポジトリに統合し、GitHub Pages + Cloudflare Workers�
 
 ### メインLP（index.html） = 総合ランディングページ
 - **配置**: リポジトリルート `/index.html`
-- **URL**: `https://haruhi-medical.github.io/robby-the-match/`
+- **URL**: `https://quads-nurse.com/`
 - **対象**: 求職者（看護師・PT） + 医療機関（病院事務長）
 - **機能**:
   - 登録フォーム（Cloudflare Workers → Slack + Google Sheets）
@@ -65,7 +65,7 @@ robby-the-matchリポジトリに統合し、GitHub Pages + Cloudflare Workers�
 
 ### LP-A（lp/job-seeker/index.html） = 求職者特化LP
 - **配置**: `/lp/job-seeker/index.html`
-- **URL**: `https://haruhi-medical.github.io/robby-the-match/lp/job-seeker/`
+- **URL**: `https://quads-nurse.com/lp/job-seeker/`
 - **対象**: 看護師（TikTok/Instagram広告からの流入）
 - **機能**:
   - 手数料比較表（シンプル）
@@ -175,7 +175,7 @@ robby-the-match/
 
 ### GitHub Pages（フロントエンド）
 1. `main` ブランチの `/` (root) をソースに設定
-2. URL: `https://haruhi-medical.github.io/robby-the-match/`
+2. URL: `https://quads-nurse.com/`
 3. カスタムドメイン設定可（将来）: `www.robby-the-match.com`
 
 ### Cloudflare Workers（API）

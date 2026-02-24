@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://haruhi-medical.github.io/robby-the-match/sitemap.xml
+Sitemap: https://quads-nurse.com/sitemap.xml
 
 # Disallow API endpoints
 Disallow: /api/

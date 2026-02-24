@@ -82,4 +82,4 @@ ROBBY THE MATCHは、看護師の転職における紹介手数料を10%に設�
 - **許可番号:** 23-ユ-302928（厚生労働大臣許可）
 - **対応エリア:** 神奈川県全域（県西部に注力）
 - **受付時間:** 平日 9:00～18:00（AIチャットは24時間対応）
-- **URL:** https://haruhi-medical.github.io/robby-the-match/
+- **URL:** https://quads-nurse.com/

@@ -409,7 +409,7 @@ def handle_deploy(channel: str, **kwargs):
                     "```\n"
                     "または Slackで `!push` を送信\n\n"
                     "*確認:*\n"
-                    "  https://haruhi-medical.github.io/robby-the-match/"
+                    "  https://quads-nurse.com/"
                 ),
             },
         },

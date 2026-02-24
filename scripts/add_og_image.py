@@ -3,7 +3,7 @@
 Add og:image meta tags to all area, guide, and blog HTML pages that are missing them.
 
 Inserts after og:url (or last og: meta tag if og:url not found):
-  <meta property="og:image" content="https://haruhi-medical.github.io/robby-the-match/assets/ogp.png">
+  <meta property="og:image" content="https://quads-nurse.com/assets/ogp.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 """
@@ -12,7 +12,7 @@ import os
 import re
 import glob
 
-OG_IMAGE_URL = "https://haruhi-medical.github.io/robby-the-match/assets/ogp.png"
+OG_IMAGE_URL = "https://quads-nurse.com/assets/ogp.png"
 BASE_DIR = os.path.expanduser("~/robby-the-match")
 
 # Directories to process
