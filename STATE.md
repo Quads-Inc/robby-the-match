@@ -175,7 +175,7 @@
 
 ## SNS状態
 - TikTok: ✅ アカウント作成済み（@robby15051）
-- Instagram: ❌ 未作成
+- Instagram: ✅ アカウント作成済み（@robby.for.nurse / https://www.instagram.com/robby.for.nurse/）
 - Google認証: robby.the.robot.2026@gmail.com
 - **自動投稿**: パイプライン構築済み（Cookie認証待ち）
 - 投稿キュー: 16件（A01→A02→Week2 7本→Weekly 7本）
