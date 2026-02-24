@@ -1,8 +1,8 @@
 {
   "lastRun": {
-    "seo_optimizer": "2026-02-24T04:00:00",
-    "health_monitor": "2026-02-23T07:00:11",
-    "competitor_analyst": "2026-02-23T10:00:04",
+    "seo_optimizer": "2026-02-24T04:00:04",
+    "health_monitor": "2026-02-24T07:00:05",
+    "competitor_analyst": "2026-02-24T10:00:00",
     "content_creator": "2026-02-23T15:00:00",
     "daily_reviewer": "2026-02-23T23:00:06",
     "weekly_strategist": "2026-02-22T06:00:05",
@@ -10,9 +10,9 @@
     "sns_poster": "2026-02-23T17:32:03"
   },
   "status": {
-    "seo_optimizer": "running",
+    "seo_optimizer": "completed",
     "health_monitor": "completed",
-    "competitor_analyst": "completed",
+    "competitor_analyst": "running",
     "content_creator": "completed",
     "daily_reviewer": "completed",
     "weekly_strategist": "completed",
