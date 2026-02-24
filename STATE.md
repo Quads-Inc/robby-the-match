@@ -157,7 +157,7 @@
 ## 次にやるべきこと（優先順）
 
 ### 🔴 即座に実行（手動作業）
-1. **crontab更新**: `crontab /tmp/new_crontab.txt` を実行（AI自動化2ジョブ追加）
+1. ~~crontab更新~~ → ✅ 自動追加完了（10ジョブ稼働中）
 2. **TikTok/Instagramに毎日カルーセル投稿**: `python3 scripts/sns_workflow.py --prepare-next` → content/ready/ のスライドを手動アップ
 3. **Buffer無料プラン登録**: https://buffer.com/ でTikTok+Instagram連携（手動スケジュール投稿ツール）
 
@@ -237,7 +237,7 @@
 0 23 * * 1-6 pdca_review.sh            # 日次レビュー
 */5 * * * *  slack_commander.py         # Slack監視
 ```
-※ crontab更新待ち: `crontab /tmp/new_crontab.txt` を手動実行
+※ crontab更新完了（2026-02-24 21:30）
 
 ## Agent Team（10エージェント）
 | # | エージェント | cron | 自律レベル | 状態 |
@@ -259,7 +259,7 @@
 - ~~Instagramアカウント未作成~~ → ✅ @robby.for.nurse 作成済み
 - ~~github.ioサブドメイン~~ → ✅ quads-nurse.com取得+Netlify設定済み
 - **TikTok/Instagram投稿は手動**: Buffer無料プラン登録でスケジュール管理推奨
-- **crontab未更新**: macOS権限問題で自動更新失敗。`crontab /tmp/new_crontab.txt` 手動実行必要
+- ~~crontab未更新~~ → ✅ 10ジョブ全て稼働中
 
 ## 戦略メモ
 - 競合ゼロKW: 「神奈川県西部 看護師」「紹介料 10%」
