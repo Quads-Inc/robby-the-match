@@ -1,7 +1,7 @@
 {
   "version": 2,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-24T21:16:41.891243",
+  "updated": "2026-02-24T22:11:18.631609",
   "posts": [
     {
       "id": 1,
@@ -134,7 +134,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "pending",
+      "status": "ready",
       "video_path": "content/temp_videos/tiktok_day3.mp4",
       "posted_at": null,
       "tiktok_url": null,
@@ -175,7 +175,7 @@
       ],
       "cta_type": "hard",
       "content_type": "service",
-      "status": "pending",
+      "status": "ready",
       "video_path": "content/temp_videos/tiktok_day4.mp4",
       "posted_at": null,
       "tiktok_url": null,
@@ -216,7 +216,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "pending",
+      "status": "ready",
       "video_path": "content/temp_videos/tiktok_day5.mp4",
       "posted_at": null,
       "tiktok_url": null,

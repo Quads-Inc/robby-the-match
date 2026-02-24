@@ -30,6 +30,27 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+# ロビー君キャラクターシステム
+try:
+    from robby_character import (
+        get_robby_system_prompt,
+        pick_hook_pattern,
+        pick_cta,
+        pick_narration_opening,
+        pick_narration_transition,
+        pick_catchphrase,
+        pick_behavioral_template,
+        validate_robby_voice,
+        build_robby_caption,
+        ROBBY,
+        ROBBY_VOICE,
+        ROBBY_BEHAVIORAL_ECONOMICS,
+    )
+    ROBBY_LOADED = True
+except ImportError:
+    ROBBY_LOADED = False
+    print("[INFO] robby_character.py not found. Using default system prompt.")
+
 # ============================================================
 # Constants & Configuration
 # ============================================================
@@ -139,6 +160,58 @@ CONTENT_STOCK_HINTS = {
         "友達の結婚式で夜勤の話をAIにまとめさせたら",
     ],
 }
+
+# ============================================================
+# Behavioral Psychology x Positive Psychology x Philosophy Templates
+# 行動経済学 x ポジティブ心理学 x 哲学 統合カルーセルテンプレート 30本
+# ============================================================
+
+TEMPLATES_PATH = PROJECT_DIR / "data" / "carousel_templates.json"
+
+def _load_templates() -> List[Dict]:
+    """Load carousel templates from JSON file."""
+    if TEMPLATES_PATH.exists():
+        try:
+            with open(TEMPLATES_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"[WARN] Failed to load carousel templates: {e}")
+    return []
+
+TEMPLATES = _load_templates()
+
+# Index templates by ID for quick lookup
+TEMPLATES_BY_ID = {t["id"]: t for t in TEMPLATES}
+
+# Index templates by category + psychology combination
+TEMPLATES_BY_CATEGORY = {}
+for _t in TEMPLATES:
+    _cat = _t.get("category", "")
+    if _cat not in TEMPLATES_BY_CATEGORY:
+        TEMPLATES_BY_CATEGORY[_cat] = []
+    TEMPLATES_BY_CATEGORY[_cat].append(_t)
+
+def pick_template(category: str = None, psychology: str = None) -> Optional[Dict]:
+    """Pick a random template, optionally filtered by category or psychology."""
+    pool = TEMPLATES
+    if category:
+        pool = [t for t in pool if t.get("category") == category]
+    if psychology:
+        pool = [t for t in pool if psychology.lower() in t.get("psychology", "").lower()]
+    return random.choice(pool) if pool else None
+
+def get_template_for_generation(category: str, cta_type: str = "soft") -> Optional[Dict]:
+    """Get a template suitable for content generation, matching CTA type preference."""
+    candidates = TEMPLATES_BY_CATEGORY.get(category, [])
+    if not candidates:
+        return None
+    # Prefer templates matching the requested CTA type
+    matching_cta = [t for t in candidates if any(
+        s.get("cta_type") == cta_type for s in t.get("slides", []) if s.get("type") == "cta"
+    )]
+    if matching_cta:
+        return random.choice(matching_cta)
+    return random.choice(candidates)
 
 
 # ============================================================
@@ -410,7 +483,11 @@ def analyze_queue_mix(queue: dict) -> Dict[str, int]:
 # System Prompt for Content Generation
 # ============================================================
 
-SYSTEM_PROMPT = """あなたはナースロビー（NURSE ROBBY）のSNSコンテンツクリエイターAIです。
+# SYSTEM_PROMPT: ロビー君キャラクターシステムが読み込まれていればそちらを使う
+if ROBBY_LOADED:
+    SYSTEM_PROMPT = get_robby_system_prompt()
+else:
+    SYSTEM_PROMPT = """あなたはナースロビー（NURSE ROBBY）のSNSコンテンツクリエイターAIです。
 TikTok/Instagramカルーセル（7枚スライドショー）の台本を生成します。
 
 ## ペルソナ
@@ -821,29 +898,67 @@ def _generate_content_with_ai(
 
     hint_text = f"フックのヒント: {hook_hint}" if hook_hint else ""
 
+    # テンプレートベースの心理学フレームワーク注入
+    template_context = ""
+    template = get_template_for_generation(category, cta_type)
+    if template:
+        psych = template.get("psychology", "")
+        emotion_curve = " → ".join(template.get("emotion_curve", []))
+        slide_types = [s.get("type", "") for s in template.get("slides", [])]
+        robby_voice_ref = template.get("robby_voice", "")[:100]
+        template_context = f"""
+
+## 心理学フレームワーク（テンプレート {template['id']} 参照）
+- 心理学理論: {psych}
+- 感情曲線: {emotion_curve}
+- スライド構成: {' → '.join(slide_types)}
+- ロビー君の語り口参考: 「{robby_voice_ref}...」
+- このテンプレートのhook参考: 「{template.get('slides', [{}])[0].get('text', '')}」"""
+
+    # ロビー君キャラクターシステムが利用可能な場合、追加コンテキストを注入
+    robby_context = ""
+    if ROBBY_LOADED:
+        hook_pattern = pick_hook_pattern(category)
+        cta_template = pick_cta(cta_type)
+        behavioral_hint = ""
+        if category in ("給与", "転職"):
+            behavioral_hint = f"\n- 行動経済学の仕掛け（自然に組み込め）: {pick_behavioral_template('loss_aversion')}"
+        elif category == "あるある":
+            behavioral_hint = f"\n- 行動経済学の仕掛け（自然に組み込め）: {pick_behavioral_template('social_proof')}"
+
+        robby_context = f"""
+
+## ロビー君キャラクター指示（最重要）
+- 一人称は「ロビー」。絶対に「私」「僕」を使わない。
+- 口調は「〜だよ」「〜なんだ」。敬語禁止。
+- フック内に必ず「ロビー」の名前を含める。
+- 解説文は2-3文に1回「ロビー」を入れてキャラ感を維持。
+- 参考フックパターン: {hook_pattern['pattern']}（例: {hook_pattern['example']}）
+- CTA参考: {cta_template['text']}{behavioral_hint}"""
+
     prompt = f"""TikTokカルーセル投稿の台本を1つ生成してください。
 
 ## 指定
 - カテゴリ: {category}
 - CTA種類: {cta_type}
 - {cta_instruction}
-{hint_text}
+{hint_text}{robby_context}
 
 ## 構成
-- hook: 1枚目のフック文（20文字以内。スクロール停止力が命）
+- hook: 1枚目のフック文（20文字以内。「ロビー」の名前を含める。スクロール停止力が命）
 - slides: 6枚分のテキスト（配列）
   - slides[0]: 1枚目フック（hookと同じでOK）
-  - slides[1]-[4]: 2-5枚目のストーリー展開
-  - slides[5]: 6枚目 オチ+CTA
-- caption: SNSキャプション（200文字以内。共感を誘う語り口）
+  - slides[1]-[4]: 2-5枚目のストーリー展開（ロビーの口調で語る）
+  - slides[5]: 6枚目 オチ+CTA（ロビーのまとめ）
+- caption: SNSキャプション（200文字以内。ロビーの口調で共感を誘う）
 - hashtags: ハッシュタグ（3-5個）
-- reveal_text: 6枚目の衝撃テキスト（短く印象的に）
+- reveal_text: 6枚目の衝撃テキスト（短く印象的に。ロビーのまとめ）
 - reveal_number: 6枚目に表示する数字（あれば。例: "+10歳", "100万円"）
 
 ## 重要
-- 1枚目フックは絶対20文字以内
+- 1枚目フックは絶対20文字以内。「ロビー」の名前入り必須。
 - 看護師が「わかる！」となるリアルなあるある
-- AIを絡めた新鮮な切り口
+- ロビー君のキャラクターで一貫して語る（一人称「ロビー」、タメ口）
 - 架空のストーリーであること
 - キャプションは200文字以内
 
@@ -900,6 +1015,25 @@ JSON形式のみ出力。マークダウン記法、コードフェンス、説�
             data["id"] = content_id
             data["category"] = category
             data["cta_type"] = cta_type
+
+            # ロビー君の口調バリデーション
+            if ROBBY_LOADED:
+                all_text = " ".join([
+                    data.get("hook", ""),
+                    data.get("caption", ""),
+                    " ".join(data.get("slides", [])),
+                ])
+                voice_issues = validate_robby_voice(all_text)
+                if voice_issues:
+                    for issue in voice_issues:
+                        print(f"  [VOICE] {issue}")
+                    data["_voice_issues"] = voice_issues
+                else:
+                    print(f"  [VOICE] OK: ロビー君の口調に準拠")
+
+                # フックに「ロビー」が含まれているか確認
+                if "ロビー" not in data.get("hook", ""):
+                    print(f"  [VOICE] WARN: フックに「ロビー」がありません。修正推奨。")
 
             print(f"  [OK] Content generated: hook=\"{data.get('hook', '')[:30]}\"")
             return data
