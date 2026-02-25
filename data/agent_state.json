@@ -1,23 +1,25 @@
 {
   "lastRun": {
-    "seo_optimizer": "2026-02-25T04:00:00",
-    "health_monitor": "2026-02-24T07:00:05",
-    "competitor_analyst": "2026-02-24T10:00:04",
+    "seo_optimizer": "2026-02-25T10:00:00",
+    "health_monitor": "2026-02-25T07:00:06",
+    "competitor_analyst": "2026-02-25T10:00:00",
     "content_creator": "2026-02-24T15:00:01",
     "daily_reviewer": "2026-02-24T23:00:08",
     "weekly_strategist": "2026-02-22T06:00:05",
     "slack_commander": null,
-    "sns_poster": "2026-02-24T17:46:52"
+    "sns_poster": "2026-02-24T17:46:52",
+    "ai_marketing_orchestrator": "2026-02-25T06:00:04"
   },
   "status": {
     "seo_optimizer": "running",
     "health_monitor": "completed",
-    "competitor_analyst": "completed",
+    "competitor_analyst": "running",
     "content_creator": "completed",
     "daily_reviewer": "completed",
     "weekly_strategist": "completed",
     "slack_commander": "pending",
-    "sns_poster": "completed"
+    "sns_poster": "completed",
+    "ai_marketing_orchestrator": "completed"
   },
   "pendingTasks": {},
   "sharedContext": {
@@ -38,7 +40,10 @@
       "「給与」カテゴリの投稿が目標より不足。次バッチで重点生成。",
       "フォロワー0。投稿頻度を上げ、コメント返信でエンゲージメント向上を。"
     ],
-    "queueRemaining": 9
+    "queueRemaining": 9,
+    "lastMarketingPDCA": "2026-02-25 06:00:00",
+    "queuePending": 9,
+    "dailyGeneratedCount": 0
   },
   "agentMemory": {
     "content_creator": {
