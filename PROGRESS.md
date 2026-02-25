@@ -316,3 +316,19 @@ AI Marketing PDCA:
   Quality issues: 0
   Status: Healthy
 
+### 🔎 競合監視（10:00:00）
+=== [2026-02-25 10:00:00] pdca_competitor 開始 ===
+[DEBUG] timeout_cmd=gtimeout, max=20min
+Not logged in · Please run /login
+[INFO] 変更なし
+
+### 🔍 SEO朝サイクル（10:00:00）
+seo: 2026-02-25 SEO改善+子ページ追加
+
+### content（15:00:00）
+コンテンツ生成:   id=14, content_id=day5_fri_A05, batch=weekly_batch_20260220, cta=soft
+  id=15, content_id=day6_sat_C01, batch=weekly_batch_20260220, cta=soft
+  id=16, content_id=day7_sun_T01, batch=weekly_batch_20260220, cta=hard
+
+[NOTE] pending (6) < threshold (7) -- --auto で自動補充が実行されます
+
