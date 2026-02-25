@@ -549,7 +549,7 @@ img {
   animation: heroElementIn 1s var(--ease-out-expo) 0.7s forwards;
 }
 
-.hero-cta {
+.hero .hero-cta.btn-primary {
   display: inline-block;
   font-size: var(--text-base);
   padding: 14px 40px;
@@ -560,7 +560,7 @@ img {
   box-shadow: 0 4px 16px rgba(232, 115, 74, 0.4);
 }
 
-.hero-cta:hover {
+.hero .hero-cta.btn-primary:hover {
   background: #D4612E;
   color: #FFFFFF;
   transform: translateY(-2px);
