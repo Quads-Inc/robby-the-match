@@ -444,8 +444,8 @@ img {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: flex-start;
+  text-align: left;
   padding: 100px 20px 60px;
   position: relative;
   overflow: hidden;
@@ -477,6 +477,8 @@ img {
 .hero-content {
   position: relative;
   z-index: 3;
+  max-width: 550px;
+  margin-left: 5%;
 }
 
 .hero-label {
@@ -612,9 +614,9 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 55%;
   height: 100%;
-  background: rgba(250, 250, 242, 0.75);
+  background: linear-gradient(to right, rgba(250, 250, 242, 0.92) 0%, rgba(250, 250, 242, 0.7) 70%, rgba(250, 250, 242, 0) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -1942,6 +1944,18 @@ img {
 
 /* Mobile only: sticky CTA, chat toggle offset, cycle diagram */
 @media (max-width: 639px) {
+  .hero {
+    text-align: center;
+    justify-content: center;
+  }
+  .hero-content {
+    margin-left: 0;
+    max-width: 100%;
+  }
+  .hero-media::after {
+    width: 100%;
+    background: rgba(250, 250, 242, 0.8);
+  }
   .sticky-cta {
     display: block;
   }
