@@ -73,6 +73,15 @@ const MARKET_DATA = `【神奈川県西部 求人市場】
 人気条件: 残業月10h以内/年休120日以上/託児所あり/日勤のみ可/車通勤可/ブランク可
 年代別重視: 20代→教育体制・キャリアアップ / 30代→WLB・託児所 / 40代→通勤距離・柔軟シフト`;
 
+// ---------- 経験年数別 給与目安マップ ----------
+const EXPERIENCE_SALARY_MAP = {
+  "1年未満": { label: "新人", salaryRange: "月給24〜28万円", annualRange: "350〜420万円", note: "教育体制が充実した職場がおすすめです" },
+  "1〜3年": { label: "若手", salaryRange: "月給26〜31万円", annualRange: "380〜460万円", note: "基礎スキルを活かせる環境が見つかりやすい時期です" },
+  "3〜5年": { label: "中堅", salaryRange: "月給29〜35万円", annualRange: "430〜520万円", note: "リーダー業務の経験が年収アップの鍵になります" },
+  "5〜10年": { label: "ベテラン", salaryRange: "月給32〜40万円", annualRange: "480〜580万円", note: "主任・副師長ポジションも狙える経験年数です" },
+  "10年以上": { label: "エキスパート", salaryRange: "月給35〜45万円", annualRange: "520〜650万円", note: "管理職や専門性を活かしたポジションが豊富にあります" },
+};
+
 // ---------- 外部公開求人データ（2026年2月時点） ----------
 const EXTERNAL_JOBS = {
   nurse: {
@@ -412,7 +421,7 @@ function scoreFacilities(preferences, profession, area, userStation) {
   return scored.slice(0, 5);
 }
 
-function buildSystemPrompt(userMsgCount, profession, area) {
+function buildSystemPrompt(userMsgCount, profession, area, experience) {
   // Build area-specific hospital info from AREA_METADATA + FACILITY_DATABASE
   let hospitalInfo = "";
   if (area) {
@@ -535,6 +544,14 @@ ${SHIFT_DATA}
 
 ${MARKET_DATA}
 
+【重要: 紹介可能施設と一般情報の区別】
+- ナースロビーが直接ご紹介できる求人: 小林病院（小田原市・163床・ケアミックス型）のみ
+- 小林病院については「ナースロビーから直接ご紹介できる求人です」と伝えてよい
+- それ以外の施設データベースの情報は「このエリアにはこういった医療機関があります」と一般的な地域情報として伝える
+- 契約外の施設について「紹介できます」「応募できます」「求人が出ています」とは絶対に言わない
+- 地域の施設情報を伝えた後は「詳しい求人状況はLINEでお調べしますね」と誘導する
+- 小林病院以外の施設を紹介する際は具体的な給与額は避け、「このエリアの相場は月給○〜○万円です」と一般論で伝える
+
 【厳守ルール】
 - 上記データベースに基づいて具体的な施設名・条件・数字を積極的に示す
 - 曖昧な回答より、具体的な数字（病床数、看護師数、給与レンジ）を含めた回答を優先する
@@ -558,6 +575,12 @@ ${MARKET_DATA}
     basePrompt += `\n\nこの求職者は${profession}です。`;
   } else if (area) {
     basePrompt += `\n\nこの求職者は${area}エリアでの転職を検討しています。上記の施設データベースを最大限活用して、具体的な提案をしてください。`;
+  }
+
+  // Experience context injection
+  if (experience && EXPERIENCE_SALARY_MAP[experience]) {
+    const expData = EXPERIENCE_SALARY_MAP[experience];
+    basePrompt += `\n\nこの求職者の経験年数は「${experience}」（${expData.label}）です。この経験年数の${profKey}の給与目安は${expData.salaryRange}（年収${expData.annualRange}）です。${expData.note}。この経験年数に合わせた具体的な給与提示と提案をしてください。`;
   }
 
   // Message-count-aware prompt injection（行動経済学フェーズ別）
@@ -798,7 +821,7 @@ async function handleChat(request, env) {
 
   try {
     const body = await request.json();
-    const { messages, sessionId, token, phone, timestamp, profession, area, station } = body;
+    const { messages, sessionId, token, phone, timestamp, profession, area, station, experience } = body;
 
     // Token validation
     const secretKey = env.CHAT_SECRET_KEY;
@@ -816,10 +839,11 @@ async function handleChat(request, env) {
       return jsonResponse({ error: "認証に失敗しました" }, 401, allowedOrigin);
     }
 
-    // Sanitize profession/area/station (optional strings from pre-chat steps)
+    // Sanitize profession/area/station/experience (optional strings from pre-chat steps)
     const safeProfession = typeof profession === "string" ? profession.slice(0, 50) : "";
     const safeArea = typeof area === "string" ? area.slice(0, 50) : "";
     const safeStation = typeof station === "string" ? station.slice(0, 50) : "";
+    const safeExperience = typeof experience === "string" ? experience.slice(0, 20) : "";
 
     // メッセージ配列の検証
     if (!messages || !Array.isArray(messages)) {
@@ -863,8 +887,8 @@ async function handleChat(request, env) {
       );
     }
 
-    // システムプロンプトをサーバー側で構築（メッセージ数・職種・エリアに応じて変化）
-    let systemPrompt = buildSystemPrompt(userMsgCount, safeProfession, safeArea);
+    // システムプロンプトをサーバー側で構築（メッセージ数・職種・エリア・経験年数に応じて変化）
+    let systemPrompt = buildSystemPrompt(userMsgCount, safeProfession, safeArea, safeExperience);
     // 最寄り駅情報があれば距離情報を注入
     if (safeStation) {
       const stationCoords = getStationCoords(safeStation);

@@ -605,6 +605,64 @@
   padding: 8px 0 4px;
 }
 
+/* Referral facility card (紹介可能施設) */
+.chat-facility-card--referral {
+  border-color: rgba(6, 199, 85, 0.3);
+  background: linear-gradient(135deg, #f0fdf4 0%, #FFFFFF 100%);
+}
+
+.chat-facility-card--referral:hover {
+  border-color: #06C755;
+}
+
+/* Info facility card (一般エリア情報) */
+.chat-facility-card--info {
+  opacity: 0.88;
+}
+
+/* Badge */
+.facility-card-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.facility-card-badge--referral {
+  background: rgba(6, 199, 85, 0.12);
+  color: #06C755;
+  border: 1px solid rgba(6, 199, 85, 0.25);
+}
+
+.facility-card-badge--info {
+  background: rgba(91, 120, 125, 0.06);
+  color: #7A7A7A;
+  border: 1px solid rgba(91, 120, 125, 0.15);
+}
+
+/* Facility card CTA */
+.facility-card-cta {
+  margin-top: 8px;
+  padding: 6px 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #06C755;
+  text-align: center;
+  border-top: 1px solid rgba(6, 199, 85, 0.15);
+}
+
+.facility-card-notify {
+  margin-top: 8px;
+  padding: 6px 0;
+  font-size: 0.72rem;
+  color: #A0A0A0;
+  text-align: center;
+  border-top: 1px solid #E5E0D5;
+}
+
 /* ---------- LINE Card (CTA) ---------- */
 .chat-line-card {
   background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);

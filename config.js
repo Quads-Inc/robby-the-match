@@ -21,7 +21,20 @@ const CONFIG = {
   },
 
   // 主要医療機関データ（病院機能報告ベース・全59施設中の代表例）
+  // referral: true = ナースロビーが直接紹介可能な契約施設
   HOSPITALS: [
+    {
+      id: "kobayashi",
+      displayName: "小林病院（小田原市・163床）",
+      type: "ケアミックス型",
+      beds: 163,
+      salary: "月給26〜38万円（目安）",
+      holidays: "年間休日110日以上",
+      nightShift: "あり（二交代制）",
+      commute: "小田原駅徒歩圏",
+      features: "ナースロビー紹介可能・ケアミックス・ブランクOK・教育体制あり",
+      referral: true,
+    },
     {
       id: "tokai_univ",
       displayName: "東海大学医学部付属病院（伊勢原市・804床）",
@@ -32,6 +45,7 @@ const CONFIG = {
       nightShift: "あり（三交代制）",
       commute: "伊勢原駅バス10分",
       features: "県西最大規模・看護師741名・救命救急・教育体制充実",
+      referral: false,
     },
     {
       id: "fujisawa_city",
@@ -43,6 +57,7 @@ const CONFIG = {
       nightShift: "あり（三交代制）",
       commute: "藤沢駅バス10分",
       features: "公立病院・看護師405名・地域医療支援病院",
+      referral: false,
     },
     {
       id: "ebina_general",
@@ -54,6 +69,7 @@ const CONFIG = {
       nightShift: "あり（二交代制）",
       commute: "海老名駅徒歩7分",
       features: "県央唯一の救命救急センター・看護師431名・PT56名",
+      referral: false,
     },
     {
       id: "hiratsuka_kyosai",
@@ -65,6 +81,7 @@ const CONFIG = {
       nightShift: "あり（二交代制）",
       commute: "平塚駅バス7分",
       features: "地域医療支援病院・看護師301名",
+      referral: false,
     },
     {
       id: "odawara_city",
@@ -76,6 +93,7 @@ const CONFIG = {
       nightShift: "あり（三交代制）",
       commute: "小田原駅バス10分",
       features: "2026年新築移転予定・看護師270名・救命救急・災害拠点",
+      referral: false,
     },
     {
       id: "chigasaki_city",
@@ -87,6 +105,7 @@ const CONFIG = {
       nightShift: "あり（二交代制）",
       commute: "茅ヶ崎駅バス5分",
       features: "公立病院・看護師216名・地域がん拠点",
+      referral: false,
     },
   ],
 
