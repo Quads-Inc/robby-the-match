@@ -443,10 +443,10 @@ img {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-start;
   text-align: left;
-  padding: 100px 20px 60px;
+  padding: 0;
   position: relative;
   overflow: hidden;
 }
@@ -477,8 +477,13 @@ img {
 .hero-content {
   position: relative;
   z-index: 3;
-  max-width: 550px;
-  margin-left: 5%;
+  width: 42%;
+  min-width: 400px;
+  padding: 120px 48px 60px 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg-primary);
 }
 
 .hero-label {
@@ -534,8 +539,6 @@ img {
   line-height: 1.7;
   margin-bottom: var(--space-block);
   max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
   opacity: 0;
   animation: heroElementIn 1s var(--ease-out-expo) 0.7s forwards;
 }
@@ -568,68 +571,28 @@ img {
   }
 }
 
-/* ---------- Hero Slideshow & Media ---------- */
+/* ---------- Hero Image (Split Layout) ---------- */
 .hero-media {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  width: 58%;
+  min-height: 100vh;
   z-index: 0;
+  overflow: hidden;
 }
 
-.hero-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 1.2s ease;
-}
-
-.hero-slide img {
+.hero-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.hero-slide-active {
-  opacity: 1;
-}
-
-.hero-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
+  display: block;
 }
 
 .hero-media::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 55%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(250, 250, 242, 0.92) 0%, rgba(250, 250, 242, 0.7) 70%, rgba(250, 250, 242, 0) 100%);
-  z-index: 1;
-  pointer-events: none;
+  display: none;
 }
 
 .hero-botanical {
-  position: absolute;
-  bottom: -20px;
-  right: -20px;
-  width: 200px;
-  height: 200px;
-  opacity: 0.08;
-  z-index: 2;
-  pointer-events: none;
+  display: none;
 }
 
 .placeholder-label {
@@ -1943,19 +1906,28 @@ img {
 }
 
 /* Mobile only: sticky CTA, chat toggle offset, cycle diagram */
-@media (max-width: 639px) {
+@media (max-width: 899px) {
   .hero {
-    text-align: center;
-    justify-content: center;
+    flex-direction: column-reverse;
+    min-height: auto;
   }
   .hero-content {
-    margin-left: 0;
-    max-width: 100%;
-  }
-  .hero-media::after {
     width: 100%;
-    background: rgba(250, 250, 242, 0.8);
+    min-width: 0;
+    padding: 40px 20px 40px;
+    text-align: center;
   }
+  .hero-media {
+    width: 100%;
+    min-height: 50vh;
+    max-height: 400px;
+  }
+  .hero-subtitle {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media (max-width: 639px) {
   .sticky-cta {
     display: block;
   }
