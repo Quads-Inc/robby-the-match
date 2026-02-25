@@ -553,18 +553,18 @@ img {
   display: inline-block;
   font-size: var(--text-base);
   padding: 14px 40px;
-  background: #D4845A;
+  background: #E8734A;
   color: #FFFFFF;
   border-radius: 60px;
   font-weight: 700;
-  box-shadow: 0 4px 16px rgba(212, 132, 90, 0.35);
+  box-shadow: 0 4px 16px rgba(232, 115, 74, 0.4);
 }
 
 .hero-cta:hover {
-  background: #C07348;
+  background: #D4612E;
   color: #FFFFFF;
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(212, 132, 90, 0.45);
+  box-shadow: 0 6px 24px rgba(232, 115, 74, 0.5);
 }
 
 .hero-note {
