@@ -1212,6 +1212,48 @@ img {
 }
 
 /* ---------- Registration Form ---------- */
+/* ---------- Visual Break (Full-width image section) ---------- */
+.visual-break {
+  width: 100%;
+  overflow: hidden;
+}
+
+.visual-break-inner {
+  width: 100%;
+  min-height: 320px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visual-break-overlay {
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, rgba(38,70,83,0.45) 0%, rgba(42,157,143,0.3) 100%);
+}
+
+.visual-break-text {
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 700;
+  text-align: center;
+  padding: 20px 40px;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+/* ---------- Register with background ---------- */
+.register-with-bg {
+  background: linear-gradient(rgba(250,250,242,0.92), rgba(250,250,242,0.92)), url('assets/hero-2.webp') center / cover no-repeat fixed;
+}
+
 .register {
   padding: var(--space-section) 0;
   position: relative;
