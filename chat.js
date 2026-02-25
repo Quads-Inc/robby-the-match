@@ -29,7 +29,7 @@
 
   // 経験年数別の補正係数
   var EXP_MULTIPLIER = {
-    "1-3": 0.85, "3-5": 0.95, "5-10": 1.05, "10+": 1.15,
+    "0-1": 0.75, "1-3": 0.85, "3-5": 0.95, "5-10": 1.05, "10+": 1.15,
   };
 
   // --------------------------------------------------
@@ -498,7 +498,7 @@
     }
     // 経験年数による補正（EXP_MULTIPLIER適用）
     var expKey = null;
-    if (chatState.experience === "1年未満") expKey = "1-3";
+    if (chatState.experience === "1年未満") expKey = "0-1";
     else if (chatState.experience === "1〜3年") expKey = "1-3";
     else if (chatState.experience === "3〜5年") expKey = "3-5";
     else if (chatState.experience === "5〜10年") expKey = "5-10";
@@ -968,6 +968,14 @@
           addMessage("ai", fallback);
           chatState.apiMessages.push({ role: "assistant", content: fallback });
         }
+        els.input.focus();
+        saveState();
+      }).catch(function () {
+        hideTyping();
+        chatState.demoMode = true;
+        var fallback = "ありがとうございます！もう少し詳しくお伺いしますね。\n\n今のお仕事で、特に気になっていることはどんなことですか？（お給料、人間関係、夜勤、通勤…何でもOKです）";
+        addMessage("ai", fallback);
+        chatState.apiMessages.push({ role: "assistant", content: fallback });
         els.input.focus();
         saveState();
       });

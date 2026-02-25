@@ -118,7 +118,7 @@ const EXTERNAL_JOBS = {
   },
   pt: {
     "小田原": [
-      "ケアミックス病院(163床): 月給23.5〜25.7万円/日勤/小田原駅徒歩5分/入院・外来・訪問リハ",
+      "ケアミックス病院(150床): 月給23.5〜25.7万円/日勤/小田原駅徒歩5分/入院・外来・訪問リハ",
       "小澤病院リハ科: 月給24〜30万円/PT・OT・ST同時募集/回復期リハ病棟あり",
       "訪問看護STトモ小田原: 月給28〜35万円/完全週休2日/在宅リハビリ",
       "グレースヒル・湘南(老健): 年収402万〜/年休122日/中井町",
@@ -545,7 +545,7 @@ ${SHIFT_DATA}
 ${MARKET_DATA}
 
 【重要: 紹介可能施設と一般情報の区別】
-- ナースロビーが直接ご紹介できる求人: 小林病院（小田原市・163床・ケアミックス型）のみ
+- ナースロビーが直接ご紹介できる求人: 小林病院（小田原市・150床・ケアミックス型）のみ
 - 小林病院については「ナースロビーから直接ご紹介できる求人です」と伝えてよい
 - それ以外の施設データベースの情報は「このエリアにはこういった医療機関があります」と一般的な地域情報として伝える
 - 契約外の施設について「紹介できます」「応募できます」「求人が出ています」とは絶対に言わない
@@ -698,8 +698,11 @@ async function handleChatInit(request, env) {
       }
     }
 
-    // Phone validation
-    if (!validatePhoneNumber(phone)) {
+    // Anonymous mode: allow chat without phone number (limited session)
+    const isAnonymous = phone === "anonymous";
+
+    // Phone validation (skip for anonymous sessions)
+    if (!isAnonymous && !validatePhoneNumber(phone)) {
       return jsonResponse({ error: "正しい電話番号を入力してください" }, 400, allowedOrigin);
     }
 
@@ -719,9 +722,9 @@ async function handleChatInit(request, env) {
       }
     }
 
-    // Per-phone rate limit: max 3 sessions per phone per 24h
-    const phoneDigits = phone.replace(/[\s\-]/g, "");
-    const phoneKey = `phone:${phoneDigits}`;
+    // Per-phone rate limit: max 3 sessions per phone per 24h (anonymous uses IP-based key)
+    const phoneDigits = isAnonymous ? "anonymous" : phone.replace(/[\s\-]/g, "");
+    const phoneKey = isAnonymous ? `anon:${request.headers.get("cf-connecting-ip") || "unknown"}` : `phone:${phoneDigits}`;
     let phoneEntry = phoneSessionMap.get(phoneKey);
 
     if (!phoneEntry || now - phoneEntry.windowStart > 86400000) {
@@ -1641,13 +1644,15 @@ function sanitize(str) {
 // CORS設定（複数オリジン対応: 本番 + ローカル開発）
 function isOriginAllowed(origin, env) {
   if (!origin) return false;
-  // ALLOWED_ORIGIN が "*" なら全許可
-  const configuredOrigin = env.ALLOWED_ORIGIN || "*";
-  if (configuredOrigin === "*") return true;
+  // 本番オリジン（環境変数またはデフォルト値）
+  const configuredOrigin = env.ALLOWED_ORIGIN || "https://quads-nurse.com";
   // 本番オリジン一致
   if (origin === configuredOrigin) return true;
-  // ローカル開発: file:// (null), localhost, 127.0.0.1
-  if (origin === "null") return true;
+  // www付きも許可
+  if (origin === "https://www.quads-nurse.com") return true;
+  // Netlifyプレビュー
+  if (/^https:\/\/[a-z0-9-]+--delicate-katafi-1a74cb\.netlify\.app$/.test(origin)) return true;
+  // ローカル開発: localhost, 127.0.0.1
   if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return true;
   return false;
 }
@@ -1656,7 +1661,7 @@ function isOriginAllowed(origin, env) {
 function getResponseOrigin(request, env) {
   const origin = request.headers.get("Origin") || "";
   if (isOriginAllowed(origin, env)) return origin || "*";
-  return env.ALLOWED_ORIGIN || "*";
+  return env.ALLOWED_ORIGIN || "https://quads-nurse.com";
 }
 
 function handleCORS(request, env) {

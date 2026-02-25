@@ -442,7 +442,7 @@ export const FACILITY_DATABASE = {
     {
       "name": "小林病院",
       "type": "急性期・回復期・慢性期",
-      "beds": 163,
+      "beds": 150,
       "wardCount": 3,
       "functions": [
         "急性期",

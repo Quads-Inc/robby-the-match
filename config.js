@@ -25,9 +25,9 @@ const CONFIG = {
   HOSPITALS: [
     {
       id: "kobayashi",
-      displayName: "小林病院（小田原市・163床）",
+      displayName: "小林病院（小田原市・150床）",
       type: "ケアミックス型",
-      beds: 163,
+      beds: 150,
       salary: "月給26〜38万円（目安）",
       holidays: "年間休日110日以上",
       nightShift: "あり（二交代制）",

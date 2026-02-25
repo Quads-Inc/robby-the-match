@@ -242,7 +242,7 @@ const JOB_DATABASE = {
       { facility: "南足柄訪問看護ステーション", area: "南足柄市", type: "訪問看護", salary: "月給30〜36万円", shift: "日勤9:00-18:00", holidays: "年休120日", nightShift: "オンコールなし", access: "大雄山駅徒歩10分", features: "オンコールなし/のどかな環境/定着率高い", experienceRequired: "経験不問", blankOK: true, urgent: false, childcareSupport: false, lastUpdated: "2026-02-21" },
     ],
     pt: [
-      { facility: "ケアミックス病院（163床）", area: "小田原市", type: "ケアミックス", salary: "月給23.5〜25.7万円", shift: "日勤", holidays: "4週8休", access: "小田原駅徒歩5分", features: "入院・外来・訪問リハ/駅チカ" },
+      { facility: "ケアミックス病院（150床）", area: "小田原市", type: "ケアミックス", salary: "月給23.5〜25.7万円", shift: "日勤", holidays: "4週8休", access: "小田原駅徒歩5分", features: "入院・外来・訪問リハ/駅チカ" },
       { facility: "小澤病院リハ科", area: "小田原市", type: "急性期", salary: "月給24〜30万円", shift: "日勤", holidays: "4週8休", access: "小田原駅徒歩7分", features: "PT/OT/ST同時募集/回復期リハ病棟あり" },
       { facility: "訪問看護ステーションTOMO小田原", area: "小田原市", type: "訪問リハ", salary: "月給28〜35万円", shift: "日勤", holidays: "完全週休2日", access: "鴨宮駅付近", features: "在宅リハビリ/PT・OT・ST募集" },
       { facility: "グレースヒル・湘南（老健）", area: "中井町", type: "老健", salary: "年収402万円〜", shift: "日勤", holidays: "年休122日", access: "中井町松本", features: "年休122日/普通免許(AT可)" },
