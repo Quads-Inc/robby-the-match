@@ -345,7 +345,7 @@ img {
 }
 
 .nav .nav-cta {
-  background: var(--accent);
+  background: #E8734A;
   color: #FFFFFF;
   padding: 8px 20px;
   border-radius: var(--radius);
@@ -358,9 +358,9 @@ img {
 
 .nav .nav-cta:hover {
   color: #FFFFFF;
-  background: var(--accent-hover);
+  background: #D4612E;
   transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(91, 120, 125, 0.2);
+  box-shadow: 0 4px 15px rgba(232, 115, 74, 0.3);
 }
 
 /* Hamburger */
@@ -1414,6 +1414,12 @@ img {
   font-size: var(--text-lg);
   padding: 16px;
   margin-top: 8px;
+  background: #E8734A;
+  border-radius: 60px;
+}
+
+.btn-submit:hover {
+  background: #D4612E;
 }
 
 .btn-submit:disabled {
@@ -1897,6 +1903,12 @@ img {
   text-align: center;
   padding: 14px;
   font-size: var(--text-base);
+  background: #E8734A;
+  border-radius: 60px;
+}
+
+.sticky-cta-btn:hover {
+  background: #D4612E;
 }
 
 /* ---------- Form Error Banner ---------- */
