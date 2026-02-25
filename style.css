@@ -550,6 +550,7 @@ img {
 }
 
 .hero-cta {
+  display: inline-block;
   font-size: var(--text-base);
   padding: 14px 40px;
   opacity: 0;
