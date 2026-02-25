@@ -553,16 +553,12 @@ img {
   display: inline-block;
   font-size: var(--text-base);
   padding: 14px 40px;
-  opacity: 0;
-  animation: heroElementIn 1s var(--ease-out-expo) 0.9s forwards;
 }
 
 .hero-note {
   margin-top: var(--space-element);
   font-size: var(--text-sm);
   color: var(--text-secondary);
-  opacity: 0;
-  animation: heroElementIn 1s var(--ease-out-expo) 1.1s forwards;
 }
 
 @keyframes heroElementIn {
