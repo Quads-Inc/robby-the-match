@@ -799,14 +799,57 @@
         ? '<div class="facility-card-cta">LINEで詳しい条件を聞く</div>'
         : '<div class="facility-card-notify">求人状況はLINEでお調べします</div>';
 
+      // Build enriched tags line (nursingRatio, emergencyLevel, ownerType)
+      var enrichedTags = [];
+      if (h.nursingRatio) enrichedTags.push(h.nursingRatio);
+      if (h.emergencyLevel) enrichedTags.push(h.emergencyLevel);
+      if (h.ownerType) enrichedTags.push(h.ownerType);
+      if (h.dpcHospital) enrichedTags.push("DPC対象");
+      var enrichedTagsHtml = "";
+      if (enrichedTags.length > 0) {
+        enrichedTagsHtml = '<div class="facility-card-tags">';
+        for (var t = 0; t < enrichedTags.length; t++) {
+          enrichedTagsHtml += '<span class="facility-card-tag">' + escapeHtml(enrichedTags[t]) + '</span>';
+        }
+        enrichedTagsHtml += '</div>';
+      }
+
+      // Build stats line (ambulanceCount, doctorCount)
+      var statsItems = [];
+      if (h.ambulanceCount && h.ambulanceCount > 0) {
+        statsItems.push("救急車 年" + h.ambulanceCount.toLocaleString() + "台");
+      }
+      if (h.doctorCount && h.doctorCount > 0) {
+        statsItems.push("医師" + h.doctorCount + "名");
+      }
+      var statsHtml = "";
+      if (statsItems.length > 0) {
+        statsHtml = '<div class="facility-card-stats">';
+        for (var s = 0; s < statsItems.length; s++) {
+          statsHtml += '<span>' + escapeHtml(statsItems[s]) + '</span>';
+        }
+        statsHtml += '</div>';
+      }
+
+      // Build data source note
+      var sourceHtml = "";
+      if (h.dataSource || h.lastUpdated) {
+        var sourceText = "データ出典: " + (h.dataSource || "公開情報");
+        if (h.lastUpdated) sourceText += "（" + h.lastUpdated + "）";
+        sourceHtml = '<div class="facility-card-source">' + escapeHtml(sourceText) + '</div>';
+      }
+
       card.innerHTML =
         badgeHtml +
         '<div class="facility-card-name">' + escapeHtml(h.displayName) + '</div>' +
+        enrichedTagsHtml +
         '<div class="facility-card-highlight">' + escapeHtml(highlightTag) + '</div>' +
         '<div class="facility-card-details">' +
           '<span>' + escapeHtml(h.salary) + '</span>' +
           '<span>' + escapeHtml(h.holidays) + '</span>' +
         '</div>' +
+        statsHtml +
+        sourceHtml +
         ctaHtml;
 
       container.appendChild(card);

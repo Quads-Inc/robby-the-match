@@ -194,6 +194,8 @@ function extractPreferences(messages) {
     nearStation: null,
     maxCommute: null,
     specialties: [],
+    preferPublic: false,
+    preferEmergency: false,
   };
 
   // 夜勤希望（否定パターン強化）
@@ -262,6 +264,16 @@ function extractPreferences(messages) {
   const commuteMatch = allText.match(/(\d{1,3})分以内/);
   if (commuteMatch) {
     prefs.maxCommute = parseInt(commuteMatch[1]);
+  }
+
+  // 公立・国立病院希望
+  if (/公立|国立|市立|県立|公的|安定/.test(allText)) {
+    prefs.preferPublic = true;
+  }
+
+  // 救急・急性期レベル希望
+  if (/救急|救命|三次|二次|高度急性期/.test(allText)) {
+    prefs.preferEmergency = true;
   }
 
   return prefs;
@@ -368,6 +380,55 @@ function scoreFacilities(preferences, profession, area, userStation) {
     // ベーススコア（規模補正）
     if (f.beds && f.beds >= 200) score += 3;
 
+    // 看護配置（7:1は高スコア＝手厚い配置で人気）
+    if (f.nursingRatio) {
+      if (f.nursingRatio.includes("7:1")) {
+        score += 5;
+        if ((preferences.facilityTypes || []).some(t => ["急性期", "大学病院"].includes(t))) {
+          reasons.push("看護配置7:1（手厚い）");
+        }
+      }
+    }
+
+    // 救急レベル（急性期希望者・救急希望者にはボーナス、日勤のみ希望者にはペナルティ）
+    if (f.emergencyLevel && f.emergencyLevel !== "なし") {
+      if ((preferences.facilityTypes || []).some(t => ["急性期", "大学病院"].includes(t)) || preferences.preferEmergency) {
+        score += 5;
+        if (f.emergencyLevel === "三次救急") {
+          score += 5;
+          reasons.push("三次救急・高度医療");
+        } else if (f.emergencyLevel === "二次救急" && preferences.preferEmergency) {
+          score += 3;
+          reasons.push("二次救急対応");
+        }
+      }
+      if (preferences.nightShift === false && f.emergencyLevel === "三次救急") {
+        score -= 5; // 日勤希望者には三次救急はミスマッチの可能性
+      }
+    }
+
+    // 開設者区分（公立病院は安定志向の求職者に人気）
+    if (f.ownerType === "公立" || f.ownerType === "国立") {
+      score += 3;
+      if (preferences.preferPublic) {
+        score += 10;
+        if (!reasons.some(r => r.includes("公立") || r.includes("国立"))) {
+          reasons.push(`${f.ownerType}病院（福利厚生充実）`);
+        }
+      }
+      if ((preferences.priorities || []).includes("休日")) {
+        score += 3;
+        if (!reasons.some(r => r.includes("公立") || r.includes("国立"))) {
+          reasons.push(`${f.ownerType}病院（福利厚生充実）`);
+        }
+      }
+    }
+
+    // DPC対象病院（急性期の質の指標）
+    if (f.dpcHospital && (preferences.facilityTypes || []).some(t => ["急性期", "大学病院"].includes(t))) {
+      score += 3;
+    }
+
     // 距離計算（座標がある場合）
     let distanceKm = null;
     let commuteMin = null;
@@ -410,6 +471,13 @@ function scoreFacilities(preferences, profession, area, userStation) {
       annualHolidays: f.annualHolidays,
       beds: f.beds,
       nurseCount: f.nurseCount,
+      nursingRatio: f.nursingRatio || null,
+      emergencyLevel: f.emergencyLevel || null,
+      ambulanceCount: f.ambulanceCount || null,
+      ownerType: f.ownerType || null,
+      dpcHospital: f.dpcHospital || false,
+      doctorCount: f.doctorCount || null,
+      address: f.address || null,
       distanceKm: distanceKm ? Math.round(distanceKm * 10) / 10 : null,
       commuteMin: commuteMin,
       features: f.features,
@@ -445,10 +513,23 @@ function buildSystemPrompt(userMsgCount, profession, area, experience) {
             const salaryMin = f.salaryMin ? Math.round(f.salaryMin / 10000) : "?";
             const salaryMax = f.salaryMax ? Math.round(f.salaryMax / 10000) : "?";
             hospitalInfo += `\n- ${f.name}（${f.type}）: ${f.beds ? f.beds + "床" : "外来"} / 月給${salaryMin}〜${salaryMax}万円 / ${f.nightShiftType} / 休${f.annualHolidays}日 / ${f.access}`;
+            if (f.nursingRatio) hospitalInfo += ` / 看護配置${f.nursingRatio}`;
+            if (f.emergencyLevel && f.emergencyLevel !== "なし") hospitalInfo += ` / ${f.emergencyLevel}`;
+            if (f.ambulanceCount) hospitalInfo += ` / 救急車年${f.ambulanceCount.toLocaleString()}台`;
+            if (f.ownerType) hospitalInfo += ` / ${f.ownerType}`;
+            if (f.dpcHospital) hospitalInfo += ` / DPC対象`;
             if (f.nurseCount) hospitalInfo += ` / 看護師${f.nurseCount}名`;
+            if (f.doctorCount) hospitalInfo += ` / 医師${f.doctorCount}名`;
             if (f.ptCount) hospitalInfo += ` / PT${f.ptCount}名`;
+            if (f.otCount) hospitalInfo += ` / OT${f.otCount}名`;
+            if (f.stCount) hospitalInfo += ` / ST${f.stCount}名`;
+            if (f.pharmacistCount) hospitalInfo += ` / 薬剤師${f.pharmacistCount}名`;
+            if (f.midwifeCount) hospitalInfo += ` / 助産師${f.midwifeCount}名`;
+            if (f.ctCount) hospitalInfo += ` / CT${f.ctCount}台`;
+            if (f.mriCount) hospitalInfo += ` / MRI${f.mriCount}台`;
             if (f.wardCount) hospitalInfo += ` / ${f.wardCount}病棟`;
             if (f.functions && f.functions.length) hospitalInfo += ` / 機能:${f.functions.join("・")}`;
+            if (f.address) hospitalInfo += ` / ${f.address}`;
             if (f.features) hospitalInfo += ` / ${f.features}`;
           }
         }
@@ -902,7 +983,15 @@ async function handleChat(request, env) {
           if (f.lat && f.lng) {
             const dist = haversineDistance(stationCoords.lat, stationCoords.lng, f.lat, f.lng);
             const commute = Math.round(dist * 1.3 / 30 * 60);
-            nearbyFacilities.push({ name: f.name, dist: Math.round(dist * 10) / 10, commute });
+            nearbyFacilities.push({
+              name: f.name,
+              dist: Math.round(dist * 10) / 10,
+              commute,
+              beds: f.beds,
+              nursingRatio: f.nursingRatio,
+              emergencyLevel: f.emergencyLevel,
+              ownerType: f.ownerType,
+            });
           }
         }
         nearbyFacilities.sort((a, b) => a.dist - b.dist);
@@ -910,7 +999,14 @@ async function handleChat(request, env) {
         if (top10.length > 0) {
           systemPrompt += `\n\n【${safeStation}からの通勤距離（目安）】\n`;
           for (const nf of top10) {
-            systemPrompt += `- ${nf.name}: 約${nf.dist}km（通勤${nf.commute}分目安）\n`;
+            let detail = `- ${nf.name}: 約${nf.dist}km（通勤${nf.commute}分目安）`;
+            const extras = [];
+            if (nf.beds) extras.push(`${nf.beds}床`);
+            if (nf.nursingRatio) extras.push(`配置${nf.nursingRatio}`);
+            if (nf.emergencyLevel && nf.emergencyLevel !== "なし") extras.push(nf.emergencyLevel);
+            if (nf.ownerType) extras.push(nf.ownerType);
+            if (extras.length > 0) detail += ` [${extras.join("/")}]`;
+            systemPrompt += detail + "\n";
           }
           systemPrompt += "※距離は直線距離ベースの概算です。実際の通勤時間は交通手段により異なります。";
         }

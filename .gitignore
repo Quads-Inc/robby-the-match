@@ -15,3 +15,8 @@ Thumbs.db
 *.log
 TK_cookies_*.json
 .venv/
+data/public_data/*.xlsx
+data/public_data/*.zip
+data/public_data/*.csv
+data/public_data/hospital_facility/
+data/public_data/hospital_specialty/
