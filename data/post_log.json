@@ -37,5 +37,12 @@
     "retry": true,
     "status": "error",
     "error": "{\"message\":\"This user is inactive so they cannot upload.\",\"status\":\"fail\"}"
+  },
+  {
+    "platform": "instagram",
+    "dir": "20260224_day5",
+    "timestamp": "2026-02-25T17:30:13.466456",
+    "status": "error",
+    "error": "アカウント再開のためのメールを送信することができます。. If you are sure that the password is correct, then change your IP address, because it is added to the blacklist of the Instagram Server"
   }
 ]

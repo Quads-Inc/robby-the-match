@@ -332,3 +332,6 @@ seo: 2026-02-25 SEO改善+子ページ追加
 
 [NOTE] pending (6) < threshold (7) -- --auto で自動補充が実行されます
 
+### sns_post（17:30:00）
+SNS自動投稿: IG済3件 / 未投稿2件
+
