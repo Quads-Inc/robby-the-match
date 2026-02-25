@@ -86,7 +86,7 @@ except Exception as e:
     print(f'[WARN] sharedContext更新失敗: {e}')
 " >> "$LOG" 2>&1
 
-git_sync "review: ${TODAY} 日次レビュー"
+git_sync "review: ${TODAY} 日次レビュー" "true"
 update_state "日次レビュー"
 
 TODAY_REPORT=$(sed -n "/## ${TODAY}/,/## [0-9]/p" PROGRESS.md 2>/dev/null | head -50)

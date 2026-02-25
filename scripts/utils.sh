@@ -36,11 +36,16 @@ init_log() {
 
 git_sync() {
   local msg=$1
+  local do_push="${2:-false}"
   cd "$PROJECT_DIR"
   git add -A
   if ! git diff --cached --quiet; then
     git commit -m "$msg"
-    git push origin main 2>> "$LOG" || echo "[WARN] git push失敗" >> "$LOG"
+    if [ "$do_push" = "true" ]; then
+      git push origin main 2>> "$LOG" || echo "[WARN] git push失敗" >> "$LOG"
+    else
+      echo "[INFO] commit済み（pushは日次レビューで一括）" >> "$LOG"
+    fi
   else
     echo "[INFO] 変更なし" >> "$LOG"
   fi

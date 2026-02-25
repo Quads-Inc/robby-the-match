@@ -31,7 +31,7 @@ STATE.mdを読め。これが現状だ。他を探し回るな。CLAUDE.mdも読
 13. Search Consoleにping: curl -s 'https://www.google.com/ping?sitemap=サイトURL/sitemap.xml'
 " 30
 
-git_sync "seo: ${TODAY} SEO改善+子ページ追加"
+git_sync "seo: ${TODAY} SEO改善+子ページ追加" "true"
 update_state "SEO朝サイクル"
 update_progress "🔍 SEO朝サイクル" "$(git log -1 --pretty=%s 2>/dev/null)"
 update_agent_state "seo_optimizer" "completed"
