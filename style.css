@@ -443,10 +443,10 @@ img {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   text-align: left;
-  padding: 100px 0 60px;
+  padding: 100px 0 80px;
   position: relative;
   overflow: hidden;
 }
