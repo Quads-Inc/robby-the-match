@@ -71,7 +71,7 @@
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer service",
-      "email": "info@robby-the-match.com",
+      "email": "info@quads-nurse.com",
       "availableLanguage": "Japanese"
     },
     "sameAs": []
@@ -204,7 +204,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet"></noscript>
 
   <link rel="preload" href="style.css" as="style">
   <link rel="preload" href="chat.css" as="style">
@@ -222,13 +223,6 @@
 <body>
   <a href="#features" class="skip-link">コンテンツへスキップ</a>
 
-  <!-- ========== Loading Screen ========== -->
-  <div class="loading-screen" id="loadingScreen" aria-hidden="true">
-    <div class="loading-logo">
-      <div class="logo-text">ナース<span class="logo-accent">ロビー</span></div>
-      <svg class="loading-circle" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="rgba(56, 189, 248, 0.2)" stroke-width="2"/><circle cx="25" cy="25" r="20" fill="none" stroke="url(#loadGrad)" stroke-width="2" stroke-linecap="round" stroke-dasharray="0 126" class="loading-circle-progress"/><defs><linearGradient id="loadGrad"><stop offset="0%" stop-color="#2a9d8f"/><stop offset="100%" stop-color="#8FB5A1"/></linearGradient></defs></svg>
-    </div>
-  </div>
 
   <!-- ========== Custom Cursor ========== -->
   <div class="custom-cursor" id="customCursor" aria-hidden="true"></div>
@@ -269,7 +263,7 @@
   <section class="hero" id="hero">
     <div class="hero-media" aria-hidden="true">
       <div class="hero-slide hero-slide-active">
-        <img src="assets/hero-1.webp" alt="神奈川県西部で笑顔で働く看護師 — ナースロビーの転職支援" width="1920" height="1080" style="width:100%;height:100%;object-fit:cover;" loading="eager">
+        <img src="assets/hero-1.webp" alt="神奈川県西部で笑顔で働く看護師 — ナースロビーの転職支援" width="1920" height="1080" style="width:100%;height:100%;object-fit:cover;" loading="eager" fetchpriority="high">
       </div>
       <div class="hero-slide">
         <img src="assets/hero-3.webp" alt="看護師が患者と笑顔で向き合う温かい職場" width="1920" height="1080" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
@@ -840,7 +834,7 @@
         </div>
         <p class="match-note">※上記はAIによる推薦です。詳細条件は専門エージェントが個別に確認・調整いたします。</p>
         <div class="match-cta">
-          <a href="mailto:info@robby-the-match.com" class="btn btn-primary">エージェントに詳しく相談する</a>
+          <a href="mailto:info@quads-nurse.com" class="btn btn-primary">エージェントに詳しく相談する</a>
         </div>
       </div>
     </div>

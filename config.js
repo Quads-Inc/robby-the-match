@@ -17,7 +17,7 @@ const CONFIG = {
     licenseNumber: "23-ユ-302928",  // 有料職業紹介事業許可番号（厚生労働大臣許可）
     address: "神奈川県小田原市",       // 所在地（実住所に置換）
     phone: "0465-XX-XXXX",         // 電話番号（実番号に置換）
-    email: "info@robby-the-match.com",
+    email: "info@quads-nurse.com",
   },
 
   // 主要医療機関データ（病院機能報告ベース・全59施設中の代表例）
