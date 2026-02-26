@@ -110,6 +110,10 @@ const STATION_COORDINATES = {
     "lat": 35.309,
     "lng": 139.159
   },
+  "新松田駅": {
+    "lat": 35.340,
+    "lng": 139.143
+  },
   "伊勢原駅": {
     "lat": 35.395,
     "lng": 139.314
@@ -145,9 +149,9 @@ const AREA_METADATA = {
     "nurseAvgSalary": "月給28〜38万円",
     "ptAvgSalary": "月給25〜32万円",
     "facilityCount": {
-      "hospitals": 12,
-      "clinics": 0,
-      "nursingHomes": 0
+      "hospitals": 13,
+      "clinics": 139,
+      "nursingHomes": 45
     },
     "demandLevel": "非常に高い",
     "demandNote": "県西の基幹病院が集中。小田原市立病院（417床）の新築移転予定に伴い人材需要が高まる。",
@@ -170,9 +174,9 @@ const AREA_METADATA = {
     "nurseAvgSalary": "月給27〜36万円",
     "ptAvgSalary": "月給24〜31万円",
     "facilityCount": {
-      "hospitals": 4,
-      "clinics": 0,
-      "nursingHomes": 0
+      "hospitals": 8,
+      "clinics": 91,
+      "nursingHomes": 32
     },
     "demandLevel": "高い",
     "demandNote": "秦野赤十字病院（312床）を中心に安定した看護師需要。地域密着型の医療機関が多い。",
@@ -193,12 +197,12 @@ const AREA_METADATA = {
     "nurseAvgSalary": "月給28〜37万円",
     "ptAvgSalary": "月給25〜32万円",
     "facilityCount": {
-      "hospitals": 7,
-      "clinics": 0,
-      "nursingHomes": 0
+      "hospitals": 9,
+      "clinics": 173,
+      "nursingHomes": 56
     },
     "demandLevel": "非常に高い",
-    "demandNote": "平塚共済病院（441床）を筆頭に急性期病院が充実。人口規模に比して看護師需要が大きい。",
+    "demandNote": "平塚共済病院（400床）を筆頭に急性期病院が充実。人口規模に比して看護師需要が大きい。",
     "livingInfo": "海と山の両方にアクセスでき、自然と都市機能のバランスが良い。横浜通勤も現実的。",
     "defaultCoords": {
       "lat": 35.328,
@@ -218,9 +222,9 @@ const AREA_METADATA = {
     "nurseAvgSalary": "月給29〜38万円",
     "ptAvgSalary": "月給26〜33万円",
     "facilityCount": {
-      "hospitals": 14,
-      "clinics": 0,
-      "nursingHomes": 0
+      "hospitals": 16,
+      "clinics": 409,
+      "nursingHomes": 84
     },
     "demandLevel": "非常に高い",
     "demandNote": "藤沢市民病院（530床）・湘南藤沢徳洲会病院（419床）など大規模病院が集中。看護師需要が県内屈指。",
@@ -242,9 +246,9 @@ const AREA_METADATA = {
     "nurseAvgSalary": "月給28〜37万円",
     "ptAvgSalary": "月給25〜32万円",
     "facilityCount": {
-      "hospitals": 7,
-      "clinics": 0,
-      "nursingHomes": 0
+      "hospitals": 6,
+      "clinics": 144,
+      "nursingHomes": 40
     },
     "demandLevel": "高い",
     "demandNote": "茅ヶ崎市立病院（401床）が地域の中核。市内の高齢化に伴い訪問看護需要も増加。",
@@ -267,8 +271,8 @@ const AREA_METADATA = {
     "ptAvgSalary": "月給24〜31万円",
     "facilityCount": {
       "hospitals": 1,
-      "clinics": 0,
-      "nursingHomes": 0
+      "clinics": 16,
+      "nursingHomes": 8
     },
     "demandLevel": "やや高い",
     "demandNote": "大磯プリンスホテル跡地の再開発を含め、高齢者向け医療施設の需要が増加傾向。",
@@ -293,8 +297,8 @@ const AREA_METADATA = {
     "ptAvgSalary": "月給24〜30万円",
     "facilityCount": {
       "hospitals": 6,
-      "clinics": 0,
-      "nursingHomes": 0
+      "clinics": 30,
+      "nursingHomes": 12
     },
     "demandLevel": "高い",
     "demandNote": "足柄上病院（199床）が地域の中核。中山間地域の医療アクセス確保のため看護師需要が安定。",
@@ -313,11 +317,11 @@ const AREA_METADATA = {
     "ptAvgSalary": "月給25〜32万円",
     "facilityCount": {
       "hospitals": 3,
-      "clinics": 0,
-      "nursingHomes": 0
+      "clinics": 57,
+      "nursingHomes": 25
     },
     "demandLevel": "非常に高い",
-    "demandNote": "東海大学医学部付属病院（804床・看護師741名）は県西最大の医療機関。常時大量採用。",
+    "demandNote": "東海大学医学部付属病院（804床・看護師1,098名）は県西最大の医療機関。常時大量採用。",
     "livingInfo": "大山の自然と大学のある学園都市。小田急線で新宿60分、物価も手頃。",
     "defaultCoords": {
       "lat": 35.395,
@@ -336,12 +340,12 @@ const AREA_METADATA = {
     "nurseAvgSalary": "月給28〜37万円",
     "ptAvgSalary": "月給25〜32万円",
     "facilityCount": {
-      "hospitals": 9,
-      "clinics": 0,
-      "nursingHomes": 0
+      "hospitals": 12,
+      "clinics": 135,
+      "nursingHomes": 50
     },
     "demandLevel": "非常に高い",
-    "demandNote": "厚木市立病院（347床）と東名厚木病院（271床）を中心に看護師需要が旺盛。リハビリ系施設も多い。",
+    "demandNote": "厚木市立病院（347床）と東名厚木病院（289床）を中心に看護師需要が旺盛。リハビリ系施設も多い。",
     "livingInfo": "本厚木駅周辺は商業施設充実。新宿まで55分。丹沢の自然も近く子育て環境も良好。",
     "defaultCoords": {
       "lat": 35.441,
@@ -359,12 +363,12 @@ const AREA_METADATA = {
     "nurseAvgSalary": "月給29〜38万円",
     "ptAvgSalary": "月給26〜33万円",
     "facilityCount": {
-      "hospitals": 4,
-      "clinics": 0,
-      "nursingHomes": 0
+      "hospitals": 9,
+      "clinics": 170,
+      "nursingHomes": 40
     },
     "demandLevel": "非常に高い",
-    "demandNote": "海老名総合病院（479床・看護師431名・PT56名）は県央唯一の救命救急センターで常時大量採用。年間救急車7,700台超。人口増加中で需要拡大。",
+    "demandNote": "海老名総合病院（479床・看護師570名・PT56名）は県央唯一の救命救急センターで常時大量採用。年間救急車7,700台超。人口増加中で需要拡大。",
     "livingInfo": "3路線利用可能で交通利便性抜群。横浜まで30分、新宿まで50分。駅前再開発でららぽーと・ビナウォークなど商業施設充実。子育て世代に人気。",
     "defaultCoords": {
       "lat": 35.447,
@@ -387,7 +391,7 @@ const FACILITY_DATABASE = {
       ],
       "nurseCount": 386,
       "ptCount": 22,
-      "features": "公立。看護配置一般病棟7:1(急性期一般入院料１)。三次救急。年間救急車6,675台。DPC標準病院群。看護師386名。医師114名。PT22名。CT2台・MRI2台。HCU・ICU・NICU完備。退院支援部門あり。2026年新築移転予定。県西地域の基幹病院。",
+      "features": "公立。看護配置一般病棟7:1(急性期一般入院料１)。三次救急。年間救急車6,675台。DPC標準病院群。看護師386名。医師114名。PT22名。CT2台・MRI2台。HCU・ICU・NICU完備。退院支援部門あり。2026年5月に小田原市立総合医療センターとして新築開院予定（406床）。県西地域の基幹病院。",
       "access": "小田原駅バス10分",
       "nightShiftType": "三交代制",
       "annualHolidays": 120,
@@ -417,7 +421,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": "小田原駅"
+      "nearestStation": "小田原駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 3,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "医療法人 同愛会 小澤病院",
@@ -449,7 +457,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": "小田原駅"
+      "nearestStation": "小田原駅",
+      "nursingRatio": "10:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "独立行政法人国立病院機構箱根病院",
@@ -479,7 +491,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": "小田原駅"
+      "nearestStation": "小田原駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 0,
+      "ownerType": "national",
+      "dpcHospital": false
     },
     {
       "name": "医療法人尽誠会 山近記念総合病院",
@@ -511,7 +527,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": "小田原駅"
+      "nearestStation": "小田原駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": true
     },
     {
       "name": "医療法人 小林病院",
@@ -546,7 +566,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": "小田原駅"
+      "nearestStation": "小田原駅",
+      "nursingRatio": "10:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "特定医療法人社団研精会 箱根リハビリテーション病院",
@@ -577,7 +601,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "13:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "西湘病院",
@@ -610,7 +638,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2687,
       "lng": 139.176,
-      "nearestStation": "鴨宮駅"
+      "nearestStation": "鴨宮駅",
+      "nursingRatio": "13:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人邦友会 小田原循環器病院",
@@ -644,7 +676,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": "小田原駅"
+      "nearestStation": "小田原駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人社団綾和会 間中病院",
@@ -677,7 +713,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": "小田原駅"
+      "nearestStation": "小田原駅",
+      "nursingRatio": "13:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人社団 帰陽会 丹羽病院",
@@ -706,7 +746,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": "小田原駅"
+      "nearestStation": "小田原駅",
+      "nursingRatio": null,
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人社団三暉会 永井病院",
@@ -732,7 +776,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": null,
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "太陽の門",
@@ -758,22 +806,26 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.2564,
       "lng": 139.1551,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": null,
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ],
   "秦野市": [
     {
       "name": "医療法人社団三喜会 鶴巻温泉病院",
       "type": "回復期・慢性期",
-      "beds": 505,
+      "beds": 551,
       "wardCount": 10,
       "functions": [
         "慢性期",
         "回復期"
       ],
-      "nurseCount": 193,
+      "nurseCount": 230,
       "ptCount": 72,
-      "features": "医療法人。看護配置障害者7:1。救急告示。看護師193名。医師26名。PT72名。CT1台。退院支援部門あり。回復期リハビリテーション・慢性期医療に強み。地域最大級の療養病院。",
+      "features": "医療法人。看護配置障害者7:1。救急告示。看護師230名。医師26名。PT72名。CT1台。退院支援部門あり。回復期リハビリテーション・慢性期医療に強み。地域最大級の療養病院。",
       "access": "鶴巻温泉駅徒歩5分",
       "nightShiftType": "二交代制",
       "annualHolidays": 120,
@@ -797,7 +849,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.369,
       "lng": 139.27,
-      "nearestStation": "鶴巻温泉駅"
+      "nearestStation": "鶴巻温泉駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "独立行政法人国立病院機構神奈川病院",
@@ -836,7 +892,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.3737,
       "lng": 139.2192,
-      "nearestStation": "秦野駅"
+      "nearestStation": "秦野駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "national",
+      "dpcHospital": true
     },
     {
       "name": "秦野赤十字病院",
@@ -848,9 +908,9 @@ const FACILITY_DATABASE = {
         "急性期",
         "高度急性期"
       ],
-      "nurseCount": 243,
+      "nurseCount": 262,
       "ptCount": 8,
-      "features": "日赤。看護配置一般病棟7:1(急性期一般入院料１)。二次救急。年間救急車3,872台。DPC標準病院群。看護師243名。医師57名。PT8名。CT2台・MRI1台。HCU完備。退院支援部門あり。地域医療支援病院・救急告示病院・災害拠点病院・臨床研修指定病院。秦野市に市民病院がないため市民病院的役割を担う。",
+      "features": "日赤。看護配置一般病棟7:1(急性期一般入院料１)。二次救急。年間救急車3,872台。DPC標準病院群。看護師262名。医師57名。PT8名。CT2台・MRI1台。HCU完備。退院支援部門あり。地域医療支援病院・救急告示病院・災害拠点病院・臨床研修指定病院。秦野市に市民病院がないため市民病院的役割を担う。",
       "access": "秦野駅バス10分",
       "nightShiftType": "三交代制",
       "annualHolidays": 120,
@@ -877,7 +937,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.3737,
       "lng": 139.2192,
-      "nearestStation": "秦野駅"
+      "nearestStation": "秦野駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "医療法人杏林会 八木病院",
@@ -909,7 +973,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.3737,
       "lng": 139.2192,
-      "nearestStation": "秦野駅"
+      "nearestStation": "秦野駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ],
   "平塚市": [
@@ -922,9 +990,9 @@ const FACILITY_DATABASE = {
         "急性期",
         "高度急性期"
       ],
-      "nurseCount": 447,
+      "nurseCount": 531,
       "ptCount": 9,
-      "features": "公立。看護配置一般病棟7:1(急性期一般入院料１)。三次救急。年間救急車10,703台。DPC標準病院群。看護師447名。医師98名。PT9名。CT5台・MRI2台。ICU・CCU完備。退院支援部門あり。救急告示病院・災害拠点指定病院。平塚市の基幹病院。産科・小児科も充実。",
+      "features": "公立。看護配置一般病棟7:1(急性期一般入院料１)。三次救急。年間救急車10,703台。DPC標準病院群。看護師531名。医師98名。PT9名。CT5台・MRI2台。ICU・CCU完備。退院支援部門あり。救急告示病院・災害拠点指定病院。平塚市の基幹病院。産科・小児科も充実。",
       "access": "平塚駅バス10分",
       "nightShiftType": "三交代制",
       "annualHolidays": 120,
@@ -954,7 +1022,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.328,
       "lng": 139.3497,
-      "nearestStation": "平塚駅"
+      "nearestStation": "平塚駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 3,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "国家公務員共済組合連合会 平塚共済病院",
@@ -965,9 +1037,9 @@ const FACILITY_DATABASE = {
         "急性期",
         "高度急性期"
       ],
-      "nurseCount": 429,
+      "nurseCount": 436,
       "ptCount": 11,
-      "features": "公的。看護配置一般病棟7:1(急性期一般入院料１)。二次救急。年間救急車7,080台。DPC特定病院群。看護師429名。医師122名。PT11名。CT2台・MRI2台。ICU完備。退院支援部門あり。地域医療支援病院・救急告示病院・災害拠点指定病院。心臓センター・救急センター・脳卒中センター・周産期センター併設。",
+      "features": "公的。看護配置一般病棟7:1(急性期一般入院料１)。二次救急。年間救急車7,080台。DPC特定病院群。看護師436名。医師122名。PT11名。CT2台・MRI2台。ICU完備。退院支援部門あり。地域医療支援病院・救急告示病院・災害拠点指定病院。心臓センター・救急センター・脳卒中センター・周産期センター併設。",
       "access": "平塚駅バス8分",
       "nightShiftType": "三交代制",
       "annualHolidays": 120,
@@ -996,7 +1068,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.328,
       "lng": 139.3497,
-      "nearestStation": "平塚駅"
+      "nearestStation": "平塚駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "医療法人研水会 高根台病院",
@@ -1025,7 +1101,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.328,
       "lng": 139.3497,
-      "nearestStation": "平塚駅"
+      "nearestStation": "平塚駅",
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "社会福祉法人 恩賜財団済生会支部 神奈川県済生会湘南平塚病院",
@@ -1059,7 +1139,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.328,
       "lng": 139.3497,
-      "nearestStation": "平塚駅"
+      "nearestStation": "平塚駅",
+      "nursingRatio": "10:1",
+      "emergencyLevel": 0,
+      "ownerType": "public",
+      "dpcHospital": false
     },
     {
       "name": "医療法人社団健齢会 ふれあい平塚ホスピタル",
@@ -1092,7 +1176,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.328,
       "lng": 139.3497,
-      "nearestStation": "平塚駅"
+      "nearestStation": "平塚駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "くらた病院",
@@ -1119,7 +1207,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.328,
       "lng": 139.3497,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人社団水野会 平塚十全病院",
@@ -1147,7 +1239,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.328,
       "lng": 139.3497,
-      "nearestStation": "平塚駅"
+      "nearestStation": "平塚駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ],
   "藤沢市": [
@@ -1190,7 +1286,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": "藤沢駅"
+      "nearestStation": "藤沢駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 3,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "医療法人徳洲会 湘南藤沢徳洲会病院",
@@ -1230,7 +1330,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.335,
       "lng": 139.448,
-      "nearestStation": "辻堂駅"
+      "nearestStation": "辻堂駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": true
     },
     {
       "name": "一般財団法人同友会藤沢湘南台病院",
@@ -1270,7 +1374,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.39,
       "lng": 139.468,
-      "nearestStation": "湘南台駅"
+      "nearestStation": "湘南台駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": true
     },
     {
       "name": "医療法人社団 健育会 湘南慶育病院",
@@ -1304,7 +1412,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.39,
       "lng": 139.468,
-      "nearestStation": "湘南台駅"
+      "nearestStation": "湘南台駅",
+      "nursingRatio": "10:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "湘南中央病院",
@@ -1341,7 +1453,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": "藤沢駅"
+      "nearestStation": "藤沢駅",
+      "nursingRatio": "13:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "クローバーホスピタル",
@@ -1374,7 +1490,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": "藤沢駅"
+      "nearestStation": "藤沢駅",
+      "nursingRatio": "13:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "藤沢御所見病院",
@@ -1404,7 +1524,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": null,
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "湘南長寿園病院",
@@ -1431,7 +1555,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人長谷川会湘南ホスピタル",
@@ -1461,7 +1589,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": null,
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人 山内龍馬財団 山内病院",
@@ -1494,7 +1626,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": "藤沢駅"
+      "nearestStation": "藤沢駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "村田会湘南大庭病院",
@@ -1524,7 +1660,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人社団正拓会湘南太平台病院",
@@ -1552,7 +1692,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "湘南第一病院",
@@ -1580,7 +1724,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "10:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "藤沢脳神経外科病院",
@@ -1608,7 +1756,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.338,
       "lng": 139.487,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "10:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ],
   "茅ヶ崎市": [
@@ -1648,7 +1800,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.334,
       "lng": 139.404,
-      "nearestStation": "茅ヶ崎駅"
+      "nearestStation": "茅ヶ崎駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "茅ヶ崎市立病院",
@@ -1688,7 +1844,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.334,
       "lng": 139.404,
-      "nearestStation": "茅ヶ崎駅"
+      "nearestStation": "茅ヶ崎駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "湘南東部総合病院",
@@ -1730,7 +1890,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.334,
       "lng": 139.404,
-      "nearestStation": "茅ヶ崎駅"
+      "nearestStation": "茅ヶ崎駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": true
     },
     {
       "name": "医療法人社団湘南健友会 長岡病院",
@@ -1757,7 +1921,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.334,
       "lng": 139.404,
-      "nearestStation": "茅ヶ崎駅"
+      "nearestStation": "茅ヶ崎駅",
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "茅ヶ崎新北陵病院",
@@ -1788,7 +1956,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.357,
       "lng": 139.378,
-      "nearestStation": "香川駅"
+      "nearestStation": "香川駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人徳洲会 茅ヶ崎徳洲会病院",
@@ -1820,7 +1992,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.334,
       "lng": 139.404,
-      "nearestStation": "茅ヶ崎駅"
+      "nearestStation": "茅ヶ崎駅",
+      "nursingRatio": "10:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": true
     },
     {
       "name": "宗教法人寒川神社 寒川病院",
@@ -1847,22 +2023,26 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.334,
       "lng": 139.404,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "10:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ],
   "大磯町・二宮町": [
     {
       "name": "徳洲会湘南大磯病院",
       "type": "高度急性期・急性期",
-      "beds": 312,
+      "beds": 304,
       "wardCount": 3,
       "functions": [
         "急性期",
         "高度急性期"
       ],
-      "nurseCount": 132,
+      "nurseCount": 126,
       "ptCount": 6,
-      "features": "医療法人。看護配置7:1。二次救急。年間救急車801台。DPC標準病院群。看護師132名。医師33名。PT6名。CT1台・MRI1台。退院支援部門あり。中郡（大磯・二宮）唯一の総合病院。24時間救急対応。一部休棟中で看護師需要あり。",
+      "features": "医療法人。看護配置7:1。二次救急。年間救急車801台。DPC標準病院群。看護師126名。医師33名。PT6名。CT1台・MRI1台。退院支援部門あり。中郡（大磯・二宮）唯一の総合病院。24時間救急対応。一部休棟中で看護師需要あり。",
       "access": "大磯駅・二宮駅よりシャトルバス運行",
       "nightShiftType": "二交代制",
       "annualHolidays": 120,
@@ -1885,7 +2065,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.312,
       "lng": 139.311,
-      "nearestStation": "大磯駅"
+      "nearestStation": "大磯駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": true
     }
   ],
   "南足柄市・開成町・大井町・松田町・山北町": [
@@ -1916,7 +2100,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.33,
       "lng": 139.11,
-      "nearestStation": "大雄山駅"
+      "nearestStation": "大雄山駅",
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "神奈川県立足柄上病院",
@@ -1928,10 +2116,10 @@ const FACILITY_DATABASE = {
         "回復期",
         "急性期"
       ],
-      "nurseCount": 242,
+      "nurseCount": 214,
       "ptCount": 10,
-      "features": "公立。看護配置一般病棟7:1(急性期一般入院料１)。二次救急。年間救急車2,677台。DPC標準病院群。看護師242名。医師58名。PT10名。CT2台・MRI1台。HCU完備。退院支援部門あり。",
-      "access": "",
+      "features": "公立。看護配置一般病棟7:1(急性期一般入院料１)。二次救急。年間救急車2,677台。DPC標準病院群。看護師214名。医師58名。PT10名。CT2台・MRI1台。HCU完備。退院支援部門あり。",
+      "access": "新松田駅徒歩5分",
       "nightShiftType": "二交代制",
       "annualHolidays": 110,
       "salaryMin": 270000,
@@ -1950,11 +2138,16 @@ const FACILITY_DATABASE = {
         "7対1看護",
         "中規模病院",
         "HCU",
-        "回復期リハビリ"
+        "回復期リハビリ",
+        "駅近"
       ],
-      "lat": null,
-      "lng": null,
-      "nearestStation": null
+      "lat": 35.34,
+      "lng": 139.143,
+      "nearestStation": "新松田駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "佐藤病院",
@@ -1982,7 +2175,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": null,
       "lng": null,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "10:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "大内病院",
@@ -2012,7 +2209,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.323,
       "lng": 139.121,
-      "nearestStation": "和田河原駅"
+      "nearestStation": "和田河原駅",
+      "nursingRatio": "15:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人 陽風会 高台病院",
@@ -2039,7 +2240,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": null,
       "lng": null,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "日野原記念ピースハウス病院",
@@ -2066,7 +2271,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": null,
       "lng": null,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": null,
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ],
   "伊勢原市": [
@@ -2078,9 +2287,9 @@ const FACILITY_DATABASE = {
       "functions": [
         "高度急性期"
       ],
-      "nurseCount": 1038,
+      "nurseCount": 1098,
       "ptCount": 11,
-      "features": "学校法人。三次救急。年間救急車6,800台。看護師1038名。医師550名。PT11名。CT5台・MRI6台。HCU・ICU・NICU完備。退院支援部門あり。大学病院。がん診療連携拠点病院。",
+      "features": "学校法人。三次救急。年間救急車6,800台。看護師1,098名。医師550名。PT11名。CT5台・MRI6台。HCU・ICU・NICU完備。退院支援部門あり。大学病院。がん診療連携拠点病院。",
       "access": "伊勢原駅バス10分",
       "nightShiftType": "三交代制",
       "annualHolidays": 120,
@@ -2099,7 +2308,6 @@ const FACILITY_DATABASE = {
         "ICU",
         "NICU",
         "大学病院",
-        "3次救急",
         "ドクターヘリ",
         "がん診療",
         "教育体制充実",
@@ -2107,7 +2315,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.395,
       "lng": 139.314,
-      "nearestStation": "伊勢原駅"
+      "nearestStation": "伊勢原駅",
+      "nursingRatio": null,
+      "emergencyLevel": 3,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "神奈川県厚生農業協同組合連合会 伊勢原協同病院",
@@ -2119,9 +2331,9 @@ const FACILITY_DATABASE = {
         "回復期",
         "高度急性期"
       ],
-      "nurseCount": 349,
+      "nurseCount": 310,
       "ptCount": 36,
-      "features": "公的。看護配置一般病棟7:1(急性期一般入院料１)・回復期13:1。二次救急。年間救急車3,236台。DPC標準病院群。看護師349名。医師81名。PT36名。CT2台・MRI2台。HCU・緩和ケア完備。退院支援部門あり。地域中核病院。開設50年以上の実績。",
+      "features": "公的。看護配置一般病棟7:1(急性期一般入院料１)・回復期13:1。二次救急。年間救急車3,236台。DPC標準病院群。看護師310名。医師81名。PT36名。CT2台・MRI2台。HCU・緩和ケア完備。退院支援部門あり。地域中核病院。開設50年以上の実績。",
       "access": "伊勢原駅バス8分",
       "nightShiftType": "三交代制",
       "annualHolidays": 120,
@@ -2147,7 +2359,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.395,
       "lng": 139.314,
-      "nearestStation": "伊勢原駅"
+      "nearestStation": "伊勢原駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "医療法人社団三井会 伊勢原日向病院",
@@ -2176,7 +2392,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.395,
       "lng": 139.314,
-      "nearestStation": "伊勢原駅"
+      "nearestStation": "伊勢原駅",
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ],
   "厚木市": [
@@ -2217,7 +2437,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": "本厚木駅"
+      "nearestStation": "本厚木駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "public",
+      "dpcHospital": true
     },
     {
       "name": "神奈川リハビリテーション病院",
@@ -2259,7 +2483,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": "本厚木駅"
+      "nearestStation": "本厚木駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 0,
+      "ownerType": "public",
+      "dpcHospital": false
     },
     {
       "name": "東名厚木病院",
@@ -2269,9 +2497,9 @@ const FACILITY_DATABASE = {
       "functions": [
         "急性期"
       ],
-      "nurseCount": 285,
+      "nurseCount": 300,
       "ptCount": 17,
-      "features": "医療法人。看護配置一般病棟7:1(急性期一般入院料１)。二次救急。年間救急車4,446台。DPC標準病院群。看護師285名。医師69名。PT17名。CT2台・MRI1台。HCU完備。退院支援部門あり。神奈川県がん診療連携指定病院。救急告示病院。緩和ケア病床あり。",
+      "features": "医療法人。看護配置一般病棟7:1(急性期一般入院料１)。二次救急。年間救急車4,446台。DPC標準病院群。看護師300名。医師69名。PT17名。CT2台・MRI1台。HCU完備。退院支援部門あり。神奈川県がん診療連携指定病院。救急告示病院。緩和ケア病床あり。",
       "access": "本厚木駅バス10分",
       "nightShiftType": "二交代制",
       "annualHolidays": 115,
@@ -2294,7 +2522,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": "本厚木駅"
+      "nearestStation": "本厚木駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": true
     },
     {
       "name": "医療法人徳洲会 湘南厚木病院",
@@ -2334,7 +2566,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": "本厚木駅"
+      "nearestStation": "本厚木駅",
+      "nursingRatio": "10:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": true
     },
     {
       "name": "医療法人社団葵会 AOI七沢リハビリテーション病院",
@@ -2365,7 +2601,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": "本厚木駅"
+      "nearestStation": "本厚木駅",
+      "nursingRatio": null,
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "厚木佐藤病院",
@@ -2398,7 +2638,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "10:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "仁厚会病院",
@@ -2428,7 +2672,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "20:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人仁愛会近藤病院",
@@ -2456,7 +2704,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": "本厚木駅"
+      "nearestStation": "本厚木駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人鉄蕉会 亀田森の里病院",
@@ -2484,7 +2736,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.441,
       "lng": 139.365,
-      "nearestStation": null
+      "nearestStation": null,
+      "nursingRatio": "10:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ],
   "海老名市": [
@@ -2497,9 +2753,9 @@ const FACILITY_DATABASE = {
         "急性期",
         "高度急性期"
       ],
-      "nurseCount": 473,
+      "nurseCount": 570,
       "ptCount": 54,
-      "features": "医療法人。看護配置7:1。三次救急。年間救急車8,998台。DPC標準病院群。看護師473名。医師148名。PT54名。CT3台・MRI3台。HCU・ICU・SCU完備。退院支援部門あり。地域医療支援病院。手術室14室。24時間365日断らない救急。",
+      "features": "医療法人。看護配置7:1。三次救急。年間救急車8,998台。DPC標準病院群。看護師570名。医師148名。PT54名。CT3台・MRI3台。HCU・ICU・SCU完備。退院支援部門あり。地域医療支援病院。手術室14室。24時間365日断らない救急。",
       "access": "海老名駅東口徒歩12分、シャトルバスあり",
       "nightShiftType": "三交代制",
       "annualHolidays": 120,
@@ -2521,13 +2777,16 @@ const FACILITY_DATABASE = {
         "ICU",
         "SCU",
         "リハビリ充実",
-        "3次救急",
         "24時間救急",
         "教育体制充実"
       ],
       "lat": 35.447,
       "lng": 139.391,
-      "nearestStation": "海老名駅"
+      "nearestStation": "海老名駅",
+      "nursingRatio": "7:1",
+      "emergencyLevel": 3,
+      "ownerType": "private",
+      "dpcHospital": true
     },
     {
       "name": "湘陽かしわ台病院",
@@ -2563,7 +2822,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.459,
       "lng": 139.401,
-      "nearestStation": "さがみ野駅"
+      "nearestStation": "さがみ野駅",
+      "nursingRatio": "10:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人社団神愛会オアシス湘南病院",
@@ -2591,7 +2854,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.447,
       "lng": 139.391,
-      "nearestStation": "海老名駅"
+      "nearestStation": "海老名駅",
+      "nursingRatio": "20:1",
+      "emergencyLevel": 0,
+      "ownerType": "private",
+      "dpcHospital": false
     },
     {
       "name": "医療法人社団 さがみ野中央病院",
@@ -2624,7 +2891,11 @@ const FACILITY_DATABASE = {
       ],
       "lat": 35.459,
       "lng": 139.401,
-      "nearestStation": "さがみ野駅"
+      "nearestStation": "さがみ野駅",
+      "nursingRatio": "13:1",
+      "emergencyLevel": 2,
+      "ownerType": "private",
+      "dpcHospital": false
     }
   ]
 };
