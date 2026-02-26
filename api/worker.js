@@ -96,7 +96,7 @@ const EXTERNAL_JOBS = {
       "精神科特化型訪問看護ST: 月給30〜35万円/完全週休2日/オンコールなし/精神科未経験OK",
       "湘南美容クリニック小田原院: 月給37〜40万円/日勤のみ/小田原駅徒歩1分/賞与年2回+ミニボーナス年4回",
       "潤生園(介護施設): 月給32.9万円/ブランクOK/研修あり",
-      "小田原市立総合医療センター(新築): 月給28〜38万円/公立417床/三次救急/院内保育所/看護師寮/2026年5月開院",
+      "小田原市立総合医療センター(新築): 月給28〜38万円/公立406床/三次救急/院内保育所/看護師寮/2026年5月開院",
       "訪問看護ST(鴨宮): 月給28〜35万円/日勤/年休120日+土日祝休/駅チカ/1日4〜5件",
     ],
     "平塚": [
@@ -114,7 +114,7 @@ const EXTERNAL_JOBS = {
       "訪問看護ST(渋沢): 月給35万〜/日勤のみ/賞与年2回(3ヶ月分)/渋沢駅近",
     ],
     "藤沢": [
-      "藤沢市民病院: 月給28〜38万円/公立536床/三次救急/7:1看護/院内保育所/看護師寮月6千〜1.2万円",
+      "藤沢市民病院: 月給28〜38万円/公立536床/三次救急/7:1看護/院内保育所/看護師寮月1万円",
       "湘南藤沢徳洲会病院: 月給29.8〜38万円/辻堂駅徒歩5分/急性期総合/daVinci導入/教育体制充実",
       "湘南美容クリニック藤沢院: 月給37〜40万円/日勤のみ/藤沢駅徒歩3分/賞与年2回+ミニボーナス年4回",
       "ソフィアメディ訪問看護藤沢: 年収470万〜/年休120日+完全週休2日/未経験80%入職/オンコール月2回",
@@ -129,7 +129,7 @@ const EXTERNAL_JOBS = {
       "訪問看護ST(茅ヶ崎): 月給30〜35万円/日勤/年休125日+土日祝休/訪問エリア茅ヶ崎・寒川・平塚",
     ],
     "大磯": [
-      "湘南大磯病院(徳洲会): 月給32.4万〜/304床急性期/大磯駅・二宮駅バス/シャトルバス運行",
+      "湘南大磯病院(徳洲会): 月給32.4万〜/312床急性期/大磯駅・二宮駅バス/シャトルバス運行",
       "介護老人保健施設(大磯): 月給28.5〜32.8万円/日勤のみ/ブランクOK/研修充実",
       "訪問看護ST(二宮・大磯): 月給28〜35万円/日勤/年休120日+/マイカー通勤OK",
     ],
@@ -154,7 +154,7 @@ const EXTERNAL_JOBS = {
     ],
     "南足柄・開成": [
       "北小田原病院(IMS): 月給29.3万〜/345床精神科/夜勤手当5.2万円/残業少/ワークライフバランス◎",
-      "大内病院: 月給28.3〜36.8万円/53床急性期/未経験OK/ブランクOK/南足柄駅近",
+      "大内病院: 月給28.3〜36.8万円/52床急性期/未経験OK/ブランクOK/南足柄駅近",
       "訪問看護ST(南足柄): 月給31.2〜39.2万円/日勤/マイカー通勤OK",
     ],
   },
@@ -179,14 +179,14 @@ const EXTERNAL_JOBS = {
       "訪問リハビリ(茅ヶ崎): 月給27.5〜33.2万円/完全週休2日/訪問エリア茅ヶ崎・寒川",
     ],
     "大磯": [
-      "湘南大磯病院(徳洲会)リハ科: 月給25〜31.7万円/304床/急性期〜回復期/車通勤OK/寮あり",
+      "湘南大磯病院(徳洲会)リハ科: 月給25〜31.7万円/312床/急性期〜回復期/車通勤OK/寮あり",
     ],
     "秦野": [
       "八木病院リハ科: 月給23.5万〜/回復期・療養/秦野市",
       "訪問リハビリ(秦野): 月給24〜30万円/老健併設/日勤/マイカー通勤OK",
     ],
     "厚木": [
-      "とうめい厚木クリニック: 年収400〜450万円/整形外科90%/無料送迎バス/退職金・住居手当",
+      "とうめい厚木クリニック: 年収375〜400万円/整形外科90%/無料送迎バス/退職金・住居手当",
       "AOI七沢リハ病院: 月給25〜33万円/PT53名・OT35名の大規模チーム/回復期特化245床",
     ],
     "海老名": [
@@ -436,12 +436,16 @@ function scoreFacilities(preferences, profession, area, userStation) {
       }
     }
 
-    // 教育体制（経験浅い場合に重要）
+    // 教育体制（経験浅い場合・ブランクありの場合に重要）
     if (f.educationLevel === "充実") {
       score += 5;
       if (preferences.experience !== null && preferences.experience < 5) {
         score += 10;
         reasons.push("教育体制充実");
+      }
+      if ((preferences.priorities || []).includes("ブランクOK")) {
+        score += 10;
+        if (!reasons.includes("教育体制充実")) reasons.push("教育体制充実（ブランクOK）");
       }
     }
 
@@ -459,35 +463,39 @@ function scoreFacilities(preferences, profession, area, userStation) {
     }
 
     // 救急レベル（急性期希望者・救急希望者にはボーナス、日勤のみ希望者にはペナルティ）
-    if (f.emergencyLevel && f.emergencyLevel !== "なし") {
+    // emergencyLevel: 数値 3=三次, 2=二次, 0=なし
+    if (f.emergencyLevel && f.emergencyLevel !== 0) {
       if ((preferences.facilityTypes || []).some(t => ["急性期", "大学病院"].includes(t)) || preferences.preferEmergency) {
         score += 5;
-        if (f.emergencyLevel === "三次救急") {
+        if (f.emergencyLevel === 3) {
           score += 5;
           reasons.push("三次救急・高度医療");
-        } else if (f.emergencyLevel === "二次救急" && preferences.preferEmergency) {
+        } else if (f.emergencyLevel === 2 && preferences.preferEmergency) {
           score += 3;
           reasons.push("二次救急対応");
         }
       }
-      if (preferences.nightShift === false && f.emergencyLevel === "三次救急") {
+      if (preferences.nightShift === false && f.emergencyLevel === 3) {
         score -= 5; // 日勤希望者には三次救急はミスマッチの可能性
       }
     }
 
     // 開設者区分（公立病院は安定志向の求職者に人気）
-    if (f.ownerType === "公立" || f.ownerType === "国立") {
+    // ownerType: "public"=公立, "national"=国立, "private"=民間
+    const ownerTypeJa = { public: "公立", national: "国立", private: "民間" };
+    const ownerLabel = ownerTypeJa[f.ownerType] || f.ownerType;
+    if (f.ownerType === "public" || f.ownerType === "national") {
       score += 3;
       if (preferences.preferPublic) {
         score += 10;
         if (!reasons.some(r => r.includes("公立") || r.includes("国立"))) {
-          reasons.push(`${f.ownerType}病院（福利厚生充実）`);
+          reasons.push(`${ownerLabel}病院（福利厚生充実）`);
         }
       }
       if ((preferences.priorities || []).includes("休日")) {
         score += 3;
         if (!reasons.some(r => r.includes("公立") || r.includes("国立"))) {
-          reasons.push(`${f.ownerType}病院（福利厚生充実）`);
+          reasons.push(`${ownerLabel}病院（福利厚生充実）`);
         }
       }
     }
@@ -495,6 +503,16 @@ function scoreFacilities(preferences, profession, area, userStation) {
     // DPC対象病院（急性期の質の指標）
     if (f.dpcHospital && (preferences.facilityTypes || []).some(t => ["急性期", "大学病院"].includes(t))) {
       score += 3;
+    }
+
+    // 得意分野マッチング（specialties → matchingTags）
+    for (const spec of (preferences.specialties || [])) {
+      if ((f.matchingTags || []).some(t => t.includes(spec))) {
+        score += 8;
+        if (!reasons.some(r => r.includes(spec))) {
+          reasons.push(`${spec}の経験を活かせる`);
+        }
+      }
     }
 
     // 距離計算（座標がある場合）
@@ -582,9 +600,11 @@ function buildSystemPrompt(userMsgCount, profession, area, experience) {
             const salaryMax = f.salaryMax ? Math.round(f.salaryMax / 10000) : "?";
             hospitalInfo += `\n- ${f.name}（${f.type}）: ${f.beds ? f.beds + "床" : "外来"} / 月給${salaryMin}〜${salaryMax}万円 / ${f.nightShiftType} / 休${f.annualHolidays}日 / ${f.access}`;
             if (f.nursingRatio) hospitalInfo += ` / 看護配置${f.nursingRatio}`;
-            if (f.emergencyLevel && f.emergencyLevel !== "なし") hospitalInfo += ` / ${f.emergencyLevel}`;
+            const eLevelMap = { 3: "三次救急", 2: "二次救急" };
+            if (f.emergencyLevel && f.emergencyLevel !== 0) hospitalInfo += ` / ${eLevelMap[f.emergencyLevel] || f.emergencyLevel}`;
             if (f.ambulanceCount) hospitalInfo += ` / 救急車年${f.ambulanceCount.toLocaleString()}台`;
-            if (f.ownerType) hospitalInfo += ` / ${f.ownerType}`;
+            const oTypeMap = { public: "公立", national: "国立", private: "民間" };
+            if (f.ownerType) hospitalInfo += ` / ${oTypeMap[f.ownerType] || f.ownerType}`;
             if (f.dpcHospital) hospitalInfo += ` / DPC対象`;
             if (f.nurseCount) hospitalInfo += ` / 看護師${f.nurseCount}名`;
             if (f.doctorCount) hospitalInfo += ` / 医師${f.doctorCount}名`;
@@ -1081,8 +1101,10 @@ async function handleChat(request, env) {
             const extras = [];
             if (nf.beds) extras.push(`${nf.beds}床`);
             if (nf.nursingRatio) extras.push(`配置${nf.nursingRatio}`);
-            if (nf.emergencyLevel && nf.emergencyLevel !== "なし") extras.push(nf.emergencyLevel);
-            if (nf.ownerType) extras.push(nf.ownerType);
+            const eLvlMap = { 3: "三次救急", 2: "二次救急" };
+            if (nf.emergencyLevel && nf.emergencyLevel !== 0) extras.push(eLvlMap[nf.emergencyLevel] || String(nf.emergencyLevel));
+            const oTpMap = { public: "公立", national: "国立", private: "民間" };
+            if (nf.ownerType) extras.push(oTpMap[nf.ownerType] || nf.ownerType);
             if (extras.length > 0) detail += ` [${extras.join("/")}]`;
             systemPrompt += detail + "\n";
           }
@@ -2592,13 +2614,22 @@ function generateLineMatching(entry) {
   // qualification → 職種
   const profession = entry.qualification === "pt" ? "理学療法士" : "看護師";
 
-  // エリアキー取得
+  // エリアキー取得（複数エリア対応: 秦野+伊勢原、厚木+海老名等）
   const areaKeys = getAreaKeysFromZone(`q3_${entry.area}`);
-  const areaKey = areaKeys[0] || null;
-
-  const results = scoreFacilities(prefs, profession, areaKey, null);
-  entry.matchingResults = results;
-  return results;
+  if (areaKeys.length <= 1) {
+    const results = scoreFacilities(prefs, profession, areaKeys[0] || null, null);
+    entry.matchingResults = results;
+    return results;
+  }
+  // 複数エリアの施設を全て取得してスコア順にソート
+  let allResults = [];
+  for (const ak of areaKeys) {
+    const results = scoreFacilities(prefs, profession, ak, null);
+    allResults.push(...results);
+  }
+  allResults.sort((a, b) => b.matchScore - a.matchScore);
+  entry.matchingResults = allResults.slice(0, 5);
+  return entry.matchingResults;
 }
 
 // ---------- Flex Message: 施設カード ----------

@@ -227,7 +227,7 @@ const AREA_METADATA = {
       "nursingHomes": 84
     },
     "demandLevel": "非常に高い",
-    "demandNote": "藤沢市民病院（530床）・湘南藤沢徳洲会病院（419床）など大規模病院が集中。看護師需要が県内屈指。",
+    "demandNote": "藤沢市民病院（536床）・湘南藤沢徳洲会病院（419床）など大規模病院が集中。看護師需要が県内屈指。",
     "livingInfo": "湘南のブランドエリア。海沿いのライフスタイルが人気。東京・横浜通勤も便利。",
     "defaultCoords": {
       "lat": 35.338,
@@ -301,7 +301,7 @@ const AREA_METADATA = {
       "nursingHomes": 12
     },
     "demandLevel": "高い",
-    "demandNote": "足柄上病院（199床）が地域の中核。中山間地域の医療アクセス確保のため看護師需要が安定。",
+    "demandNote": "足柄上病院（296床）が地域の中核。中山間地域の医療アクセス確保のため看護師需要が安定。",
     "livingInfo": "豊かな自然と低い生活コスト。小田原・新松田から小田急線で都心アクセスも可能。子育て支援充実。",
     "defaultCoords": null
   },
@@ -321,7 +321,7 @@ const AREA_METADATA = {
       "nursingHomes": 25
     },
     "demandLevel": "非常に高い",
-    "demandNote": "東海大学医学部付属病院（804床・看護師1,098名）は県西最大の医療機関。常時大量採用。",
+    "demandNote": "東海大学医学部付属病院（804床・看護師1,117名）は県西最大の医療機関。常時大量採用。",
     "livingInfo": "大山の自然と大学のある学園都市。小田急線で新宿60分、物価も手頃。",
     "defaultCoords": {
       "lat": 35.395,
@@ -817,7 +817,7 @@ const FACILITY_DATABASE = {
     {
       "name": "医療法人社団三喜会 鶴巻温泉病院",
       "type": "回復期・慢性期",
-      "beds": 551,
+      "beds": 546,
       "wardCount": 10,
       "functions": [
         "慢性期",
@@ -2034,13 +2034,13 @@ const FACILITY_DATABASE = {
     {
       "name": "徳洲会湘南大磯病院",
       "type": "高度急性期・急性期",
-      "beds": 304,
+      "beds": 312,
       "wardCount": 3,
       "functions": [
         "急性期",
         "高度急性期"
       ],
-      "nurseCount": 126,
+      "nurseCount": 150,
       "ptCount": 6,
       "features": "医療法人。看護配置7:1。二次救急。年間救急車801台。DPC標準病院群。看護師126名。医師33名。PT6名。CT1台・MRI1台。退院支援部門あり。中郡（大磯・二宮）唯一の総合病院。24時間救急対応。一部休棟中で看護師需要あり。",
       "access": "大磯駅・二宮駅よりシャトルバス運行",
@@ -2287,9 +2287,9 @@ const FACILITY_DATABASE = {
       "functions": [
         "高度急性期"
       ],
-      "nurseCount": 1098,
+      "nurseCount": 1117,
       "ptCount": 11,
-      "features": "学校法人。三次救急。年間救急車6,800台。看護師1,098名。医師550名。PT11名。CT5台・MRI6台。HCU・ICU・NICU完備。退院支援部門あり。大学病院。がん診療連携拠点病院。",
+      "features": "学校法人。三次救急。年間救急車6,800台。看護師1,117名。医師550名。PT11名。CT5台・MRI6台。HCU・ICU・NICU完備。退院支援部門あり。大学病院。がん診療連携拠点病院。",
       "access": "伊勢原駅バス10分",
       "nightShiftType": "三交代制",
       "annualHolidays": 120,
@@ -2319,7 +2319,7 @@ const FACILITY_DATABASE = {
       "nursingRatio": null,
       "emergencyLevel": 3,
       "ownerType": "private",
-      "dpcHospital": false
+      "dpcHospital": true
     },
     {
       "name": "神奈川県厚生農業協同組合連合会 伊勢原協同病院",

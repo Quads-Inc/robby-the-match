@@ -1,18 +1,19 @@
 #!/bin/bash
 # ===========================================
-# ナースロビー SNS自動投稿 v4.0
+# ナースロビー SNS自動投稿 v4.1
 # cron: 30 17 * * 1-6（月-土 17:30）
 #
-# v4.0: 完全自動投稿（Instagram自動 + TikTok通知）
+# v4.1: tiktok_post.py (tiktokautouploader) を主力に復帰
 # - auto_post.py でInstagramに自動投稿
-# - TikTokはSlack通知して手動アップ待ち
+# - tiktok_post.py --post-next でTikTok動画自動投稿（主力）
+# - tiktok_carousel.py はUPLOADPOST_API_KEY設定時のみフォールバック
 # - キュー枯渇時はコンテンツ自動生成をトリガー
 # ===========================================
 
 source "$(dirname "$0")/utils.sh"
 init_log "sns_post"
 
-echo "[INFO] SNS自動投稿 v4.0 開始" >> "$LOG"
+echo "[INFO] SNS自動投稿 v4.1 開始" >> "$LOG"
 
 # エージェント状態更新
 update_agent_state "sns_poster" "running"
@@ -40,18 +41,28 @@ else
     echo "[WARN] Instagram投稿失敗 (exit=$IG_EXIT)" >> "$LOG"
 fi
 
-# Step 3: TikTokカルーセル自動投稿（Upload-Post.com API）
-echo "[INFO] TikTokカルーセル投稿..." >> "$LOG"
-python3 "$PROJECT_DIR/scripts/tiktok_carousel.py" --post-next >> "$LOG" 2>&1
+# Step 3: TikTok自動投稿（tiktokautouploader主力）
+echo "[INFO] TikTok動画投稿 (tiktokautouploader)..." >> "$LOG"
+python3 "$PROJECT_DIR/scripts/tiktok_post.py" --post-next >> "$LOG" 2>&1
 TK_EXIT=$?
 
 if [ $TK_EXIT -eq 0 ]; then
-    echo "[INFO] TikTokカルーセル投稿処理完了" >> "$LOG"
+    echo "[INFO] TikTok動画投稿処理完了" >> "$LOG"
 else
-    echo "[WARN] TikTokカルーセル投稿失敗 (exit=$TK_EXIT)" >> "$LOG"
-    # フォールバック: 旧方式のSlack通知
-    echo "[INFO] フォールバック: TikTok投稿通知..." >> "$LOG"
-    python3 "$PROJECT_DIR/scripts/auto_post.py" --tiktok >> "$LOG" 2>&1
+    echo "[WARN] TikTok動画投稿失敗 (exit=$TK_EXIT)" >> "$LOG"
+    # フォールバック: Upload-Post.com APIキーがあればカルーセル投稿を試行
+    if grep -q "UPLOADPOST_API_KEY" "$PROJECT_DIR/.env" 2>/dev/null; then
+        echo "[INFO] フォールバック: TikTokカルーセル投稿 (Upload-Post.com API)..." >> "$LOG"
+        python3 "$PROJECT_DIR/scripts/tiktok_carousel.py" --post-next >> "$LOG" 2>&1
+        TK_EXIT=$?
+        if [ $TK_EXIT -eq 0 ]; then
+            echo "[INFO] TikTokカルーセル投稿処理完了" >> "$LOG"
+        else
+            echo "[WARN] TikTokカルーセル投稿も失敗 (exit=$TK_EXIT)" >> "$LOG"
+        fi
+    else
+        echo "[INFO] UPLOADPOST_API_KEY未設定のためカルーセルフォールバックをスキップ" >> "$LOG"
+    fi
 fi
 
 # Step 4: 投稿ステータス確認
