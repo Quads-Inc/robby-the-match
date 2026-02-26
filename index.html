@@ -361,7 +361,7 @@
   <section class="hospitals parallax-section to-dark" id="hospitals">
     <div class="container">
       <h2 class="section-title">あなたの条件に合う<span class="highlight">求人</span>があります</h2>
-      <p class="section-desc">神奈川県西部の厳選した医療機関と提携しています。今の職場と比べてみてください。</p>
+      <p class="section-desc">神奈川県西部<strong>67病院</strong>のデータを厚生労働省公開データで裏付け。今の職場と比べてみてください。</p>
       <!-- Desktop table -->
       <div class="table-wrapper hospital-desktop">
         <table class="hospital-table">
@@ -369,74 +369,111 @@
             <tr>
               <th>病院</th>
               <th>給与（目安）</th>
-              <th>年間休日</th>
-              <th>夜勤</th>
+              <th>看護配置</th>
+              <th>救急</th>
               <th>アクセス</th>
               <th>病床数</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>A病院</strong><br><small>小田原市・混合型</small></td>
-              <td>月給28〜35万円</td>
-              <td>110日以上</td>
-              <td>あり（応相談）</td>
-              <td>小田原駅よりバス15分</td>
+            <tr class="hospital-row--referral">
+              <td><strong>小林病院</strong><br><small>小田原市・ケアミックス</small><br><span class="badge-referral">紹介可能</span></td>
+              <td>月給27〜35万円</td>
+              <td>13:1</td>
+              <td>二次救急</td>
+              <td>小田原駅バス15分</td>
               <td>150床</td>
             </tr>
             <tr>
-              <td><strong>B病院</strong><br><small>神奈川県西部</small></td>
-              <td>月給30〜38万円</td>
-              <td>115日以上</td>
-              <td>あり</td>
-              <td>最寄駅より徒歩10分</td>
-              <td>200床</td>
+              <td><strong>小田原市立病院</strong><br><small>小田原市・高度急性期</small></td>
+              <td>月給28〜38万円</td>
+              <td>7:1</td>
+              <td>三次救急</td>
+              <td>小田原駅バス10分</td>
+              <td>417床</td>
             </tr>
             <tr>
-              <td><strong>C施設</strong><br><small>小田原市・訪問看護</small></td>
-              <td>月給32〜40万円</td>
-              <td>120日以上</td>
-              <td>なし</td>
-              <td>小田原駅より車10分</td>
-              <td>—</td>
+              <td><strong>藤沢市民病院</strong><br><small>藤沢市・高度急性期</small></td>
+              <td>月給30〜39万円</td>
+              <td>7:1</td>
+              <td>三次救急</td>
+              <td>藤沢駅バス10分</td>
+              <td>536床</td>
+            </tr>
+            <tr>
+              <td><strong>海老名総合病院</strong><br><small>海老名市・高度急性期</small></td>
+              <td>月給30〜39万円</td>
+              <td>7:1</td>
+              <td>三次救急</td>
+              <td>海老名駅東口徒歩12分</td>
+              <td>479床</td>
+            </tr>
+            <tr>
+              <td><strong>東海大学医学部付属病院</strong><br><small>伊勢原市・高度急性期</small></td>
+              <td>月給30〜40万円</td>
+              <td>7:1</td>
+              <td>三次救急</td>
+              <td>伊勢原駅バス10分</td>
+              <td>804床</td>
             </tr>
           </tbody>
         </table>
       </div>
       <!-- Mobile cards -->
       <div class="hospital-cards hospital-mobile">
-        <div class="hospital-card">
-          <h3>A病院<span>小田原市・混合型</span></h3>
+        <div class="hospital-card hospital-card--referral">
+          <h3>小林病院<span>小田原市・ケアミックス</span></h3>
+          <div class="hospital-card-badge-referral">紹介可能</div>
           <div class="hospital-card-details">
-            <div class="hospital-card-row"><span class="hospital-card-label">給与</span><span>月給28〜35万円</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">年間休日</span><span>110日以上</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">夜勤</span><span>あり（応相談）</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">アクセス</span><span>小田原駅よりバス15分</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">給与</span><span>月給27〜35万円</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">看護配置</span><span>13:1</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">救急</span><span>二次救急</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">アクセス</span><span>小田原駅バス15分</span></div>
             <div class="hospital-card-row"><span class="hospital-card-label">病床数</span><span>150床</span></div>
           </div>
         </div>
         <div class="hospital-card">
-          <h3>B病院<span>神奈川県西部</span></h3>
+          <h3>小田原市立病院<span>小田原市・高度急性期</span></h3>
           <div class="hospital-card-details">
-            <div class="hospital-card-row"><span class="hospital-card-label">給与</span><span>月給30〜38万円</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">年間休日</span><span>115日以上</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">夜勤</span><span>あり</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">アクセス</span><span>最寄駅より徒歩10分</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">病床数</span><span>200床</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">給与</span><span>月給28〜38万円</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">看護配置</span><span>7:1</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">救急</span><span>三次救急</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">アクセス</span><span>小田原駅バス10分</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">病床数</span><span>417床</span></div>
           </div>
         </div>
         <div class="hospital-card">
-          <h3>C施設<span>小田原市・訪問看護</span></h3>
+          <h3>藤沢市民病院<span>藤沢市・高度急性期</span></h3>
           <div class="hospital-card-details">
-            <div class="hospital-card-row"><span class="hospital-card-label">給与</span><span>月給32〜40万円</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">年間休日</span><span>120日以上</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">夜勤</span><span>なし</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">アクセス</span><span>小田原駅より車10分</span></div>
-            <div class="hospital-card-row"><span class="hospital-card-label">病床数</span><span>--</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">給与</span><span>月給30〜39万円</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">看護配置</span><span>7:1</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">救急</span><span>三次救急</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">アクセス</span><span>藤沢駅バス10分</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">病床数</span><span>536床</span></div>
+          </div>
+        </div>
+        <div class="hospital-card">
+          <h3>海老名総合病院<span>海老名市・高度急性期</span></h3>
+          <div class="hospital-card-details">
+            <div class="hospital-card-row"><span class="hospital-card-label">給与</span><span>月給30〜39万円</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">看護配置</span><span>7:1</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">救急</span><span>三次救急</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">アクセス</span><span>海老名駅東口徒歩12分</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">病床数</span><span>479床</span></div>
+          </div>
+        </div>
+        <div class="hospital-card">
+          <h3>東海大学医学部付属病院<span>伊勢原市・高度急性期</span></h3>
+          <div class="hospital-card-details">
+            <div class="hospital-card-row"><span class="hospital-card-label">給与</span><span>月給30〜40万円</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">看護配置</span><span>7:1</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">救急</span><span>三次救急</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">アクセス</span><span>伊勢原駅バス10分</span></div>
+            <div class="hospital-card-row"><span class="hospital-card-label">病床数</span><span>804床</span></div>
           </div>
         </div>
       </div>
-      <p class="table-note">※掲載求人は一例です。最新の求人状況はお問い合わせください。給与は経験・資格により異なります。詳細条件は個別に調整いたします。（当社調べ、2026年2月時点）</p>
+      <p class="table-note">※給与は経験・資格により異なります。施設データは厚生労働省 病床機能報告（令和5年度）および医療情報ネット（2025年12月時点）に基づきます。最新の求人状況はお問い合わせください。</p>
       <div class="text-center mt-section">
         <a href="#register" class="btn-animated-border">この求人についてもっと詳しく聞く</a>
       </div>

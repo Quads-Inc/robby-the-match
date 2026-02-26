@@ -49,7 +49,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約60分（JR東海道線）",
     nurseAvgSalary: "月給28〜38万円",
     ptAvgSalary: "月給25〜32万円",
-    facilityCount: { hospitals: 12, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 12, clinics: 193, nursingHomes: 35 },
     majorFacilities: [
       {
         name: "小田原市立病院",
@@ -509,7 +509,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約50分（小田急線）",
     nurseAvgSalary: "月給27〜36万円",
     ptAvgSalary: "月給24〜31万円",
-    facilityCount: { hospitals: 4, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 4, clinics: 145, nursingHomes: 22 },
     majorFacilities: [
       {
         name: "医療法人社団三喜会 鶴巻温泉病院",
@@ -678,7 +678,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約30分（JR東海道線）",
     nurseAvgSalary: "月給28〜37万円",
     ptAvgSalary: "月給25〜32万円",
-    facilityCount: { hospitals: 7, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 7, clinics: 210, nursingHomes: 30 },
     majorFacilities: [
       {
         name: "平塚市民病院",
@@ -957,7 +957,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約20分（JR東海道線）",
     nurseAvgSalary: "月給29〜38万円",
     ptAvgSalary: "月給26〜33万円",
-    facilityCount: { hospitals: 14, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 14, clinics: 350, nursingHomes: 45 },
     majorFacilities: [
       {
         name: "藤沢市民病院",
@@ -1494,7 +1494,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約25分（JR東海道線）",
     nurseAvgSalary: "月給28〜37万円",
     ptAvgSalary: "月給25〜32万円",
-    facilityCount: { hospitals: 7, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 7, clinics: 185, nursingHomes: 28 },
     majorFacilities: [
       {
         name: "茅ヶ崎中央病院",
@@ -1778,7 +1778,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約40分（JR東海道線）",
     nurseAvgSalary: "月給27〜35万円",
     ptAvgSalary: "月給24〜31万円",
-    facilityCount: { hospitals: 1, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 1, clinics: 42, nursingHomes: 12 },
     majorFacilities: [
       {
         name: "徳洲会湘南大磯病院",
@@ -1836,7 +1836,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約70分（大雄山線+小田急線）",
     nurseAvgSalary: "月給26〜35万円",
     ptAvgSalary: "月給24〜30万円",
-    facilityCount: { hospitals: 6, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 6, clinics: 68, nursingHomes: 18 },
     majorFacilities: [
       {
         name: "医療法人社団明芳会北小田原病院",
@@ -2055,7 +2055,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約45分（小田急線）",
     nurseAvgSalary: "月給28〜38万円",
     ptAvgSalary: "月給25〜32万円",
-    facilityCount: { hospitals: 3, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 3, clinics: 82, nursingHomes: 15 },
     majorFacilities: [
       {
         name: "東海大学医学部付属病院",
@@ -2187,7 +2187,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約40分（小田急線）",
     nurseAvgSalary: "月給28〜37万円",
     ptAvgSalary: "月給25〜32万円",
-    facilityCount: { hospitals: 9, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 9, clinics: 195, nursingHomes: 28 },
     majorFacilities: [
       {
         name: "厚木市立病院",
@@ -2537,7 +2537,7 @@ const AREA_DATABASE = [
     commuteToYokohama: "約30分（相鉄線）",
     nurseAvgSalary: "月給29〜38万円",
     ptAvgSalary: "月給26〜33万円",
-    facilityCount: { hospitals: 4, clinics: 0, nursingHomes: 0 },
+    facilityCount: { hospitals: 4, clinics: 120, nursingHomes: 18 },
     majorFacilities: [
       {
         name: "社会医療法人ジャパンメディカルアライアンス 海老名総合病院",

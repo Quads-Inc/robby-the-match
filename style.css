@@ -1875,6 +1875,37 @@ img {
   letter-spacing: 0.08em;
 }
 
+/* 紹介可能バッジ */
+.badge-referral {
+  display: inline-block;
+  background: #E8735A;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.hospital-row--referral {
+  background: rgba(232, 115, 90, 0.06);
+}
+
+.hospital-card--referral {
+  border-left: 3px solid #E8735A;
+}
+
+.hospital-card-badge-referral {
+  display: inline-block;
+  background: #E8735A;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
 /* ---------- Sticky Mobile CTA ---------- */
 .sticky-cta {
   display: none;
