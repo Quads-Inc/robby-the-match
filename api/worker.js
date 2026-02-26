@@ -717,9 +717,9 @@ export default {
       return handleWebSession(request);
     }
 
-    // LINE Webhook
+    // LINE Webhook（ctxを渡してwaitUntilでバックグラウンド処理可能に）
     if (url.pathname === "/api/line-webhook" && request.method === "POST") {
-      return handleLineWebhook(request, env);
+      return handleLineWebhook(request, env, ctx);
     }
 
     // ヘルスチェック
@@ -2447,7 +2447,7 @@ ${resumeText}
   }
 }
 
-async function handleLineWebhook(request, env) {
+async function handleLineWebhook(request, env, ctx) {
   try {
     const channelSecret = env.LINE_CHANNEL_SECRET;
     const channelAccessToken = env.LINE_CHANNEL_ACCESS_TOKEN;
@@ -2474,6 +2474,25 @@ async function handleLineWebhook(request, env) {
     const body = JSON.parse(bodyText);
     const events = body.events || [];
 
+    // 即座に200 OKを返し、イベント処理はバックグラウンドで実行
+    // これによりLINEのWebhookタイムアウトを回避
+    if (ctx) {
+      ctx.waitUntil(processLineEvents(events, channelAccessToken, env, ctx));
+      return new Response("OK", { status: 200 });
+    }
+
+    // ctxがない場合のフォールバック（通常は到達しない）
+    await processLineEvents(events, channelAccessToken, env, null);
+    return new Response("OK", { status: 200 });
+  } catch (err) {
+    console.error("[LINE] Webhook error:", err);
+    return new Response("OK", { status: 200 });
+  }
+}
+
+// LINE イベント処理（バックグラウンド実行）
+async function processLineEvents(events, channelAccessToken, env, ctx) {
+  try {
     for (const event of events) {
       // フォローイベント（友だち追加時）
       if (event.type === "follow") {
@@ -2552,13 +2571,11 @@ async function handleLineWebhook(request, env) {
 
           // Slack通知
           if (env.SLACK_BOT_TOKEN) {
-            const channelId = env.SLACK_CHANNEL_ID || "C09A7U4TV4G";
-            const nowJST = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
             await fetch("https://slack.com/api/chat.postMessage", {
               method: "POST",
               headers: { "Authorization": `Bearer ${env.SLACK_BOT_TOKEN}`, "Content-Type": "application/json; charset=utf-8" },
-              body: JSON.stringify({ channel: channelId, text: `💬 *LINE新規会話（HP引き継ぎ）*\n\nコード: ${userText}\nエリア: ${webSession.area || "不明"}\n経験: ${webSession.experience || "不明"}\n日時: ${nowJST}` }),
-            });
+              body: JSON.stringify({ channel: env.SLACK_CHANNEL_ID || "C09A7U4TV4G", text: `💬 *LINE新規会話（HP引き継ぎ）*\n\nコード: ${userText}\nエリア: ${webSession.area || "不明"}\n経験: ${webSession.experience || "不明"}\n日時: ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}` }),
+            }).catch(() => {});
           }
 
           console.log(`[LINE] Handoff code ${userText} accepted for user ${userId.slice(0, 8)}`);
@@ -2633,40 +2650,44 @@ async function handleLineWebhook(request, env) {
       // LINE Reply
       await lineReply(event.replyToken, [{ type: "text", text: aiText }], channelAccessToken);
 
-      // handoffフェーズに到達したらSlack通知
-      if (entry.phase === "handoff" && prevPhase !== "handoff") {
-        await sendHandoffNotification(userId, entry, env);
-      }
-
-      // 初回メッセージ時のSlack通知
-      if (entry.messageCount <= 1 && env.SLACK_BOT_TOKEN) {
-        const channelId = env.SLACK_CHANNEL_ID || "C09A7U4TV4G";
-        const nowJST = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
-        const slackText = `💬 *LINE新規会話*\n\nユーザーID: ${userId.slice(0, 8)}....\n初回メッセージ: ${sanitize(userText.slice(0, 100))}\n日時: ${nowJST}`;
-        await fetch("https://slack.com/api/chat.postMessage", {
-          method: "POST",
-          headers: { "Authorization": `Bearer ${env.SLACK_BOT_TOKEN}`, "Content-Type": "application/json; charset=utf-8" },
-          body: JSON.stringify({ channel: channelId, text: slackText }),
-        });
+      // Slack通知（processLineEvents自体がwaitUntil内なので直接await）
+      try {
+        if (entry.phase === "handoff" && prevPhase !== "handoff") {
+          await sendHandoffNotification(userId, entry, env);
+        }
+        if (entry.messageCount <= 1 && env.SLACK_BOT_TOKEN) {
+          const channelId = env.SLACK_CHANNEL_ID || "C09A7U4TV4G";
+          const nowJST = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+          const slackText = `💬 *LINE新規会話*\n\nユーザーID: ${userId.slice(0, 8)}....\n初回メッセージ: ${sanitize(userText.slice(0, 100))}\n日時: ${nowJST}`;
+          await fetch("https://slack.com/api/chat.postMessage", {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${env.SLACK_BOT_TOKEN}`, "Content-Type": "application/json; charset=utf-8" },
+            body: JSON.stringify({ channel: channelId, text: slackText }),
+          });
+        }
+      } catch (slackErr) {
+        console.error("[LINE] Slack notification error:", slackErr);
       }
 
       console.log(`[LINE] User: ${userId.slice(0, 8)}, Phase: ${entry.phase}, Msg: ${userText.slice(0, 50)}, Total: ${entry.messageCount}`);
     }
 
-    return new Response("OK", { status: 200 });
+    console.log("[LINE] All events processed");
   } catch (err) {
-    console.error("[LINE] Webhook error:", err);
-    return new Response("OK", { status: 200 });
+    console.error("[LINE] processLineEvents error:", err);
   }
 }
 
-// LINE AI呼び出し共通関数
+// LINE AI呼び出し共通関数（タイムアウト付き）
 async function callLineAI(systemPrompt, history, env) {
   let aiText = "";
+  const recentHistory = history.slice(-10); // 直近10件に絞る（トークン節約+速度向上）
 
-  // OpenAI GPT-4o-mini を優先
+  // OpenAI GPT-4o-mini を優先（8秒タイムアウト）
   if (env.OPENAI_API_KEY) {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
       const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
@@ -2675,40 +2696,51 @@ async function callLineAI(systemPrompt, history, env) {
         },
         body: JSON.stringify({
           model: env.LINE_CHAT_MODEL || "gpt-4o-mini",
-          max_tokens: 300,
+          max_tokens: 200,
+          temperature: 0.7,
           messages: [
             { role: "system", content: systemPrompt },
-            ...history.slice(-20),
+            ...recentHistory,
           ],
         }),
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
 
       if (openaiRes.ok) {
         const openaiData = await openaiRes.json();
         aiText = openaiData.choices?.[0]?.message?.content || "";
+        console.log("[LINE] OpenAI response OK, length:", aiText.length);
       } else {
-        console.error("[LINE] OpenAI API error:", openaiRes.status);
+        const errBody = await openaiRes.text().catch(() => "");
+        console.error("[LINE] OpenAI API error:", openaiRes.status, errBody.slice(0, 200));
       }
     } catch (err) {
-      console.error("[LINE] OpenAI API exception:", err);
+      console.error("[LINE] OpenAI API exception:", err.name, err.message);
     }
   }
 
-  // フォールバック: Workers AI (無料)
+  // フォールバック: Workers AI (無料、6秒タイムアウト)
   if (!aiText && env.AI) {
     try {
+      console.log("[LINE] Falling back to Workers AI");
       const workersMessages = [
-        { role: "system", content: systemPrompt },
-        ...history,
+        { role: "system", content: systemPrompt.slice(0, 2000) },
+        ...recentHistory,
       ];
       const aiResult = await env.AI.run(
         "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-        { messages: workersMessages, max_tokens: 300 }
+        { messages: workersMessages, max_tokens: 200 }
       );
       aiText = aiResult.response || "";
+      console.log("[LINE] Workers AI response OK, length:", aiText.length);
     } catch (aiErr) {
-      console.error("[LINE] Workers AI error:", aiErr);
+      console.error("[LINE] Workers AI error:", aiErr.name, aiErr.message);
     }
+  }
+
+  if (!aiText) {
+    console.error("[LINE] All AI calls failed, using fallback");
   }
 
   return aiText;
