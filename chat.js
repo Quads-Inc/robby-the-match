@@ -468,7 +468,7 @@
     cta.innerHTML =
       '<div class="curiosity-header">ここまでの相談内容を保存しませんか？</div>' +
       '<div class="curiosity-body">担当アドバイザーが、あなたの条件に合う<strong>非公開求人</strong>も含めてお探しします</div>' +
-      '<a href="https://lin.ee/HJwmQgp4" target="_blank" rel="noopener" class="curiosity-btn">LINEで相談内容を引き継ぐ</a>' +
+      '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="curiosity-btn">LINEで相談内容を引き継ぐ</a>' +
       '<div class="curiosity-note">完全無料・しつこい連絡なし</div>';
 
     els.body.appendChild(cta);
@@ -977,7 +977,7 @@
     var card = document.createElement("div");
     card.className = "chat-line-card";
     card.innerHTML =
-      '<a href="https://lin.ee/HJwmQgp4" target="_blank" rel="noopener" class="chat-line-card-btn" id="chatLineMainBtn">' +
+      '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="chat-line-card-btn" id="chatLineMainBtn">' +
         'LINEで内部情報を受け取る' +
       '</a>' +
       '<div class="chat-line-card-trust">' +
@@ -1000,7 +1000,7 @@
     card.className = "chat-line-card chat-line-card-soft";
     card.innerHTML =
       '<div class="chat-line-card-note">施設の内部情報・非公開求人のご相談</div>' +
-      '<a href="https://lin.ee/HJwmQgp4" target="_blank" rel="noopener" class="chat-line-card-btn chat-line-card-btn-soft">' +
+      '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="chat-line-card-btn chat-line-card-btn-soft">' +
         'LINEで相談する' +
       '</a>';
 

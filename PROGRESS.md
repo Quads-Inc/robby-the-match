@@ -39,7 +39,7 @@
 - [ ] TikTok紹介文設定（Slackに送信済み）
 - [ ] プロフィール画像アップロード（content/generated/tiktok_profile_720.png）
 - [ ] ビジネスアカウントに切り替え
-- [ ] プロフィールリンク設定: https://lin.ee/HJwmQgp4
+- [ ] プロフィールリンク設定: https://lin.ee/oUgDB3x
 
 ---
 
@@ -347,4 +347,10 @@ AI Marketing PDCA:
   Generated today: 0
   Quality issues: 0
   Status: Healthy
+
+### 🔎 競合監視（10:00:01）
+=== [2026-02-26 10:00:01] pdca_competitor 開始 ===
+[DEBUG] timeout_cmd=gtimeout, max=20min
+Not logged in · Please run /login
+[INFO] commit済み（pushは日次レビューで一括）
 
