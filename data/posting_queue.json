@@ -1,7 +1,7 @@
 {
   "version": 2,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-25T17:30:14.059237",
+  "updated": "2026-02-26T06:00:10.411891",
   "posts": [
     {
       "id": 1,
@@ -425,7 +425,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "pending",
+      "status": "ready",
       "video_path": "content/temp_videos/tiktok_day3_wed_A04.mp4",
       "posted_at": null,
       "tiktok_url": null,
