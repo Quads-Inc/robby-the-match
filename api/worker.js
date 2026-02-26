@@ -1023,11 +1023,37 @@ async function handleChat(request, env) {
       console.log(`[Chat] Session: ${sessionId}, Messages: ${sanitizedMessages.length}, UserMsgs: ${userMsgCount}`);
     }
 
-    // AI呼び出し: Workers AI (無料) or Anthropic (要KEY) を自動切り替え
+    // AI呼び出し: OpenAI (優先) / Anthropic / Workers AI (フォールバック)
     let aiText = "";
-    const aiProvider = env.AI_PROVIDER || "workers-ai";
+    const aiProvider = env.AI_PROVIDER || "openai";
 
-    if (aiProvider === "anthropic" && env.ANTHROPIC_API_KEY) {
+    if (aiProvider === "openai" && env.OPENAI_API_KEY) {
+      // ---------- OpenAI GPT-4o-mini ----------
+      const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: env.CHAT_MODEL || "gpt-4o-mini",
+          max_tokens: 1024,
+          messages: [
+            { role: "system", content: systemPrompt },
+            ...sanitizedMessages,
+          ],
+        }),
+      });
+
+      if (!openaiRes.ok) {
+        const errText = await openaiRes.text();
+        console.error("[Chat] OpenAI API error:", openaiRes.status, errText);
+        return jsonResponse({ error: "AI応答の取得に失敗しました" }, 502, allowedOrigin);
+      }
+
+      const openaiData = await openaiRes.json();
+      aiText = openaiData.choices?.[0]?.message?.content || "";
+    } else if (aiProvider === "anthropic" && env.ANTHROPIC_API_KEY) {
       // ---------- Anthropic Claude API ----------
       const anthropicRes = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
@@ -1053,12 +1079,11 @@ async function handleChat(request, env) {
       const aiData = await anthropicRes.json();
       aiText = aiData.content?.[0]?.text || "";
     } else {
-      // ---------- Cloudflare Workers AI (無料・キー不要) ----------
+      // ---------- Cloudflare Workers AI (無料・フォールバック) ----------
       if (!env.AI) {
         return jsonResponse({ error: "AI service not configured" }, 503, allowedOrigin);
       }
 
-      // Workers AIのメッセージ形式に変換（systemはmessages[0]に統合）
       const workersMessages = [
         { role: "system", content: systemPrompt },
         ...sanitizedMessages,
@@ -1066,11 +1091,8 @@ async function handleChat(request, env) {
 
       try {
         const aiResult = await env.AI.run(
-          env.CHAT_MODEL || "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-          {
-            messages: workersMessages,
-            max_tokens: 1024,
-          }
+          "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+          { messages: workersMessages, max_tokens: 1024 }
         );
         aiText = aiResult.response || "";
       } catch (aiErr) {
@@ -1977,36 +1999,37 @@ async function handleLineWebhook(request, env) {
       const systemPrompt = buildLineSystemPrompt();
       let aiText = "";
 
-      // Anthropic Claude APIを優先（より高品質な応答）
-      if (env.ANTHROPIC_API_KEY) {
+      // OpenAI GPT-4o-mini を優先
+      if (env.OPENAI_API_KEY) {
         try {
-          const anthropicRes = await fetch("https://api.anthropic.com/v1/messages", {
+          const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "x-api-key": env.ANTHROPIC_API_KEY,
-              "anthropic-version": "2023-06-01",
+              "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
             },
             body: JSON.stringify({
-              model: env.LINE_CHAT_MODEL || "claude-haiku-4-5-20251001",
+              model: env.LINE_CHAT_MODEL || "gpt-4o-mini",
               max_tokens: 512,
-              system: systemPrompt,
-              messages: history,
+              messages: [
+                { role: "system", content: systemPrompt },
+                ...history,
+              ],
             }),
           });
 
-          if (anthropicRes.ok) {
-            const aiData = await anthropicRes.json();
-            aiText = aiData.content?.[0]?.text || "";
+          if (openaiRes.ok) {
+            const openaiData = await openaiRes.json();
+            aiText = openaiData.choices?.[0]?.message?.content || "";
           } else {
-            console.error("[LINE] Anthropic API error:", anthropicRes.status);
+            console.error("[LINE] OpenAI API error:", openaiRes.status);
           }
         } catch (err) {
-          console.error("[LINE] Anthropic API exception:", err);
+          console.error("[LINE] OpenAI API exception:", err);
         }
       }
 
-      // フォールバック: Workers AI
+      // フォールバック: Workers AI (無料)
       if (!aiText && env.AI) {
         try {
           const workersMessages = [
@@ -2014,7 +2037,7 @@ async function handleLineWebhook(request, env) {
             ...history,
           ];
           const aiResult = await env.AI.run(
-            env.LINE_CHAT_MODEL || "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+            "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
             { messages: workersMessages, max_tokens: 512 }
           );
           aiText = aiResult.response || "";

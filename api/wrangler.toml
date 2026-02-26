@@ -16,9 +16,9 @@ binding = "AI"
 [vars]
 # 非機密の環境変数はここに記載可能
 # ALLOWED_ORIGIN = "https://your-domain.com"
-# AI_PROVIDER: "workers-ai" (default/free) or "anthropic" (要API KEY)
-AI_PROVIDER = "workers-ai"
-CHAT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+# AI_PROVIDER: "openai" (default) or "anthropic" or "workers-ai" (free)
+AI_PROVIDER = "openai"
+CHAT_MODEL = "gpt-4o-mini"
 
 # ルーティング設定（カスタムドメイン使用時）
 # [routes]
