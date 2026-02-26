@@ -1,6 +1,6 @@
 /* ========================================
-   ナースロビー - AI Chat Widget v2.0
-   Value-first conversational design
+   ナースロビー - AI Chat Widget v4.0
+   心理学ドリブン コンバージョン設計
    Mobile-first / Warm Cream + Teal Theme
    ======================================== */
 
@@ -496,13 +496,6 @@
   gap: 8px;
   padding: 4px 0;
   align-self: flex-start;
-  animation: repliesSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-}
-
-@keyframes repliesSlideIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .chat-quick-reply {
@@ -516,6 +509,14 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: var(--font-main);
+  /* Staggered animation */
+  animation: replyBtnIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  opacity: 0;
+}
+
+@keyframes replyBtnIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .chat-quick-reply:hover {
@@ -543,7 +544,7 @@
   border-color: #06C755;
 }
 
-/* ---------- Facility Cards (Value Delivery) ---------- */
+/* ---------- Facility Cards ---------- */
 .chat-facility-cards {
   display: flex;
   flex-direction: column;
@@ -597,7 +598,7 @@
   white-space: nowrap;
 }
 
-/* Enriched data: tags (nursingRatio, emergencyLevel, ownerType, DPC) */
+/* Enriched data: tags */
 .facility-card-tags {
   display: flex;
   flex-wrap: wrap;
@@ -617,7 +618,7 @@
   white-space: nowrap;
 }
 
-/* Enriched data: stats (ambulanceCount, doctorCount) */
+/* Enriched data: stats */
 .facility-card-stats {
   display: flex;
   flex-wrap: wrap;
@@ -631,7 +632,7 @@
   white-space: nowrap;
 }
 
-/* Enriched data: data source note */
+/* Data source note */
 .facility-card-source {
   margin-top: 6px;
   font-size: 0.62rem;
@@ -647,7 +648,7 @@
   padding: 8px 0 4px;
 }
 
-/* Referral facility card (紹介可能施設) */
+/* Referral facility card */
 .chat-facility-card--referral {
   border-color: rgba(6, 199, 85, 0.3);
   background: linear-gradient(135deg, #f0fdf4 0%, #FFFFFF 100%);
@@ -657,7 +658,7 @@
   border-color: #06C755;
 }
 
-/* Info facility card (一般エリア情報) */
+/* Info facility card */
 .chat-facility-card--info {
   opacity: 0.88;
 }
@@ -700,9 +701,141 @@
   margin-top: 8px;
   padding: 6px 0;
   font-size: 0.72rem;
-  color: #A0A0A0;
+  color: #5B787D;
   text-align: center;
   border-top: 1px solid #E5E0D5;
+  font-weight: 500;
+}
+
+/* ---------- Salary Breakdown Card (v4: transparent calculation) ---------- */
+.chat-salary-breakdown {
+  background: #FFFFFF;
+  border: 1px solid rgba(91, 120, 125, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  animation: messageSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.salary-bd-header {
+  font-size: 0.78rem;
+  color: #5B787D;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E5E0D5;
+}
+
+.salary-bd-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.salary-bd-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.82rem;
+  color: #4A4A4A;
+}
+
+.salary-bd-label {
+  color: #7A7A7A;
+  font-size: 0.78rem;
+}
+
+.salary-bd-value {
+  font-weight: 500;
+  text-align: right;
+}
+
+.salary-bd-detail {
+  font-size: 0.68rem;
+  color: #A0A0A0;
+  margin-left: 4px;
+}
+
+.salary-bd-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 10px;
+  border-top: 2px solid #5B787D;
+}
+
+.salary-bd-total-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #5B787D;
+}
+
+.salary-bd-total-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #2D2D2D;
+}
+
+.salary-bd-note {
+  font-size: 0.65rem;
+  color: #A0A0A0;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+/* ---------- Curiosity Gap Card (v4: internal info hook) ---------- */
+.chat-curiosity-card {
+  background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+  border: 1px solid rgba(202, 138, 4, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  animation: messageSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.curiosity-header {
+  font-size: 0.85rem;
+  color: #92400e;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.curiosity-body {
+  font-size: 0.78rem;
+  color: #78350f;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.curiosity-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: #06C755;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: var(--font-main);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.curiosity-btn:hover {
+  background: #05b04c;
+}
+
+.curiosity-note {
+  font-size: 0.68rem;
+  color: #A0A0A0;
+  margin-top: 8px;
 }
 
 /* ---------- LINE Card (CTA) ---------- */
@@ -791,32 +924,6 @@
   background: rgba(6, 199, 85, 0.06);
 }
 
-/* ---------- LINE Nudge (gentle, inline) ---------- */
-.chat-line-nudge {
-  text-align: center;
-  padding: 8px 0;
-  animation: messageSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-}
-
-.chat-line-nudge-btn {
-  display: inline-block;
-  padding: 10px 24px;
-  background: #06C755;
-  color: #FFFFFF;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-decoration: none;
-  font-family: var(--font-main);
-  transition: background 0.2s, transform 0.1s;
-}
-
-.chat-line-nudge-btn:hover {
-  background: #05b04c;
-  transform: translateY(-1px);
-}
-
 /* ---------- Body scroll lock (mobile) ---------- */
 body.chat-open-mobile {
   overflow: hidden;
@@ -874,7 +981,7 @@ body.chat-open-mobile {
   /* Touch-friendly buttons */
   .chat-line-card-btn,
   .chat-line-card-btn-soft,
-  .chat-line-nudge-btn {
+  .curiosity-btn {
     min-height: 48px;
     display: flex;
     align-items: center;
@@ -891,9 +998,14 @@ body.chat-open-mobile {
   .chat-facility-card {
     padding: 16px 18px;
   }
+
+  /* Salary breakdown: slightly larger */
+  .salary-bd-total-value {
+    font-size: 1.3rem;
+  }
 }
 
-/* ---------- Progress Bar (サンクコスト強化) ---------- */
+/* ---------- Progress Bar ---------- */
 .chat-progress-bar {
   padding: 8px 20px;
   background: #F2EFE6;
@@ -922,126 +1034,7 @@ body.chat-open-mobile {
   margin-top: 4px;
 }
 
-/* ---------- Salary Estimate Card (即時価値 + アンカリング) ---------- */
-.chat-salary-card {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border: 1px solid rgba(91, 120, 125, 0.25);
-  border-radius: 12px;
-  padding: 20px 16px;
-  text-align: center;
-  animation: messageSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-}
-
-.salary-card-header {
-  font-size: 0.78rem;
-  color: #5B787D;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  margin-bottom: 8px;
-}
-
-.salary-card-value {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 4px;
-  margin-bottom: 12px;
-}
-
-.salary-card-amount {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #2D2D2D;
-  line-height: 1;
-}
-
-.salary-card-unit {
-  font-size: 0.85rem;
-  color: #6B6B6B;
-  font-weight: 500;
-}
-
-.salary-card-range {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.72rem;
-  color: #A0A0A0;
-}
-
-.salary-card-bar {
-  flex: 1;
-  height: 6px;
-  background: #E5E0D5;
-  border-radius: 3px;
-  position: relative;
-}
-
-.salary-card-fill {
-  position: absolute;
-  top: -3px;
-  width: 12px;
-  height: 12px;
-  background: #5B787D;
-  border-radius: 50%;
-  border: 2px solid #FFFFFF;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-}
-
-.salary-card-note {
-  font-size: 0.68rem;
-  color: #A0A0A0;
-  margin-top: 10px;
-}
-
-/* ---------- Sunk Cost CTA (3分後のLINE誘導) ---------- */
-.chat-sunk-cost-cta {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-  border: 1px solid rgba(217, 119, 6, 0.2);
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  animation: messageSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-}
-
-.sunk-cost-header {
-  font-size: 0.85rem;
-  color: #92400e;
-  font-weight: 600;
-  margin-bottom: 12px;
-  line-height: 1.4;
-}
-
-.sunk-cost-btn {
-  display: block;
-  width: 100%;
-  padding: 12px 20px;
-  background: #06C755;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  font-family: var(--font-main);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.sunk-cost-btn:hover {
-  background: #05b04c;
-}
-
-.sunk-cost-note {
-  font-size: 0.68rem;
-  color: #A0A0A0;
-  margin-top: 8px;
-}
-
-/* ---------- Resume Notice (セッション復帰) ---------- */
+/* ---------- Resume Notice ---------- */
 .chat-resume-notice {
   text-align: center;
   padding: 8px 12px;
@@ -1090,17 +1083,13 @@ body.chat-open-mobile {
   }
 
   .chat-quick-replies,
+  .chat-quick-reply,
   .chat-facility-cards,
   .chat-line-card,
-  .chat-line-nudge,
-  .chat-salary-card,
-  .chat-sunk-cost-cta {
+  .chat-salary-breakdown,
+  .chat-curiosity-card {
     animation: none;
     opacity: 1;
-  }
-
-  .chat-quick-reply {
-    transition: none;
   }
 
   .chat-peek {
