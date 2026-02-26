@@ -354,3 +354,10 @@ AI Marketing PDCA:
 Not logged in · Please run /login
 [INFO] commit済み（pushは日次レビューで一括）
 
+### content（15:00:00）
+コンテンツ生成:   id=14, content_id=day5_fri_A05, batch=weekly_batch_20260220, cta=soft
+  id=15, content_id=day6_sat_C01, batch=weekly_batch_20260220, cta=soft
+  id=16, content_id=day7_sun_T01, batch=weekly_batch_20260220, cta=hard
+
+[NOTE] pending (4) < threshold (7) -- --auto で自動補充が実行されます
+

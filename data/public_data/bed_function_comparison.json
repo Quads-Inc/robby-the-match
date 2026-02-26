@@ -1,0 +1,623 @@
+{
+  "summary": {
+    "parsed_hospitals": 70,
+    "existing_hospitals": 67,
+    "matched_by_code": 67,
+    "only_in_parsed": 3,
+    "only_in_existing": 0
+  },
+  "discrepancies": [
+    {
+      "hospital": "厚木市立病院",
+      "existing_key": "厚木市立病院",
+      "medical_code": "1414090030",
+      "city": "厚木市",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 9,
+          "parsed": 10
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "急性期",
+            "高度急性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "急性期",
+            "高度急性期"
+          ]
+        }
+      ]
+    },
+    {
+      "hospital": "徳洲会湘南大磯病院",
+      "existing_key": "徳洲会湘南大磯病院",
+      "medical_code": "1414080032",
+      "city": "大磯町",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 3,
+          "parsed": 8
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "急性期",
+            "高度急性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "急性期",
+            "高度急性期"
+          ]
+        }
+      ]
+    },
+    {
+      "hospital": "独立行政法人国立病院機構箱根病院",
+      "existing_key": "箱根病院",
+      "medical_code": "1414110026",
+      "city": "小田原市",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 3,
+          "parsed": 4
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "慢性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "慢性期"
+          ]
+        }
+      ]
+    },
+    {
+      "hospital": "医療法人尽誠会 山近記念総合病院",
+      "existing_key": "山近記念総合病院",
+      "medical_code": "1414110009",
+      "city": "小田原市",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 2,
+          "parsed": 3
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "急性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "急性期"
+          ]
+        }
+      ]
+    },
+    {
+      "hospital": "国家公務員共済組合連合会 平塚共済病院",
+      "existing_key": "平塚共済病院",
+      "medical_code": "1414080021",
+      "city": "平塚市",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 10,
+          "parsed": 11
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "急性期",
+            "高度急性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "急性期",
+            "高度急性期"
+          ]
+        }
+      ]
+    },
+    {
+      "hospital": "神奈川県立足柄上病院",
+      "existing_key": "神奈川県立足柄上病院",
+      "medical_code": "1414110020",
+      "city": "松田町",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 6,
+          "parsed": 7
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "回復期",
+            "急性期",
+            "高度急性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "回復期",
+            "急性期",
+            "高度急性期"
+          ]
+        }
+      ]
+    },
+    {
+      "hospital": "秦野赤十字病院",
+      "existing_key": "秦野赤十字病院",
+      "medical_code": "1414080024",
+      "city": "秦野市",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 7,
+          "parsed": 8
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "回復期",
+            "急性期",
+            "高度急性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "回復期",
+            "急性期",
+            "高度急性期"
+          ]
+        }
+      ]
+    },
+    {
+      "hospital": "独立行政法人国立病院機構神奈川病院",
+      "existing_key": "神奈川病院",
+      "medical_code": "1414080028",
+      "city": "秦野市",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 5,
+          "parsed": 6
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "急性期",
+            "慢性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "急性期",
+            "慢性期"
+          ]
+        }
+      ]
+    },
+    {
+      "hospital": "一般財団法人同友会藤沢湘南台病院",
+      "existing_key": "同友会藤沢湘南台病院",
+      "medical_code": "1414070015",
+      "city": "藤沢市",
+      "differences": [
+        {
+          "field": "ward_count",
+          "existing": 7,
+          "parsed": 8
+        },
+        {
+          "field": "functions",
+          "existing": [
+            "回復期",
+            "急性期",
+            "高度急性期"
+          ],
+          "parsed": [
+            "休棟中（今後再開する予定）",
+            "回復期",
+            "急性期",
+            "高度急性期"
+          ]
+        }
+      ]
+    }
+  ],
+  "only_in_parsed": [
+    {
+      "hospital": "湯河原胃腸病院",
+      "medical_code": "1414110025",
+      "city": "湯河原町",
+      "ward_count": 2,
+      "total_beds": 108,
+      "functions": [
+        "急性期",
+        "慢性期"
+      ]
+    },
+    {
+      "hospital": "独立行政法人地域医療機能推進機構 湯河原病院",
+      "medical_code": "1414110027",
+      "city": "湯河原町",
+      "ward_count": 3,
+      "total_beds": 150,
+      "functions": [
+        "回復期",
+        "急性期"
+      ]
+    },
+    {
+      "hospital": "一般財団法人生活保健協会湯河原中央温泉病院",
+      "medical_code": "1414110012",
+      "city": "湯河原町",
+      "ward_count": 5,
+      "total_beds": 223,
+      "functions": [
+        "慢性期"
+      ]
+    }
+  ],
+  "only_in_existing": [],
+  "matched_hospitals": [
+    {
+      "hospital": "日野原記念ピースハウス病院",
+      "medical_code": "1414110011",
+      "city": "中井町",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団三井会 伊勢原日向病院",
+      "medical_code": "1414080006",
+      "city": "伊勢原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "神奈川県厚生農業協同組合連合会 伊勢原協同病院",
+      "medical_code": "1414080001",
+      "city": "伊勢原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "東海大学医学部付属病院",
+      "medical_code": "1414080026",
+      "city": "伊勢原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団明芳会北小田原病院",
+      "medical_code": "1414110028",
+      "city": "南足柄市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "大内病院",
+      "medical_code": "1414110023",
+      "city": "南足柄市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "東名厚木病院",
+      "medical_code": "1414090041",
+      "city": "厚木市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人仁愛会近藤病院",
+      "medical_code": "1414090023",
+      "city": "厚木市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "厚木佐藤病院",
+      "medical_code": "1414090028",
+      "city": "厚木市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人徳洲会　湘南厚木病院",
+      "medical_code": "1414090006",
+      "city": "厚木市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "仁厚会病院",
+      "medical_code": "1414090036",
+      "city": "厚木市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "神奈川リハビリテーション病院",
+      "medical_code": "1414060040",
+      "city": "厚木市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人鉄蕉会 亀田森の里病院",
+      "medical_code": "1414090024",
+      "city": "厚木市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団葵会 AOI七沢リハビリテーション病院",
+      "medical_code": "1414090051",
+      "city": "厚木市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "佐藤病院",
+      "medical_code": "1414110016",
+      "city": "大井町",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "宗教法人寒川神社 寒川病院",
+      "medical_code": "1414070026",
+      "city": "寒川町",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人 小林病院",
+      "medical_code": "1414110002",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団綾和会 間中病院",
+      "medical_code": "1414110006",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団三暉会 永井病院",
+      "medical_code": "1414110008",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団 帰陽会 丹羽病院",
+      "medical_code": "1414110005",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人 同愛会 小澤病院",
+      "medical_code": "1414110003",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "西湘病院",
+      "medical_code": "1414110021",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "小田原市立病院",
+      "medical_code": "1414110018",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "太陽の門",
+      "medical_code": "1414110022",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人邦友会 小田原循環器病院",
+      "medical_code": "1414110010",
+      "city": "小田原市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "くらた病院",
+      "medical_code": "1414080003",
+      "city": "平塚市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "社会福祉法人 恩賜財団済生会支部 神奈川県済生会湘南平塚病院",
+      "medical_code": "1414080022",
+      "city": "平塚市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団健齢会 ふれあい平塚ホスピタル",
+      "medical_code": "1414080016",
+      "city": "平塚市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人研水会 高根台病院",
+      "medical_code": "1414080010",
+      "city": "平塚市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "平塚市民病院",
+      "medical_code": "1414080029",
+      "city": "平塚市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団水野会 平塚十全病院",
+      "medical_code": "1414080019",
+      "city": "平塚市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団 さがみ野中央病院",
+      "medical_code": "1414090001",
+      "city": "海老名市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "湘陽かしわ台病院",
+      "medical_code": "1414090010",
+      "city": "海老名市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団神愛会オアシス湘南病院",
+      "medical_code": "1414090021",
+      "city": "海老名市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "社会医療法人ｼﾞｬﾊﾟﾝﾒﾃﾞｨｶﾙｱﾗｲｱﾝｽ 海老名総合病院",
+      "medical_code": "1414090032",
+      "city": "海老名市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人杏林会 八木病院",
+      "medical_code": "1414080031",
+      "city": "秦野市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団三喜会 鶴巻温泉病院",
+      "medical_code": "1414080018",
+      "city": "秦野市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "特定医療法人社団研精会 箱根リハビリテーション病院",
+      "medical_code": "1414110007",
+      "city": "箱根町",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "茅ヶ崎市立病院",
+      "medical_code": "1414070018",
+      "city": "茅ヶ崎市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人徳洲会 茅ヶ崎徳洲会病院",
+      "medical_code": "1414070013",
+      "city": "茅ヶ崎市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "茅ヶ崎中央病院",
+      "medical_code": "1414070020",
+      "city": "茅ヶ崎市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団湘南健友会 長岡病院",
+      "medical_code": "1414070009",
+      "city": "茅ヶ崎市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "茅ヶ崎新北陵病院",
+      "medical_code": "1414070019",
+      "city": "茅ヶ崎市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "湘南東部総合病院",
+      "medical_code": "1414070030",
+      "city": "茅ヶ崎市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人 山内龍馬財団 山内病院",
+      "medical_code": "1414070004",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "ｸﾛｰﾊﾞｰﾎｽﾋﾟﾀﾙ",
+      "medical_code": "1414070002",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "湘南中央病院",
+      "medical_code": "1414070029",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人長谷川会湘南ホスピタル",
+      "medical_code": "1414070012",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "湘南第一病院",
+      "medical_code": "1414070028",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "湘南長寿園病院",
+      "medical_code": "1414070008",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "藤沢脳神経外科病院",
+      "medical_code": "1414070035",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "藤沢御所見病院",
+      "medical_code": "1414070033",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "藤沢市民病院",
+      "medical_code": "1414070034",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人徳洲会 湘南藤沢徳洲会病院",
+      "medical_code": "1414070014",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団正拓会湘南太平台病院",
+      "medical_code": "1414070010",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人社団 健育会 湘南慶育病院",
+      "medical_code": "1414070038",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "村田会湘南大庭病院",
+      "medical_code": "1414070040",
+      "city": "藤沢市",
+      "status": "MATCH"
+    },
+    {
+      "hospital": "医療法人 陽風会 高台病院",
+      "medical_code": "1414110004",
+      "city": "開成町",
+      "status": "MATCH"
+    }
+  ]
+}

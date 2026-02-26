@@ -3,7 +3,7 @@
     "seo_optimizer": "2026-02-26T04:00:04",
     "health_monitor": "2026-02-26T07:00:06",
     "competitor_analyst": "2026-02-26T10:00:03",
-    "content_creator": "2026-02-25T15:00:05",
+    "content_creator": "2026-02-26T15:00:22",
     "daily_reviewer": "2026-02-25T23:00:07",
     "weekly_strategist": "2026-02-22T06:00:05",
     "slack_commander": null,
@@ -14,7 +14,7 @@
     "seo_optimizer": "completed",
     "health_monitor": "completed",
     "competitor_analyst": "completed",
-    "content_creator": "failed",
+    "content_creator": "completed",
     "daily_reviewer": "completed",
     "weekly_strategist": "completed",
     "slack_commander": "pending",
@@ -28,7 +28,7 @@
         "type": "generate_batch",
         "details": "未投稿コンテンツ残り2件。追加生成が必要。",
         "created": "2026-02-25T17:30:14.915573",
-        "status": "pending"
+        "status": "processing"
       }
     ]
   },

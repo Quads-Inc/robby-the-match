@@ -1,0 +1,2914 @@
+{
+  "医療法人徳洲会　湘南大磯病院": {
+    "name": "医療法人徳洲会　湘南大磯病院",
+    "address": "中郡大磯町月京２１－１",
+    "beds_raw": "一般　　      312",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "170床",
+        "wardType": "一般",
+        "wardCount": "4棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "神奈川県立足柄上病院": {
+    "name": "神奈川県立足柄上病院",
+    "address": "足柄上郡松田町松田惣領８６６－１",
+    "beds_raw": "一般　　      290\nその他　        6",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "200床",
+        "wardType": "一般",
+        "wardCount": "4棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "湯河原胃腸病院": {
+    "name": "湯河原胃腸病院",
+    "address": "足柄下郡湯河原町土肥４－３－１",
+    "beds_raw": "一般　　       58\n療養　　       50",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "58床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "地域一般入院料２"
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "50床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料２"
+      }
+    ]
+  },
+  "独立行政法人地域医療機能推進機構　湯河原病院": {
+    "name": "独立行政法人地域医療機能推進機構　湯河原病院",
+    "address": "足柄下郡湯河原町中央２－２１－６",
+    "beds_raw": "一般　　\n　　一般       50\n一般　　\n　　一般      100",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "100床",
+        "wardType": "一般",
+        "wardCount": "2棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "50床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "国家公務員共済組合連合会　平塚共済病院": {
+    "name": "国家公務員共済組合連合会　平塚共済病院",
+    "address": "平塚市追分９－１１",
+    "beds_raw": "一般　　      400",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "368床",
+        "wardType": "一般",
+        "wardCount": "8棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "緩和ケア病棟入院料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "平塚市民病院": {
+    "name": "平塚市民病院",
+    "address": "平塚市南原１－１９－１",
+    "beds_raw": "一般　　      410\n一般（感染）\n　　　　        6",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "347床",
+        "wardType": "一般",
+        "wardCount": "8棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "小児入院医療管理料３",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "社会福祉法人恩賜財団済生会支部神奈川県済生会　湘南平塚病院": {
+    "name": "社会福祉法人恩賜財団済生会支部神奈川県済生会　湘南平塚病院",
+    "address": "平塚市宮松町１８－１",
+    "beds_raw": "一般　　      176",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "42床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "46床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "一般財団法人　同友会　藤沢湘南台病院": {
+    "name": "一般財団法人　同友会　藤沢湘南台病院",
+    "address": "藤沢市高倉２３４５",
+    "beds_raw": "一般　　      267\n療養　　       53",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "210床",
+        "wardType": "一般",
+        "wardCount": "4棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "30床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料２"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料３",
+        "beds": "33床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "緩和ケア病棟入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人徳洲会　山内病院": {
+    "name": "医療法人徳洲会　山内病院",
+    "address": "藤沢市南藤沢４－６",
+    "beds_raw": "一般　　       99",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "46床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料６"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "53床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "１０対１入院基本料"
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "藤沢市民病院": {
+    "name": "藤沢市民病院",
+    "address": "藤沢市藤沢２－６－１",
+    "beds_raw": "一般　　      536",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "447床",
+        "wardType": "一般",
+        "wardCount": "10棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "小児入院医療管理料２",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "クローバーホスピタル": {
+    "name": "クローバーホスピタル",
+    "address": "藤沢市鵠沼石上３－３－６",
+    "beds_raw": "一般　　      173",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "60床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "地域一般入院料３"
+      },
+      {
+        "todoke": "特殊疾患入院医療管理料",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "1",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "60床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人徳洲会　湘南藤沢徳洲会病院": {
+    "name": "医療法人徳洲会　湘南藤沢徳洲会病院",
+    "address": "藤沢市辻堂神台１－５－１",
+    "beds_raw": "一般　　      419",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "440床",
+        "wardType": "一般",
+        "wardCount": "11棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "小児入院医療管理料５",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "藤沢脳神経外科病院": {
+    "name": "藤沢脳神経外科病院",
+    "address": "藤沢市片瀬２－１５－３６",
+    "beds_raw": "一般　　       55",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "55床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料５"
+      }
+    ]
+  },
+  "医療法人社団健育会　湘南慶育病院": {
+    "name": "医療法人社団健育会　湘南慶育病院",
+    "address": "藤沢市遠藤４３６０",
+    "beds_raw": "一般　　       50\n療養　　      200",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "50床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "50床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "湘南第一病院": {
+    "name": "湘南第一病院",
+    "address": "藤沢市湘南台１－１９－７",
+    "beds_raw": "一般　　       94",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "52床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "地域包括医療病棟入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括医療病棟入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括医療病棟入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人　小林病院": {
+    "name": "医療法人　小林病院",
+    "address": "小田原市栄町１－１４－１８",
+    "beds_raw": "一般　　       90\n療養　　       60",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "45床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料５"
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "60床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料４",
+        "beds": "36床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人　同愛会　小澤病院": {
+    "name": "医療法人　同愛会　小澤病院",
+    "address": "小田原市本町１－１－１７",
+    "beds_raw": "一般　　      202",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "202床",
+        "wardType": "一般",
+        "wardCount": "4棟",
+        "kubun": "急性期一般入院料２"
+      }
+    ]
+  },
+  "小田原市立病院": {
+    "name": "小田原市立病院",
+    "address": "小田原市久野４６",
+    "beds_raw": "一般　　      417",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "340床",
+        "wardType": "一般",
+        "wardCount": "8棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "小児入院医療管理料２",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人尽誠会　山近記念総合病院": {
+    "name": "医療法人尽誠会　山近記念総合病院",
+    "address": "小田原市小八幡３－１９－１４",
+    "beds_raw": "一般　　      140",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "152床",
+        "wardType": "一般",
+        "wardCount": "3棟",
+        "kubun": "急性期一般入院料３"
+      }
+    ]
+  },
+  "医療法人財団報徳会　西湘病院": {
+    "name": "医療法人財団報徳会　西湘病院",
+    "address": "小田原市扇町１－１６－３５",
+    "beds_raw": "一般　　       45\n療養　　       57",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "45床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "地域一般入院料１"
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "57床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "医療法人　三暉会　永井病院": {
+    "name": "医療法人　三暉会　永井病院",
+    "address": "小田原市鴨宮２１９－５",
+    "beds_raw": "一般　　       45",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "45床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "特別入院基本料"
+      }
+    ]
+  },
+  "医療法人社団　帰陽会　丹羽病院": {
+    "name": "医療法人社団　帰陽会　丹羽病院",
+    "address": "小田原市荻窪４０６",
+    "beds_raw": "一般　　       51",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "54床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "地域一般入院料１"
+      }
+    ]
+  },
+  "医療法人邦友会　小田原循環器病院": {
+    "name": "医療法人邦友会　小田原循環器病院",
+    "address": "小田原市矢作２９６－１",
+    "beds_raw": "一般　　       97",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "90床",
+        "wardType": "一般",
+        "wardCount": "2棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "茅ヶ崎市立病院": {
+    "name": "茅ヶ崎市立病院",
+    "address": "茅ヶ崎市本村５－１５－１",
+    "beds_raw": "一般　　      401",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "358床",
+        "wardType": "一般",
+        "wardCount": "7棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "小児入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "茅ケ崎中央病院": {
+    "name": "茅ケ崎中央病院",
+    "address": "茅ヶ崎市茅ヶ崎２－２－３",
+    "beds_raw": "一般　　      268\n療養　　      208",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "104床",
+        "wardType": "一般",
+        "wardCount": "2棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "108床",
+        "wardType": "療養",
+        "wardCount": "2棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "104床",
+        "wardType": "一般",
+        "wardCount": "2棟",
+        "kubun": "１３対１入院基本料"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料３",
+        "beds": "48床",
+        "wardType": "療養",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "特殊疾患病棟入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "湘南東部総合病院": {
+    "name": "湘南東部総合病院",
+    "address": "茅ヶ崎市西久保５００",
+    "beds_raw": "一般　　      243\n精神　　       44\n療養　　       40",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "207床",
+        "wardType": "一般",
+        "wardCount": "5棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "12床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "７対１入院基本料"
+      },
+      {
+        "todoke": "小児入院医療管理料５",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料２",
+        "beds": "40床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "緩和ケア病棟入院料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "44床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人徳洲会　茅ヶ崎徳洲会病院": {
+    "name": "医療法人徳洲会　茅ヶ崎徳洲会病院",
+    "address": "茅ヶ崎市幸町１４－１",
+    "beds_raw": "一般　　      144",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "124床",
+        "wardType": "一般",
+        "wardCount": "3棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "秦野赤十字病院": {
+    "name": "秦野赤十字病院",
+    "address": "秦野市立野台１－１",
+    "beds_raw": "一般　　      296",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "177床",
+        "wardType": "一般",
+        "wardCount": "4棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "仁厚会病院": {
+    "name": "仁厚会病院",
+    "address": "厚木市中町３－８－１１",
+    "beds_raw": "一般　　       44\n療養　　       87",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "44床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "87床",
+        "wardType": "療養",
+        "wardCount": "2棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "社会福祉法人神奈川県総合リハビリテーション事業団　神奈川リハビリテーション病院": {
+    "name": "社会福祉法人神奈川県総合リハビリテーション事業団　神奈川リハビリテーション病院",
+    "address": "厚木市七沢５１６",
+    "beds_raw": "一般　　      324",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "120床",
+        "wardType": "一般",
+        "wardCount": "3棟",
+        "kubun": "地域一般入院料３"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "120床",
+        "wardType": "一般",
+        "wardCount": "3棟",
+        "kubun": "１０対１入院基本料"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "40床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": ""
+      }
+    ]
+  },
+  "東名厚木病院": {
+    "name": "東名厚木病院",
+    "address": "厚木市船子２３２",
+    "beds_raw": "一般　　      289",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "200床",
+        "wardType": "一般",
+        "wardCount": "4棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "緩和ケア病棟入院料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団　藤和会　厚木佐藤病院": {
+    "name": "医療法人社団　藤和会　厚木佐藤病院",
+    "address": "厚木市小野７５９",
+    "beds_raw": "一般　　       48\n療養　　       82\n精神　　       54",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "48床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "39床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "54",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人鉄蕉会　亀田森の里病院": {
+    "name": "医療法人鉄蕉会　亀田森の里病院",
+    "address": "厚木市森の里３－１－１",
+    "beds_raw": "一般　　       60",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "60床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "厚木市立病院": {
+    "name": "厚木市立病院",
+    "address": "厚木市水引１－１６－３６",
+    "beds_raw": "一般　　\n　　一般      341\n一般（感染）\n　　感染        6",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "297床",
+        "wardType": "一般",
+        "wardCount": "7棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "小児入院医療管理料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人徳洲会　湘南厚木病院": {
+    "name": "医療法人徳洲会　湘南厚木病院",
+    "address": "厚木市温水１１８－１",
+    "beds_raw": "一般　　      253",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "160床",
+        "wardType": "一般",
+        "wardCount": "4棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "24床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "１０対１入院基本料"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "59床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "神奈川県厚生農業協同組合連合会　伊勢原協同病院": {
+    "name": "神奈川県厚生農業協同組合連合会　伊勢原協同病院",
+    "address": "伊勢原市田中３４５",
+    "beds_raw": "一般　　      350",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "259床",
+        "wardType": "一般",
+        "wardCount": "6棟",
+        "kubun": "急性期一般入院料１"
+      },
+      {
+        "todoke": "ハイケアユニット入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "小児入院医療管理料３",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "45床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "緩和ケア病棟入院料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "大内病院": {
+    "name": "大内病院",
+    "address": "南足柄市中沼５９４－１",
+    "beds_raw": "一般　　       53",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "53床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "地域一般入院料２"
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料３及び地域包括ケア入院医療管理料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料３及び地域包括ケア入院医療管理料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "独立行政法人国立病院機構　神奈川病院": {
+    "name": "独立行政法人国立病院機構　神奈川病院",
+    "address": "秦野市落合６６６－１",
+    "beds_raw": "一般　　      250\n結核　　       30",
+    "wards": [
+      {
+        "todoke": "一般病棟入院基本料",
+        "beds": "30床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "急性期一般入院料４"
+      },
+      {
+        "todoke": "結核病棟入院基本料",
+        "beds": "30床",
+        "wardType": "結核",
+        "wardCount": "1棟",
+        "kubun": "１０対１入院基本料"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "120床",
+        "wardType": "一般",
+        "wardCount": "2棟",
+        "kubun": "１０対１入院基本料"
+      },
+      {
+        "todoke": "地域包括医療病棟入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人勝又　高台病院": {
+    "name": "医療法人勝又　高台病院",
+    "address": "足柄上郡開成町金井島１９８３",
+    "beds_raw": "療養　　      310",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "310床",
+        "wardType": "療養",
+        "wardCount": "6棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "佐藤病院": {
+    "name": "佐藤病院",
+    "address": "足柄上郡大井町金子１９２２－３",
+    "beds_raw": "療養　　       30",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "30床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "一般財団法人生活保健協会　湯河原中央温泉病院": {
+    "name": "一般財団法人生活保健協会　湯河原中央温泉病院",
+    "address": "足柄下郡湯河原町中央４－１１－２",
+    "beds_raw": "療養　　      188",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "188床",
+        "wardType": "療養",
+        "wardCount": "4棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "特定医療法人社団研精会　箱根リハビリテーション病院": {
+    "name": "特定医療法人社団研精会　箱根リハビリテーション病院",
+    "address": "足柄下郡箱根町仙石原１２８５",
+    "beds_raw": "療養　　      109",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "55床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "40床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団水野会　平塚十全病院": {
+    "name": "医療法人社団水野会　平塚十全病院",
+    "address": "平塚市出縄５５０",
+    "beds_raw": "一般　　       59\n療養　　      161",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "117床",
+        "wardType": "療養",
+        "wardCount": "2棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "57床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "１３対１入院基本料"
+      }
+    ]
+  },
+  "くらた病院": {
+    "name": "くらた病院",
+    "address": "平塚市東真土４－５－２６",
+    "beds_raw": "療養　　       79",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "79床",
+        "wardType": "療養",
+        "wardCount": "2棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "ふれあい平塚ホスピタル": {
+    "name": "ふれあい平塚ホスピタル",
+    "address": "平塚市袖ケ浜１－１２",
+    "beds_raw": "一般　　       90\n療養　　       35",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "35床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "40床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "１３対１入院基本料"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料３",
+        "beds": "50床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人研水会　高根台病院": {
+    "name": "医療法人研水会　高根台病院",
+    "address": "平塚市高村２０３番２１",
+    "beds_raw": "療養　　      236",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "236床",
+        "wardType": "療養",
+        "wardCount": "4棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "医療法人　長谷川会　湘南ホスピタル": {
+    "name": "医療法人　長谷川会　湘南ホスピタル",
+    "address": "藤沢市辻堂３－１０－２",
+    "beds_raw": "療養　　      104",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "60床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "湘南中央病院": {
+    "name": "湘南中央病院",
+    "address": "藤沢市羽鳥１－３－４３",
+    "beds_raw": "一般　　      156\n療養　　       43",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "43床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "地域包括医療病棟入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括医療病棟入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "36床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "緩和ケア病棟入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "藤沢御所見病院": {
+    "name": "藤沢御所見病院",
+    "address": "藤沢市獺郷５８０",
+    "beds_raw": "一般　　       56\n療養　　       98",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "98床",
+        "wardType": "療養",
+        "wardCount": "2棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団　正拓会　湘南太平台病院": {
+    "name": "医療法人社団　正拓会　湘南太平台病院",
+    "address": "藤沢市辻堂太平台２－１３－２７",
+    "beds_raw": "一般　　       35\n療養　　       44",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "22床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "38床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "１０対１入院基本料"
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "湘南長寿園病院": {
+    "name": "湘南長寿園病院",
+    "address": "藤沢市白旗１－１１－１",
+    "beds_raw": "療養　　      120",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "120床",
+        "wardType": "療養",
+        "wardCount": "2棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "村田会湘南大庭病院": {
+    "name": "村田会湘南大庭病院",
+    "address": "藤沢市大庭５５２６－２２",
+    "beds_raw": "療養　　\n　　療養       99",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "99床",
+        "wardType": "療養",
+        "wardCount": "2棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料１及び地域包括ケア入院医療管理料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団湘南健友会　長岡病院": {
+    "name": "医療法人社団湘南健友会　長岡病院",
+    "address": "茅ヶ崎市赤羽根３６８５番地",
+    "beds_raw": "療養　　      162",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "162床",
+        "wardType": "療養",
+        "wardCount": "3棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "医療法人社団三喜会　鶴巻温泉病院": {
+    "name": "医療法人社団三喜会　鶴巻温泉病院",
+    "address": "秦野市鶴巻北１－１６－１",
+    "beds_raw": "一般　　      135\n療養　　      359",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "120床",
+        "wardType": "療養",
+        "wardCount": "2棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "55床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "１０対１入院基本料"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "51床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料２及び地域包括ケア入院医療管理料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "特殊疾患病棟入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "緩和ケア病棟入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団　三井会　伊勢原日向病院": {
+    "name": "医療法人社団　三井会　伊勢原日向病院",
+    "address": "伊勢原市日向５４１－１",
+    "beds_raw": "療養　　      202",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "202床",
+        "wardType": "療養",
+        "wardCount": "4棟",
+        "kubun": "入院料１"
+      }
+    ]
+  },
+  "医療法人社団明芳会　北小田原病院": {
+    "name": "医療法人社団明芳会　北小田原病院",
+    "address": "南足柄市矢倉沢６２５",
+    "beds_raw": "療養　　       55\n精神　　      290",
+    "wards": [
+      {
+        "todoke": "療養病棟入院基本料",
+        "beds": "55床",
+        "wardType": "療養",
+        "wardCount": "1棟",
+        "kubun": "入院料１"
+      },
+      {
+        "todoke": "精神病棟入院基本料",
+        "beds": "44床",
+        "wardType": "精神",
+        "wardCount": "1棟",
+        "kubun": "１５対１入院基本料"
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "48",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "100",
+        "wardType": "精神",
+        "wardCount": "2",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団清風会　富士見台病院": {
+    "name": "医療法人社団清風会　富士見台病院",
+    "address": "平塚市土屋１６４５",
+    "beds_raw": "精神　　\n　　一般      250\n精神　　\n　　療養       55",
+    "wards": [
+      {
+        "todoke": "精神病棟入院基本料",
+        "beds": "111床",
+        "wardType": "精神",
+        "wardCount": "2棟",
+        "kubun": "１５対１入院基本料"
+      },
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "41床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "55",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団　いしずえ　湘南敬愛病院": {
+    "name": "医療法人社団　いしずえ　湘南敬愛病院",
+    "address": "藤沢市円行１－１３－７",
+    "beds_raw": "精神　　      109",
+    "wards": [
+      {
+        "todoke": "精神病棟入院基本料",
+        "beds": "60床",
+        "wardType": "精神",
+        "wardCount": "1棟",
+        "kubun": "１５対１入院基本料"
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "49",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "秦野病院": {
+    "name": "秦野病院",
+    "address": "秦野市三屋１３１",
+    "beds_raw": "精神　　\n　　一般      151",
+    "wards": [
+      {
+        "todoke": "精神病棟入院基本料",
+        "beds": "120床",
+        "wardType": "精神",
+        "wardCount": "3棟",
+        "kubun": "１５対１入院基本料"
+      },
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "31床",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人財団　青山会　みくるべ病院": {
+    "name": "医療法人財団　青山会　みくるべ病院",
+    "address": "秦野市三廻部９４８",
+    "beds_raw": "精神　　      276",
+    "wards": [
+      {
+        "todoke": "精神病棟入院基本料",
+        "beds": "160床",
+        "wardType": "精神",
+        "wardCount": "3棟",
+        "kubun": "１５対１入院基本料"
+      },
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "56床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "60",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人弘徳会　愛光病院": {
+    "name": "医療法人弘徳会　愛光病院",
+    "address": "厚木市松枝２－７－１",
+    "beds_raw": "精神　　      359",
+    "wards": [
+      {
+        "todoke": "精神病棟入院基本料",
+        "beds": "88床",
+        "wardType": "精神",
+        "wardCount": "2棟",
+        "kubun": "１５対１入院基本料"
+      },
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "57床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "児童・思春期精神科入院医療管理料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "57",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "東海大学医学部付属病院": {
+    "name": "東海大学医学部付属病院",
+    "address": "伊勢原市下糟屋１４３",
+    "beds_raw": "一般　　      804",
+    "wards": [
+      {
+        "todoke": "特定機能病院入院基本料",
+        "beds": "660床",
+        "wardType": "一般",
+        "wardCount": "16棟",
+        "kubun": "７対１入院基本料"
+      },
+      {
+        "todoke": "救命救急入院料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料３",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "救命救急入院料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "新生児治療回復室入院医療管理料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "小児入院医療管理料２",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "小児入院医療管理料４",
+        "beds": "",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人杏林会　八木病院": {
+    "name": "医療法人杏林会　八木病院",
+    "address": "秦野市本町１－３－１",
+    "beds_raw": "一般　　       94",
+    "wards": [
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "55床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "１０対１入院基本料"
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料３",
+        "beds": "25床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料４及び地域包括ケア入院医療管理料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括ケア病棟入院料４及び地域包括ケア入院医療管理料４",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人仁愛会　近藤病院": {
+    "name": "医療法人仁愛会　近藤病院",
+    "address": "厚木市東町３－３",
+    "beds_raw": "一般　　      111",
+    "wards": [
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "111床",
+        "wardType": "一般",
+        "wardCount": "2棟",
+        "kubun": "１３対１入院基本料"
+      }
+    ]
+  },
+  "独立行政法人国立病院機構　箱根病院": {
+    "name": "独立行政法人国立病院機構　箱根病院",
+    "address": "小田原市風祭４１２",
+    "beds_raw": "一般　　      199",
+    "wards": [
+      {
+        "todoke": "障害者施設等入院基本料",
+        "beds": "180床",
+        "wardType": "一般",
+        "wardCount": "3棟",
+        "kubun": "７対１入院基本料"
+      }
+    ]
+  },
+  "山北中央診療所": {
+    "name": "山北中央診療所",
+    "address": "足柄上郡山北町山北１９２",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料２"
+      }
+    ]
+  },
+  "開成駅光クリニック": {
+    "name": "開成駅光クリニック",
+    "address": "足柄上郡開成町吉田島４３５１－９藤与駅前ビル４Ｆ",
+    "beds_raw": "一般　　\n　　一般        9",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "9床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料６"
+      }
+    ]
+  },
+  "湯河原ゆうゆうの里診療所": {
+    "name": "湯河原ゆうゆうの里診療所",
+    "address": "足柄下郡湯河原町吉浜１８５５",
+    "beds_raw": "一般　　        8",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "8床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料２"
+      }
+    ]
+  },
+  "医療法人社団松和会　望星平塚クリニック": {
+    "name": "医療法人社団松和会　望星平塚クリニック",
+    "address": "平塚市代官町２３－１",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "小清水産婦人科クリニック": {
+    "name": "小清水産婦人科クリニック",
+    "address": "平塚市徳延１－１６－２０",
+    "beds_raw": "一般　　       12",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "12床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料４"
+      }
+    ]
+  },
+  "医療法人社団　慶水会　前田産婦人科": {
+    "name": "医療法人社団　慶水会　前田産婦人科",
+    "address": "平塚市松風町１３－３７",
+    "beds_raw": "一般　　       16",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "16床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "とりごしクリニック": {
+    "name": "とりごしクリニック",
+    "address": "平塚市八重咲町１６－２７",
+    "beds_raw": "一般　　        8",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "8床",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": "入院基本料５"
+      }
+    ]
+  },
+  "医療法人社団光耀会　山本眼科医院": {
+    "name": "医療法人社団光耀会　山本眼科医院",
+    "address": "平塚市立野町４０－１０",
+    "beds_raw": "一般　　       13",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "13床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料５"
+      }
+    ]
+  },
+  "医療法人社団　芳晴会　愛児レディースクリニック": {
+    "name": "医療法人社団　芳晴会　愛児レディースクリニック",
+    "address": "藤沢市遠藤２９５７－１",
+    "beds_raw": "一般　　\n　　一般       13",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "13床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料２"
+      }
+    ]
+  },
+  "産婦人科田クリニック": {
+    "name": "産婦人科田クリニック",
+    "address": "藤沢市大庭５０６１－４",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "湘南鵠沼産婦人科": {
+    "name": "湘南鵠沼産婦人科",
+    "address": "藤沢市鵠沼藤が谷１－７－１０",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "メディカルパーク湘南": {
+    "name": "メディカルパーク湘南",
+    "address": "藤沢市湘南台一丁目１４番地の３",
+    "beds_raw": "一般　　       17",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "17床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料４"
+      }
+    ]
+  },
+  "黒川産科婦人科医院": {
+    "name": "黒川産科婦人科医院",
+    "address": "藤沢市善行２丁目１－１０",
+    "beds_raw": "一般　　        1",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "1床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": "入院基本料６"
+      }
+    ]
+  },
+  "佐伯眼科クリニック": {
+    "name": "佐伯眼科クリニック",
+    "address": "小田原市荻窪１７７２",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料４"
+      }
+    ]
+  },
+  "古橋産婦人科": {
+    "name": "古橋産婦人科",
+    "address": "小田原市南町２－１－４３",
+    "beds_raw": "一般　　        9",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "9床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料６"
+      }
+    ]
+  },
+  "岡宮産婦人科医院": {
+    "name": "岡宮産婦人科医院",
+    "address": "小田原市栄町３－１０－１９",
+    "beds_raw": "一般　　        4",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "4床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料６"
+      }
+    ]
+  },
+  "高木整形外科医院": {
+    "name": "高木整形外科医院",
+    "address": "小田原市蓮正寺３１０－１",
+    "beds_raw": "一般　　        3\n療養　　       16",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "3床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料３"
+      },
+      {
+        "todoke": "有床診療所療養病床入院基本料",
+        "beds": "16床",
+        "wardType": "療養",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "小田原マタニティクリニック": {
+    "name": "小田原マタニティクリニック",
+    "address": "小田原市城山２－１－５",
+    "beds_raw": "一般　　       14",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "14床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料６"
+      }
+    ]
+  },
+  "下田産婦人科医院": {
+    "name": "下田産婦人科医院",
+    "address": "茅ヶ崎市幸町１９－８",
+    "beds_raw": "一般　　        9",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "9床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "みうらレディースクリニック": {
+    "name": "みうらレディースクリニック",
+    "address": "茅ヶ崎市東海岸南４－１１－４１",
+    "beds_raw": "一般　　       16",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "16床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料４"
+      }
+    ]
+  },
+  "新川クリニック": {
+    "name": "新川クリニック",
+    "address": "秦野市南矢名１－６－４０",
+    "beds_raw": "一般　　\n　　一般        8",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "8床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料２"
+      }
+    ]
+  },
+  "アクアベルクリニック": {
+    "name": "アクアベルクリニック",
+    "address": "秦野市鈴張町３番２５号",
+    "beds_raw": "一般　　       13",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "13床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "医療法人社団　慈愛会　塩塚産婦人科": {
+    "name": "医療法人社団　慈愛会　塩塚産婦人科",
+    "address": "厚木市旭町２－１２－１５",
+    "beds_raw": "一般　　       17",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "17床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料４"
+      }
+    ]
+  },
+  "笹生循環器クリニック": {
+    "name": "笹生循環器クリニック",
+    "address": "厚木市旭町５－４７－１",
+    "beds_raw": "一般　　        8",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "8床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料６"
+      }
+    ]
+  },
+  "米澤外科内科": {
+    "name": "米澤外科内科",
+    "address": "厚木市飯山１７２",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "並木産婦人科クリニック": {
+    "name": "並木産婦人科クリニック",
+    "address": "厚木市妻田西２－１７－１２",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "厚木産婦人科": {
+    "name": "厚木産婦人科",
+    "address": "厚木市中町３－９－３",
+    "beds_raw": "一般　　       11",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "11床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "小児科内科落合医院": {
+    "name": "小児科内科落合医院",
+    "address": "厚木市温水１０１６",
+    "beds_raw": "一般　　        6",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "6床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料６"
+      }
+    ]
+  },
+  "医療法人社団　誠知会　誠知クリニック": {
+    "name": "医療法人社団　誠知会　誠知クリニック",
+    "address": "伊勢原市沼目５－１９－８",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "医療法人ファインバース　やはたウィメンズクリニック": {
+    "name": "医療法人ファインバース　やはたウィメンズクリニック",
+    "address": "伊勢原市東大竹１５３９－１",
+    "beds_raw": "一般　　       19",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "19床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "おおたレディースクリニック": {
+    "name": "おおたレディースクリニック",
+    "address": "伊勢原市伊勢原２－２－１２",
+    "beds_raw": "一般　　        9",
+    "wards": [
+      {
+        "todoke": "有床診療所入院基本料",
+        "beds": "9床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": "入院基本料１"
+      }
+    ]
+  },
+  "医療法人研水会　平塚病院": {
+    "name": "医療法人研水会　平塚病院",
+    "address": "平塚市出縄４７６",
+    "beds_raw": "精神　　      298",
+    "wards": [
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "40床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "40",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "56",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "公益財団法人積善会　曽我病院": {
+    "name": "公益財団法人積善会　曽我病院",
+    "address": "小田原市曽我岸１４８",
+    "beds_raw": "精神　　      285",
+    "wards": [
+      {
+        "todoke": "精神科救急急性期医療入院料",
+        "beds": "52床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神科救急急性期医療入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "60",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "53",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "特定医療法人清輝会　国府津病院": {
+    "name": "特定医療法人清輝会　国府津病院",
+    "address": "小田原市田島１２５",
+    "beds_raw": "精神　　      250",
+    "wards": [
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "50床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "50",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "50",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人　丹沢病院": {
+    "name": "医療法人　丹沢病院",
+    "address": "秦野市堀山下５５７",
+    "beds_raw": "精神　　      312",
+    "wards": [
+      {
+        "todoke": "特殊疾患病棟入院料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "50床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "60",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "51",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "秦野厚生病院": {
+    "name": "秦野厚生病院",
+    "address": "秦野市南矢名２－１２－１",
+    "beds_raw": "精神　　      160",
+    "wards": [
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "60床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "47",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "53",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団綾和会　間中病院": {
+    "name": "医療法人社団綾和会　間中病院",
+    "address": "小田原市本町４－１－２６",
+    "beds_raw": "一般　　       90",
+    "wards": [
+      {
+        "todoke": "地域包括医療病棟入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "地域包括医療病棟入院料",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "56床",
+        "wardType": "一般",
+        "wardCount": "1棟",
+        "kubun": ""
+      }
+    ]
+  },
+  "医療法人社団葵会　ＡＯＩ七沢リハビリテーション病院": {
+    "name": "医療法人社団葵会　ＡＯＩ七沢リハビリテーション病院",
+    "address": "厚木市七沢１３０４",
+    "beds_raw": "一般　　      245",
+    "wards": [
+      {
+        "todoke": "回復期リハビリテーション病棟入院料１",
+        "beds": "50床",
+        "wardType": "一般",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "太陽の門": {
+    "name": "太陽の門",
+    "address": "小田原市風祭５６３",
+    "beds_raw": "一般　　       52",
+    "wards": [
+      {
+        "todoke": "特殊疾患病棟入院料２",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "日野原記念ピースハウス病院": {
+    "name": "日野原記念ピースハウス病院",
+    "address": "足柄上郡中井町井ノ口１０００－１",
+    "beds_raw": "一般　　       22",
+    "wards": [
+      {
+        "todoke": "緩和ケア病棟入院料１",
+        "beds": "",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      }
+    ]
+  },
+  "藤沢病院": {
+    "name": "藤沢病院",
+    "address": "藤沢市小塚３８３",
+    "beds_raw": "精神　　      420",
+    "wards": [
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "60床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "120",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "60",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "相州病院": {
+    "name": "相州病院",
+    "address": "厚木市上荻野１６８２－３",
+    "beds_raw": "精神　　      263",
+    "wards": [
+      {
+        "todoke": "精神科急性期治療病棟入院料１",
+        "beds": "60床",
+        "wardType": "",
+        "wardCount": "1棟",
+        "kubun": ""
+      },
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "57",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "46",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "湘南さくら病院": {
+    "name": "湘南さくら病院",
+    "address": "茅ヶ崎市下寺尾１８３３",
+    "beds_raw": "精神　　      156",
+    "wards": [
+      {
+        "todoke": "精神療養病棟入院料",
+        "beds": "52",
+        "wardType": "",
+        "wardCount": "",
+        "kubun": ""
+      },
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "52",
+        "wardType": "",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  },
+  "神奈川中央病院": {
+    "name": "神奈川中央病院",
+    "address": "厚木市関口８１２－５",
+    "beds_raw": "精神　　      180",
+    "wards": [
+      {
+        "todoke": "認知症治療病棟入院料１",
+        "beds": "60",
+        "wardType": "精神",
+        "wardCount": "1",
+        "kubun": ""
+      }
+    ]
+  }
+}

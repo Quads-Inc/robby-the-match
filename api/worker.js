@@ -1906,11 +1906,198 @@ async function handleWebSession(request) {
   }
 }
 
+// ========== LINE BOT v2: Quick Reply + 職務経歴書生成 ==========
+
 // LINE会話履歴ストア（インメモリ、userId → 拡張エントリ）
 const lineConversationMap = new Map();
-const LINE_MAX_HISTORY = 40; // 最大保持メッセージ数（20往復、履歴書作成に必要）
-const LINE_SESSION_TTL = 86400000; // 24時間でセッション期限切れ
+const LINE_MAX_HISTORY = 40;
+const LINE_SESSION_TTL = 86400000; // 24時間
 
+// ---------- 定数: フェーズフロー ----------
+const PHASE_FLOW = {
+  follow:           "q1_urgency",
+  q1_urgency:       "q2_change",
+  q2_change:        "q3_area",
+  q3_area:          "q4_experience",
+  q4_experience:    "q5_workstyle",
+  q5_workstyle:     "q6_workplace",
+  q6_workplace:     "q7_strengths",
+  q7_strengths:     "q8_concerns",
+  q8_concerns:      "q9_work_history",
+  q9_work_history:  "q10_qualification",
+  q10_qualification:"resume_confirm",
+  resume_confirm:   "matching",
+  matching:         "handoff",
+  handoff:          null,
+};
+
+// ---------- 定数: Postback ラベル ----------
+const POSTBACK_LABELS = {
+  // Q1 お気持ち
+  q1_urgent:   "今すぐ転職したい",
+  q1_good:     "いい求人があれば",
+  q1_info:     "まずは情報収集",
+  // Q2 変えたいこと
+  q2_salary:   "お給料を上げたい",
+  q2_rest:     "休みを増やしたい",
+  q2_human:    "人間関係を変えたい",
+  q2_night:    "夜勤を減らしたい",
+  q2_commute:  "通勤をラクにしたい",
+  q2_career:   "スキルアップしたい",
+  // Q3 エリア
+  q3_odawara:   "小田原・南足柄あたり",
+  q3_hiratsuka: "平塚・大磯あたり",
+  q3_hadano:    "秦野・伊勢原あたり",
+  q3_shonan:    "藤沢・茅ヶ崎あたり",
+  q3_atsugi:    "厚木・海老名あたり",
+  q3_other:     "その他のエリア",
+  // Q4 経験年数
+  q4_under1:  "1年未満",
+  q4_1to3:    "1〜3年",
+  q4_3to5:    "3〜5年",
+  q4_5to10:   "5〜10年",
+  q4_over10:  "10年以上",
+  // Q5 働き方
+  q5_day:     "日勤のみ",
+  q5_twoshift:"夜勤あり（二交代）",
+  q5_part:    "パート・非常勤",
+  q5_night:   "夜勤専従",
+  // Q6 現在の職場
+  q6_acute:     "急性期病棟",
+  q6_recovery:  "回復期リハ病棟",
+  q6_chronic:   "療養型病棟",
+  q6_clinic:    "クリニック・外来",
+  q6_visit:     "訪問看護",
+  q6_care:      "介護施設",
+  q6_ope:       "手術室・ICU",
+  q6_other:     "その他",
+  // Q7 得意なこと（複数選択対応）
+  q7_assess:    "アセスメント・観察",
+  q7_acute_care:"急変対応",
+  q7_comm:      "患者さんとの会話",
+  q7_edu:       "後輩指導",
+  q7_doc:       "記録・書類作成",
+  q7_rehab:     "リハビリ・ADL支援",
+  q7_done:      "選び終わった！",
+  // Q8 転職の不安
+  q8_skill:     "スキルが通用するか不安",
+  q8_relation:  "新しい人間関係が不安",
+  q8_income:    "収入が下がらないか不安",
+  q8_age:       "年齢が気になる",
+  q8_blank:     "ブランクがある",
+  q8_none:      "特に不安はない",
+  // Q9 職歴
+  q9_skip:      "あとで入力する",
+  // Q10 資格
+  q10_rn:       "正看護師",
+  q10_lpn:      "准看護師",
+  q10_cn:       "認定看護師",
+  q10_cns:      "専門看護師",
+  q10_pt:       "理学療法士",
+  // 経歴書確認
+  resume_ok:    "OK！これでいい",
+  resume_edit:  "修正したい",
+  // マッチング
+  match_detail: "詳しく聞きたい",
+  match_other:  "他の施設も見たい",
+  // 引き継ぎ
+  handoff_ok:   "お願いします！",
+};
+
+// Q3エリア → データキーのマッピング
+const AREA_ZONE_MAP = {
+  q3_odawara:   ["小田原"],
+  q3_hiratsuka: ["平塚"],
+  q3_hadano:    ["秦野", "伊勢原"],
+  q3_shonan:    ["藤沢"],
+  q3_atsugi:    ["厚木", "海老名"],
+  q3_other:     [],
+};
+
+// PC用テキスト→postbackキーマッピング
+const TEXT_TO_POSTBACK = {
+  // Q1
+  "今すぐ": "q1=urgent", "すぐ転職": "q1=urgent", "急ぎ": "q1=urgent",
+  "いい求人": "q1=good", "良い求人": "q1=good",
+  "情報収集": "q1=info", "まずは情報": "q1=info",
+  // Q2
+  "給料": "q2=salary", "給与": "q2=salary", "年収": "q2=salary",
+  "休み": "q2=rest", "休日": "q2=rest", "休暇": "q2=rest",
+  "人間関係": "q2=human",
+  "夜勤": "q2=night",
+  "通勤": "q2=commute",
+  "スキル": "q2=career", "キャリア": "q2=career",
+  // Q3
+  "小田原": "q3=odawara", "南足柄": "q3=odawara",
+  "平塚": "q3=hiratsuka", "大磯": "q3=hiratsuka",
+  "秦野": "q3=hadano", "伊勢原": "q3=hadano",
+  "藤沢": "q3=shonan", "茅ヶ崎": "q3=shonan", "湘南": "q3=shonan",
+  "厚木": "q3=atsugi", "海老名": "q3=atsugi",
+  // Q4
+  "1年未満": "q4=under1", "新人": "q4=under1",
+  "1〜3年": "q4=1to3", "1-3年": "q4=1to3",
+  "3〜5年": "q4=3to5", "3-5年": "q4=3to5",
+  "5〜10年": "q4=5to10", "5-10年": "q4=5to10",
+  "10年以上": "q4=over10", "ベテラン": "q4=over10",
+  // Q5
+  "日勤のみ": "q5=day", "日勤だけ": "q5=day",
+  "二交代": "q5=twoshift", "夜勤あり": "q5=twoshift",
+  "パート": "q5=part", "非常勤": "q5=part",
+  "夜勤専従": "q5=night",
+  // Q6
+  "急性期": "q6=acute",
+  "回復期": "q6=recovery",
+  "療養": "q6=chronic", "慢性期": "q6=chronic",
+  "クリニック": "q6=clinic", "外来": "q6=clinic",
+  "訪問看護": "q6=visit",
+  "介護": "q6=care", "老健": "q6=care", "特養": "q6=care",
+  "手術室": "q6=ope", "ICU": "q6=ope", "オペ室": "q6=ope",
+  // Q8
+  "スキル不安": "q8=skill",
+  "人間関係不安": "q8=relation",
+  "収入不安": "q8=income",
+  "年齢": "q8=age",
+  "ブランク": "q8=blank",
+  "不安なし": "q8=none",
+  // Q10
+  "正看護師": "q10=rn", "看護師免許": "q10=rn",
+  "准看護師": "q10=lpn",
+  "認定看護師": "q10=cn",
+  "専門看護師": "q10=cns",
+  "理学療法士": "q10=pt", "PT": "q10=pt",
+  // 確認系
+  "OK": "resume=ok", "おっけー": "resume=ok", "これでいい": "resume=ok",
+  "修正": "resume=edit", "直したい": "resume=edit",
+  "詳しく": "match=detail", "聞きたい": "match=detail",
+  "他の施設": "match=other",
+  "お願い": "handoff=ok",
+  "スキップ": "q9=skip", "あとで": "q9=skip",
+};
+
+// ---------- ヘルパー関数 ----------
+function qrItem(label, data) {
+  return { type: "action", action: { type: "postback", label: label.slice(0, 20), data, displayText: label } };
+}
+
+function splitText(text, maxLen = 500) {
+  if (text.length <= maxLen) return [text];
+  const msgs = [];
+  let remaining = text;
+  while (remaining.length > 0) {
+    if (remaining.length <= maxLen) { msgs.push(remaining); break; }
+    let splitAt = remaining.lastIndexOf("\n", maxLen);
+    if (splitAt < maxLen * 0.3) splitAt = maxLen;
+    msgs.push(remaining.slice(0, splitAt));
+    remaining = remaining.slice(splitAt).replace(/^\n/, "");
+  }
+  return msgs.slice(0, 5); // LINE Reply API最大5メッセージ
+}
+
+function getAreaKeysFromZone(zoneKey) {
+  return AREA_ZONE_MAP[zoneKey] || [];
+}
+
+// ---------- エントリ ----------
 function getLineEntry(userId) {
   const entry = lineConversationMap.get(userId);
   if (!entry) return null;
@@ -1929,24 +2116,27 @@ function getLineConversation(userId) {
 function createLineEntry() {
   return {
     messages: [],
-    phase: "welcome",
-    collectedData: {
-      currentJob: null,        // 現職（例: "急性期病棟"）
-      transferReason: null,    // 転職理由
-      experience: null,        // 経験年数
-      qualification: null,     // 資格（正看護師等）
-      area: null,              // 希望エリア
-      salary: null,            // 希望給与
-      workStyle: null,         // 勤務形態（日勤のみ等）
-      priorities: [],          // 優先事項
-      workHistory: [],         // 職歴 [{facility, years, department, role}]
-      urgency: null,           // 緊急度（今すぐ/いい求人があれば/情報収集）
-    },
-    webSessionData: null,      // Web引き継ぎデータ
+    phase: "follow",
+    // Quick Reply収集データ
+    urgency: null,          // q1: urgent/good/info
+    change: null,           // q2: salary/rest/human/night/commute/career
+    area: null,             // q3: odawara/hiratsuka/hadano/shonan/atsugi/other
+    areaLabel: null,        // 表示用エリア名
+    experience: null,       // q4: under1/1to3/3to5/5to10/over10
+    workStyle: null,        // q5: day/twoshift/part/night
+    workplace: null,        // q6: acute/recovery/chronic/clinic/visit/care/ope/other
+    strengths: [],          // q7: 複数選択 [assess, acute_care, comm, edu, doc, rehab]
+    concern: null,          // q8: skill/relation/income/age/blank/none
+    workHistoryText: null,  // q9: 自由テキスト or null(スキップ)
+    qualification: null,    // q10: rn/lpn/cn/cns/pt
+    // 経歴書・マッチング
+    resumeDraft: null,
+    matchingResults: null,
+    interestedFacility: null,
+    // メタ
+    webSessionData: null,
     messageCount: 0,
-    phaseMessageCount: 0,
-    matchingResults: null,     // AIマッチング結果
-    resumeDraft: null,         // 履歴書ドラフト
+    unexpectedTextCount: 0, // 想定外テキスト連続カウント
     updatedAt: Date.now(),
   };
 }
