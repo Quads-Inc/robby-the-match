@@ -924,6 +924,40 @@
   background: rgba(6, 199, 85, 0.06);
 }
 
+/* ---------- Handoff Code (Web→LINE引き継ぎコード) ---------- */
+.chat-handoff-code {
+  background: #FFFFFF;
+  border: 2px dashed #5B787D;
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.handoff-code-label {
+  font-size: 0.78rem;
+  color: #6B6B6B;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.handoff-code-value {
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: #2D2D2D;
+  padding: 8px 0;
+  user-select: all;
+  -webkit-user-select: all;
+}
+
+.handoff-code-note {
+  font-size: 0.68rem;
+  color: #A0A0A0;
+  margin-top: 4px;
+}
+
 /* ---------- Body scroll lock (mobile) ---------- */
 body.chat-open-mobile {
   overflow: hidden;
@@ -1002,6 +1036,11 @@ body.chat-open-mobile {
   /* Salary breakdown: slightly larger */
   .salary-bd-total-value {
     font-size: 1.3rem;
+  }
+
+  /* Handoff code: slightly larger on mobile */
+  .handoff-code-value {
+    font-size: 2rem;
   }
 }
 
@@ -1093,6 +1132,11 @@ body.chat-open-mobile {
   }
 
   .chat-peek {
+    animation: none;
+    opacity: 1;
+  }
+
+  .chat-handoff-code {
     animation: none;
     opacity: 1;
   }

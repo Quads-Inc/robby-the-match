@@ -442,6 +442,80 @@
   }
 
   // --------------------------------------------------
+  // Web→LINE 引き継ぎコード取得
+  // --------------------------------------------------
+  var handoffCode = null;
+  var handoffCodeRequested = false;
+
+  function requestHandoffCode(callback) {
+    // すでにコードがあれば即返す
+    if (handoffCode) {
+      if (callback) callback(handoffCode);
+      return;
+    }
+    // リクエスト中の重複防止
+    if (handoffCodeRequested) {
+      if (callback) callback(null);
+      return;
+    }
+    handoffCodeRequested = true;
+
+    if (!isAPIAvailable()) {
+      handoffCodeRequested = false;
+      if (callback) callback(null);
+      return;
+    }
+
+    var salaryEst = chatState.salaryBreakdown ? {
+      min: chatState.salaryBreakdown.annualMin,
+      max: chatState.salaryBreakdown.annualMax,
+    } : null;
+
+    var facilitiesShown = [];
+    var cards = document.querySelectorAll(".facility-card-name");
+    for (var i = 0; i < cards.length && i < 5; i++) {
+      facilitiesShown.push(cards[i].textContent.split("（")[0]);
+    }
+
+    fetch(CHAT_CONFIG.workerEndpoint + "/api/web-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sessionId: chatState.sessionId,
+        area: chatState.area || null,
+        concern: chatState.concern || null,
+        experience: chatState.experience || null,
+        salaryEstimate: salaryEst,
+        temperatureScore: detectTemperatureScore(),
+        facilitiesShown: facilitiesShown,
+      }),
+    }).then(function (res) {
+      if (res.ok) return res.json();
+      return null;
+    }).then(function (data) {
+      handoffCodeRequested = false;
+      if (data && data.code) {
+        handoffCode = data.code;
+        if (callback) callback(handoffCode);
+      } else {
+        if (callback) callback(null);
+      }
+    }).catch(function () {
+      handoffCodeRequested = false;
+      if (callback) callback(null);
+    });
+  }
+
+  function buildHandoffCodeHtml(code) {
+    if (!code) return "";
+    return '<div class="chat-handoff-code">' +
+      '<div class="handoff-code-label">LINEで友だち追加して、以下のコードを送信してください</div>' +
+      '<div class="handoff-code-value">' + escapeHtml(code) + '</div>' +
+      '<div class="handoff-code-note">HPでの相談内容がLINEに引き継がれます</div>' +
+      '</div>';
+  }
+
+  // --------------------------------------------------
   // サンクコスト: 3分タイマー → LINE保存誘導
   // --------------------------------------------------
   function startSunkCostTimer() {
@@ -463,20 +537,23 @@
 
   function showSunkCostCTA() {
     // ツァイガルニク効果: 「まだ確認していない情報がある」
-    var cta = document.createElement("div");
-    cta.className = "chat-curiosity-card";
-    cta.innerHTML =
-      '<div class="curiosity-header">ここまでの相談内容を保存しませんか？</div>' +
-      '<div class="curiosity-body">担当アドバイザーが、あなたの条件に合う<strong>非公開求人</strong>も含めてお探しします</div>' +
-      '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="curiosity-btn">LINEで相談内容を引き継ぐ</a>' +
-      '<div class="curiosity-note">完全無料・しつこい連絡なし</div>';
+    requestHandoffCode(function (code) {
+      var cta = document.createElement("div");
+      cta.className = "chat-curiosity-card";
+      cta.innerHTML =
+        '<div class="curiosity-header">ここまでの相談内容を保存しませんか？</div>' +
+        '<div class="curiosity-body">担当アドバイザーが、あなたの条件に合う<strong>非公開求人</strong>も含めてお探しします</div>' +
+        buildHandoffCodeHtml(code) +
+        '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="curiosity-btn">LINEで相談内容を引き継ぐ</a>' +
+        '<div class="curiosity-note">完全無料・しつこい連絡なし</div>';
 
-    els.body.appendChild(cta);
-    scrollToBottom();
-    trackEvent("chat_sunk_cost_shown", { elapsed_min: Math.round((Date.now() - chatState.conversationStartTime) / 60000) });
+      els.body.appendChild(cta);
+      scrollToBottom();
+      trackEvent("chat_sunk_cost_shown", { elapsed_min: Math.round((Date.now() - chatState.conversationStartTime) / 60000) });
 
-    cta.querySelector(".curiosity-btn").addEventListener("click", function () {
-      trackEvent("chat_sunk_cost_line_click");
+      cta.querySelector(".curiosity-btn").addEventListener("click", function () {
+        trackEvent("chat_sunk_cost_line_click");
+      });
     });
   }
 
@@ -974,38 +1051,44 @@
   }
 
   function showLineCard() {
-    var card = document.createElement("div");
-    card.className = "chat-line-card";
-    card.innerHTML =
-      '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="chat-line-card-btn" id="chatLineMainBtn">' +
-        'LINEで内部情報を受け取る' +
-      '</a>' +
-      '<div class="chat-line-card-trust">' +
-        '<span>完全無料</span><span>しつこい連絡なし</span><span>手数料10%</span>' +
-      '</div>';
+    requestHandoffCode(function (code) {
+      var card = document.createElement("div");
+      card.className = "chat-line-card";
+      card.innerHTML =
+        buildHandoffCodeHtml(code) +
+        '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="chat-line-card-btn" id="chatLineMainBtn">' +
+          'LINEで内部情報を受け取る' +
+        '</a>' +
+        '<div class="chat-line-card-trust">' +
+          '<span>完全無料</span><span>しつこい連絡なし</span><span>手数料10%</span>' +
+        '</div>';
 
-    els.body.appendChild(card);
-    scrollToBottom();
+      els.body.appendChild(card);
+      scrollToBottom();
 
-    var btn = document.getElementById("chatLineMainBtn");
-    if (btn) {
-      btn.addEventListener("click", function () {
-        trackEvent("chat_line_card_click", { phase: chatState.phase });
-      });
-    }
+      var btn = document.getElementById("chatLineMainBtn");
+      if (btn) {
+        btn.addEventListener("click", function () {
+          trackEvent("chat_line_card_click", { phase: chatState.phase, handoff_code: code || "none" });
+        });
+      }
+    });
   }
 
   function showSoftLineCard() {
-    var card = document.createElement("div");
-    card.className = "chat-line-card chat-line-card-soft";
-    card.innerHTML =
-      '<div class="chat-line-card-note">施設の内部情報・非公開求人のご相談</div>' +
-      '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="chat-line-card-btn chat-line-card-btn-soft">' +
-        'LINEで相談する' +
-      '</a>';
+    requestHandoffCode(function (code) {
+      var card = document.createElement("div");
+      card.className = "chat-line-card chat-line-card-soft";
+      card.innerHTML =
+        '<div class="chat-line-card-note">施設の内部情報・非公開求人のご相談</div>' +
+        buildHandoffCodeHtml(code) +
+        '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="chat-line-card-btn chat-line-card-btn-soft">' +
+          'LINEで相談する' +
+        '</a>';
 
-    els.body.appendChild(card);
-    scrollToBottom();
+      els.body.appendChild(card);
+      scrollToBottom();
+    });
   }
 
   // --------------------------------------------------
