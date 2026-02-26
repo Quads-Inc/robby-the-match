@@ -2345,7 +2345,7 @@ function buildPhaseMessage(phase, entry) {
     case "handoff":
       return [{
         type: "text",
-        text: "ありがとうございます！\n\n担当アドバイザーの平島禎之が、この後直接ご連絡させていただきます。\n24時間以内にこのLINEでご連絡しますね。\n\n気になることがあればいつでもメッセージしてください！",
+        text: "ありがとうございます！\n\n担当アドバイザーが、この後直接ご連絡させていただきます。\n24時間以内にこのLINEでご連絡しますね。\n\n気になることがあればいつでもメッセージしてください！",
       }];
 
     default:
@@ -2530,7 +2530,7 @@ function buildMatchingMessages(entry) {
   if (results.length === 0) {
     return [{
       type: "text",
-      text: "申し訳ありません、条件に合う施設が見つかりませんでした。\n担当の平島が直接お探しいたします！",
+      text: "申し訳ありません、条件に合う施設が見つかりませんでした。\n担当アドバイザーが直接お探しいたします！",
       quickReply: {
         items: [qrItem("お願いします！", "handoff=ok")],
       },
@@ -2561,7 +2561,7 @@ function buildMatchingMessages(entry) {
   });
 
   // 補足テキスト
-  let supplementText = "気になる施設はありますか？\n「詳しく聞く」を押していただければ、担当の平島が内部情報をお伝えできます！";
+  let supplementText = "気になる施設はありますか？\n「詳しく聞く」を押していただければ、担当アドバイザーが内部情報をお伝えできます！";
   if (externalInfo) {
     supplementText += `\n\nこのエリアの他の求人情報もあります：\n${externalInfo.slice(0, 300)}`;
   }
@@ -2926,7 +2926,7 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
           lineConversationMap.set(userId, entry);
           replyMessages = [{
             type: "text",
-            text: "他の施設情報もお伝えできます！\n担当の平島が直接ご連絡しますね。",
+            text: "他の施設情報もお伝えできます！\n担当アドバイザーが直接ご連絡しますね。",
             quickReply: { items: [qrItem("お願いします！", "handoff=ok")] },
           }];
         } else if (nextPhase === "handoff") {
@@ -3070,7 +3070,7 @@ ${userText}`;
             lineConversationMap.set(userId, entry);
             replyMessages = [{
               type: "text",
-              text: "うまくお答えできずすみません。\n担当の平島が直接ご対応させていただきますね。\n24時間以内にこのLINEでご連絡いたします！",
+              text: "うまくお答えできずすみません。\n担当アドバイザーが直接ご対応させていただきますね。\n24時間以内にこのLINEでご連絡いたします！",
             }];
             await sendHandoffNotification(userId, entry, env);
           } else {
@@ -3093,7 +3093,7 @@ ${userText}`;
           lineConversationMap.set(userId, entry);
           replyMessages = [{
             type: "text",
-            text: "担当の平島から改めてご連絡しますので、少しお待ちくださいね。",
+            text: "担当アドバイザーから改めてご連絡しますので、少しお待ちくださいね。",
           }];
         } else {
           // 正常な遷移（PC対応テキストマッチ等）
