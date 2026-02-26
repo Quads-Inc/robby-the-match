@@ -1973,10 +1973,22 @@ function buildLineSystemPrompt(entry) {
   const cd = entry?.collectedData || {};
   const webData = entry?.webSessionData || null;
 
-  // エリア情報サマリ
+  // エリア情報サマリ（条件整理以降は関連エリアのみ、それ以外は簡潔に）
   let areaSummary = "";
-  for (const [areaName, meta] of Object.entries(AREA_METADATA)) {
-    areaSummary += `- ${areaName}: 病院${meta.facilityCount?.hospitals || "?"}施設 / ${meta.nurseAvgSalary || ""} / 需要${meta.demandLevel || ""}\n`;
+  if (AREA_METADATA) {
+    if (cd.area && ["conditions", "career", "matching", "resume", "handoff"].includes(phase)) {
+      // 関連エリアのみ
+      const targetArea = findAreaName(cd.area);
+      if (targetArea && AREA_METADATA[targetArea]) {
+        const meta = AREA_METADATA[targetArea];
+        areaSummary = `- ${targetArea}: 病院${meta.facilityCount?.hospitals || "?"}施設 / ${meta.nurseAvgSalary || ""} / 需要${meta.demandLevel || ""}\n`;
+      }
+    } else {
+      // 全エリア簡潔版
+      for (const [areaName, meta] of Object.entries(AREA_METADATA)) {
+        areaSummary += `- ${areaName}\n`;
+      }
+    }
   }
 
   // 収集済みデータのサマリ
@@ -2138,7 +2150,19 @@ ${MARKET_DATA}
 
 // ---------- LINE: ユーザーメッセージから構造化データ抽出（正規表現ベース、API不要） ----------
 function extractLineCollectedData(text, existingData) {
-  const cd = { ...existingData };
+  const base = existingData || {};
+  const cd = {
+    currentJob: base.currentJob || null,
+    transferReason: base.transferReason || null,
+    experience: base.experience || null,
+    qualification: base.qualification || null,
+    area: base.area || null,
+    salary: base.salary || null,
+    workStyle: base.workStyle || null,
+    priorities: Array.isArray(base.priorities) ? [...base.priorities] : [],
+    workHistory: Array.isArray(base.workHistory) ? [...base.workHistory] : [],
+    urgency: base.urgency || null,
+  };
 
   // 経験年数
   if (!cd.experience) {
@@ -2651,10 +2675,10 @@ async function callLineAI(systemPrompt, history, env) {
         },
         body: JSON.stringify({
           model: env.LINE_CHAT_MODEL || "gpt-4o-mini",
-          max_tokens: 512,
+          max_tokens: 300,
           messages: [
             { role: "system", content: systemPrompt },
-            ...history,
+            ...history.slice(-20),
           ],
         }),
       });
@@ -2679,7 +2703,7 @@ async function callLineAI(systemPrompt, history, env) {
       ];
       const aiResult = await env.AI.run(
         "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-        { messages: workersMessages, max_tokens: 512 }
+        { messages: workersMessages, max_tokens: 300 }
       );
       aiText = aiResult.response || "";
     } catch (aiErr) {

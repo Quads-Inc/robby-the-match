@@ -21,3 +21,9 @@ data/public_data/*.csv
 data/public_data/hospital_facility/
 data/public_data/hospital_specialty/
 content/temp_instagram/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example

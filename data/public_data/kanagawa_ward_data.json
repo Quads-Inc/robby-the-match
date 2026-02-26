@@ -24,330 +24,92 @@
     ]
   },
   "伊勢原日向病院": {
-    "medicalCode": "1414080006",
-    "name": "医療法人社団三井会 伊勢原日向病院",
+    "name": "医療法人社団　三井会　伊勢原日向病院",
     "cityName": "伊勢原市",
     "nursingRatio": "療養20:1",
     "admissionFees": [
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）"
     ],
-    "totalWardNurses": 40.8,
     "wardCount": 1,
     "functions": [
       "慢性期"
     ],
     "wards": [
       {
-        "name": "医療療養病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
         "beds": 202,
         "nursesFT": 36,
         "nursesPT": 4.8
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 40.8,
+    "medicalCode": "1414080006"
   },
   "伊勢原協同病院": {
-    "medicalCode": "1414080001",
-    "name": "神奈川県厚生農業協同組合連合会 伊勢原協同病院",
+    "name": "神奈川県厚生農業協同組合連合会　伊勢原協同病院",
     "cityName": "伊勢原市",
-    "nursingRatio": "不明",
-    "admissionFees": [],
-    "totalWardNurses": 234.2,
-    "wardCount": 10,
+    "nursingRatio": "一般7:1/回復期13:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料１）",
+      "回復期リハビリテーション病棟入院料１"
+    ],
+    "wardCount": 2,
     "functions": [
       "急性期",
-      "回復期",
-      "高度急性期"
+      "回復期"
     ],
     "wards": [
       {
-        "name": "4西病棟",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 259,
         "nursesFT": 21,
         "nursesPT": 0.8
       },
       {
-        "name": "4東病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 14,
-        "nursesPT": 2.6
-      },
-      {
-        "name": "5西病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 32,
-        "nursesPT": 3.4
-      },
-      {
-        "name": "5東病棟",
+        "name": "回復期リハビリテーション病棟１（13:1）",
         "function": "回復期",
-        "admissionFee": "-",
-        "beds": 0,
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 45,
         "nursesFT": 16,
         "nursesPT": 4.2
-      },
-      {
-        "name": "6西病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 31,
-        "nursesPT": 3.8
-      },
-      {
-        "name": "6東病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 16,
-        "nursesPT": 4.2
-      },
-      {
-        "name": "7西病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 28,
-        "nursesPT": 0.6
-      },
-      {
-        "name": "7東病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 29,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "HCU病棟",
-        "function": "高度急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 12,
-        "nursesPT": 0
-      },
-      {
-        "name": "緩和ケア病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 13,
-        "nursesPT": 1.8
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 234.2,
+    "medicalCode": "1414080001"
   },
   "東海大学医学部付属病院": {
-    "medicalCode": "1414080026",
     "name": "東海大学医学部付属病院",
     "cityName": "伊勢原市",
-    "nursingRatio": "不明",
+    "nursingRatio": "特定機能7:1",
     "admissionFees": [
-      "特定機能病院一般病棟７対１入院基本料",
-      "小児入院医療管理料２",
-      "特定集中治療室管理料４",
-      "救命救急入院料４",
-      "新生児治療回復室入院医療管理料",
-      "総合周産期特定集中治療室管理料（母体・胎児）",
-      "新生児特定集中治療室管理料２"
+      "特定機能病院入院基本料（７対１入院基本料）"
     ],
-    "totalWardNurses": 754.4,
-    "wardCount": 23,
+    "wardCount": 1,
     "functions": [
-      "高度急性期"
+      "急性期"
     ],
     "wards": [
       {
-        "name": "10A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 49,
-        "nursesFT": 33,
-        "nursesPT": 2
-      },
-      {
-        "name": "10B",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 46,
-        "nursesFT": 33,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "11A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 45,
-        "nursesFT": 30,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "11B",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 48,
-        "nursesFT": 30,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "12A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 44,
-        "nursesFT": 25,
-        "nursesPT": 3
-      },
-      {
-        "name": "12B",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 34,
-        "nursesFT": 27,
-        "nursesPT": 2.3
-      },
-      {
-        "name": "13A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 44,
-        "nursesFT": 26,
-        "nursesPT": 2.1
-      },
-      {
-        "name": "13B",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 36,
-        "nursesFT": 22,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "14A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 47,
-        "nursesFT": 30,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "14B",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 20,
-        "nursesFT": 20,
-        "nursesPT": 0.7
-      },
-      {
-        "name": "6A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 32,
-        "nursesFT": 17,
-        "nursesPT": 0.7
-      },
-      {
-        "name": "6B",
-        "function": "高度急性期",
-        "admissionFee": "小児入院医療管理料２",
-        "beds": 22,
-        "nursesFT": 20,
-        "nursesPT": 1.6
-      },
-      {
-        "name": "7A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 42,
-        "nursesFT": 28,
-        "nursesPT": 2.3
-      },
-      {
-        "name": "7B",
-        "function": "高度急性期",
-        "admissionFee": "特定集中治療室管理料４",
-        "beds": 32,
-        "nursesFT": 83,
-        "nursesPT": 3
-      },
-      {
-        "name": "8A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 35,
-        "nursesFT": 26,
-        "nursesPT": 3
-      },
-      {
-        "name": "8B",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 47,
-        "nursesFT": 34,
-        "nursesPT": 2
-      },
-      {
-        "name": "9A",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 45,
-        "nursesFT": 28,
-        "nursesPT": 2.5
-      },
-      {
-        "name": "9B",
-        "function": "高度急性期",
-        "admissionFee": "特定機能病院一般病棟７対１入院基本料",
-        "beds": 45,
-        "nursesFT": 28,
-        "nursesPT": 2.5
-      },
-      {
-        "name": "EHCU",
-        "function": "高度急性期",
-        "admissionFee": "救命救急入院料４",
-        "beds": 36,
-        "nursesFT": 61,
-        "nursesPT": 1.8
-      },
-      {
-        "name": "EICU・BURN",
-        "function": "高度急性期",
-        "admissionFee": "救命救急入院料４",
-        "beds": 22,
-        "nursesFT": 66,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "GCU",
-        "function": "高度急性期",
-        "admissionFee": "新生児治療回復室入院医療管理料",
-        "beds": 12,
-        "nursesFT": 15,
-        "nursesPT": 0.7
-      },
-      {
-        "name": "MFICU",
-        "function": "高度急性期",
-        "admissionFee": "総合周産期特定集中治療室管理料（母体・胎児）",
-        "beds": 9,
-        "nursesFT": 6,
-        "nursesPT": 2.3
-      },
-      {
-        "name": "NICU",
-        "function": "高度急性期",
-        "admissionFee": "新生児特定集中治療室管理料２",
-        "beds": 12,
-        "nursesFT": 25,
-        "nursesPT": 1.3
+        "name": "特定機能病院（７対１入院基本料）（7:1）",
+        "function": "急性期",
+        "admissionFee": "特定機能病院入院基本料（７対１入院基本料）",
+        "beds": 660,
+        "nursesFT": 0,
+        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 754.4,
+    "medicalCode": "1414080026"
   },
   "明芳会北小田原病院": {
     "medicalCode": "1414110028",
@@ -374,199 +136,82 @@
     ]
   },
   "大内病院": {
-    "medicalCode": "1414110023",
     "name": "大内病院",
     "cityName": "南足柄市",
-    "nursingRatio": "15:1",
+    "nursingRatio": "一般15:1",
     "admissionFees": [
-      "地域一般入院料２"
+      "一般病棟入院基本料（地域一般入院料２）"
     ],
-    "totalWardNurses": 12,
     "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "1",
+        "name": "一般病棟（地域一般入院料２）（15:1）",
         "function": "急性期",
-        "admissionFee": "地域一般入院料２",
+        "admissionFee": "一般病棟入院基本料（地域一般入院料２）",
         "beds": 53,
         "nursesFT": 10,
         "nursesPT": 2
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 12,
+    "medicalCode": "1414110023"
   },
   "厚木市立病院": {
-    "medicalCode": "1414090030",
     "name": "厚木市立病院",
     "cityName": "厚木市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1",
     "admissionFees": [
-      "急性期一般入院料１",
-      "小児入院医療管理料３",
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１"
+      "一般病棟入院基本料（急性期一般入院料１）"
     ],
-    "totalWardNurses": 227.4,
-    "wardCount": 9,
-    "functions": [
-      "急性期",
-      "高度急性期"
-    ],
-    "wards": [
-      {
-        "name": "3A",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 28,
-        "nursesFT": 11,
-        "nursesPT": 0
-      },
-      {
-        "name": "3B",
-        "function": "急性期",
-        "admissionFee": "小児入院医療管理料３",
-        "beds": 28,
-        "nursesFT": 22,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "4A",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 49,
-        "nursesFT": 27,
-        "nursesPT": 0
-      },
-      {
-        "name": "4B救",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 33,
-        "nursesFT": 26,
-        "nursesPT": 0
-      },
-      {
-        "name": "5A",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 49,
-        "nursesFT": 26,
-        "nursesPT": 1.6
-      },
-      {
-        "name": "5B",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 48,
-        "nursesFT": 27,
-        "nursesPT": 0
-      },
-      {
-        "name": "6A",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 49,
-        "nursesFT": 29,
-        "nursesPT": 0
-      },
-      {
-        "name": "6B",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 47,
-        "nursesFT": 28,
-        "nursesPT": 0
-      },
-      {
-        "name": "HCU",
-        "function": "休棟中（今後再開する予定）",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 0,
-        "nursesPT": 0
-      },
-      {
-        "name": "ICU",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 10,
-        "nursesFT": 29,
-        "nursesPT": 0
-      }
-    ]
-  },
-  "東名厚木病院": {
-    "medicalCode": "1414090041",
-    "name": "東名厚木病院",
-    "cityName": "厚木市",
-    "nursingRatio": "不明",
-    "admissionFees": [
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料２"
-    ],
-    "totalWardNurses": 202.8,
-    "wardCount": 7,
+    "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "2号館3階",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 17,
-        "nursesPT": 0
-      },
-      {
-        "name": "2号館4階",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 31,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "3号館3階",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 34,
-        "nursesPT": 0
-      },
-      {
-        "name": "3号館4階",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 37,
-        "nursesPT": 0
-      },
-      {
-        "name": "4号館3階",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 34,
-        "nursesPT": 0
-      },
-      {
-        "name": "4号館4階",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 31,
-        "nursesPT": 0
-      },
-      {
-        "name": "HCU",
-        "function": "急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料２",
-        "beds": 8,
-        "nursesFT": 18,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 297,
+        "nursesFT": 11,
         "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 227.4,
+    "medicalCode": "1414090030"
+  },
+  "東名厚木病院": {
+    "name": "東名厚木病院",
+    "cityName": "厚木市",
+    "nursingRatio": "一般7:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料１）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "急性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 200,
+        "nursesFT": 17,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 202.8,
+    "medicalCode": "1414090041"
   },
   "仁愛会近藤病院": {
     "medicalCode": "1414090023",
@@ -601,16 +246,40 @@
     ]
   },
   "厚木佐藤病院": {
-    "medicalCode": "1414090028",
-    "name": "厚木佐藤病院",
-    "cityName": "厚木市",
-    "nursingRatio": "10:1",
+    "name": "佐藤病院",
+    "cityName": "大井町",
+    "nursingRatio": "療養20:1",
     "admissionFees": [
-      "急性期一般入院料４",
-      "地域包括ケア病棟入院料２",
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）"
     ],
+    "wardCount": 1,
+    "functions": [
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 30,
+        "nursesFT": 11,
+        "nursesPT": 2
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
     "totalWardNurses": 47.3,
+    "medicalCode": "1414090028"
+  },
+  "湘南厚木病院": {
+    "name": "医療法人徳洲会　湘南厚木病院",
+    "cityName": "厚木市",
+    "nursingRatio": "一般10:1/障害者10:1/回復期13:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料４）",
+      "障害者施設等入院基本料（１０対１入院基本料）",
+      "回復期リハビリテーション病棟入院料１"
+    ],
     "wardCount": 3,
     "functions": [
       "急性期",
@@ -619,273 +288,142 @@
     ],
     "wards": [
       {
-        "name": "A病棟",
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 48,
-        "nursesFT": 20,
-        "nursesPT": 2.2
-      },
-      {
-        "name": "B病棟",
-        "function": "回復期",
-        "admissionFee": "地域包括ケア病棟入院料２",
-        "beds": 43,
-        "nursesFT": 10,
-        "nursesPT": 2.1
-      },
-      {
-        "name": "C病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 39,
-        "nursesFT": 11,
-        "nursesPT": 2
-      }
-    ]
-  },
-  "湘南厚木病院": {
-    "medicalCode": "1414090006",
-    "name": "医療法人徳洲会　湘南厚木病院",
-    "cityName": "厚木市",
-    "nursingRatio": "10:1",
-    "admissionFees": [
-      "急性期一般入院料４",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料３",
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１"
-    ],
-    "totalWardNurses": 121.7,
-    "wardCount": 7,
-    "functions": [
-      "急性期",
-      "回復期",
-      "高度急性期"
-    ],
-    "wards": [
-      {
-        "name": "2階東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 28,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 160,
         "nursesFT": 17,
         "nursesPT": 1.6
       },
       {
-        "name": "3階西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 43,
-        "nursesFT": 20,
-        "nursesPT": 0.6
-      },
-      {
-        "name": "3階東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 16,
-        "nursesFT": 5,
+        "name": "障害者施設等（１０対１入院基本料）（10:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１０対１入院基本料）",
+        "beds": 24,
+        "nursesFT": 0,
         "nursesPT": 0
       },
       {
-        "name": "4階西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 46,
-        "nursesFT": 23,
-        "nursesPT": 0.4
-      },
-      {
-        "name": "4階東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 43,
-        "nursesFT": 17,
-        "nursesPT": 0.9
-      },
-      {
-        "name": "5階西病棟",
+        "name": "回復期リハビリテーション病棟１（13:1）",
         "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料３",
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
         "beds": 59,
         "nursesFT": 17,
         "nursesPT": 1.6
-      },
-      {
-        "name": "HCU病棟",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 10,
-        "nursesFT": 17,
-        "nursesPT": 0.6
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 121.7,
+    "medicalCode": "1414090006"
   },
   "仁厚会病院": {
-    "medicalCode": "1414090036",
     "name": "仁厚会病院",
     "cityName": "厚木市",
-    "nursingRatio": "療養20:1",
+    "nursingRatio": "一般10:1/療養20:1",
     "admissionFees": [
-      "療養病棟入院料１"
+      "一般病棟入院基本料（急性期一般入院料４）",
+      "療養病棟入院基本料（入院料１）"
     ],
-    "totalWardNurses": 43.9,
-    "wardCount": 3,
+    "wardCount": 2,
     "functions": [
-      "慢性期",
-      "急性期"
+      "急性期",
+      "慢性期"
     ],
     "wards": [
       {
-        "name": "3階病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 44,
-        "nursesFT": 6,
-        "nursesPT": 5.1
-      },
-      {
-        "name": "4階病棟",
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
         "function": "急性期",
-        "admissionFee": "-",
-        "beds": 43,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 44,
         "nursesFT": 14,
         "nursesPT": 2.3
       },
       {
-        "name": "5階病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 38,
-        "nursesFT": 11,
-        "nursesPT": 5.5
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 87,
+        "nursesFT": 6,
+        "nursesPT": 5.1
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 43.9,
+    "medicalCode": "1414090036"
   },
   "神奈川リハビリテーション病院": {
-    "medicalCode": "1414060040",
-    "name": "神奈川リハビリテーション病院",
+    "name": "社会福祉法人神奈川県総合リハビリテーション事業団　神奈川リハビリテーション病院",
     "cityName": "厚木市",
-    "nursingRatio": "障害者7:1",
+    "nursingRatio": "一般15:1/障害者10:1/回復期13:1",
     "admissionFees": [
-      "障害者施設等10対１入院基本料",
-      "地域一般入院料３",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-      "特定集中治療室管理料３"
+      "一般病棟入院基本料（地域一般入院料３）",
+      "障害者施設等入院基本料（１０対１入院基本料）",
+      "回復期リハビリテーション病棟入院料１"
     ],
-    "totalWardNurses": 201.8,
-    "wardCount": 9,
+    "wardCount": 3,
     "functions": [
-      "慢性期",
+      "急性期",
       "回復期",
-      "急性期"
+      "慢性期"
     ],
     "wards": [
       {
-        "name": "2F病棟",
-        "function": "慢性期",
-        "admissionFee": "障害者施設等10対１入院基本料",
-        "beds": 40,
-        "nursesFT": 21,
-        "nursesPT": 2.2
-      },
-      {
-        "name": "3A病棟",
-        "function": "回復期",
-        "admissionFee": "地域一般入院料３",
-        "beds": 40,
-        "nursesFT": 18,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "3F病棟",
-        "function": "回復期",
-        "admissionFee": "障害者施設等10対１入院基本料",
-        "beds": 40,
-        "nursesFT": 25,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "4A病棟",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 40,
-        "nursesFT": 23,
-        "nursesPT": 0.5
-      },
-      {
-        "name": "4B病棟",
+        "name": "一般病棟（地域一般入院料３）（15:1）",
         "function": "急性期",
-        "admissionFee": "地域一般入院料３",
-        "beds": 40,
+        "admissionFee": "一般病棟入院基本料（地域一般入院料３）",
+        "beds": 120,
         "nursesFT": 20,
         "nursesPT": 0.8
       },
       {
-        "name": "4F病棟",
-        "function": "回復期",
-        "admissionFee": "障害者施設等10対１入院基本料",
-        "beds": 40,
-        "nursesFT": 23,
-        "nursesPT": 2.1
-      },
-      {
-        "name": "5A病棟",
-        "function": "回復期",
-        "admissionFee": "地域一般入院料３",
-        "beds": 40,
+        "name": "障害者施設等（１０対１入院基本料）（10:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１０対１入院基本料）",
+        "beds": 120,
         "nursesFT": 21,
-        "nursesPT": 0.6
+        "nursesPT": 2.2
       },
       {
-        "name": "5B病棟",
+        "name": "回復期リハビリテーション病棟１（13:1）",
         "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
         "beds": 40,
-        "nursesFT": 22,
-        "nursesPT": 1.3
-      },
-      {
-        "name": "集中治療室",
-        "function": "急性期",
-        "admissionFee": "特定集中治療室管理料３",
-        "beds": 4,
-        "nursesFT": 19,
-        "nursesPT": 0
+        "nursesFT": 18,
+        "nursesPT": 1.5
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 201.8,
+    "medicalCode": "1414060040"
   },
   "亀田森の里病院": {
-    "medicalCode": "1414090024",
-    "name": "医療法人鉄蕉会 亀田森の里病院",
+    "name": "医療法人鉄蕉会　亀田森の里病院",
     "cityName": "厚木市",
-    "nursingRatio": "10:1",
+    "nursingRatio": "一般10:1",
     "admissionFees": [
-      "急性期一般入院料４",
-      "地域包括ケア病棟入院料１"
+      "一般病棟入院基本料（急性期一般入院料４）"
     ],
-    "totalWardNurses": 28.7,
-    "wardCount": 2,
+    "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "一般病棟",
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 32,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 60,
         "nursesFT": 14,
         "nursesPT": 0
-      },
-      {
-        "name": "地域包括ケア病棟",
-        "function": "急性期",
-        "admissionFee": "地域包括ケア病棟入院料１",
-        "beds": 30,
-        "nursesFT": 13,
-        "nursesPT": 1.7
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 28.7,
+    "medicalCode": "1414090024"
   },
   "AOI七沢リハビリテーション病院": {
     "medicalCode": "1414090051",
@@ -1078,16 +616,14 @@
     ]
   },
   "小林病院": {
-    "medicalCode": "1414110002",
-    "name": "医療法人 小林病院",
+    "name": "医療法人　小林病院",
     "cityName": "小田原市",
-    "nursingRatio": "13:1",
+    "nursingRatio": "一般10:1/療養20:1/回復期15:1",
     "admissionFees": [
-      "急性期一般入院料５",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料４",
-      "療養病棟入院料１"
+      "一般病棟入院基本料（急性期一般入院料５）",
+      "療養病棟入院基本料（入院料１）",
+      "回復期リハビリテーション病棟入院料４"
     ],
-    "totalWardNurses": 38,
     "wardCount": 3,
     "functions": [
       "急性期",
@@ -1096,257 +632,199 @@
     ],
     "wards": [
       {
-        "name": "一般病棟",
+        "name": "一般病棟（急性期一般入院料５）（10:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料５",
-        "beds": 56,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料５）",
+        "beds": 45,
         "nursesFT": 13,
         "nursesPT": 4
       },
       {
-        "name": "回復期リハビリテーション病棟",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料４",
-        "beds": 28,
-        "nursesFT": 7,
-        "nursesPT": 1
-      },
-      {
-        "name": "療養病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
         "beds": 60,
         "nursesFT": 11,
         "nursesPT": 2
+      },
+      {
+        "name": "回復期リハビリテーション病棟４（15:1）",
+        "function": "回復期",
+        "admissionFee": "回復期リハビリテーション病棟入院料４",
+        "beds": 36,
+        "nursesFT": 7,
+        "nursesPT": 1
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 38,
+    "medicalCode": "1414110002"
   },
   "間中病院": {
-    "medicalCode": "1414110006",
-    "name": "医療法人社団綾和会 間中病院",
+    "name": "医療法人社団綾和会　間中病院",
     "cityName": "小田原市",
     "nursingRatio": "回復期13:1",
     "admissionFees": [
-      "地域包括ケア病棟入院料１",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１"
+      "回復期リハビリテーション病棟入院料１"
     ],
-    "totalWardNurses": 45.9,
-    "wardCount": 2,
+    "wardCount": 1,
     "functions": [
-      "急性期",
       "回復期"
     ],
     "wards": [
       {
-        "name": "３階地域包括ケア病棟",
-        "function": "急性期",
-        "admissionFee": "地域包括ケア病棟入院料１",
-        "beds": 45,
-        "nursesFT": 25,
-        "nursesPT": 0.7
-      },
-      {
-        "name": "４階回復期リハビリテーション病棟",
+        "name": "回復期リハビリテーション病棟１（13:1）",
         "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 45,
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 56,
         "nursesFT": 18,
         "nursesPT": 2.2
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 45.9,
+    "medicalCode": "1414110006"
   },
   "箱根病院": {
-    "medicalCode": "1414110026",
-    "name": "独立行政法人国立病院機構箱根病院",
+    "name": "独立行政法人国立病院機構　箱根病院",
     "cityName": "小田原市",
     "nursingRatio": "障害者7:1",
     "admissionFees": [
-      "障害者施設等７対１入院基本料"
+      "障害者施設等入院基本料（７対１入院基本料）"
     ],
-    "totalWardNurses": 96.7,
-    "wardCount": 3,
+    "wardCount": 1,
     "functions": [
       "慢性期"
     ],
     "wards": [
       {
-        "name": "1階病棟",
+        "name": "障害者施設等（７対１入院基本料）（7:1）",
         "function": "慢性期",
-        "admissionFee": "障害者施設等７対１入院基本料",
-        "beds": 60,
+        "admissionFee": "障害者施設等入院基本料（７対１入院基本料）",
+        "beds": 180,
         "nursesFT": 35,
         "nursesPT": 0.8
-      },
-      {
-        "name": "2階病棟",
-        "function": "慢性期",
-        "admissionFee": "障害者施設等７対１入院基本料",
-        "beds": 60,
-        "nursesFT": 33,
-        "nursesPT": 1.1
-      },
-      {
-        "name": "3階病棟",
-        "function": "慢性期",
-        "admissionFee": "障害者施設等７対１入院基本料",
-        "beds": 60,
-        "nursesFT": 23,
-        "nursesPT": 3.8
-      },
-      {
-        "name": "6病棟",
-        "function": "休棟中（今後再開する予定）",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 0,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 96.7,
+    "medicalCode": "1414110026"
   },
   "永井病院": {
-    "medicalCode": "1414110008",
-    "name": "医療法人社団三暉会 永井病院",
+    "name": "医療法人　三暉会　永井病院",
     "cityName": "小田原市",
-    "nursingRatio": "不明",
+    "nursingRatio": "一般—",
     "admissionFees": [
-      "一般病棟特別入院基本料"
+      "一般病棟入院基本料（特別入院基本料）"
     ],
-    "totalWardNurses": 7.9,
     "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "A棟",
+        "name": "一般病棟（特別入院基本料）（—）",
         "function": "急性期",
-        "admissionFee": "一般病棟特別入院基本料",
+        "admissionFee": "一般病棟入院基本料（特別入院基本料）",
         "beds": 45,
         "nursesFT": 6,
         "nursesPT": 1.9
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 7.9,
+    "medicalCode": "1414110008"
   },
   "丹羽病院": {
-    "medicalCode": "1414110005",
-    "name": "医療法人社団 帰陽会 丹羽病院",
+    "name": "医療法人社団　帰陽会　丹羽病院",
     "cityName": "小田原市",
-    "nursingRatio": "不明",
-    "admissionFees": [],
-    "totalWardNurses": 15.4,
+    "nursingRatio": "一般13:1",
+    "admissionFees": [
+      "一般病棟入院基本料（地域一般入院料１）"
+    ],
     "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "急性期機能病床",
+        "name": "一般病棟（地域一般入院料１）（13:1）",
         "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
+        "admissionFee": "一般病棟入院基本料（地域一般入院料１）",
+        "beds": 54,
         "nursesFT": 14,
         "nursesPT": 1.4
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 15.4,
+    "medicalCode": "1414110005"
   },
   "山近記念総合病院": {
-    "medicalCode": "1414110009",
-    "name": "医療法人尽誠会 山近記念総合病院",
+    "name": "医療法人尽誠会　山近記念総合病院",
     "cityName": "小田原市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般10:1",
     "admissionFees": [
-      "急性期一般入院料１"
+      "一般病棟入院基本料（急性期一般入院料３）"
     ],
-    "totalWardNurses": 68,
-    "wardCount": 2,
+    "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "第1病棟",
-        "function": "休棟中（今後再開する予定）",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 0,
-        "nursesPT": 0
-      },
-      {
-        "name": "第2病棟",
+        "name": "一般病棟（急性期一般入院料３）（10:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 50,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料３）",
+        "beds": 152,
         "nursesFT": 31,
         "nursesPT": 0
-      },
-      {
-        "name": "第3病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 55,
-        "nursesFT": 37,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 68,
+    "medicalCode": "1414110009"
   },
   "小澤病院": {
-    "medicalCode": "1414110003",
-    "name": "医療法人 同愛会 小澤病院",
+    "name": "医療法人　同愛会　小澤病院",
     "cityName": "小田原市",
-    "nursingRatio": "10:1",
+    "nursingRatio": "一般10:1",
     "admissionFees": [
-      "急性期一般入院料２"
+      "一般病棟入院基本料（急性期一般入院料２）"
     ],
-    "totalWardNurses": 104.7,
-    "wardCount": 4,
+    "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "2西病棟",
+        "name": "一般病棟（急性期一般入院料２）（10:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 55,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料２）",
+        "beds": 202,
         "nursesFT": 26,
         "nursesPT": 1.1
-      },
-      {
-        "name": "3西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 53,
-        "nursesFT": 25,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "3東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 50,
-        "nursesFT": 24,
-        "nursesPT": 2.3
-      },
-      {
-        "name": "4東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 44,
-        "nursesFT": 25,
-        "nursesPT": 0.5
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 104.7,
+    "medicalCode": "1414110003"
   },
   "西湘病院": {
-    "medicalCode": "1414110021",
-    "name": "西湘病院",
+    "name": "医療法人財団報徳会　西湘病院",
     "cityName": "小田原市",
-    "nursingRatio": "15:1",
+    "nursingRatio": "一般13:1/療養20:1",
     "admissionFees": [
-      "地域一般入院料１",
-      "療養病棟入院料２"
+      "一般病棟入院基本料（地域一般入院料１）",
+      "療養病棟入院基本料（入院料１）"
     ],
-    "totalWardNurses": 32.2,
     "wardCount": 2,
     "functions": [
       "急性期",
@@ -1354,172 +832,52 @@
     ],
     "wards": [
       {
-        "name": "一般病棟",
+        "name": "一般病棟（地域一般入院料１）（13:1）",
         "function": "急性期",
-        "admissionFee": "地域一般入院料１",
+        "admissionFee": "一般病棟入院基本料（地域一般入院料１）",
         "beds": 45,
         "nursesFT": 20,
         "nursesPT": 0.4
       },
       {
-        "name": "療養病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料２",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
         "beds": 57,
         "nursesFT": 9,
         "nursesPT": 2.8
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 32.2,
+    "medicalCode": "1414110021"
   },
   "小田原市立病院": {
-    "medicalCode": "1414110018",
     "name": "小田原市立病院",
     "cityName": "小田原市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1",
     "admissionFees": [
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-      "急性期一般入院料１",
-      "小児入院医療管理料４",
-      "特定集中治療室管理料３",
-      "新生児特定集中治療室管理料２",
-      "救命救急入院料１"
+      "一般病棟入院基本料（急性期一般入院料１）"
     ],
-    "totalWardNurses": 271.7,
-    "wardCount": 16,
+    "wardCount": 1,
     "functions": [
-      "高度急性期",
       "急性期"
     ],
     "wards": [
       {
-        "name": "3HCU",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 4,
-        "nursesFT": 5,
-        "nursesPT": 0
-      },
-      {
-        "name": "３東病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 44,
-        "nursesFT": 28,
-        "nursesPT": 1.6
-      },
-      {
-        "name": "４HCU",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 4,
-        "nursesFT": 5,
-        "nursesPT": 1
-      },
-      {
-        "name": "４西病棟",
-        "function": "高度急性期",
-        "admissionFee": "小児入院医療管理料４",
-        "beds": 27,
-        "nursesFT": 11,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "４東病棟",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 44,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 340,
         "nursesFT": 24,
         "nursesPT": 1.6
-      },
-      {
-        "name": "５西病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 25,
-        "nursesFT": 2,
-        "nursesPT": 0
-      },
-      {
-        "name": "５東病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 48,
-        "nursesFT": 25,
-        "nursesPT": 1.8
-      },
-      {
-        "name": "６西病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 52,
-        "nursesFT": 25,
-        "nursesPT": 3
-      },
-      {
-        "name": "６東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 48,
-        "nursesFT": 26,
-        "nursesPT": 0
-      },
-      {
-        "name": "7西病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 49,
-        "nursesFT": 21,
-        "nursesPT": 0
-      },
-      {
-        "name": "７東HCU",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 4,
-        "nursesFT": 5,
-        "nursesPT": 0
-      },
-      {
-        "name": "７東病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 30,
-        "nursesFT": 25,
-        "nursesPT": 1.9
-      },
-      {
-        "name": "ICU",
-        "function": "高度急性期",
-        "admissionFee": "特定集中治療室管理料３",
-        "beds": 4,
-        "nursesFT": 10,
-        "nursesPT": 0
-      },
-      {
-        "name": "NICU",
-        "function": "高度急性期",
-        "admissionFee": "新生児特定集中治療室管理料２",
-        "beds": 6,
-        "nursesFT": 9,
-        "nursesPT": 0
-      },
-      {
-        "name": "救命救急センター",
-        "function": "高度急性期",
-        "admissionFee": "救命救急入院料１",
-        "beds": 20,
-        "nursesFT": 28,
-        "nursesPT": 1
-      },
-      {
-        "name": "救命救急センター循環器分室",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 8,
-        "nursesFT": 10,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 271.7,
+    "medicalCode": "1414110018"
   },
   "太陽の門": {
     "medicalCode": "1414110022",
@@ -1546,184 +904,82 @@
     ]
   },
   "小田原循環器病院": {
-    "medicalCode": "1414110010",
-    "name": "医療法人邦友会 小田原循環器病院",
+    "name": "医療法人邦友会　小田原循環器病院",
     "cityName": "小田原市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1",
     "admissionFees": [
-      "急性期一般入院料１",
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１"
+      "一般病棟入院基本料（急性期一般入院料１）"
     ],
-    "totalWardNurses": 68.9,
-    "wardCount": 3,
+    "wardCount": 1,
     "functions": [
-      "急性期",
-      "高度急性期"
+      "急性期"
     ],
     "wards": [
       {
-        "name": "２階病棟",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 48,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 90,
         "nursesFT": 23,
         "nursesPT": 1.5
-      },
-      {
-        "name": "３階病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 25,
-        "nursesPT": 0.4
-      },
-      {
-        "name": "ハイケアユニット",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 7,
-        "nursesFT": 19,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 68.9,
+    "medicalCode": "1414110010"
   },
   "くらた病院": {
-    "medicalCode": "1414080003",
     "name": "くらた病院",
     "cityName": "平塚市",
     "nursingRatio": "療養20:1",
     "admissionFees": [
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）"
     ],
-    "totalWardNurses": 16,
-    "wardCount": 2,
+    "wardCount": 1,
     "functions": [
       "慢性期"
     ],
     "wards": [
       {
-        "name": "西病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 38,
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 79,
         "nursesFT": 9,
         "nursesPT": 0.1
-      },
-      {
-        "name": "東病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 41,
-        "nursesFT": 6,
-        "nursesPT": 0.9
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 16,
+    "medicalCode": "1414080003"
   },
   "平塚共済病院": {
-    "medicalCode": "1414080021",
-    "name": "国家公務員共済組合連合会 平塚共済病院",
+    "name": "国家公務員共済組合連合会　平塚共済病院",
     "cityName": "平塚市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1",
     "admissionFees": [
-      "急性期一般入院料１",
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１"
+      "一般病棟入院基本料（急性期一般入院料１）"
     ],
-    "totalWardNurses": 303,
-    "wardCount": 10,
+    "wardCount": 1,
     "functions": [
-      "急性期",
-      "高度急性期"
+      "急性期"
     ],
     "wards": [
       {
-        "name": "A病棟1階",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 44,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 368,
         "nursesFT": 27,
         "nursesPT": 0
-      },
-      {
-        "name": "A病棟2階",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 39,
-        "nursesFT": 33,
-        "nursesPT": 0
-      },
-      {
-        "name": "A病棟4階",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 50,
-        "nursesFT": 32,
-        "nursesPT": 0
-      },
-      {
-        "name": "A病棟5階",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 48,
-        "nursesFT": 36,
-        "nursesPT": 0
-      },
-      {
-        "name": "A病棟6階",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
-        "nursesFT": 35,
-        "nursesPT": 0
-      },
-      {
-        "name": "A病棟7階",
-        "function": "休棟中（今後再開する予定）",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 0,
-        "nursesPT": 0
-      },
-      {
-        "name": "A病棟8階",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 47,
-        "nursesFT": 34,
-        "nursesPT": 0
-      },
-      {
-        "name": "A病棟9階",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 50,
-        "nursesFT": 34,
-        "nursesPT": 0
-      },
-      {
-        "name": "B病棟2階",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 43,
-        "nursesFT": 34,
-        "nursesPT": 0
-      },
-      {
-        "name": "ICU",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 6,
-        "nursesFT": 17,
-        "nursesPT": 0
-      },
-      {
-        "name": "救急センター",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 21,
-        "nursesFT": 21,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 303,
+    "medicalCode": "1414080021"
   },
   "恩賜財団済生会支部 神奈川県済生会湘南平塚病院": {
     "medicalCode": "1414080022",
@@ -1777,337 +1033,162 @@
     ]
   },
   "ふれあい平塚ホスピタル": {
-    "medicalCode": "1414080016",
-    "name": "医療法人社団健齢会 ふれあい平塚ホスピタル",
+    "name": "ふれあい平塚ホスピタル",
     "cityName": "平塚市",
-    "nursingRatio": "障害者7:1",
+    "nursingRatio": "療養20:1/障害者13:1/回復期15:1",
     "admissionFees": [
-      "障害者施設等13対１入院基本料",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料３",
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）",
+      "障害者施設等入院基本料（１３対１入院基本料）",
+      "回復期リハビリテーション病棟入院料３"
     ],
-    "totalWardNurses": 40.6,
     "wardCount": 3,
     "functions": [
-      "急性期",
       "回復期",
       "慢性期"
     ],
     "wards": [
       {
-        "name": "2階病棟",
-        "function": "急性期",
-        "admissionFee": "障害者施設等13対１入院基本料",
-        "beds": 40,
-        "nursesFT": 13,
-        "nursesPT": 2.3
-      },
-      {
-        "name": "3階病棟",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料３",
-        "beds": 50,
-        "nursesFT": 11,
-        "nursesPT": 4
-      },
-      {
-        "name": "4階病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
         "beds": 35,
         "nursesFT": 9,
         "nursesPT": 1.3
+      },
+      {
+        "name": "障害者施設等（１３対１入院基本料）（13:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１３対１入院基本料）",
+        "beds": 40,
+        "nursesFT": 9,
+        "nursesPT": 1.3
+      },
+      {
+        "name": "回復期リハビリテーション病棟３（15:1）",
+        "function": "回復期",
+        "admissionFee": "回復期リハビリテーション病棟入院料３",
+        "beds": 50,
+        "nursesFT": 11,
+        "nursesPT": 4
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 40.6,
+    "medicalCode": "1414080016"
   },
   "高根台病院": {
-    "medicalCode": "1414080010",
-    "name": "医療法人研水会 高根台病院",
+    "name": "医療法人研水会　高根台病院",
     "cityName": "平塚市",
     "nursingRatio": "療養20:1",
     "admissionFees": [
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）"
     ],
-    "totalWardNurses": 57.9,
-    "wardCount": 4,
+    "wardCount": 1,
     "functions": [
       "慢性期"
     ],
     "wards": [
       {
-        "name": "A病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 58,
-        "nursesFT": 12,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "B病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 58,
-        "nursesFT": 12,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "C病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 60,
-        "nursesFT": 16,
-        "nursesPT": 1.4
-      },
-      {
-        "name": "D病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 60,
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 236,
         "nursesFT": 12,
         "nursesPT": 1.5
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 57.9,
+    "medicalCode": "1414080010"
   },
   "平塚市民病院": {
-    "medicalCode": "1414080029",
     "name": "平塚市民病院",
     "cityName": "平塚市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1",
     "admissionFees": [
-      "急性期一般入院料１",
-      "小児入院医療管理料３",
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-      "救命救急入院料１"
+      "一般病棟入院基本料（急性期一般入院料１）"
     ],
-    "totalWardNurses": 294.2,
-    "wardCount": 12,
+    "wardCount": 1,
     "functions": [
-      "急性期",
-      "高度急性期"
-    ],
-    "wards": [
-      {
-        "name": "３A",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 44,
-        "nursesFT": 27,
-        "nursesPT": 2.2
-      },
-      {
-        "name": "３B",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 43,
-        "nursesFT": 28,
-        "nursesPT": 1.8
-      },
-      {
-        "name": "３D",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 43,
-        "nursesFT": 26,
-        "nursesPT": 1.9
-      },
-      {
-        "name": "４A",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 43,
-        "nursesFT": 30,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "４B",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 45,
-        "nursesFT": 29,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "４D",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 43,
-        "nursesFT": 27,
-        "nursesPT": 2.7
-      },
-      {
-        "name": "５A",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 34,
-        "nursesFT": 0,
-        "nursesPT": 0
-      },
-      {
-        "name": "５B",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 34,
-        "nursesFT": 29,
-        "nursesPT": 0
-      },
-      {
-        "name": "５D産科",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 20,
-        "nursesFT": 0,
-        "nursesPT": 0
-      },
-      {
-        "name": "５D小児科",
-        "function": "高度急性期",
-        "admissionFee": "小児入院医療管理料３",
-        "beds": 31,
-        "nursesFT": 20,
-        "nursesPT": 2.2
-      },
-      {
-        "name": "ICU・CCU",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 10,
-        "nursesFT": 28,
-        "nursesPT": 0
-      },
-      {
-        "name": "救急",
-        "function": "高度急性期",
-        "admissionFee": "救命救急入院料１",
-        "beds": 20,
-        "nursesFT": 37,
-        "nursesPT": 0.8
-      }
-    ]
-  },
-  "平塚十全病院": {
-    "medicalCode": "1414080019",
-    "name": "医療法人社団水野会 平塚十全病院",
-    "cityName": "平塚市",
-    "nursingRatio": "障害者7:1",
-    "admissionFees": [
-      "療養病棟入院料１",
-      "障害者施設等13対１入院基本料"
-    ],
-    "totalWardNurses": 51.2,
-    "wardCount": 4,
-    "functions": [
-      "慢性期"
-    ],
-    "wards": [
-      {
-        "name": "2A",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 58,
-        "nursesFT": 11,
-        "nursesPT": 1.6
-      },
-      {
-        "name": "2B",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 56,
-        "nursesFT": 13,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "3A",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 59,
-        "nursesFT": 10,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "3B",
-        "function": "慢性期",
-        "admissionFee": "障害者施設等13対１入院基本料",
-        "beds": 45,
-        "nursesFT": 14,
-        "nursesPT": 0
-      }
-    ]
-  },
-  "神奈川県立足柄上病院": {
-    "medicalCode": "1414110020",
-    "name": "神奈川県立足柄上病院",
-    "cityName": "松田町",
-    "nursingRatio": "7:1",
-    "admissionFees": [
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-      "地域包括ケア病棟入院料２",
-      "急性期一般入院料１"
-    ],
-    "totalWardNurses": 160.7,
-    "wardCount": 6,
-    "functions": [
-      "高度急性期",
-      "回復期",
       "急性期"
     ],
     "wards": [
       {
-        "name": "２A病棟",
-        "function": "高度急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 25,
-        "nursesPT": 0
-      },
-      {
-        "name": "２A病棟・HCU",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 4,
-        "nursesFT": 12,
-        "nursesPT": 0
-      },
-      {
-        "name": "３A病棟",
-        "function": "回復期",
-        "admissionFee": "地域包括ケア病棟入院料２",
-        "beds": 60,
-        "nursesFT": 23,
-        "nursesPT": 0
-      },
-      {
-        "name": "４A病棟",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 60,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 347,
+        "nursesFT": 27,
+        "nursesPT": 2.2
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 294.2,
+    "medicalCode": "1414080029"
+  },
+  "平塚十全病院": {
+    "name": "医療法人社団水野会　平塚十全病院",
+    "cityName": "平塚市",
+    "nursingRatio": "療養20:1/障害者13:1",
+    "admissionFees": [
+      "療養病棟入院基本料（入院料１）",
+      "障害者施設等入院基本料（１３対１入院基本料）"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 117,
+        "nursesFT": 11,
+        "nursesPT": 1.6
+      },
+      {
+        "name": "障害者施設等（１３対１入院基本料）（13:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１３対１入院基本料）",
+        "beds": 57,
+        "nursesFT": 11,
+        "nursesPT": 1.6
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 51.2,
+    "medicalCode": "1414080019"
+  },
+  "神奈川県立足柄上病院": {
+    "name": "神奈川県立足柄上病院",
+    "cityName": "松田町",
+    "nursingRatio": "一般7:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料１）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "急性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 200,
         "nursesFT": 38,
         "nursesPT": 0
-      },
-      {
-        "name": "４B病棟",
-        "function": "休棟中（今後再開する予定）",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 0,
-        "nursesPT": 0
-      },
-      {
-        "name": "５A病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
-        "nursesFT": 32,
-        "nursesPT": 0.7
-      },
-      {
-        "name": "５B病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
-        "nursesFT": 30,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 160.7,
+    "medicalCode": "1414110020"
   },
   "さがみ野中央病院": {
     "medicalCode": "1414090001",
@@ -2369,481 +1450,244 @@
     ]
   },
   "八木病院": {
-    "medicalCode": "1414080031",
-    "name": "医療法人杏林会 八木病院",
+    "name": "医療法人杏林会　八木病院",
     "cityName": "秦野市",
-    "nursingRatio": "障害者7:1",
+    "nursingRatio": "障害者10:1/回復期15:1",
     "admissionFees": [
-      "障害者施設等10対１入院基本料",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料４"
+      "障害者施設等入院基本料（１０対１入院基本料）",
+      "回復期リハビリテーション病棟入院料３"
     ],
-    "totalWardNurses": 22.2,
     "wardCount": 2,
     "functions": [
-      "急性期",
-      "回復期"
-    ],
-    "wards": [
-      {
-        "name": "一般障害者病棟",
-        "function": "急性期",
-        "admissionFee": "障害者施設等10対１入院基本料",
-        "beds": 47,
-        "nursesFT": 8,
-        "nursesPT": 8
-      },
-      {
-        "name": "回復期リハビリ病棟",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料４",
-        "beds": 33,
-        "nursesFT": 4,
-        "nursesPT": 2.2
-      }
-    ]
-  },
-  "秦野赤十字病院": {
-    "medicalCode": "1414080024",
-    "name": "秦野赤十字病院",
-    "cityName": "秦野市",
-    "nursingRatio": "10:1",
-    "admissionFees": [
-      "地域包括ケア病棟入院料２",
-      "急性期一般入院料２",
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１"
-    ],
-    "totalWardNurses": 149.7,
-    "wardCount": 7,
-    "functions": [
       "回復期",
-      "急性期",
-      "高度急性期"
+      "慢性期"
     ],
     "wards": [
       {
-        "name": "３階東病棟",
-        "function": "休棟中（今後再開する予定）",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 44,
+        "name": "障害者施設等（１０対１入院基本料）（10:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１０対１入院基本料）",
+        "beds": 55,
         "nursesFT": 0,
         "nursesPT": 0
       },
       {
-        "name": "４階西病棟",
+        "name": "回復期リハビリテーション病棟３（15:1）",
         "function": "回復期",
-        "admissionFee": "地域包括ケア病棟入院料２",
-        "beds": 47,
-        "nursesFT": 20,
-        "nursesPT": 0
-      },
+        "admissionFee": "回復期リハビリテーション病棟入院料３",
+        "beds": 25,
+        "nursesFT": 4,
+        "nursesPT": 2.2
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 22.2,
+    "medicalCode": "1414080031"
+  },
+  "秦野赤十字病院": {
+    "name": "秦野赤十字病院",
+    "cityName": "秦野市",
+    "nursingRatio": "一般7:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料１）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "急性期"
+    ],
+    "wards": [
       {
-        "name": "４階東病棟",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 36,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 177,
         "nursesFT": 20,
         "nursesPT": 0.6
-      },
-      {
-        "name": "５階西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 47,
-        "nursesFT": 22,
-        "nursesPT": 1.8
-      },
-      {
-        "name": "５階東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 47,
-        "nursesFT": 23,
-        "nursesPT": 0.3
-      },
-      {
-        "name": "6階西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 47,
-        "nursesFT": 24,
-        "nursesPT": 0
-      },
-      {
-        "name": "６階東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料２",
-        "beds": 46,
-        "nursesFT": 23,
-        "nursesPT": 0
-      },
-      {
-        "name": "HCU",
-        "function": "高度急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 6,
-        "nursesFT": 15,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 149.7,
+    "medicalCode": "1414080024"
   },
   "神奈川病院": {
-    "medicalCode": "1414080028",
-    "name": "独立行政法人国立病院機構神奈川病院",
+    "name": "独立行政法人国立病院機構　神奈川病院",
     "cityName": "秦野市",
-    "nursingRatio": "障害者7:1",
+    "nursingRatio": "一般10:1/障害者10:1",
     "admissionFees": [
-      "地域包括ケア病棟入院料２",
-      "急性期一般入院料４",
-      "障害者施設等10対１入院基本料"
+      "一般病棟入院基本料（急性期一般入院料４）",
+      "結核病棟入院基本料（１０対１入院基本料）",
+      "障害者施設等入院基本料（１０対１入院基本料）"
     ],
-    "totalWardNurses": 132.8,
-    "wardCount": 5,
+    "wardCount": 3,
     "functions": [
       "急性期",
       "慢性期"
     ],
     "wards": [
       {
-        "name": "１病棟",
-        "function": "休棟中（今後再開する予定）",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 0,
-        "nursesPT": 0
-      },
-      {
-        "name": "２病棟",
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
         "function": "急性期",
-        "admissionFee": "地域包括ケア病棟入院料２",
-        "beds": 50,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 30,
         "nursesFT": 28,
         "nursesPT": 0
       },
       {
-        "name": "３病棟",
+        "name": "結核病棟（１０対１入院基本料）（10:1）",
         "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 22,
-        "nursesPT": 0
-      },
-      {
-        "name": "４病棟（一般）",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
+        "admissionFee": "結核病棟入院基本料（１０対１入院基本料）",
         "beds": 30,
-        "nursesFT": 25,
+        "nursesFT": 28,
         "nursesPT": 0
       },
       {
-        "name": "７病棟",
+        "name": "障害者施設等（１０対１入院基本料）（10:1）",
         "function": "慢性期",
-        "admissionFee": "障害者施設等10対１入院基本料",
-        "beds": 60,
+        "admissionFee": "障害者施設等入院基本料（１０対１入院基本料）",
+        "beds": 120,
         "nursesFT": 29,
         "nursesPT": 0.8
-      },
-      {
-        "name": "８病棟",
-        "function": "慢性期",
-        "admissionFee": "障害者施設等10対１入院基本料",
-        "beds": 60,
-        "nursesFT": 28,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 132.8,
+    "medicalCode": "1414080028"
   },
   "鶴巻温泉病院": {
-    "medicalCode": "1414080018",
-    "name": "医療法人社団三喜会 鶴巻温泉病院",
+    "name": "医療法人社団三喜会　鶴巻温泉病院",
     "cityName": "秦野市",
-    "nursingRatio": "障害者7:1",
+    "nursingRatio": "療養20:1/障害者10:1/回復期13:1",
     "admissionFees": [
-      "特殊疾患病棟入院料１",
-      "障害者施設等10対１入院基本料",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-      "地域包括ケア入院医療管理料２",
-      "療養病棟入院料１",
-      "緩和ケア病棟入院料１"
+      "療養病棟入院基本料（入院料１）",
+      "障害者施設等入院基本料（１０対１入院基本料）",
+      "回復期リハビリテーション病棟入院料１"
     ],
-    "totalWardNurses": 167.9,
-    "wardCount": 10,
+    "wardCount": 3,
     "functions": [
-      "慢性期",
-      "回復期"
+      "回復期",
+      "慢性期"
     ],
     "wards": [
       {
-        "name": "2西",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "特殊疾患病棟入院料１",
-        "beds": 60,
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 120,
         "nursesFT": 13,
         "nursesPT": 0.4
       },
       {
-        "name": "2東",
+        "name": "障害者施設等（１０対１入院基本料）（10:1）",
         "function": "慢性期",
-        "admissionFee": "障害者施設等10対１入院基本料",
+        "admissionFee": "障害者施設等入院基本料（１０対１入院基本料）",
         "beds": 55,
-        "nursesFT": 28,
-        "nursesPT": 0.7
+        "nursesFT": 13,
+        "nursesPT": 0.4
       },
       {
-        "name": "2南",
+        "name": "回復期リハビリテーション病棟１（13:1）",
         "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 50,
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 51,
         "nursesFT": 17,
         "nursesPT": 0.3
-      },
-      {
-        "name": "3西",
-        "function": "回復期",
-        "admissionFee": "地域包括ケア入院医療管理料２",
-        "beds": 39,
-        "nursesFT": 15,
-        "nursesPT": 1.6
-      },
-      {
-        "name": "3東",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 60,
-        "nursesFT": 15,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "3南",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 50,
-        "nursesFT": 17,
-        "nursesPT": 0.6
-      },
-      {
-        "name": "4西",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 60,
-        "nursesFT": 12,
-        "nursesPT": 0.7
-      },
-      {
-        "name": "4南",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 53,
-        "nursesFT": 14,
-        "nursesPT": 1.2
-      },
-      {
-        "name": "5東",
-        "function": "慢性期",
-        "admissionFee": "緩和ケア病棟入院料１",
-        "beds": 25,
-        "nursesFT": 13,
-        "nursesPT": 0.9
-      },
-      {
-        "name": "5南",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 53,
-        "nursesFT": 16,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 167.9,
+    "medicalCode": "1414080018"
   },
   "箱根リハビリテーション病院": {
-    "medicalCode": "1414110007",
-    "name": "特定医療法人社団研精会 箱根リハビリテーション病院",
+    "name": "特定医療法人社団研精会　箱根リハビリテーション病院",
     "cityName": "箱根町",
-    "nursingRatio": "回復期13:1",
+    "nursingRatio": "療養20:1/回復期13:1",
     "admissionFees": [
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１"
+      "療養病棟入院基本料（入院料１）",
+      "回復期リハビリテーション病棟入院料１"
     ],
-    "totalWardNurses": 37,
     "wardCount": 2,
     "functions": [
-      "慢性期",
-      "回復期"
+      "回復期",
+      "慢性期"
     ],
     "wards": [
       {
-        "name": "2階西病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "-",
-        "beds": 0,
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 55,
         "nursesFT": 18,
         "nursesPT": 0
       },
       {
-        "name": "3階西病棟",
+        "name": "回復期リハビリテーション病棟１（13:1）",
         "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 42,
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 40,
         "nursesFT": 19,
         "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 37,
+    "medicalCode": "1414110007"
   },
   "茅ヶ崎市立病院": {
-    "medicalCode": "1414070018",
     "name": "茅ヶ崎市立病院",
     "cityName": "茅ヶ崎市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1",
     "admissionFees": [
-      "急性期一般入院料１",
-      "小児入院医療管理料２",
-      "特定集中治療室管理料３",
-      "新生児特定集中治療室管理料２"
+      "一般病棟入院基本料（急性期一般入院料１）"
     ],
-    "totalWardNurses": 227,
-    "wardCount": 10,
-    "functions": [
-      "急性期",
-      "高度急性期"
-    ],
-    "wards": [
-      {
-        "name": "３階西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 36,
-        "nursesFT": 27,
-        "nursesPT": 0
-      },
-      {
-        "name": "３階東病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 52,
-        "nursesFT": 21,
-        "nursesPT": 0
-      },
-      {
-        "name": "４階西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 58,
-        "nursesFT": 29,
-        "nursesPT": 0
-      },
-      {
-        "name": "４階東病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 50,
-        "nursesFT": 30,
-        "nursesPT": 0
-      },
-      {
-        "name": "５階西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 56,
-        "nursesFT": 30,
-        "nursesPT": 0
-      },
-      {
-        "name": "５階東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 55,
-        "nursesFT": 29,
-        "nursesPT": 0
-      },
-      {
-        "name": "６階西病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 51,
-        "nursesFT": 6,
-        "nursesPT": 0
-      },
-      {
-        "name": "６階東病棟",
-        "function": "急性期",
-        "admissionFee": "小児入院医療管理料２",
-        "beds": 36,
-        "nursesFT": 31,
-        "nursesPT": 0
-      },
-      {
-        "name": "ＩＣＵ",
-        "function": "高度急性期",
-        "admissionFee": "特定集中治療室管理料３",
-        "beds": 4,
-        "nursesFT": 16,
-        "nursesPT": 0
-      },
-      {
-        "name": "ＮＩＣＵ",
-        "function": "高度急性期",
-        "admissionFee": "新生児特定集中治療室管理料２",
-        "beds": 3,
-        "nursesFT": 8,
-        "nursesPT": 0
-      }
-    ]
-  },
-  "茅ヶ崎徳洲会病院": {
-    "medicalCode": "1414070013",
-    "name": "医療法人徳洲会 茅ヶ崎徳洲会病院",
-    "cityName": "茅ヶ崎市",
-    "nursingRatio": "10:1",
-    "admissionFees": [
-      "急性期一般入院料４",
-      "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１"
-    ],
-    "totalWardNurses": 64,
-    "wardCount": 5,
+    "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "3階東病棟",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 36,
-        "nursesFT": 17,
-        "nursesPT": 1
-      },
-      {
-        "name": "4階西病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 16,
-        "nursesPT": 0
-      },
-      {
-        "name": "4階東病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 36,
-        "nursesFT": 17,
-        "nursesPT": 1
-      },
-      {
-        "name": "5階東病棟",
-        "function": "急性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 3,
-        "nursesPT": 0
-      },
-      {
-        "name": "HCU",
-        "function": "急性期",
-        "admissionFee": "ﾊｲｹｱﾕﾆｯﾄ入院医療管理料１",
-        "beds": 8,
-        "nursesFT": 9,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 358,
+        "nursesFT": 27,
         "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 227,
+    "medicalCode": "1414070018"
+  },
+  "茅ヶ崎徳洲会病院": {
+    "name": "医療法人徳洲会　茅ヶ崎徳洲会病院",
+    "cityName": "茅ヶ崎市",
+    "nursingRatio": "一般10:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料４）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "急性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 124,
+        "nursesFT": 17,
+        "nursesPT": 1
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 64,
+    "medicalCode": "1414070013"
   },
   "茅ヶ崎中央病院": {
     "medicalCode": "1414070020",
@@ -2931,44 +1775,30 @@
     ]
   },
   "長岡病院": {
-    "medicalCode": "1414070009",
-    "name": "医療法人社団湘南健友会 長岡病院",
+    "name": "医療法人社団湘南健友会　長岡病院",
     "cityName": "茅ヶ崎市",
     "nursingRatio": "療養20:1",
     "admissionFees": [
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）"
     ],
-    "totalWardNurses": 30.8,
-    "wardCount": 3,
+    "wardCount": 1,
     "functions": [
       "慢性期"
     ],
     "wards": [
       {
-        "name": "G病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 54,
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 162,
         "nursesFT": 10,
         "nursesPT": 0.8
-      },
-      {
-        "name": "N病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 54,
-        "nursesFT": 9,
-        "nursesPT": 1.6
-      },
-      {
-        "name": "O病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 54,
-        "nursesFT": 8,
-        "nursesPT": 1.4
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 30.8,
+    "medicalCode": "1414070009"
   },
   "茅ヶ崎新北陵病院": {
     "medicalCode": "1414070019",
@@ -3014,100 +1844,60 @@
     ]
   },
   "湘南東部総合病院": {
-    "medicalCode": "1414070030",
     "name": "湘南東部総合病院",
     "cityName": "茅ヶ崎市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1/障害者7:1/回復期13:1/精神13:1",
     "admissionFees": [
-      "小児入院医療管理料５",
-      "急性期一般入院料１",
-      "特定集中治療室管理料３",
-      "障害者施設等７対１入院基本料",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料２",
-      "緩和ケア病棟入院料２"
+      "一般病棟入院基本料（急性期一般入院料１）",
+      "障害者施設等入院基本料（７対１入院基本料）",
+      "回復期リハビリテーション病棟入院料２",
+      "精神科急性期治療病棟入院料１"
     ],
-    "totalWardNurses": 172.1,
-    "wardCount": 9,
+    "wardCount": 4,
     "functions": [
+      "精神科",
       "急性期",
-      "高度急性期",
-      "慢性期",
-      "回復期"
+      "回復期",
+      "慢性期"
     ],
     "wards": [
       {
-        "name": "１A病棟",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "小児入院医療管理料５",
-        "beds": 8,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 207,
         "nursesFT": 1,
         "nursesPT": 0
       },
       {
-        "name": "２A病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 50,
-        "nursesFT": 25,
-        "nursesPT": 2.2
-      },
-      {
-        "name": "２B病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 49,
-        "nursesFT": 26,
-        "nursesPT": 2.1
-      },
-      {
-        "name": "３A病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 51,
-        "nursesFT": 29,
-        "nursesPT": 0.9
-      },
-      {
-        "name": "３B病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 49,
-        "nursesFT": 27,
-        "nursesPT": 1.2
-      },
-      {
-        "name": "ICU",
-        "function": "高度急性期",
-        "admissionFee": "特定集中治療室管理料３",
-        "beds": 4,
-        "nursesFT": 9,
-        "nursesPT": 2.2
-      },
-      {
-        "name": "ナスバ病床",
+        "name": "障害者施設等（７対１入院基本料）（7:1）",
         "function": "慢性期",
-        "admissionFee": "障害者施設等７対１入院基本料",
+        "admissionFee": "障害者施設等入院基本料（７対１入院基本料）",
         "beds": 12,
         "nursesFT": 11,
         "nursesPT": 4.3
       },
       {
-        "name": "回復期病棟",
+        "name": "回復期リハビリテーション病棟２（13:1）",
         "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料２",
+        "admissionFee": "回復期リハビリテーション病棟入院料２",
         "beds": 40,
         "nursesFT": 11,
         "nursesPT": 3.1
       },
       {
-        "name": "緩和病棟",
-        "function": "急性期",
-        "admissionFee": "緩和ケア病棟入院料２",
-        "beds": 20,
-        "nursesFT": 15,
-        "nursesPT": 2.1
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 44,
+        "nursesFT": 0,
+        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 172.1,
+    "medicalCode": "1414070030"
   },
   "山内龍馬財団 山内病院": {
     "medicalCode": "1414070004",
@@ -3273,66 +2063,40 @@
     ]
   },
   "湘南中央病院": {
-    "medicalCode": "1414070029",
     "name": "湘南中央病院",
     "cityName": "藤沢市",
-    "nursingRatio": "10:1",
+    "nursingRatio": "療養20:1/回復期13:1",
     "admissionFees": [
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料２",
-      "緩和ケア病棟入院料１",
-      "急性期一般入院料４",
-      "地域包括ケア病棟入院料１",
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）",
+      "回復期リハビリテーション病棟入院料１"
     ],
-    "totalWardNurses": 91.6,
-    "wardCount": 5,
+    "wardCount": 2,
     "functions": [
       "回復期",
-      "急性期",
       "慢性期"
     ],
     "wards": [
       {
-        "name": "回復期リハビリテーション病棟",
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 43,
+        "nursesFT": 13,
+        "nursesPT": 1.8
+      },
+      {
+        "name": "回復期リハビリテーション病棟１（13:1）",
         "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料２",
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
         "beds": 36,
         "nursesFT": 15,
         "nursesPT": 2.4
-      },
-      {
-        "name": "緩和ケア病棟",
-        "function": "急性期",
-        "admissionFee": "緩和ケア病棟入院料１",
-        "beds": 16,
-        "nursesFT": 14,
-        "nursesPT": 0
-      },
-      {
-        "name": "急性期病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 52,
-        "nursesFT": 20,
-        "nursesPT": 2.4
-      },
-      {
-        "name": "地域包括ケア病棟",
-        "function": "回復期",
-        "admissionFee": "地域包括ケア病棟入院料１",
-        "beds": 52,
-        "nursesFT": 19,
-        "nursesPT": 4
-      },
-      {
-        "name": "療養病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 36,
-        "nursesFT": 13,
-        "nursesPT": 1.8
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 91.6,
+    "medicalCode": "1414070029"
   },
   "長谷川会湘南ホスピタル": {
     "medicalCode": "1414070012",
@@ -3369,380 +2133,160 @@
     ]
   },
   "湘南第一病院": {
-    "medicalCode": "1414070028",
     "name": "湘南第一病院",
     "cityName": "藤沢市",
-    "nursingRatio": "10:1",
+    "nursingRatio": "一般10:1",
     "admissionFees": [
-      "急性期一般入院料４"
+      "一般病棟入院基本料（急性期一般入院料４）"
     ],
-    "totalWardNurses": 47.3,
-    "wardCount": 2,
-    "functions": [
-      "急性期"
-    ],
-    "wards": [
-      {
-        "name": "2階病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 52,
-        "nursesFT": 27,
-        "nursesPT": 2.3
-      },
-      {
-        "name": "3階病棟",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
-        "beds": 42,
-        "nursesFT": 16,
-        "nursesPT": 2
-      }
-    ]
-  },
-  "湘南長寿園病院": {
-    "medicalCode": "1414070008",
-    "name": "湘南長寿園病院",
-    "cityName": "藤沢市",
-    "nursingRatio": "不明",
-    "admissionFees": [],
-    "totalWardNurses": 22.1,
-    "wardCount": 2,
-    "functions": [
-      "慢性期"
-    ],
-    "wards": [
-      {
-        "name": "1病棟",
-        "function": "慢性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 6,
-        "nursesPT": 5
-      },
-      {
-        "name": "５病棟",
-        "function": "慢性期",
-        "admissionFee": "-",
-        "beds": 0,
-        "nursesFT": 6,
-        "nursesPT": 5.1
-      }
-    ]
-  },
-  "藤沢脳神経外科病院": {
-    "medicalCode": "1414070035",
-    "name": "藤沢脳神経外科病院",
-    "cityName": "藤沢市",
-    "nursingRatio": "13:1",
-    "admissionFees": [
-      "急性期一般入院料５"
-    ],
-    "totalWardNurses": 18.1,
     "wardCount": 1,
     "functions": [
       "急性期"
     ],
     "wards": [
       {
-        "name": "脳神経外科病棟",
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料５",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 52,
+        "nursesFT": 27,
+        "nursesPT": 2.3
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 47.3,
+    "medicalCode": "1414070028"
+  },
+  "湘南長寿園病院": {
+    "name": "湘南長寿園病院",
+    "cityName": "藤沢市",
+    "nursingRatio": "療養20:1",
+    "admissionFees": [
+      "療養病棟入院基本料（入院料１）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 120,
+        "nursesFT": 6,
+        "nursesPT": 5
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 22.1,
+    "medicalCode": "1414070008"
+  },
+  "藤沢脳神経外科病院": {
+    "name": "藤沢脳神経外科病院",
+    "cityName": "藤沢市",
+    "nursingRatio": "一般10:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料５）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "急性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料５）（10:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料５）",
         "beds": 55,
         "nursesFT": 11,
         "nursesPT": 7.1
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 18.1,
+    "medicalCode": "1414070035"
   },
   "藤沢御所見病院": {
-    "medicalCode": "1414070033",
     "name": "藤沢御所見病院",
     "cityName": "藤沢市",
-    "nursingRatio": "地域包括ケア",
+    "nursingRatio": "療養20:1",
     "admissionFees": [
-      "療養病棟入院料１",
-      "地域包括ケア病棟入院料１"
+      "療養病棟入院基本料（入院料１）"
     ],
-    "totalWardNurses": 43.7,
-    "wardCount": 3,
+    "wardCount": 1,
     "functions": [
-      "慢性期",
-      "急性期"
+      "慢性期"
     ],
     "wards": [
       {
-        "name": "1階医療療養病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 38,
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 98,
         "nursesFT": 9,
         "nursesPT": 1.6
-      },
-      {
-        "name": "2階地域包括ケア病棟",
-        "function": "急性期",
-        "admissionFee": "地域包括ケア病棟入院料１",
-        "beds": 56,
-        "nursesFT": 18,
-        "nursesPT": 1.9
-      },
-      {
-        "name": "3階医療療養病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 60,
-        "nursesFT": 12,
-        "nursesPT": 1.2
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 43.7,
+    "medicalCode": "1414070033"
   },
   "藤沢市民病院": {
-    "medicalCode": "1414070034",
     "name": "藤沢市民病院",
     "cityName": "藤沢市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1",
     "admissionFees": [
-      "小児入院医療管理料２",
-      "急性期一般入院料１",
-      "特定集中治療室管理料３",
-      "新生児特定集中治療室管理料２",
-      "救命救急入院料４",
-      "救命救急入院料１"
+      "一般病棟入院基本料（急性期一般入院料１）"
     ],
-    "totalWardNurses": 410,
-    "wardCount": 15,
+    "wardCount": 1,
     "functions": [
-      "高度急性期",
       "急性期"
     ],
     "wards": [
       {
-        "name": "4C病棟",
-        "function": "高度急性期",
-        "admissionFee": "小児入院医療管理料２",
-        "beds": 42,
-        "nursesFT": 32,
-        "nursesPT": 0
-      },
-      {
-        "name": "5C病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 28,
-        "nursesFT": 3,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "6A病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
-        "nursesFT": 28,
-        "nursesPT": 0
-      },
-      {
-        "name": "6B病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
-        "nursesFT": 33,
-        "nursesPT": 1.7
-      },
-      {
-        "name": "6C病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 53,
-        "nursesFT": 29,
-        "nursesPT": 0
-      },
-      {
-        "name": "7A病棟",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 447,
         "nursesFT": 25,
         "nursesPT": 0
-      },
-      {
-        "name": "7B病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
-        "nursesFT": 26,
-        "nursesPT": 0
-      },
-      {
-        "name": "7C病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 59,
-        "nursesFT": 28,
-        "nursesPT": 0
-      },
-      {
-        "name": "8A病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
-        "nursesFT": 27,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "8B病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 46,
-        "nursesFT": 26,
-        "nursesPT": 0.9
-      },
-      {
-        "name": "8C病棟",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 33,
-        "nursesFT": 25,
-        "nursesPT": 0
-      },
-      {
-        "name": "ICU・CCU",
-        "function": "高度急性期",
-        "admissionFee": "特定集中治療室管理料３",
-        "beds": 6,
-        "nursesFT": 25,
-        "nursesPT": 0
-      },
-      {
-        "name": "NICU",
-        "function": "高度急性期",
-        "admissionFee": "新生児特定集中治療室管理料２",
-        "beds": 9,
-        "nursesFT": 26,
-        "nursesPT": 0
-      },
-      {
-        "name": "救急ICU・CCU",
-        "function": "高度急性期",
-        "admissionFee": "救命救急入院料４",
-        "beds": 6,
-        "nursesFT": 28,
-        "nursesPT": 0
-      },
-      {
-        "name": "救急病棟",
-        "function": "高度急性期",
-        "admissionFee": "救命救急入院料１",
-        "beds": 24,
-        "nursesFT": 40,
-        "nursesPT": 4.8
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 410,
+    "medicalCode": "1414070034"
   },
   "湘南藤沢徳洲会病院": {
-    "medicalCode": "1414070014",
-    "name": "医療法人徳洲会 湘南藤沢徳洲会病院",
+    "name": "医療法人徳洲会　湘南藤沢徳洲会病院",
     "cityName": "藤沢市",
-    "nursingRatio": "7:1",
+    "nursingRatio": "一般7:1",
     "admissionFees": [
-      "急性期一般入院料１",
-      "特定集中治療室管理料３"
+      "一般病棟入院基本料（急性期一般入院料１）"
     ],
-    "totalWardNurses": 257.4,
-    "wardCount": 11,
+    "wardCount": 1,
     "functions": [
-      "急性期",
-      "高度急性期"
+      "急性期"
     ],
     "wards": [
       {
-        "name": "5階",
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 35,
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 440,
         "nursesFT": 21,
         "nursesPT": 1.7
-      },
-      {
-        "name": "6西",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 20,
-        "nursesPT": 1.3
-      },
-      {
-        "name": "6東",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 24,
-        "nursesPT": 0.6
-      },
-      {
-        "name": "7西",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 24,
-        "nursesPT": 0
-      },
-      {
-        "name": "7東",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 23,
-        "nursesPT": 0
-      },
-      {
-        "name": "8西",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 15,
-        "nursesPT": 0.9
-      },
-      {
-        "name": "8東",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 22,
-        "nursesPT": 1.2
-      },
-      {
-        "name": "9西",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 21,
-        "nursesPT": 0.7
-      },
-      {
-        "name": "9東",
-        "function": "急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 36,
-        "nursesFT": 24,
-        "nursesPT": 0
-      },
-      {
-        "name": "ICU",
-        "function": "高度急性期",
-        "admissionFee": "特定集中治療室管理料３",
-        "beds": 12,
-        "nursesFT": 29,
-        "nursesPT": 1.1
-      },
-      {
-        "name": "心臓病センター",
-        "function": "高度急性期",
-        "admissionFee": "急性期一般入院料１",
-        "beds": 42,
-        "nursesFT": 24,
-        "nursesPT": 2.9
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 257.4,
+    "medicalCode": "1414070014"
   },
   "正拓会湘南太平台病院": {
     "medicalCode": "1414070010",
@@ -3778,159 +2322,1161 @@
     ]
   },
   "湘南慶育病院": {
-    "medicalCode": "1414070038",
-    "name": "医療法人社団 健育会 湘南慶育病院",
+    "name": "医療法人社団健育会　湘南慶育病院",
     "cityName": "藤沢市",
-    "nursingRatio": "10:1",
+    "nursingRatio": "一般10:1/回復期13:1",
     "admissionFees": [
-      "急性期一般入院料４",
-      "地域包括ケア病棟入院料２",
-      "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１"
+      "一般病棟入院基本料（急性期一般入院料４）",
+      "回復期リハビリテーション病棟入院料１"
     ],
-    "totalWardNurses": 92.6,
-    "wardCount": 5,
+    "wardCount": 2,
     "functions": [
       "急性期",
       "回復期"
     ],
     "wards": [
       {
-        "name": "３階東病棟",
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
         "function": "急性期",
-        "admissionFee": "急性期一般入院料４",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
         "beds": 50,
         "nursesFT": 22,
         "nursesPT": 0.6
       },
       {
-        "name": "４階東病棟",
+        "name": "回復期リハビリテーション病棟１（13:1）",
         "function": "回復期",
-        "admissionFee": "地域包括ケア病棟入院料２",
-        "beds": 30,
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 50,
         "nursesFT": 12,
         "nursesPT": 0.8
-      },
-      {
-        "name": "４階南病棟",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 50,
-        "nursesFT": 16,
-        "nursesPT": 2.9
-      },
-      {
-        "name": "５階東病棟",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 50,
-        "nursesFT": 16,
-        "nursesPT": 2.3
-      },
-      {
-        "name": "５階南病棟",
-        "function": "回復期",
-        "admissionFee": "回復期ﾘﾊﾋﾞﾘﾃｰｼｮﾝ病棟入院料１",
-        "beds": 50,
-        "nursesFT": 20,
-        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 92.6,
+    "medicalCode": "1414070038"
   },
   "村田会湘南大庭病院": {
-    "medicalCode": "1414070040",
     "name": "村田会湘南大庭病院",
     "cityName": "藤沢市",
     "nursingRatio": "療養20:1",
     "admissionFees": [
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）"
     ],
+    "wardCount": 1,
+    "functions": [
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 99,
+        "nursesFT": 9,
+        "nursesPT": 0.8
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
     "totalWardNurses": 19.4,
+    "medicalCode": "1414070040"
+  },
+  "高台病院": {
+    "name": "医療法人勝又　高台病院",
+    "cityName": "開成町",
+    "nursingRatio": "療養20:1",
+    "admissionFees": [
+      "療養病棟入院基本料（入院料１）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 310,
+        "nursesFT": 9,
+        "nursesPT": 1.4
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01",
+    "totalWardNurses": 65.5,
+    "medicalCode": "1414110004"
+  },
+  "徳洲会　湘南大磯病院": {
+    "name": "医療法人徳洲会　湘南大磯病院",
+    "cityName": "大磯町",
+    "nursingRatio": "一般7:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料１）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "急性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 170,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "湯河原胃腸病院": {
+    "name": "湯河原胃腸病院",
+    "cityName": "湯河原町",
+    "nursingRatio": "一般15:1/療養25:1",
+    "admissionFees": [
+      "一般病棟入院基本料（地域一般入院料２）",
+      "療養病棟入院基本料（入院料２）"
+    ],
     "wardCount": 2,
     "functions": [
+      "急性期",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（地域一般入院料２）（15:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（地域一般入院料２）",
+        "beds": 58,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "療養病棟（入院料２）（25:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料２）",
+        "beds": 50,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "地域医療機能推進機構　湯河原病院": {
+    "name": "独立行政法人地域医療機能推進機構　湯河原病院",
+    "cityName": "湯河原町",
+    "nursingRatio": "一般10:1/回復期13:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料４）",
+      "回復期リハビリテーション病棟入院料１"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "急性期",
+      "回復期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 100,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "回復期リハビリテーション病棟１（13:1）",
+        "function": "回復期",
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 50,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "恩賜財団済生会支部神奈川県済生会　湘南平塚病院": {
+    "name": "社会福祉法人恩賜財団済生会支部神奈川県済生会　湘南平塚病院",
+    "cityName": "平塚市",
+    "nursingRatio": "一般10:1/回復期13:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料４）",
+      "回復期リハビリテーション病棟入院料１"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "急性期",
+      "回復期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 42,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "回復期リハビリテーション病棟１（13:1）",
+        "function": "回復期",
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 46,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "同友会　藤沢湘南台病院": {
+    "name": "一般財団法人　同友会　藤沢湘南台病院",
+    "cityName": "藤沢市",
+    "nursingRatio": "一般7:1/療養25:1/回復期15:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料１）",
+      "療養病棟入院基本料（入院料２）",
+      "回復期リハビリテーション病棟入院料３"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "急性期",
       "回復期",
       "慢性期"
     ],
     "wards": [
       {
-        "name": "2階病棟",
-        "function": "回復期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 41,
-        "nursesFT": 7,
-        "nursesPT": 2.6
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 210,
+        "nursesFT": 0,
+        "nursesPT": 0
       },
       {
-        "name": "3階病棟",
+        "name": "療養病棟（入院料２）（25:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 50,
-        "nursesFT": 9,
-        "nursesPT": 0.8
+        "admissionFee": "療養病棟入院基本料（入院料２）",
+        "beds": 30,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "回復期リハビリテーション病棟３（15:1）",
+        "function": "回復期",
+        "admissionFee": "回復期リハビリテーション病棟入院料３",
+        "beds": 33,
+        "nursesFT": 0,
+        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
   },
-  "高台病院": {
-    "medicalCode": "1414110004",
-    "name": "医療法人 陽風会 高台病院",
-    "cityName": "開成町",
+  "徳洲会　山内病院": {
+    "name": "医療法人徳洲会　山内病院",
+    "cityName": "藤沢市",
+    "nursingRatio": "一般10:1/障害者10:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料６）",
+      "障害者施設等入院基本料（１０対１入院基本料）"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "急性期",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料６）（10:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料６）",
+        "beds": 46,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "障害者施設等（１０対１入院基本料）（10:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１０対１入院基本料）",
+        "beds": 53,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "クローバーホスピタル": {
+    "name": "クローバーホスピタル",
+    "cityName": "藤沢市",
+    "nursingRatio": "一般15:1/回復期13:1",
+    "admissionFees": [
+      "一般病棟入院基本料（地域一般入院料３）",
+      "回復期リハビリテーション病棟入院料１"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "急性期",
+      "回復期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（地域一般入院料３）（15:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（地域一般入院料３）",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "回復期リハビリテーション病棟１（13:1）",
+        "function": "回復期",
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "茅ケ崎中央病院": {
+    "name": "茅ケ崎中央病院",
+    "cityName": "茅ヶ崎市",
+    "nursingRatio": "一般10:1/療養20:1/障害者13:1/回復期15:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料４）",
+      "療養病棟入院基本料（入院料１）",
+      "障害者施設等入院基本料（１３対１入院基本料）",
+      "回復期リハビリテーション病棟入院料３"
+    ],
+    "wardCount": 4,
+    "functions": [
+      "急性期",
+      "回復期",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料４）（10:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料４）",
+        "beds": 104,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 108,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "障害者施設等（１３対１入院基本料）（13:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１３対１入院基本料）",
+        "beds": 104,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "回復期リハビリテーション病棟３（15:1）",
+        "function": "回復期",
+        "admissionFee": "回復期リハビリテーション病棟入院料３",
+        "beds": 48,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "昭和医科大学横浜市北部病院": {
+    "name": "昭和医科大学横浜市北部病院",
+    "cityName": "",
+    "nursingRatio": "一般7:1/精神15:1",
+    "admissionFees": [
+      "一般病棟入院基本料（急性期一般入院料１）",
+      "精神病棟入院基本料（１５対１入院基本料）",
+      "精神科救急急性期医療入院料"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "急性期"
+    ],
+    "wards": [
+      {
+        "name": "一般病棟（急性期一般入院料１）（7:1）",
+        "function": "急性期",
+        "admissionFee": "一般病棟入院基本料（急性期一般入院料１）",
+        "beds": 505,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神病棟（１５対１入院基本料）（15:1）",
+        "function": "精神科",
+        "admissionFee": "精神病棟入院基本料（１５対１入院基本料）",
+        "beds": 50,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神科救急急性期医療",
+        "function": "精神科",
+        "admissionFee": "精神科救急急性期医療入院料",
+        "beds": 42,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "生活保健協会　湯河原中央温泉病院": {
+    "name": "一般財団法人生活保健協会　湯河原中央温泉病院",
+    "cityName": "湯河原町",
     "nursingRatio": "療養20:1",
     "admissionFees": [
-      "療養病棟入院料１"
+      "療養病棟入院基本料（入院料１）"
     ],
-    "totalWardNurses": 65.5,
-    "wardCount": 6,
+    "wardCount": 1,
     "functions": [
       "慢性期"
     ],
     "wards": [
       {
-        "name": "西2病棟",
+        "name": "療養病棟（入院料１）（20:1）",
         "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 40,
-        "nursesFT": 9,
-        "nursesPT": 1.4
-      },
-      {
-        "name": "西3病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 39,
-        "nursesFT": 8,
-        "nursesPT": 1.8
-      },
-      {
-        "name": "中2病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 56,
-        "nursesFT": 9,
-        "nursesPT": 1.9
-      },
-      {
-        "name": "中3病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 57,
-        "nursesFT": 9,
-        "nursesPT": 1.5
-      },
-      {
-        "name": "東2病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 59,
-        "nursesFT": 10,
-        "nursesPT": 0.8
-      },
-      {
-        "name": "東3病棟",
-        "function": "慢性期",
-        "admissionFee": "療養病棟入院料１",
-        "beds": 59,
-        "nursesFT": 10,
-        "nursesPT": 3.1
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 188,
+        "nursesFT": 0,
+        "nursesPT": 0
       }
-    ]
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "長谷川会　湘南ホスピタル": {
+    "name": "医療法人　長谷川会　湘南ホスピタル",
+    "cityName": "藤沢市",
+    "nursingRatio": "療養20:1",
+    "admissionFees": [
+      "療養病棟入院基本料（入院料１）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "正拓会　湘南太平台病院": {
+    "name": "医療法人社団　正拓会　湘南太平台病院",
+    "cityName": "藤沢市",
+    "nursingRatio": "療養20:1/障害者10:1",
+    "admissionFees": [
+      "療養病棟入院基本料（入院料１）",
+      "障害者施設等入院基本料（１０対１入院基本料）"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 22,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "障害者施設等（１０対１入院基本料）（10:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１０対１入院基本料）",
+        "beds": 38,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "明芳会　北小田原病院": {
+    "name": "医療法人社団明芳会　北小田原病院",
+    "cityName": "南足柄市",
+    "nursingRatio": "療養20:1/精神15:1/療養15:1",
+    "admissionFees": [
+      "療養病棟入院基本料（入院料１）",
+      "精神病棟入院基本料（１５対１入院基本料）",
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 4,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "療養病棟（入院料１）（20:1）",
+        "function": "慢性期",
+        "admissionFee": "療養病棟入院基本料（入院料１）",
+        "beds": 55,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神病棟（１５対１入院基本料）（15:1）",
+        "function": "精神科",
+        "admissionFee": "精神病棟入院基本料（１５対１入院基本料）",
+        "beds": 44,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 48,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 100,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "清風会　富士見台病院": {
+    "name": "医療法人社団清風会　富士見台病院",
+    "cityName": "平塚市",
+    "nursingRatio": "精神15:1/精神13:1/療養15:1",
+    "admissionFees": [
+      "精神病棟入院基本料（１５対１入院基本料）",
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神病棟（１５対１入院基本料）（15:1）",
+        "function": "精神科",
+        "admissionFee": "精神病棟入院基本料（１５対１入院基本料）",
+        "beds": 111,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 41,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 55,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "いしずえ　湘南敬愛病院": {
+    "name": "医療法人社団　いしずえ　湘南敬愛病院",
+    "cityName": "藤沢市",
+    "nursingRatio": "精神15:1/療養15:1",
+    "admissionFees": [
+      "精神病棟入院基本料（１５対１入院基本料）",
+      "精神療養病棟入院料"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神病棟（１５対１入院基本料）（15:1）",
+        "function": "精神科",
+        "admissionFee": "精神病棟入院基本料（１５対１入院基本料）",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 49,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "秦野病院": {
+    "name": "秦野病院",
+    "cityName": "秦野市",
+    "nursingRatio": "精神15:1/精神13:1",
+    "admissionFees": [
+      "精神病棟入院基本料（１５対１入院基本料）",
+      "精神科急性期治療病棟入院料１"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "精神科"
+    ],
+    "wards": [
+      {
+        "name": "精神病棟（１５対１入院基本料）（15:1）",
+        "function": "精神科",
+        "admissionFee": "精神病棟入院基本料（１５対１入院基本料）",
+        "beds": 120,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 31,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "青山会　みくるべ病院": {
+    "name": "医療法人財団　青山会　みくるべ病院",
+    "cityName": "秦野市",
+    "nursingRatio": "精神15:1/精神13:1/療養15:1",
+    "admissionFees": [
+      "精神病棟入院基本料（１５対１入院基本料）",
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神病棟（１５対１入院基本料）（15:1）",
+        "function": "精神科",
+        "admissionFee": "精神病棟入院基本料（１５対１入院基本料）",
+        "beds": 160,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 56,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "弘徳会　愛光病院": {
+    "name": "医療法人弘徳会　愛光病院",
+    "cityName": "厚木市",
+    "nursingRatio": "精神15:1/精神13:1/療養15:1",
+    "admissionFees": [
+      "精神病棟入院基本料（１５対１入院基本料）",
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神病棟（１５対１入院基本料）（15:1）",
+        "function": "精神科",
+        "admissionFee": "精神病棟入院基本料（１５対１入院基本料）",
+        "beds": 88,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 57,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 57,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "仁愛会　近藤病院": {
+    "name": "医療法人仁愛会　近藤病院",
+    "cityName": "厚木市",
+    "nursingRatio": "障害者13:1",
+    "admissionFees": [
+      "障害者施設等入院基本料（１３対１入院基本料）"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "障害者施設等（１３対１入院基本料）（13:1）",
+        "function": "慢性期",
+        "admissionFee": "障害者施設等入院基本料（１３対１入院基本料）",
+        "beds": 111,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "研水会　平塚病院": {
+    "name": "医療法人研水会　平塚病院",
+    "cityName": "平塚市",
+    "nursingRatio": "精神13:1/療養15:1",
+    "admissionFees": [
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 40,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 40,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 56,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "積善会　曽我病院": {
+    "name": "公益財団法人積善会　曽我病院",
+    "cityName": "小田原市",
+    "nursingRatio": "療養15:1",
+    "admissionFees": [
+      "精神科救急急性期医療入院料",
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神科救急急性期医療",
+        "function": "精神科",
+        "admissionFee": "精神科救急急性期医療入院料",
+        "beds": 52,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 53,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "特定清輝会　国府津病院": {
+    "name": "特定医療法人清輝会　国府津病院",
+    "cityName": "小田原市",
+    "nursingRatio": "精神13:1/療養15:1",
+    "admissionFees": [
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 50,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 50,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 50,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "丹沢病院": {
+    "name": "医療法人　丹沢病院",
+    "cityName": "秦野市",
+    "nursingRatio": "精神13:1/療養15:1",
+    "admissionFees": [
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 50,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 51,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "秦野厚生病院": {
+    "name": "秦野厚生病院",
+    "cityName": "秦野市",
+    "nursingRatio": "精神13:1/療養15:1",
+    "admissionFees": [
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 47,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 53,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "葵会　ＡＯＩ七沢リハビリテーション病院": {
+    "name": "医療法人社団葵会　ＡＯＩ七沢リハビリテーション病院",
+    "cityName": "厚木市",
+    "nursingRatio": "回復期13:1",
+    "admissionFees": [
+      "回復期リハビリテーション病棟入院料１"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "回復期"
+    ],
+    "wards": [
+      {
+        "name": "回復期リハビリテーション病棟１（13:1）",
+        "function": "回復期",
+        "admissionFee": "回復期リハビリテーション病棟入院料１",
+        "beds": 50,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "藤沢病院": {
+    "name": "藤沢病院",
+    "cityName": "藤沢市",
+    "nursingRatio": "精神13:1/療養15:1",
+    "admissionFees": [
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 120,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "相州病院": {
+    "name": "相州病院",
+    "cityName": "厚木市",
+    "nursingRatio": "精神13:1/療養15:1",
+    "admissionFees": [
+      "精神科急性期治療病棟入院料１",
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 3,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神科急性期治療病棟１（13:1）",
+        "function": "精神科",
+        "admissionFee": "精神科急性期治療病棟入院料１",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 57,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 46,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "湘南さくら病院": {
+    "name": "湘南さくら病院",
+    "cityName": "茅ヶ崎市",
+    "nursingRatio": "療養15:1",
+    "admissionFees": [
+      "精神療養病棟入院料",
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 2,
+    "functions": [
+      "精神科",
+      "慢性期"
+    ],
+    "wards": [
+      {
+        "name": "精神療養病棟（15:1）",
+        "function": "慢性期",
+        "admissionFee": "精神療養病棟入院料",
+        "beds": 52,
+        "nursesFT": 0,
+        "nursesPT": 0
+      },
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 52,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
+  },
+  "神奈川中央病院": {
+    "name": "神奈川中央病院",
+    "cityName": "厚木市",
+    "nursingRatio": "20:1",
+    "admissionFees": [
+      "認知症治療病棟入院料１"
+    ],
+    "wardCount": 1,
+    "functions": [
+      "精神科"
+    ],
+    "wards": [
+      {
+        "name": "認知症治療病棟１（20:1）",
+        "function": "精神科",
+        "admissionFee": "認知症治療病棟入院料１",
+        "beds": 60,
+        "nursesFT": 0,
+        "nursesPT": 0
+      }
+    ],
+    "dataSource": "施設基準届出受理名簿R8.1.1+医療情報ネット2025.12",
+    "dataDate": "2026-01-01"
   }
 }
