@@ -122,8 +122,68 @@ def verify_post(pre_count, max_wait=120):
 # 動画生成
 # ============================================================
 
-def create_video_slideshow(slide_dir, output_path, duration_per_slide=3.5):
-    """PNG スライドからプロ品質動画スライドショーを生成（Ken Burns + クロスフェード）"""
+def _get_slide_durations(n):
+    """スライド枚数に応じた表示時間を返す（秒）
+
+    1枚目（フック）: 2秒 — 短くして次に引き込む
+    中間スライド:    3秒 — 情報を読ませる
+    最終スライド（CTA）: 4秒 — 長めに見せてアクション促す
+
+    合計: 6枚の場合 2+3+3+3+3+4 = 18秒（トランジション含め約20-22秒）
+    """
+    if n <= 0:
+        return []
+    if n == 1:
+        return [4.0]
+    if n == 2:
+        return [2.5, 4.0]
+    # 3枚以上: 先頭2秒、中間3秒、末尾4秒
+    durations = [2.0]  # 1枚目（フック）
+    for _ in range(n - 2):
+        durations.append(3.0)  # 中間スライド
+    durations.append(4.0)  # 最終スライド（CTA）
+    return durations
+
+
+def _find_bgm():
+    """content/bgm/ からランダムにBGMファイルを1つ選ぶ。なければNone"""
+    bgm_dir = PROJECT_DIR / "content" / "bgm"
+    if not bgm_dir.exists():
+        return None
+    bgm_files = list(bgm_dir.glob("*.mp3")) + list(bgm_dir.glob("*.wav")) + list(bgm_dir.glob("*.m4a"))
+    if not bgm_files:
+        return None
+    import random
+    return random.choice(bgm_files)
+
+
+# トランジション種類（xfade対応）— バリエーションでスライドショーに動きを出す
+_XFADE_TRANSITIONS = [
+    "fade",
+    "slideright",
+    "slideleft",
+    "slideup",
+    "slidedown",
+    "smoothleft",
+    "smoothright",
+    "smoothup",
+    "smoothdown",
+]
+
+
+def create_video_slideshow(slide_dir, output_path, duration_per_slide=None):
+    """PNG スライドからプロ品質動画スライドショーを生成
+
+    v3.0 改善点:
+    - スライド別表示時間（フック2秒/中間3秒/CTA4秒）
+    - xfadeトランジション（フェード/スライド系をランダム選択）
+    - 軽量モーション（scale+crop式の微妙なズーム）
+    - BGMミックス対応（content/bgm/に配置、なくても動作）
+    - CRF 18高品質 + TikTok最適エンコード
+    - 1080x1920出力（入力サイズに関係なくスケーリング）
+    """
+    import random
+
     slide_dir = Path(slide_dir)
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -135,59 +195,123 @@ def create_video_slideshow(slide_dir, output_path, duration_per_slide=3.5):
 
     n = len(slides)
     fps = 30
-    frames = int(duration_per_slide * fps)
-    fade_dur = 0.4  # クロスフェード秒数
-    zoom_speed = 0.001  # Ken Burnsズーム速度（微妙なモーション）
+    fade_dur = 0.5  # トランジション秒数
 
-    print(f"   🎬 動画生成: {n}枚 x {duration_per_slide}秒 (Ken Burns + クロスフェード)")
+    # スライド別表示時間
+    if duration_per_slide is not None:
+        # 互換性: 旧呼び出しで均一時間が指定された場合
+        durations = [float(duration_per_slide)] * n
+    else:
+        durations = _get_slide_durations(n)
 
+    total_dur = sum(durations) - (n - 1) * fade_dur if n > 1 else durations[0]
+    print(f"   🎬 動画生成 v3: {n}枚, 合計約{total_dur:.1f}秒")
+    print(f"      表示時間: {' / '.join(f'{d:.1f}s' for d in durations)}")
+    print(f"      トランジション: {fade_dur}秒 x {max(0, n-1)}箇所")
+
+    # BGM検索
+    bgm_path = _find_bgm()
+    if bgm_path:
+        print(f"      BGM: {bgm_path.name}")
+    else:
+        print(f"      BGM: なし（content/bgm/にmp3/wav/m4aを配置で自動適用）")
+
+    # モーションパターン: scale+cropで軽量な微動アニメーション
+    # 各スライドに異なるモーションを割り当てて変化を出す
+    # scale_ratio: 少し大きくスケーリングしてcropで動きの余地を作る
+    # crop式のx,yで時間ベースの微動を実現
+    sr = 1.04  # 4%大きくスケーリング（モーション余裕）
+    motion_patterns = [
+        # (crop_x_expr, crop_y_expr) — 微妙なパン/ズーム
+        (f"(in_w-1080)/2+((in_w-1080)/2)*sin(t*0.8)", f"(in_h-1920)/2"),            # 左右揺れ
+        (f"(in_w-1080)/2", f"(in_h-1920)/2+((in_h-1920)/2)*sin(t*0.6)"),            # 上下揺れ
+        (f"(in_w-1080)/2*(1-t/{{dur}})", f"(in_h-1920)/2"),                          # 右→左パン
+        (f"(in_w-1080)/2*(t/{{dur}})", f"(in_h-1920)/2"),                            # 左→右パン
+        (f"(in_w-1080)/2", f"(in_h-1920)/2*(1-t/{{dur}})"),                          # 下→上パン
+        (f"(in_w-1080)/2", f"(in_h-1920)/2*(t/{{dur}})"),                            # 上→下パン
+    ]
+
+    # トランジションをランダム選択
+    transitions = []
+    if n > 1:
+        for i in range(n - 1):
+            if i == 0:
+                transitions.append("fade")
+            else:
+                transitions.append(random.choice(_XFADE_TRANSITIONS))
+
+    # === ffmpegコマンド構築 ===
     cmd = ["ffmpeg", "-y"]
 
-    # 入力
-    for slide in slides:
-        cmd.extend(["-loop", "1", "-t", str(duration_per_slide), "-framerate", str(fps), "-i", str(slide)])
+    # 入力: 各スライドを個別の表示時間で
+    for i, slide in enumerate(slides):
+        cmd.extend([
+            "-loop", "1",
+            "-t", str(durations[i]),
+            "-framerate", str(fps),
+            "-i", str(slide)
+        ])
 
-    # フィルター: Ken Burns → クロスフェード
+    # BGM入力（あれば）
+    bgm_input_idx = n
+    if bgm_path:
+        cmd.extend(["-i", str(bgm_path)])
+
+    # フィルターグラフ構築
     filters = []
 
+    # 各スライドにスケーリング+cropモーション
     for i in range(n):
-        # 交互にズームイン/ズームアウト
-        if i % 2 == 0:
-            z_expr = f"zoom+{zoom_speed}"
-        else:
-            z_expr = f"1.08-{zoom_speed}*on"
-
+        mp = motion_patterns[i % len(motion_patterns)]
+        cx = mp[0].replace("{dur}", str(durations[i]))
+        cy = mp[1].replace("{dur}", str(durations[i]))
+        # スケーリング → cropで微動 → 出力サイズに合わせる
         filters.append(
-            f"[{i}]scale=4000:-1,"
-            f"zoompan=z='{z_expr}':"
-            f"x=iw/2-(iw/zoom/2):y=ih/2-(ih/zoom/2):"
-            f"d={frames}:s=1080x1920:fps={fps}[s{i}]"
+            f"[{i}]scale={int(1080*sr)}:{int(1920*sr)}:flags=lanczos,"
+            f"crop=1080:1920:{cx}:{cy},"
+            f"setsar=1[s{i}]"
         )
 
-    # クロスフェードチェーン
+    # xfadeトランジションチェーン
     if n == 1:
-        filters.append("[s0]null[out]")
+        filters.append("[s0]null[vout]")
     else:
         prev = "s0"
+        cumulative_dur = 0.0
         for i in range(1, n):
-            offset = round(i * duration_per_slide - i * fade_dur, 2)
-            out_label = f"f{i-1}" if i < n - 1 else "out"
+            cumulative_dur += durations[i - 1]
+            offset = round(cumulative_dur - i * fade_dur, 2)
+            out_label = f"f{i}" if i < n - 1 else "vout"
+            tr = transitions[i - 1]
             filters.append(
-                f"[{prev}][s{i}]xfade=transition=fade:"
+                f"[{prev}][s{i}]xfade=transition={tr}:"
                 f"duration={fade_dur}:offset={offset}[{out_label}]"
             )
             prev = out_label
 
     filter_str = ";".join(filters)
-    cmd.extend(["-filter_complex", filter_str, "-map", "[out]"])
+
+    # BGMミックス（あれば）
+    if bgm_path:
+        filter_str += (
+            f";[{bgm_input_idx}:a]aloop=loop=-1:size=2e+09,"
+            f"atrim=duration={total_dur + 1},"
+            f"volume=-20dB,"
+            f"afade=t=in:st=0:d=1,"
+            f"afade=t=out:st={max(0, total_dur - 2)}:d=2[aout]"
+        )
+        cmd.extend(["-filter_complex", filter_str, "-map", "[vout]", "-map", "[aout]"])
+        cmd.extend(["-c:a", "aac", "-b:a", "128k", "-shortest"])
+    else:
+        cmd.extend(["-filter_complex", filter_str, "-map", "[vout]"])
 
     # TikTok最適エンコード設定
     cmd.extend([
         "-c:v", "libx264",
         "-profile:v", "high",
         "-level", "4.2",
-        "-crf", "20",
-        "-preset", "fast",
+        "-crf", "18",
+        "-preset", "medium",
         "-pix_fmt", "yuv420p",
         "-r", str(fps),
         "-movflags", "+faststart",
@@ -195,55 +319,105 @@ def create_video_slideshow(slide_dir, output_path, duration_per_slide=3.5):
     ])
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         if result.returncode != 0:
-            print(f"   ⚠️ Ken Burns版失敗、シンプル版にフォールバック")
-            return _create_simple_slideshow(slides, output_path, duration_per_slide)
+            print(f"   ⚠️ プロ版失敗、フォールバックへ")
+            if result.stderr:
+                err_lines = result.stderr.strip().split('\n')
+                for line in err_lines[-3:]:
+                    print(f"      {line[:120]}")
+            return _create_simple_slideshow(slides, output_path, durations)
 
         file_size = output_path.stat().st_size / (1024 * 1024)
-        print(f"   ✅ 動画生成完了: {output_path.name} ({file_size:.1f}MB)")
+        # ffprobeで実際の長さを確認
+        try:
+            probe = subprocess.run(
+                ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                 "-of", "default=noprint_wrappers=1:nokey=1", str(output_path)],
+                capture_output=True, text=True, timeout=10
+            )
+            actual_dur = float(probe.stdout.strip())
+            print(f"   ✅ 動画生成完了: {output_path.name} ({file_size:.1f}MB, {actual_dur:.1f}秒)")
+        except Exception:
+            print(f"   ✅ 動画生成完了: {output_path.name} ({file_size:.1f}MB)")
         return True
     except subprocess.TimeoutExpired:
-        print("   ⚠️ Ken Burns版タイムアウト、シンプル版にフォールバック")
-        return _create_simple_slideshow(slides, output_path, duration_per_slide)
+        print("   ⚠️ プロ版タイムアウト (120秒)、フォールバックへ")
+        return _create_simple_slideshow(slides, output_path, durations)
     except FileNotFoundError:
         print("   ❌ ffmpegがインストールされていません")
         return False
 
 
-def _create_simple_slideshow(slides, output_path, duration_per_slide=3):
-    """フォールバック: シンプルなconcatスライドショー"""
+def _create_simple_slideshow(slides, output_path, durations=None):
+    """フォールバック: xfadeなしのシンプルconcatスライドショー（トランジション付き）
+
+    プロ版が失敗した場合の安全策。Ken Burnsなし、フェードイン/アウトのみ。
+    """
+    n = len(slides)
+    if durations is None or isinstance(durations, (int, float)):
+        d = float(durations) if isinstance(durations, (int, float)) else 3.0
+        durations = [d] * n
+
     filter_parts = []
     inputs = []
 
     for i, slide in enumerate(slides):
-        inputs.extend(["-loop", "1", "-t", str(duration_per_slide), "-i", str(slide)])
+        dur = durations[i] if i < len(durations) else 3.0
+        inputs.extend(["-loop", "1", "-t", str(dur), "-i", str(slide)])
+        # スケーリング + 短いフェードイン/アウト
+        fade_in = f"fade=t=in:st=0:d=0.3"
+        fade_out = f"fade=t=out:st={max(0, dur - 0.3)}:d=0.3"
         filter_parts.append(
             f"[{i}:v]scale=1080:1920:force_original_aspect_ratio=decrease,"
             f"pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,"
-            f"setsar=1[v{i}]"
+            f"setsar=1,{fade_in},{fade_out}[v{i}]"
         )
 
-    concat_inputs = "".join(f"[v{i}]" for i in range(len(slides)))
-    filter_complex = ";".join(filter_parts) + f";{concat_inputs}concat=n={len(slides)}:v=1:a=0[out]"
+    concat_inputs = "".join(f"[v{i}]" for i in range(n))
+    filter_complex = ";".join(filter_parts) + f";{concat_inputs}concat=n={n}:v=1:a=0[out]"
 
-    cmd = ["ffmpeg", "-y"] + inputs + [
-        "-filter_complex", filter_complex,
-        "-map", "[out]",
+    # BGMチェック
+    bgm_path = _find_bgm()
+    total_dur = sum(durations)
+
+    cmd = ["ffmpeg", "-y"] + inputs
+    if bgm_path:
+        cmd.extend(["-i", str(bgm_path)])
+
+    if bgm_path:
+        filter_complex += (
+            f";[{n}:a]aloop=loop=-1:size=2e+09,"
+            f"atrim=duration={total_dur + 1},"
+            f"volume=-20dB,"
+            f"afade=t=in:st=0:d=1,"
+            f"afade=t=out:st={max(0, total_dur - 2)}:d=2[aout]"
+        )
+        cmd.extend([
+            "-filter_complex", filter_complex,
+            "-map", "[out]", "-map", "[aout]",
+            "-c:a", "aac", "-b:a", "128k", "-shortest",
+        ])
+    else:
+        cmd.extend(["-filter_complex", filter_complex, "-map", "[out]"])
+
+    cmd.extend([
         "-c:v", "libx264",
+        "-crf", "18",
         "-pix_fmt", "yuv420p",
         "-r", "30",
         "-preset", "fast",
+        "-movflags", "+faststart",
         str(output_path)
-    ]
+    ])
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
         if result.returncode != 0:
             print(f"   ❌ ffmpeg失敗: {result.stderr[-500:]}")
             return False
         file_size = output_path.stat().st_size / (1024 * 1024)
-        print(f"   ✅ 動画生成完了(シンプル版): {output_path.name} ({file_size:.1f}MB)")
+        print(f"   ✅ 動画生成完了(フォールバック版): {output_path.name} ({file_size:.1f}MB)")
         return True
     except Exception as e:
         print(f"   ❌ ffmpegエラー: {e}")
@@ -618,21 +792,112 @@ def save_queue(queue):
         json.dump(queue, f, ensure_ascii=False, indent=2)
 
 
+def find_ready_dir_post():
+    """content/ready/ から未投稿のコンテンツを探してキューに追加"""
+    ready_dir = PROJECT_DIR / "content" / "ready"
+    if not ready_dir.exists():
+        return None
+
+    queue = load_queue()
+    if not queue:
+        queue = {
+            "version": 2,
+            "created": datetime.now().isoformat(),
+            "updated": datetime.now().isoformat(),
+            "posts": []
+        }
+
+    # 既存キューの slide_dir とcontent_ready名のマッピングを確認
+    existing_dirs = set()
+    for post in queue["posts"]:
+        sd = post.get("slide_dir", "")
+        existing_dirs.add(sd)
+        # content_id やディレクトリ名もチェック
+        existing_dirs.add(post.get("content_id", ""))
+
+    # content/ready/ の未処理ディレクトリを探す
+    for d in sorted(ready_dir.iterdir()):
+        if not d.is_dir():
+            continue
+        slides = sorted(d.glob("slide_*.png"))
+        if not slides:
+            continue
+
+        dir_name = d.name
+        # 既にキューにあるかチェック
+        already_in_queue = False
+        for post in queue["posts"]:
+            if dir_name in str(post.get("slide_dir", "")) or dir_name == post.get("content_id", ""):
+                already_in_queue = True
+                break
+
+        if already_in_queue:
+            continue
+
+        # caption.txt / hashtags.txt を読む
+        caption = ""
+        hashtags = []
+        caption_file = d / "caption.txt"
+        hashtag_file = d / "hashtags.txt"
+        if caption_file.exists():
+            caption = caption_file.read_text(encoding='utf-8').strip()
+        if hashtag_file.exists():
+            tag_text = hashtag_file.read_text(encoding='utf-8').strip()
+            hashtags = [t.strip() for t in tag_text.split() if t.strip()]
+
+        # キューに追加
+        new_id = max((p["id"] for p in queue["posts"]), default=0) + 1
+        new_post = {
+            "id": new_id,
+            "content_id": dir_name,
+            "batch": "content_ready",
+            "slide_dir": str(d),
+            "json_path": None,
+            "caption": caption,
+            "hashtags": hashtags,
+            "cta_type": "soft",
+            "status": "pending",
+            "video_path": None,
+            "posted_at": None,
+            "verified": False,
+            "upload_method": None,
+            "error": None,
+        }
+        queue["posts"].append(new_post)
+        save_queue(queue)
+        print(f"   [INFO] content/ready/{dir_name} をキューに追加 (#{new_id})")
+        return new_post
+
+    return None
+
+
 def post_next():
     """キューから次の投稿を実行"""
     queue = load_queue()
     if not queue:
-        return False
+        # キューがなければ content/ready/ から探す
+        ready_post = find_ready_dir_post()
+        if ready_post:
+            queue = load_queue()
+        else:
+            print("キューファイルがありません。--init-queue で初期化してください。")
+            return False
 
     next_post = None
     for post in queue["posts"]:
-        if post["status"] in ("pending", "video_created"):
+        if post["status"] in ("pending", "ready", "video_created"):
             next_post = post
             break
 
     if not next_post:
-        print("✅ 全投稿完了。キューに残りなし。")
-        return True
+        # キューに該当なし → content/ready/ から新規追加を試みる
+        ready_post = find_ready_dir_post()
+        if ready_post:
+            queue = load_queue()
+            next_post = ready_post
+        else:
+            print("✅ 全投稿完了。キューに残りなし。")
+            return True
 
     print(f"\n{'='*50}")
     print(f"投稿 #{next_post['id']}: {next_post['content_id']}")
@@ -645,7 +910,7 @@ def post_next():
 
     if not video_path.exists():
         success = create_video_slideshow(
-            next_post["slide_dir"], video_path, duration_per_slide=3
+            next_post["slide_dir"], video_path
         )
         if not success:
             next_post["status"] = "failed"

@@ -1,7 +1,7 @@
 {
   "version": 2,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-26T15:00:21.977985",
+  "updated": "2026-02-26T23:23:35.896738",
   "posts": [
     {
       "id": 1,
@@ -96,19 +96,18 @@
       "batch": "week2_batch_20260227",
       "slide_dir": "content/generated/week2_batch_20260227/day2",
       "json_path": "content/generated/week2_batch_20260227/day2.json",
-      "caption": "看護師5年目、転職するかしないか毎日考えてた。AIにデータで聞いたら「4-7年目が一番市場価値高い」って。8年超えると管理職前提の求人が増えて選択肢狭まるらしい。知ってるだけで違うよね。",
+      "caption": "看護師5年目、転職するかしないか毎日悩んでない？\n\nAIにデータで聞いたら「4-7年目が一番市場価値高い」って。\n8年超えると管理職前提で選択肢激減するらしい。\n\n知ってるだけで人生変わる。保存しといて。",
       "hashtags": [
         "#看護師転職",
-        "#キャリア",
         "#経験年数",
-        "#AI",
-        "#市場価値"
+        "#市場価値",
+        "#キャリアチェンジ"
       ],
       "cta_type": "soft",
       "content_type": "career",
-      "status": "ready",
-      "video_path": "content/temp_videos/tiktok_day2_20260224.mp4",
-      "posted_at": null,
+      "status": "posted",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day2_20260226.mp4",
+      "posted_at": "2026-02-26T23:22:44.615257",
       "tiktok_url": null,
       "error": null,
       "performance": {
@@ -116,7 +115,8 @@
         "likes": null,
         "saves": null,
         "comments": null
-      }
+      },
+      "verified": true
     },
     {
       "id": 5,
@@ -124,19 +124,18 @@
       "batch": "week2_batch_20260227",
       "slide_dir": "content/generated/week2_batch_20260227/day3",
       "json_path": "content/generated/week2_batch_20260227/day3.json",
-      "caption": "夜勤明けの顔をAIに年齢判定させたら+10歳って言われた。夜勤前は実年齢通りだったのに、16時間で11歳老けるの草。夜勤がんばってる人、全員に拍手だよ。まじで身体に気をつけてね。",
+      "caption": "夜勤明けの顔、AIに年齢判定させたことある？\n\n夜勤前は実年齢通りだったのに、16時間後は+10歳判定。\n1回の夜勤で11歳老けるの、データで見ると怖くない？\n\n夜勤がんばってる全員に拍手。共感したらいいね。",
       "hashtags": [
         "#看護師あるある",
         "#夜勤明け",
-        "#AI",
-        "#看護師",
-        "#夜勤"
+        "#夜勤あるある",
+        "#ナースの本音"
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "ready",
-      "video_path": "content/temp_videos/tiktok_day3.mp4",
-      "posted_at": null,
+      "status": "posted",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day3_20260226.mp4",
+      "posted_at": "2026-02-26T23:23:35.896733",
       "tiktok_url": null,
       "error": null,
       "performance": {
@@ -157,7 +156,8 @@
           "CTAがソフトに感じるが、ナースロビーへの導線が不明瞭"
         ],
         "suggestion": "CTAをよりナースロビーのサービスに結び付けることで、ソフトなアプローチながらも効果的な導線を実現できる"
-      }
+      },
+      "verified": true
     },
     {
       "id": 6,
@@ -165,13 +165,12 @@
       "batch": "week2_batch_20260227",
       "slide_dir": "content/generated/week2_batch_20260227/day4",
       "json_path": "content/generated/week2_batch_20260227/day4.json",
-      "caption": "転職エージェントの手数料って看護師は払わないけど、病院は年収の20-30%払ってる。つまり1人採用するのに80-120万円。病院が「すぐ辞めないで」って言う理由これ。手数料10%のとこ使えば病院の負担も軽くなるし、採用されやすくなるよ。",
+      "caption": "転職エージェントの手数料、いくらか知ってる？\n\n看護師は払わないけど、病院は年収の20-30%。\n1人採用に80-120万円。「すぐ辞めないで」の理由これ。\n\n手数料10%なら病院も嬉しい＝採用されやすい。プロフ見てみて。",
       "hashtags": [
         "#看護師転職",
-        "#手数料",
+        "#手数料比較",
         "#転職エージェント",
-        "#AI",
-        "#求人"
+        "#知らないと損"
       ],
       "cta_type": "hard",
       "content_type": "service",
@@ -206,13 +205,12 @@
       "batch": "week2_batch_20260227",
       "slide_dir": "content/generated/week2_batch_20260227/day5",
       "json_path": "content/generated/week2_batch_20260227/day5.json",
-      "caption": "患者さんの「大丈夫です」、看護師なら全員知ってるよね。あれほぼ嘘。AIに本音翻訳させたら「痛いけど迷惑かけたくない」だった。それを毎日察して動いてるのが看護師。この仕事、AIには絶対できない。",
+      "caption": "患者さんの「大丈夫です」、本当に大丈夫だと思う？\n\nAIに本音翻訳させたら「痛いけど迷惑かけたくない」だった。\nそれを毎日察して動いてるのが看護師。\n\nこの仕事、AIには絶対できない。わかる人いいね。",
       "hashtags": [
         "#看護師あるある",
         "#患者さん",
-        "#本音",
-        "#AI",
-        "#看護師"
+        "#ナースの本音",
+        "#看護師の日常"
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
@@ -248,13 +246,12 @@
       "batch": "week2_batch_20260227",
       "slide_dir": "content/generated/week2_batch_20260227/day6",
       "json_path": "content/generated/week2_batch_20260227/day6.json",
-      "caption": "夜勤手当の相場、施設タイプで全然違うって知ってた？大学病院と療養型で1回4,000円差。月4回で16,000円、年間約20万円も違う。自分の手当が相場以下なら交渉か転職の判断材料にして。この表は保存推奨。",
+      "caption": "自分の夜勤手当、相場と比べたことある？\n\n大学病院と療養型で1回4,000円差。\n月4回で16,000円、年間約20万円も違う。\n\n相場以下なら交渉or転職の判断材料に。この表は保存して。",
       "hashtags": [
         "#看護師",
         "#夜勤手当",
-        "#給与",
-        "#相場",
-        "#転職"
+        "#給与明細",
+        "#知らないと損"
       ],
       "cta_type": "soft",
       "content_type": "salary",
@@ -373,13 +370,12 @@
       "batch": "weekly_batch_20260220",
       "slide_dir": "content/generated/weekly_batch_20260220/day2_tue_B01",
       "json_path": "content/generated/weekly_batch_20260220/day2_tue_B01.json",
-      "caption": "同じ経験年数なのに年収100万違うの、ほんとにある話。AIにデータで計算させたら残酷な数字が出てきた。知ってるか知らないかで将来変わるよね。",
+      "caption": "同じ経験5年なのに年収100万違う、信じられる？\n\nAIにデータで計算させたら、差がつくのは施設選びだった。\n知ってるか知らないかで将来が変わる。\n\nこの事実、同僚にも教えてあげて。",
       "hashtags": [
         "#看護師転職",
-        "#年収",
-        "#キャリア",
-        "#AI",
-        "#神奈川"
+        "#年収格差",
+        "#キャリアチェンジ",
+        "#知らないと損"
       ],
       "cta_type": "soft",
       "content_type": "career",
@@ -415,13 +411,12 @@
       "batch": "weekly_batch_20260220",
       "slide_dir": "content/generated/weekly_batch_20260220/day3_wed_A04",
       "json_path": "content/generated/weekly_batch_20260220/day3_wed_A04.json",
-      "caption": "「前にも言ったよね」って言われた瞬間の絶望感、看護師なら全員わかるよね。AIに同じこと100回聞いても笑顔で答えてくれた。こういう先輩がほしかった。",
+      "caption": "「前にも言ったよね？」って言われた瞬間、経験ある人いる？\n\nAIに同じこと100回聞いても怒らなかった。\n「何度でもどうぞ」って。こういう先輩がほしかった。\n\n共感した人、コメントで教えて。",
       "hashtags": [
         "#看護師あるある",
         "#新人看護師",
-        "#先輩",
-        "#AI",
-        "#看護師"
+        "#先輩看護師",
+        "#病棟あるある"
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
@@ -456,13 +451,12 @@
       "batch": "weekly_batch_20260220",
       "slide_dir": "content/generated/weekly_batch_20260220/day4_thu_B02",
       "json_path": "content/generated/weekly_batch_20260220/day4_thu_B02.json",
-      "caption": "転職したいけど怖い、って夜中に考えちゃう人いない？AIに相談したら「怖いのは情報不足」って言われてハッとした。感情を数字に変えるだけで見え方が変わるよ。",
+      "caption": "夜中3時に「転職したいけど怖い」って検索したことある？\n\nAIに相談したら「怖いのは転職じゃなくて情報不足」って。\n感情を数字に変えるだけで、見え方が全然変わった。\n\n同じ気持ちの人、保存しておいて。",
       "hashtags": [
         "#看護師転職",
-        "#転職",
-        "#キャリア",
-        "#AI",
-        "#看護師"
+        "#転職活動中",
+        "#看護師の本音",
+        "#キャリア"
       ],
       "cta_type": "soft",
       "content_type": "career",
@@ -497,13 +491,12 @@
       "batch": "weekly_batch_20260220",
       "slide_dir": "content/generated/weekly_batch_20260220/day5_fri_A05",
       "json_path": "content/generated/weekly_batch_20260220/day5_fri_A05.json",
-      "caption": "看護記録をAIに書かせたら形式は完璧だった。でも「患者さんの表情が和らいだ」みたいな観察はAIには無理だった。看護師の仕事ってやっぱりすごいよ。でも記録量は減らしてくれ。",
+      "caption": "看護記録2時間分、AIに書かせたらどうなると思う？\n\n形式は完璧。でも「患者さんの表情が和らいだ」は書けなかった。\n看護師の観察力、AIでも超えられない。\n\nでも記録量は減らしてくれ。フォローで続き見れるよ。",
       "hashtags": [
         "#看護師あるある",
         "#看護記録",
-        "#残業",
-        "#AI",
-        "#看護師"
+        "#残業あるある",
+        "#ナースの日常"
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
@@ -538,13 +531,12 @@
       "batch": "weekly_batch_20260220",
       "slide_dir": "content/generated/weekly_batch_20260220/day6_sat_C01",
       "json_path": "content/generated/weekly_batch_20260220/day6_sat_C01.json",
-      "caption": "神奈川の看護師年収、横浜と県西部で60万も違う。でも家賃と通勤時間を入れて再計算したら意外な結果に。年収だけで判断すると損するかも。保存して比較に使ってね。",
+      "caption": "横浜と県西部、看護師年収60万差って知ってた？\n\nでも家賃と通勤時間を入れて再計算したら、逆転する地域がある。\n年収だけで判断すると損するかも。\n\nこの比較表、保存して転職の参考にして。",
       "hashtags": [
         "#看護師",
-        "#年収",
-        "#神奈川",
-        "#転職",
-        "#給与"
+        "#年収比較",
+        "#神奈川看護師",
+        "#地域差"
       ],
       "cta_type": "soft",
       "content_type": "salary",
@@ -579,13 +571,12 @@
       "batch": "weekly_batch_20260220",
       "slide_dir": "content/generated/weekly_batch_20260220/day7_sun_T01",
       "json_path": "content/generated/weekly_batch_20260220/day7_sun_T01.json",
-      "caption": "「夜勤って寝てるだけでしょ」って言われたことある人。AIに夜勤の中身を説明させたら彼氏が泣いた。頑張ってるのに理解されないのって辛いよね。今の環境がしんどい人、話聞くよ。",
+      "caption": "「夜勤って寝てるだけでしょ」って言われたことある人、手挙げて。\n\nAIに夜勤16時間の中身を説明させたら、彼氏が泣いた。\n頑張ってるのに理解されないのが一番辛い。\n\nしんどい人、プロフのリンクから話聞かせて。",
       "hashtags": [
-        "#看護師",
-        "#夜勤",
-        "#彼氏",
-        "#AI",
-        "#転職"
+        "#看護師あるある",
+        "#夜勤の現実",
+        "#看護師の彼女",
+        "#ナースの本音"
       ],
       "cta_type": "hard",
       "content_type": "trend",
