@@ -916,7 +916,7 @@
         concernText = "通勤ルートの実際の混雑状況や、車通勤の可否など、細かい情報があります。";
       }
 
-      addMessage("ai", concernText + "\n\n担当の平島が、施設の内部情報や非公開求人をLINEでお伝えしています。もちろん、ここでもう少しお話しすることもできますよ。");
+      addMessage("ai", concernText + "\n\n施設の内部情報や非公開求人はLINEでお伝えしています。もちろん、ここでもう少しお話しすることもできますよ。");
 
       // 選択肢: LINE / もう少し相談 / 今日はここまで
       var options = [
@@ -954,7 +954,7 @@
       showTyping();
       setTimeout(function () {
         hideTyping();
-        addMessage("ai", "ありがとうございます！\n\n担当の平島が、施設の内部情報と非公開求人をLINEでお伝えします。友だち追加するとすぐにご連絡しますね。");
+        addMessage("ai", "ありがとうございます！\n\n施設の内部情報と非公開求人をLINEでお伝えします。友だち追加するとすぐにご連絡しますね。");
         showLineCard();
         saveState();
       }, 400);
@@ -1136,7 +1136,7 @@
     if (!text || chatState.isTyping || chatState.done || chatState.sendCooldown) return;
 
     if (chatState.userMessageCount >= CLIENT_RATE_LIMIT.maxSessionMessages) {
-      addMessage("ai", "たくさんお話しいただきありがとうございます。\n\n担当の平島が、あなたの条件に合う施設の内部情報をLINEでお伝えします。");
+      addMessage("ai", "たくさんお話しいただきありがとうございます。\n\nあなたの条件に合う施設の内部情報をLINEでお伝えします。");
       els.input.disabled = true;
       els.sendBtn.disabled = true;
       showLineCard();
