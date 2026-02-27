@@ -297,7 +297,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 80px;
 }
 
 .logo {
@@ -305,6 +305,13 @@ img {
   font-weight: 800;
   color: var(--text-heading);
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 72px;
+  width: auto;
 }
 
 .logo-accent {
@@ -1683,6 +1690,12 @@ img {
 
 .footer .logo {
   color: #FFFFFF;
+}
+
+.footer .logo-img {
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px 12px;
 }
 
 .footer .logo-accent {
