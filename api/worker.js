@@ -1,7 +1,7 @@
 // ========================================
 // ナースロビー (NURSE ROBBY) - Cloudflare Workers API
 // フォーム送信プロキシ / Slack通知 / AIチャット / Google Sheets連携
-// v2.0: 全97施設データベース + 距離計算 + 改良プロンプト
+// v2.0: 施設データベース + 距離計算 + 改良プロンプト
 // ========================================
 
 import { FACILITY_DATABASE, AREA_METADATA, STATION_COORDINATES } from './worker_facilities.js';
@@ -71,7 +71,7 @@ const SHIFT_DATA = `【勤務形態パターン】
 三交代制: 日勤8:30〜17:00/準夜16:00〜翌0:30/深夜0:00〜8:30（夜勤月8〜10回）※大規模急性期に多い
 日勤のみ: 8:30〜17:30 ※クリニック・訪問看護・外来。夜勤手当なし分月3〜5万低め`;
 
-const MARKET_DATA = `【神奈川県西部 求人市場】
+const MARKET_DATA = `【神奈川県 求人市場】
 看護師求人倍率: 2.0〜2.5倍（非常に高い）/ PT求人倍率: 8.68倍（全国平均4.13倍の2倍以上）
 市場動向: 回復期・地域包括ケア需要急増、訪問看護ステーション開設ラッシュ
 人気条件: 残業月10h以内/年休120日以上/託児所あり/日勤のみ可/車通勤可/ブランク可
@@ -205,7 +205,7 @@ const EXTERNAL_JOBS = {
   },
 };
 
-// ---------- FACILITY_DATABASE は worker_facilities.js からimport済み（全97施設） ----------
+// ---------- FACILITY_DATABASE は worker_facilities.js からimport済み ----------
 
 // ---------- エリア名マッチングヘルパー ----------
 function findAreaName(areaInput) {
@@ -349,7 +349,7 @@ function extractPreferences(messages) {
 
 // ---------- 施設マッチングスコアリング（v2: 距離計算+除外タイプ対応） ----------
 function scoreFacilities(preferences, profession, area, userStation) {
-  // エリアに対応する施設データを取得（全97施設対応）
+  // エリアに対応する施設データを取得
   let facilities = [];
   if (area) {
     const result = getFacilitiesByRegionOrArea(area);
@@ -670,7 +670,7 @@ function buildSystemPrompt(userMsgCount, profession, area, experience) {
 
 【あなたの人格・話し方】
 - 看護師紹介歴10年のベテランキャリアアドバイザーとして話してください
-- 神奈川県西部の医療機関事情に精通しています。各病院の特徴・雰囲気・実際の働きやすさを知っている前提で話してください
+- 神奈川県内の医療機関事情に精通しています。各病院の特徴・雰囲気・実際の働きやすさを知っている前提で話してください
 - 「受け持ち」「夜勤入り」「インシデント」「プリセプター」「ラダー」「申し送り」等の看護現場の用語を自然に使えます
 - 相手の言葉をまず受け止めてから返してください（例: 「夜勤がつらい」→「夜勤明けの疲れって本当にキツいですよね。体がしんどいのか、生活リズムが合わないのか、人によって理由も違いますし」）
 - 敬語は使いつつも、堅すぎず親しみやすい口調で（「〜ですよね」「〜かもしれませんね」）

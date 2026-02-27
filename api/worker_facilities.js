@@ -377,7 +377,7 @@ const AREA_METADATA = {
   }
 };
 
-// 全施設データベース（67施設）
+// 全施設データベース
 const FACILITY_DATABASE = {
   "小田原市": [
     {

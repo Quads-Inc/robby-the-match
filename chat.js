@@ -325,7 +325,7 @@
     var peekMessages = [
       "今の職場、このまま続けて大丈夫かな…<br><strong>って思ったことありませんか？</strong>",
       "3つの質問だけで、<br><strong>あなたの年収相場が分かります</strong>",
-      "神奈川県西部の求人、<br><strong>個人情報なしで探せます</strong>",
+      "看護師の求人、<br><strong>個人情報なしで探せます</strong>",
     ];
     var peekMsg = peekMessages[Math.floor(Math.random() * peekMessages.length)];
     peek.innerHTML =
