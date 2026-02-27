@@ -2003,7 +2003,8 @@ const LINE_MAX_HISTORY = 40;
 const LINE_SESSION_TTL = 86400000; // 24時間
 
 // ---------- 定数: フェーズフロー ----------
-const PHASE_FLOW = {
+// フロー分岐: urgencyに応じてルートが変わる
+const PHASE_FLOW_FULL = {
   follow:           "q1_urgency",
   q1_urgency:       "q2_change",
   q2_change:        "q3_area",
@@ -2019,6 +2020,36 @@ const PHASE_FLOW = {
   matching:         "handoff",
   handoff:          null,
 };
+
+const PHASE_FLOW_MEDIUM = {
+  follow:           "q1_urgency",
+  q1_urgency:       "q2_change",
+  q2_change:        "q3_area",
+  q3_area:          "q4_experience",
+  q4_experience:    "q5_workstyle",
+  q5_workstyle:     "matching",
+  matching:         "handoff",
+  handoff:          null,
+};
+
+const PHASE_FLOW_SHORT = {
+  follow:           "q1_urgency",
+  q1_urgency:       "q3_area",
+  q3_area:          "q4_experience",
+  q4_experience:    "matching",
+  matching:         "handoff",
+  handoff:          null,
+};
+
+// 後方互換: PHASE_FLOW はデフォルトのフルフロー
+const PHASE_FLOW = PHASE_FLOW_FULL;
+
+// ユーザーのurgencyに応じたフローを取得
+function getFlowForEntry(entry) {
+  if (entry.urgency === "info") return PHASE_FLOW_SHORT;
+  if (entry.urgency === "good") return PHASE_FLOW_MEDIUM;
+  return PHASE_FLOW_FULL;
+}
 
 // ---------- 定数: Postback ラベル ----------
 const POSTBACK_LABELS = {
@@ -2308,7 +2339,7 @@ function buildPhaseMessage(phase, entry) {
     case "q1_urgency":
       return [{
         type: "text",
-        text: "友だち追加ありがとうございます！\nナースロビーの転職アドバイザー「ロビー」です。\n\n看護師さんの転職を手数料10%でサポートしています（大手は20-30%）。\n\nまず教えてください、今のお気持ちはどれに近いですか？",
+        text: "友だち追加ありがとうございます！\nナースロビーの平島です。\n\n看護師さんの転職を無料でお手伝いしています。\nこのLINEだけでやり取りします。電話はしません。\n\nまず教えてください、今のお気持ちはどれに近いですか？",
         quickReply: {
           items: [
             qrItem("今すぐ転職したい", "q1=urgent"),
@@ -2322,7 +2353,7 @@ function buildPhaseMessage(phase, entry) {
       const urgLabel = POSTBACK_LABELS[`q1_${entry.urgency}`] || "";
       return [{
         type: "text",
-        text: `「${urgLabel}」ですね！\n\n一番変えたいことはなんですか？`,
+        text: `「${urgLabel}」ですね、教えてくれてありがとうございます！\n\n今の職場で一番変えたいことはどれですか？`,
         quickReply: {
           items: [
             qrItem("お給料を上げたい", "q2=salary"),
@@ -2491,7 +2522,7 @@ function buildPhaseMessage(phase, entry) {
     case "handoff":
       return [{
         type: "text",
-        text: "ありがとうございます！\n\n担当アドバイザーが、この後直接ご連絡させていただきます。\n24時間以内にこのLINEでご連絡しますね。\n\n気になることがあればいつでもメッセージしてください！",
+        text: "ありがとうございます！\n\n担当の平島が、このLINEで直接ご連絡します。\n翌営業日までにはお返事しますね。\n\n電話はしませんので、ご安心ください。\n気になることがあればいつでもメッセージしてください！",
       }];
 
     default:
@@ -2775,7 +2806,7 @@ function buildMatchingMessages(entry) {
   });
 
   // 補足テキスト
-  let supplementText = "気になる施設はありますか？\n「詳しく聞く」を押していただければ、担当アドバイザーが内部情報をお伝えできます！";
+  let supplementText = "気になる施設はありますか？\n「詳しく聞く」を押していただければ、担当の平島が詳しい情報をお伝えします。\n\n電話はしません。このLINEだけでやり取りできます。";
   if (externalInfo) {
     supplementText += `\n\nこのエリアの他の求人情報もあります：\n${externalInfo.slice(0, 300)}`;
   }
@@ -2893,13 +2924,13 @@ function handleLinePostback(dataStr, entry) {
   if (params.has("q1")) {
     entry.urgency = params.get("q1");
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q1_urgency;
+    nextPhase = getFlowForEntry(entry).q1_urgency;  // urgency設定後に呼ぶ
   }
   // Q2
   else if (params.has("q2")) {
     entry.change = params.get("q2");
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q2_change;
+    nextPhase = getFlowForEntry(entry).q2_change;
   }
   // Q3
   else if (params.has("q3")) {
@@ -2907,32 +2938,32 @@ function handleLinePostback(dataStr, entry) {
     entry.area = val;
     entry.areaLabel = POSTBACK_LABELS[`q3_${val}`] || val;
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q3_area;
+    nextPhase = getFlowForEntry(entry).q3_area;
   }
   // Q4
   else if (params.has("q4")) {
     entry.experience = params.get("q4");
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q4_experience;
+    nextPhase = getFlowForEntry(entry).q4_experience;
   }
   // Q5
   else if (params.has("q5")) {
     entry.workStyle = params.get("q5");
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q5_workstyle;
+    nextPhase = getFlowForEntry(entry).q5_workstyle;
   }
   // Q6
   else if (params.has("q6")) {
     entry.workplace = params.get("q6");
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q6_workplace;
+    nextPhase = getFlowForEntry(entry).q6_workplace;
   }
   // Q7 (複数選択)
   else if (params.has("q7")) {
     const val = params.get("q7");
     if (val === "done") {
       entry.unexpectedTextCount = 0;
-      nextPhase = PHASE_FLOW.q7_strengths;
+      nextPhase = getFlowForEntry(entry).q7_strengths;
     } else {
       if (!entry.strengths.includes(val) && entry.strengths.length < 3) {
         entry.strengths.push(val);
@@ -2945,7 +2976,7 @@ function handleLinePostback(dataStr, entry) {
   else if (params.has("q8")) {
     entry.concern = params.get("q8");
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q8_concerns;
+    nextPhase = getFlowForEntry(entry).q8_concerns;
   }
   // Q9
   else if (params.has("q9")) {
@@ -2953,13 +2984,13 @@ function handleLinePostback(dataStr, entry) {
       entry.workHistoryText = null;
     }
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q9_work_history;
+    nextPhase = getFlowForEntry(entry).q9_work_history;
   }
   // Q10
   else if (params.has("q10")) {
     entry.qualification = params.get("q10");
     entry.unexpectedTextCount = 0;
-    nextPhase = PHASE_FLOW.q10_qualification;
+    nextPhase = getFlowForEntry(entry).q10_qualification;
   }
   // 経歴書確認
   else if (params.has("resume")) {
@@ -3003,7 +3034,7 @@ function handleFreeTextInput(text, entry) {
   if (phase === "q9_work_history") {
     entry.workHistoryText = text;
     entry.unexpectedTextCount = 0;
-    return PHASE_FLOW.q9_work_history; // → q10_qualification
+    return getFlowForEntry(entry).q9_work_history; // → q10_qualification
   }
 
   // 経歴書修正モード
@@ -3133,7 +3164,7 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
           entry.phase = "handoff";
           replyMessages = [{
             type: "text",
-            text: "他の施設情報もお伝えできます！\n担当アドバイザーが直接ご連絡しますね。",
+            text: "他の施設情報もお伝えできます！\n担当の平島がこのLINEでご連絡しますね。",
             quickReply: { items: [qrItem("お願いします！", "handoff=ok")] },
           }];
         } else if (nextPhase === "handoff") {
@@ -3268,7 +3299,7 @@ ${userText}`;
             entry.phase = "handoff";
             replyMessages = [{
               type: "text",
-              text: "うまくお答えできずすみません。\n担当アドバイザーが直接ご対応させていただきますね。\n24時間以内にこのLINEでご連絡いたします！",
+              text: "うまくお答えできずすみません。\n担当の平島が直接ご対応させていただきますね。\n翌営業日までにこのLINEでご連絡いたします。電話はしません。",
             }];
             await sendHandoffNotification(userId, entry, env);
           } else {
@@ -3289,7 +3320,7 @@ ${userText}`;
           entry.phase = "handoff";
           replyMessages = [{
             type: "text",
-            text: "担当アドバイザーから改めてご連絡しますので、少しお待ちくださいね。",
+            text: "担当の平島からこのLINEでご連絡しますので、少しお待ちくださいね。電話はしません。",
           }];
         } else {
           entry.phase = nextPhase;
