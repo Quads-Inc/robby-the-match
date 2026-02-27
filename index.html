@@ -36,6 +36,10 @@
   <meta name="twitter:image" content="https://quads-nurse.com/assets/ogp.png">
   <meta name="twitter:image:alt" content="ナースロビー - 手数料10%の医療人材紹介">
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4G2BYW13B"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-X4G2BYW13B');</script>
+
   <!-- Structured Data: WebSite -->
   <script type="application/ld+json">
   {
@@ -984,41 +988,23 @@
   })();
   </script>
 
-  <!-- Google Analytics 4 -->
-  <!-- Google Analytics 4 - 測定IDをG-X4G2BYW13Bに置換してください -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4G2BYW13B"></script>
+  <!-- GA4 拡張トラッキング -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-X4G2BYW13B', {
-      currency: 'JPY',
-      custom_map: {
-        'custom_parameter_1': 'profession',
-        'custom_parameter_2': 'urgency_score',  
-        'custom_parameter_3': 'area',
-        'custom_parameter_4': 'source_channel'
-      },
-      send_page_view: true,
-      allow_google_signals: true
-    });
-    
     // 自動コンバージョン追跡
     document.addEventListener('DOMContentLoaded', function() {
-      const chatToggle = document.getElementById('chatToggle');
+      var chatToggle = document.getElementById('chatToggle');
       if (chatToggle) {
-        chatToggle.addEventListener('click', () => {
+        chatToggle.addEventListener('click', function() {
           gtag('event', 'chat_started', {
             event_category: 'engagement',
             value: 1
           });
         });
       }
-      
-      const forms = document.querySelectorAll('form');
-      forms.forEach(form => {
-        form.addEventListener('submit', () => {
+
+      var forms = document.querySelectorAll('form');
+      forms.forEach(function(form) {
+        form.addEventListener('submit', function() {
           gtag('event', 'generate_lead', {
             currency: 'JPY',
             value: 50000,
@@ -1027,7 +1013,6 @@
         });
       });
     });
-    
   </script>
 
   <script src="config.js" defer></script>
