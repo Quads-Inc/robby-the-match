@@ -549,7 +549,7 @@
       cta.className = "chat-curiosity-card";
       cta.innerHTML =
         '<div class="curiosity-header">ここまでの相談内容を保存できます</div>' +
-        '<div class="curiosity-body">担当の平島が、あなたの条件に合う求人を<strong>直接お探しします</strong></div>' +
+        '<div class="curiosity-body">担当者が、あなたの条件に合う求人を<strong>直接お探しします</strong></div>' +
         buildHandoffCodeHtml(code) +
         '<a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="curiosity-btn">LINEで相談を続ける</a>' +
         '<div class="curiosity-note">完全無料・電話なし・翌営業日までにご連絡</div>';
@@ -730,9 +730,8 @@
     showTyping();
     setTimeout(function () {
       hideTyping();
-      var count = PRESCRIPTED.areaFacilityCounts[value] || 97;
       var areaName = getAreaDisplayName(value);
-      addMessage("ai", areaName + "エリアには " + count + " 件の医療施設があります。\n\n候補を絞り込むために、今一番気になっていることを教えてください（他の条件も後で考慮します）。");
+      addMessage("ai", areaName + "エリアですね！条件に合う施設をお探しします。\n\n候補を絞り込むために、今一番気になっていることを教えてください（他の条件も後で考慮します）。");
       updateProgress(2, 3);
       showButtonGroup(PRESCRIPTED.concerns, handleConcernSelect);
       saveState();
@@ -809,7 +808,6 @@
   function deliverValue() {
     var matches = findMatchingHospitals(chatState.area);
     var areaName = getAreaDisplayName(chatState.area);
-    var count = PRESCRIPTED.areaFacilityCounts[chatState.area] || 97;
     var salary = calculateSalary(chatState.area, chatState.experience, chatState.concern);
 
     showTyping();
@@ -1073,7 +1071,7 @@
         concernText = "通勤ルートの混雑状況や車通勤の可否など、細かい条件も確認できます。";
       }
 
-      addMessage("ai", concernText + "\n\nLINEでは担当の平島が直接お答えします。電話はしません。もちろん、ここでもう少しお話しすることもできますよ。");
+      addMessage("ai", concernText + "\n\nLINEでは担当者が直接お答えします。電話はしません。もちろん、ここでもう少しお話しすることもできますよ。");
 
       // 選択肢: LINE / もう少し相談 / 今日はここまで
       var options = [
@@ -1111,7 +1109,7 @@
       showTyping();
       setTimeout(function () {
         hideTyping();
-        addMessage("ai", "ありがとうございます！\n\n担当の平島がLINEで直接お答えします。翌営業日までにご連絡しますね。電話はしませんのでご安心ください。");
+        addMessage("ai", "ありがとうございます！\n\n担当者がLINEで直接お答えします。翌営業日までにご連絡しますね。電話はしませんのでご安心ください。");
         showLineCard();
         saveState();
       }, 300);
@@ -1419,7 +1417,7 @@
     // 2回目のLINE CTA（最終）: 好奇心ギャップで締める
     var score = summaryData.score;
     var closingMessages = {
-      A: "詳しくお聞かせいただきありがとうございました！あなたの経験なら、かなり良い条件の施設が見つかりそうです。担当の平島がLINEで詳しくご案内しますね。",
+      A: "詳しくお聞かせいただきありがとうございました！あなたの経験なら、かなり良い条件の施設が見つかりそうです。担当者がLINEで詳しくご案内しますね。",
       B: "お話しいただきありがとうございました！条件に合いそうな施設について、LINEで担当者が直接お答えします。",
       C: "ありがとうございました！気になることがあれば、LINEでいつでもご相談ください。電話はしません。",
       D: "お話しいただきありがとうございました。この結果は24時間保存されます。",
