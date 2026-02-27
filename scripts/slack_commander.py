@@ -576,6 +576,8 @@ def handle_help(channel: str, **kwargs):
                     "*モニタリング:*\n"
                     "  `!queue`   — 投稿キュー状態\n"
                     "  `!agents`  — Agent Team状態一覧\n\n"
+                    "*LINE返信:*\n"
+                    "  `!reply <userID> メッセージ` — LINE看護師に返信\n\n"
                     "*指示キュー:*\n"
                     "  `!tasks`   — 指示一覧\n"
                     "  `!clear`   — 指示キュークリア\n\n"
@@ -587,6 +589,29 @@ def handle_help(channel: str, **kwargs):
         },
     ]
     post_message(channel, blocks=blocks, text="コマンド一覧")
+
+
+def handle_reply(channel: str, line_user_id: str, message: str, ts: str = ""):
+    """!reply — SlackからLINE看護師に返信"""
+    worker_url = os.getenv("WORKER_URL", "https://robby-the-match-api.robby-the-robot-2026.workers.dev")
+    push_secret = os.getenv("LINE_PUSH_SECRET", "")
+
+    if not push_secret:
+        post_reply(channel, ts, "❌ LINE_PUSH_SECRET が .env に設定されていません")
+        return
+
+    try:
+        resp = requests.post(
+            f"{worker_url}/api/line-push",
+            json={"userId": line_user_id, "message": message, "secret": push_secret},
+            timeout=10,
+        )
+        if resp.ok:
+            post_reply(channel, ts, f"✅ LINE送信完了\nTo: `{line_user_id[:8]}...`\nメッセージ: {message[:100]}")
+        else:
+            post_reply(channel, ts, f"❌ LINE送信失敗 ({resp.status_code}): {resp.text[:200]}")
+    except Exception as e:
+        post_reply(channel, ts, f"❌ エラー: {str(e)}")
 
 
 # コマンドマップ
@@ -624,6 +649,17 @@ def process_message(message: dict, channel: str):
 
     # 空メッセージ無視
     if not text:
+        return
+
+    # !reply 特別処理（引数パース必要）
+    if text.startswith("!reply "):
+        parts = text.split(" ", 2)
+        if len(parts) >= 3:
+            line_user_id = parts[1]
+            reply_message = parts[2]
+            handle_reply(channel, line_user_id, reply_message, ts=ts)
+        else:
+            post_reply(channel, ts, "使い方: `!reply <userID> メッセージ`")
         return
 
     # コマンド検出

@@ -809,6 +809,33 @@ export default {
       return handleLineWebhook(request, env, ctx);
     }
 
+    // Slackから看護師にLINE返信するAPI
+    if (url.pathname === "/api/line-push" && request.method === "POST") {
+      try {
+        const body = await request.json();
+        const { userId, message, secret } = body;
+        if (!secret || secret !== env.LINE_PUSH_SECRET) {
+          return jsonResponse({ error: "Unauthorized" }, 401);
+        }
+        if (!userId || !message) {
+          return jsonResponse({ error: "userId and message required" }, 400);
+        }
+        const token = env.LINE_CHANNEL_ACCESS_TOKEN;
+        if (!token) {
+          return jsonResponse({ error: "LINE token not configured" }, 500);
+        }
+        const pushRes = await fetch("https://api.line.me/v2/bot/message/push", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+          body: JSON.stringify({ to: userId, messages: [{ type: "text", text: message }] }),
+        });
+        const pushResult = await pushRes.json().catch(() => ({}));
+        return jsonResponse({ ok: pushRes.ok, status: pushRes.status, result: pushResult });
+      } catch (e) {
+        return jsonResponse({ error: e.message }, 500);
+      }
+    }
+
     // ヘルスチェック
     if (url.pathname === "/api/health" && request.method === "GET") {
       return jsonResponse({ status: "ok", timestamp: new Date().toISOString() });
@@ -3055,9 +3082,9 @@ function handleFreeTextInput(text, entry) {
     return null;
   }
 
-  // handoffフェーズ中の自由テキスト
+  // handoffフェーズ中の自由テキスト → Bot沈黙、Slackに転送
   if (phase === "handoff") {
-    return "handoff"; // ずっとhandoff
+    return "handoff_silent"; // Slack転送のみ、LINE応答なし
   }
 
   // matching中の自由テキスト → Quick Reply再表示
@@ -3294,6 +3321,25 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
         const nextPhase = handleFreeTextInput(userText, entry);
 
         let replyMessages = null;
+
+        // handoff中: Bot完全沈黙 → Slackに転送のみ
+        if (nextPhase === "handoff_silent") {
+          if (env.SLACK_BOT_TOKEN) {
+            const nowJST = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+            const profile = entry.extractedProfile || {};
+            const areaLabel = entry.areaLabel || profile.area || "不明";
+            await fetch("https://slack.com/api/chat.postMessage", {
+              method: "POST",
+              headers: { "Authorization": `Bearer ${env.SLACK_BOT_TOKEN}`, "Content-Type": "application/json; charset=utf-8" },
+              body: JSON.stringify({
+                channel: env.SLACK_CHANNEL_ID || "C09A7U4TV4G",
+                text: `💬 *LINE受信（引き継ぎ済み・要返信）*\nユーザーID: \`${userId}\`\nエリア: ${areaLabel}\nメッセージ: ${userText}\n時刻: ${nowJST}\n\n返信するには:\n\`!reply ${userId} ここに返信メッセージ\``,
+              }),
+            }).catch(() => {});
+          }
+          await saveLineEntry(userId, entry, env);
+          continue; // LINE応答は送らない
+        }
 
         if (nextPhase === "resume_apply_edit") {
           const editPrompt = `以下の職務経歴書を、ユーザーの修正要望に基づいて修正してください。
