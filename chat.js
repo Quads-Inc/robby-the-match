@@ -49,7 +49,7 @@
       shonan_west: "湘南西部",
       shonan_east: "湘南東部",
       kenoh: "県央",
-      undecided: "神奈川県西部",
+      undecided: "神奈川県",
     },
     areaCities: {
       kensei: ["小田原", "南足柄", "開成", "大井", "大磯", "二宮", "松田", "山北", "箱根", "真鶴", "湯河原"],
@@ -1322,7 +1322,7 @@
     if (!text || chatState.isTyping || chatState.done || chatState.sendCooldown) return;
 
     if (chatState.userMessageCount >= CLIENT_RATE_LIMIT.maxSessionMessages) {
-      addMessage("ai", "たくさんお話しいただきありがとうございます。\n\nあなたの条件に合う施設の内部情報をLINEでお伝えします。");
+      addMessage("ai", "たくさんお話しいただきありがとうございます。\n\nあなたの条件に合う求人情報をLINEで詳しくお伝えします。");
       els.input.disabled = true;
       els.sendBtn.disabled = true;
       showLineCard();

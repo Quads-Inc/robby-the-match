@@ -628,7 +628,7 @@ function buildSystemPrompt(userMsgCount, profession, area, experience) {
     }
   }
   if (!hospitalInfo) {
-    hospitalInfo = "\n【対応エリア（神奈川県西部10エリア・97施設）】\n";
+    hospitalInfo = "\n【対応エリア（神奈川県10エリア）】\n";
     for (const [areaName, meta] of Object.entries(AREA_METADATA)) {
       hospitalInfo += `- ${areaName}: 病院${meta.facilityCount?.hospitals || "?"}施設 / ${meta.nurseAvgSalary || ""} / 需要${meta.demandLevel || ""}\n`;
     }
@@ -762,7 +762,7 @@ ${MARKET_DATA}
     } else if (userMsgCount >= 3 && userMsgCount <= 4) {
       basePrompt += "\n\n【今の段階】アンカリング＋提案フェーズです。高い給与をアンカーに先出しして、データベースから2-3施設を具体名と数字で提案してください。「このエリアでは最大月給38万円の求人もあります。○年の経験なら△△病院で月給□〜□万円が目安です」のように。即時性も入れて（「今この条件で○件出ています」）。質問は1つだけ。";
     } else if (userMsgCount >= 5) {
-      basePrompt += "\n\n【今の段階】サンクコスト＋クロージングです。これが最後の返答です。「ここまで詳しくお聞きしたので、かなり精度の高い提案ができます」とサンクコストを活かしてください。マッチする施設を1-2つ挙げてまとめ、最後に「ここまでの診断結果と非公開求人の詳細はLINEでお送りしますね。お気軽にご連絡ください！」と伝えてください。";
+      basePrompt += "\n\n【今の段階】サンクコスト＋クロージングです。これが最後の返答です。「ここまで詳しくお聞きしたので、かなり精度の高い提案ができます」とサンクコストを活かしてください。マッチする施設を1-2つ挙げてまとめ、最後に「ここまでの診断結果と求人の詳細はLINEでお送りしますね。お気軽にご連絡ください！」と伝えてください。";
     }
   }
 
@@ -1091,7 +1091,7 @@ async function handleChat(request, env) {
     if (userMsgCount > 6) {
       return jsonResponse(
         {
-          reply: "ありがとうございます！お伺いした内容をもとに、専門エージェントがお電話でご案内いたします。24時間以内にご連絡しますので、少々お待ちください。",
+          reply: "ありがとうございます！お伺いした内容をもとに、担当者がお電話でご案内いたします。24時間以内にご連絡しますので、少々お待ちください。",
           done: true,
         },
         200,
