@@ -2339,7 +2339,7 @@ function buildPhaseMessage(phase, entry) {
     case "q1_urgency":
       return [{
         type: "text",
-        text: "友だち追加ありがとうございます！\nナースロビーの平島です。\n\n看護師さんの転職を無料でお手伝いしています。\nこのLINEだけでやり取りします。電話はしません。\n\nまず教えてください、今のお気持ちはどれに近いですか？",
+        text: "友だち追加ありがとうございます！\nナースロビーのAIアシスタント「ロビー」です🤖\n\nAIなので24時間いつでも気軽に相談できます。\n電話はしません。このLINEだけでやり取りします。\n\nまず教えてください、今のお気持ちはどれに近いですか？",
         quickReply: {
           items: [
             qrItem("今すぐ転職したい", "q1=urgent"),
@@ -2522,7 +2522,7 @@ function buildPhaseMessage(phase, entry) {
     case "handoff":
       return [{
         type: "text",
-        text: "ありがとうございます！\n\n担当の平島が、このLINEで直接ご連絡します。\n翌営業日までにはお返事しますね。\n\n電話はしませんので、ご安心ください。\n気になることがあればいつでもメッセージしてください！",
+        text: "ありがとうございます！\n\nここからは担当者が引き継いで、このLINEでご連絡します。\n翌営業日までにはお返事しますね。\n\n電話はしませんので、ご安心ください。\n気になることがあればいつでもメッセージしてください！",
       }];
 
     default:
@@ -2806,7 +2806,7 @@ function buildMatchingMessages(entry) {
   });
 
   // 補足テキスト
-  let supplementText = "気になる施設はありますか？\n「詳しく聞く」を押していただければ、担当の平島が詳しい情報をお伝えします。\n\n電話はしません。このLINEだけでやり取りできます。";
+  let supplementText = "気になる施設はありますか？\n「詳しく聞く」を押していただければ、さらに詳しい情報をお伝えします！\n\nAIが24時間対応しています。気軽に聞いてくださいね。";
   if (externalInfo) {
     supplementText += `\n\nこのエリアの他の求人情報もあります：\n${externalInfo.slice(0, 300)}`;
   }
@@ -3155,16 +3155,27 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
         // フェーズに応じたメッセージ送信
         let replyMessages = null;
 
-        if (nextPhase === "resume_confirm") {
+        if (nextPhase === "resume_confirm" && !entry.workHistoryText) {
+          // 経歴スキップ → 経歴書生成を飛ばしてマッチングへ直行
+          entry.phase = "matching";
+          generateLineMatching(entry);
+          replyMessages = [
+            { type: "text", text: "ありがとうございます！\nあなたに合いそうな施設を探しています...少々お待ちくださいね。" },
+            ...buildMatchingMessages(entry),
+          ].slice(0, 5);
+        } else if (nextPhase === "resume_confirm") {
           replyMessages = await buildResumeConfirmMessages(entry, env);
         } else if (nextPhase === "matching") {
           generateLineMatching(entry);
-          replyMessages = buildMatchingMessages(entry);
+          replyMessages = [
+            { type: "text", text: "あなたに合いそうな施設を探しています...少々お待ちくださいね。" },
+            ...buildMatchingMessages(entry),
+          ].slice(0, 5);
         } else if (nextPhase === "matching_more") {
           entry.phase = "handoff";
           replyMessages = [{
             type: "text",
-            text: "他の施設情報もお伝えできます！\n担当の平島がこのLINEでご連絡しますね。",
+            text: "他の施設情報もお伝えできます！\n担当者がこのLINEでご連絡しますね。",
             quickReply: { items: [qrItem("お願いします！", "handoff=ok")] },
           }];
         } else if (nextPhase === "handoff") {
@@ -3299,7 +3310,7 @@ ${userText}`;
             entry.phase = "handoff";
             replyMessages = [{
               type: "text",
-              text: "うまくお答えできずすみません。\n担当の平島が直接ご対応させていただきますね。\n翌営業日までにこのLINEでご連絡いたします。電話はしません。",
+              text: "うまくお答えできずすみません。\n担当者が引き継いで、このLINEでご対応しますね。\n翌営業日までにご連絡いたします。電話はしません。",
             }];
             await sendHandoffNotification(userId, entry, env);
           } else {
@@ -3320,16 +3331,27 @@ ${userText}`;
           entry.phase = "handoff";
           replyMessages = [{
             type: "text",
-            text: "担当の平島からこのLINEでご連絡しますので、少しお待ちくださいね。電話はしません。",
+            text: "担当者がこのLINEでご連絡しますので、少しお待ちくださいね。電話はしません。",
           }];
         } else {
           entry.phase = nextPhase;
 
-          if (nextPhase === "resume_confirm") {
+          if (nextPhase === "resume_confirm" && !entry.workHistoryText) {
+            // 経歴スキップ → マッチングへ直行
+            entry.phase = "matching";
+            generateLineMatching(entry);
+            replyMessages = [
+              { type: "text", text: "あなたに合いそうな施設を探しています...少々お待ちくださいね。" },
+              ...buildMatchingMessages(entry),
+            ].slice(0, 5);
+          } else if (nextPhase === "resume_confirm") {
             replyMessages = await buildResumeConfirmMessages(entry, env);
           } else if (nextPhase === "matching") {
             generateLineMatching(entry);
-            replyMessages = buildMatchingMessages(entry);
+            replyMessages = [
+              { type: "text", text: "あなたに合いそうな施設を探しています...少々お待ちくださいね。" },
+              ...buildMatchingMessages(entry),
+            ].slice(0, 5);
           } else {
             replyMessages = buildPhaseMessage(nextPhase, entry);
           }
