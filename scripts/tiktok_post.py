@@ -125,23 +125,26 @@ def verify_post(pre_count, max_wait=120):
 def _get_slide_durations(n):
     """スライド枚数に応じた表示時間を返す（秒）
 
-    1枚目（フック）: 2秒 — 短くして次に引き込む
-    中間スライド:    3秒 — 情報を読ませる
-    最終スライド（CTA）: 4秒 — 長めに見せてアクション促す
+    5枚構成（Hook + Content x3 + CTA）に最適化:
+      1枚目（Hook）:    2.5秒 — 短いフックで引き込む
+      2-4枚目（Content）: 3.5秒 — 情報をしっかり読ませる
+      5枚目（CTA）:     3.0秒 — CTAを認識させてアクション促す
+      トランジション:    0.5秒 x 4 = 2.0秒
+      合計: 約16秒
 
-    合計: 6枚の場合 2+3+3+3+3+4 = 18秒（トランジション含め約20-22秒）
+    5枚以外の場合も汎用的に動作する。
     """
     if n <= 0:
         return []
     if n == 1:
         return [4.0]
     if n == 2:
-        return [2.5, 4.0]
-    # 3枚以上: 先頭2秒、中間3秒、末尾4秒
-    durations = [2.0]  # 1枚目（フック）
+        return [2.5, 3.0]
+    # 3枚以上: 先頭2.5秒、中間3.5秒、末尾3.0秒
+    durations = [2.5]  # 1枚目（Hook）
     for _ in range(n - 2):
-        durations.append(3.0)  # 中間スライド
-    durations.append(4.0)  # 最終スライド（CTA）
+        durations.append(3.5)  # 中間スライド（Content）
+    durations.append(3.0)  # 最終スライド（CTA）
     return durations
 
 
@@ -188,7 +191,7 @@ def create_video_slideshow(slide_dir, output_path, duration_per_slide=None):
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    slides = sorted(slide_dir.glob("slide_*.png"))
+    slides = sorted(slide_dir.glob("*slide_*.png"))
     if not slides:
         print(f"   ❌ スライド画像なし: {slide_dir}")
         return False
@@ -694,7 +697,7 @@ def find_content_sets():
         if json_file.name == "batch_summary.md":
             continue
         slide_dir = json_file.parent / json_file.stem
-        if slide_dir.is_dir() and list(slide_dir.glob("slide_*.png")):
+        if slide_dir.is_dir() and list(slide_dir.glob("*slide_*.png")):
             content_sets.append({
                 "json_path": str(json_file),
                 "slide_dir": str(slide_dir),
@@ -703,7 +706,7 @@ def find_content_sets():
             })
 
     for subdir in sorted(CONTENT_DIR.iterdir()):
-        if subdir.is_dir() and list(subdir.glob("slide_*.png")):
+        if subdir.is_dir() and list(subdir.glob("*slide_*.png")):
             json_candidates = [
                 CONTENT_DIR / f"{subdir.name}.json",
                 CONTENT_DIR / f"test_script_{subdir.name.split('_')[-1]}.json"
@@ -819,7 +822,7 @@ def find_ready_dir_post():
     for d in sorted(ready_dir.iterdir()):
         if not d.is_dir():
             continue
-        slides = sorted(d.glob("slide_*.png"))
+        slides = sorted(d.glob("*slide_*.png"))
         if not slides:
             continue
 

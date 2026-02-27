@@ -552,8 +552,11 @@ function scoreFacilities(preferences, profession, area, userStation) {
       matchScore: Math.max(0, Math.min(100, 40 + score)),
       reasons: reasons.length > 0 ? reasons.slice(0, 3) : ["エリアの求人としてご案内"],
       salary: salaryDisplay,
+      salaryMin: salaryMin || null,
+      salaryMax: salaryMax || null,
       access: f.access,
       nightShift: f.nightShiftType,
+      nightShiftType: f.nightShiftType,
       annualHolidays: f.annualHolidays,
       beds: f.beds,
       nurseCount: f.nurseCount,
@@ -2183,7 +2186,36 @@ function getAreaKeysFromZone(zoneKey) {
   return AREA_ZONE_MAP[zoneKey] || [];
 }
 
-// ---------- エントリ ----------
+// ---------- エントリ（KV永続化対応） ----------
+
+// KVからエントリを取得（async）。インメモリをキャッシュとして併用
+async function getLineEntryAsync(userId, env) {
+  // 1. インメモリキャッシュ確認
+  const cached = lineConversationMap.get(userId);
+  if (cached && Date.now() - cached.updatedAt < LINE_SESSION_TTL) {
+    return cached;
+  }
+  // 2. KVから取得
+  if (env?.LINE_SESSIONS) {
+    try {
+      const raw = await env.LINE_SESSIONS.get(`line:${userId}`);
+      if (raw) {
+        const entry = JSON.parse(raw);
+        if (Date.now() - entry.updatedAt < LINE_SESSION_TTL) {
+          lineConversationMap.set(userId, entry); // キャッシュ更新
+          return entry;
+        }
+        // 期限切れ → KV削除
+        await env.LINE_SESSIONS.delete(`line:${userId}`).catch(() => {});
+      }
+    } catch (e) {
+      console.error("[LINE] KV get error:", e.message);
+    }
+  }
+  return null;
+}
+
+// 同期版（後方互換用、キャッシュのみ参照）
 function getLineEntry(userId) {
   const entry = lineConversationMap.get(userId);
   if (!entry) return null;
@@ -2225,6 +2257,34 @@ function createLineEntry() {
     unexpectedTextCount: 0, // 想定外テキスト連続カウント
     updatedAt: Date.now(),
   };
+}
+
+// KVに保存（非同期、バックグラウンドで実行）
+async function saveLineEntry(userId, entry, env) {
+  lineConversationMap.set(userId, entry); // インメモリ更新
+  if (env?.LINE_SESSIONS) {
+    try {
+      // matchingResults は大きくなりがちなので名前のみ保存
+      const toSave = { ...entry };
+      if (toSave.matchingResults) {
+        toSave.matchingResults = toSave.matchingResults.map(r => ({
+          name: r.name, matchScore: r.matchScore, salary: r.salary,
+          access: r.access, type: r.type, beds: r.beds,
+          salaryMin: r.salaryMin, salaryMax: r.salaryMax,
+          nightShiftType: r.nightShiftType, annualHolidays: r.annualHolidays,
+        }));
+      }
+      // messages は直近10件のみ保存（KVサイズ制限考慮）
+      if (toSave.messages && toSave.messages.length > 10) {
+        toSave.messages = toSave.messages.slice(-10);
+      }
+      await env.LINE_SESSIONS.put(`line:${userId}`, JSON.stringify(toSave), {
+        expirationTtl: 86400, // 24時間で自動期限切れ
+      });
+    } catch (e) {
+      console.error("[LINE] KV put error:", e.message);
+    }
+  }
 }
 
 function addLineMessage(userId, role, content) {
@@ -3010,7 +3070,7 @@ async function handleLineWebhook(request, env, ctx) {
   }
 }
 
-// ---------- LINE イベント処理（v2: Quick Reply ベース） ----------
+// ---------- LINE イベント処理（v2: Quick Reply ベース + KV永続化） ----------
 async function processLineEvents(events, channelAccessToken, env, ctx) {
   try {
     for (const event of events) {
@@ -3022,7 +3082,7 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
         const entry = createLineEntry();
         entry.phase = "q1_urgency";
         entry.updatedAt = Date.now();
-        lineConversationMap.set(userId, entry);
+        await saveLineEntry(userId, entry, env);
 
         const msgs = buildPhaseMessage("q1_urgency", entry);
         if (msgs) {
@@ -3045,11 +3105,10 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
 
       // --- postbackイベント（Quick Reply タップ） ---
       if (event.type === "postback") {
-        let entry = getLineEntry(userId);
+        let entry = await getLineEntryAsync(userId, env);
         if (!entry) {
           entry = createLineEntry();
           entry.phase = "q1_urgency";
-          lineConversationMap.set(userId, entry);
         }
 
         const dataStr = event.postback.data;
@@ -3062,22 +3121,16 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
           entry.phase = nextPhase;
         }
 
-        lineConversationMap.set(userId, entry);
-
         // フェーズに応じたメッセージ送信
         let replyMessages = null;
 
         if (nextPhase === "resume_confirm") {
-          // 経歴書ドラフト生成+確認メッセージ
           replyMessages = await buildResumeConfirmMessages(entry, env);
         } else if (nextPhase === "matching") {
-          // マッチング結果生成+Flex Message
           generateLineMatching(entry);
           replyMessages = buildMatchingMessages(entry);
         } else if (nextPhase === "matching_more") {
-          // 「他の施設も見たい」→ 人間引き継ぎへ
           entry.phase = "handoff";
-          lineConversationMap.set(userId, entry);
           replyMessages = [{
             type: "text",
             text: "他の施設情報もお伝えできます！\n担当アドバイザーが直接ご連絡しますね。",
@@ -3085,10 +3138,8 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
           }];
         } else if (nextPhase === "handoff") {
           replyMessages = buildPhaseMessage("handoff", entry);
-          // Slack通知
           await sendHandoffNotification(userId, entry, env);
         } else if (nextPhase === "resume_edit") {
-          // 修正要望の自由テキスト待ち
           replyMessages = [{
             type: "text",
             text: "修正したい箇所を教えてください！\n例：「志望動機をもっと具体的に」「職歴の○○を修正」",
@@ -3096,6 +3147,9 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
         } else if (nextPhase) {
           replyMessages = buildPhaseMessage(nextPhase, entry);
         }
+
+        // KV保存（Reply送信前に保存してワーカー終了に備える）
+        await saveLineEntry(userId, entry, env);
 
         if (replyMessages && replyMessages.length > 0) {
           await lineReply(event.replyToken, replyMessages.slice(0, 5), channelAccessToken);
@@ -3110,11 +3164,10 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
         const userText = event.message.text.trim();
         if (!userText) continue;
 
-        let entry = getLineEntry(userId);
+        let entry = await getLineEntryAsync(userId, env);
         if (!entry) {
           entry = createLineEntry();
           entry.phase = "q1_urgency";
-          lineConversationMap.set(userId, entry);
         }
 
         // 引き継ぎコード検出（6文字英数字大文字、followフェーズまたはq1）
@@ -3122,7 +3175,6 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
           const webSession = webSessionMap.get(userText);
           if (webSession && (Date.now() - webSession.createdAt < WEB_SESSION_TTL)) {
             entry.webSessionData = webSession;
-            // Web側データをQuick Replyフィールドにマッピング
             const webAreaMap = { kensei: "odawara", shonan_west: "hiratsuka", shonan_east: "shonan", kenoh: "atsugi" };
             if (webSession.area && webAreaMap[webSession.area]) {
               entry.area = webAreaMap[webSession.area];
@@ -3137,11 +3189,10 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
               entry.change = webConcernMap[webSession.concern];
             }
 
-            // Q1から開始（Web情報はすでにマッピング済みなので、既回答のQはスキップ可能だが、シンプルにQ1から）
             entry.phase = "q1_urgency";
             entry.messageCount++;
             entry.updatedAt = Date.now();
-            lineConversationMap.set(userId, entry);
+            await saveLineEntry(userId, entry, env);
 
             const msgs = [
               { type: "text", text: "HPからの情報を引き継ぎました！\nいくつかすでにお伺いしていますね。" },
@@ -3149,7 +3200,6 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
             ];
             await lineReply(event.replyToken, msgs.slice(0, 5), channelAccessToken);
 
-            // Slack通知
             if (env.SLACK_BOT_TOKEN) {
               await fetch("https://slack.com/api/chat.postMessage", {
                 method: "POST",
@@ -3161,10 +3211,9 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
             console.log(`[LINE] Handoff code ${userText} accepted, user ${userId.slice(0, 8)}`);
             continue;
           } else {
-            // 無効なコード → Q1へ
             entry.phase = "q1_urgency";
             entry.updatedAt = Date.now();
-            lineConversationMap.set(userId, entry);
+            await saveLineEntry(userId, entry, env);
 
             const msgs = [
               { type: "text", text: "コードの有効期限が切れているか、見つかりませんでした。\n改めてお話を聞かせてください！" },
@@ -3186,7 +3235,6 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
         let replyMessages = null;
 
         if (nextPhase === "resume_apply_edit") {
-          // 経歴書修正をAIで適用
           const editPrompt = `以下の職務経歴書を、ユーザーの修正要望に基づいて修正してください。
 LINEで送るので500文字以内、マークダウンは使わないでください。
 
@@ -3200,7 +3248,6 @@ ${userText}`;
             entry.resumeDraft = revisedResume;
           }
           entry.phase = "resume_confirm";
-          lineConversationMap.set(userId, entry);
 
           const textParts = splitText(entry.resumeDraft || "修正しました", 450);
           replyMessages = [
@@ -3217,18 +3264,14 @@ ${userText}`;
             },
           ].slice(0, 5);
         } else if (nextPhase === null) {
-          // 想定外テキスト
           if (entry.unexpectedTextCount >= 2) {
-            // 2回連続想定外 → 人間エスカレーション
             entry.phase = "handoff";
-            lineConversationMap.set(userId, entry);
             replyMessages = [{
               type: "text",
               text: "うまくお答えできずすみません。\n担当アドバイザーが直接ご対応させていただきますね。\n24時間以内にこのLINEでご連絡いたします！",
             }];
             await sendHandoffNotification(userId, entry, env);
           } else {
-            // 1回目: 現在のフェーズのQuick Replyを再送
             const currentPhaseMsg = buildPhaseMessage(entry.phase, entry);
             if (currentPhaseMsg) {
               replyMessages = [
@@ -3244,15 +3287,12 @@ ${userText}`;
           }
         } else if (nextPhase === "handoff") {
           entry.phase = "handoff";
-          lineConversationMap.set(userId, entry);
           replyMessages = [{
             type: "text",
             text: "担当アドバイザーから改めてご連絡しますので、少しお待ちくださいね。",
           }];
         } else {
-          // 正常な遷移（PC対応テキストマッチ等）
           entry.phase = nextPhase;
-          lineConversationMap.set(userId, entry);
 
           if (nextPhase === "resume_confirm") {
             replyMessages = await buildResumeConfirmMessages(entry, env);
@@ -3263,6 +3303,9 @@ ${userText}`;
             replyMessages = buildPhaseMessage(nextPhase, entry);
           }
         }
+
+        // KV保存
+        await saveLineEntry(userId, entry, env);
 
         if (replyMessages && replyMessages.length > 0) {
           await lineReply(event.replyToken, replyMessages.slice(0, 5), channelAccessToken);
