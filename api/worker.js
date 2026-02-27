@@ -2615,10 +2615,10 @@ LINEで送るので500文字以内、マークダウンは使わないでくだ�
   const textParts = splitText(resumeText, 450);
   const messages = textParts.map(part => ({ type: "text", text: part }));
 
-  // 最後のメッセージにQuick Replyを追加
+  // 補足メッセージ + 確認
   messages.push({
     type: "text",
-    text: "こちらの内容でよろしいですか？\n修正したい箇所があれば教えてください！",
+    text: "これはお話を元に簡単にまとめたものです。\nもっとAIと話して精度を高めることもできます。\n\n※ただし本格的に活動される場合に限ります。\n\nこちらの内容でよろしいですか？",
     quickReply: {
       items: [
         qrItem("OK！これでいい", "resume=ok"),
