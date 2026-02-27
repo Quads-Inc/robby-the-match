@@ -2337,17 +2337,23 @@ function addLineMessage(userId, role, content) {
 function buildPhaseMessage(phase, entry) {
   switch (phase) {
     case "q1_urgency":
-      return [{
-        type: "text",
-        text: "友だち追加ありがとうございます！\nナースロビーのAIアシスタント「ロビー」です🤖\n\nAIなので24時間いつでも気軽に相談できます。\n電話はしません。このLINEだけでやり取りします。\n\nまず教えてください、今のお気持ちはどれに近いですか？",
-        quickReply: {
-          items: [
-            qrItem("今すぐ転職したい", "q1=urgent"),
-            qrItem("いい求人があれば", "q1=good"),
-            qrItem("まずは情報収集", "q1=info"),
-          ],
+      return [
+        {
+          type: "text",
+          text: "友だち追加ありがとうございます！\nAI転職相談の「ロビー」です。\n\n私たちはもともと病院で人事をしていました。\n年間20人以上の採用で、紹介会社に1人100万円以上の手数料を払い続ける現実…。\n\nそのお金を現場に還元できないか？\nその思いからAIで徹底的に効率化し、手数料10%の転職サービスを立ち上げました。\n\n賛同してくれる看護師さん、一緒に良い転職をしましょう。\nさあ、相談スタートです！",
         },
-      }];
+        {
+          type: "text",
+          text: "まず教えてください、今のお気持ちはどれに近いですか？",
+          quickReply: {
+            items: [
+              qrItem("今すぐ転職したい", "q1=urgent"),
+              qrItem("いい求人があれば", "q1=good"),
+              qrItem("まずは情報収集", "q1=info"),
+            ],
+          },
+        },
+      ];
 
     case "q2_change": {
       const urgLabel = POSTBACK_LABELS[`q1_${entry.urgency}`] || "";
