@@ -1,7 +1,7 @@
 {
   "version": 2,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-27T15:00:04.495551",
+  "updated": "2026-02-27T17:32:14.960322",
   "posts": [
     {
       "id": 1,
@@ -382,9 +382,9 @@
       ],
       "cta_type": "soft",
       "content_type": "career",
-      "status": "ready",
-      "video_path": "content/temp_videos/tiktok_day2_tue_B01.mp4",
-      "posted_at": null,
+      "status": "posted",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day2_tue_B01_20260227.mp4",
+      "posted_at": "2026-02-27T17:32:14.960314",
       "tiktok_url": null,
       "error": null,
       "performance": {
@@ -406,7 +406,8 @@
           "スライド6のフォローの呼びかけが曖昧"
         ],
         "suggestion": "CTAを少しハードにし、スライド6のフォローの呼びかけを明確にする"
-      }
+      },
+      "verified": true
     },
     {
       "id": 12,

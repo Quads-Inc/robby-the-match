@@ -1,0 +1,849 @@
+{
+  "metadata": {
+    "title": "神奈川県西部 主要病院 看護師求人データベース",
+    "collected_date": "2026-02-27",
+    "area": "神奈川県西部（小田原市・秦野市・平塚市・伊勢原市・藤沢市・海老名市）",
+    "notes": "公式採用ページ・求人ポータルサイトから収集。推定・補完なし。見つからなかった情報は「不明」。",
+    "disclaimer": "求人情報は収集時点のもの。最新情報は各病院公式サイトを確認のこと。"
+  },
+  "hospitals": [
+    {
+      "name": "小田原市立病院",
+      "area": "小田原市",
+      "beds": 417,
+      "type": "公立・急性期",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師（正規職員）",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": {
+              "大学卒": "239,400円",
+              "短大3年卒": "232,700円",
+              "短大2年卒": "232,700円",
+              "看護学校3年卒": "232,700円",
+              "看護学校2年卒": "232,700円"
+            },
+            "main_allowance": {
+              "大学卒": "23,940円（地域手当）",
+              "短大3年卒": "23,270円（地域手当）",
+              "短大2年卒": "23,270円（地域手当）"
+            },
+            "total_monthly": {
+              "大学卒": "263,340円",
+              "短大3年卒": "255,970円"
+            }
+          },
+          "bonus": "年2回（6月・12月）",
+          "bonus_months": "不明",
+          "annual_holidays": "4週8休制（年間約104日）",
+          "work_hours": {
+            "system": "二交代制",
+            "day_shift": "08:30～17:15",
+            "night_shift": "16:00～09:30"
+          },
+          "allowances": [
+            "地域手当（一律）",
+            "夜間医療等手当",
+            "夜間勤務手当",
+            "住居手当",
+            "通勤手当",
+            "時間外勤務手当",
+            "特殊勤務手当"
+          ],
+          "other_benefits": [
+            "有給休暇20日",
+            "夏季休暇5日",
+            "看護師寮あり",
+            "奨学金制度（月60,000円）",
+            "資格取得支援",
+            "院内保育所完備"
+          ],
+          "notes": "2026年度に新病院開院予定"
+        },
+        {
+          "job_type": "助産師（正規職員）",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": "261,580円",
+            "main_allowance": "46,620円",
+            "total_monthly": "308,200円"
+          },
+          "bonus": "年2回（6月・12月）",
+          "bonus_months": "不明"
+        }
+      ],
+      "posting_date": "不明（2027年度新卒向け掲載中）",
+      "source_urls": [
+        "https://www.city.odawara.kanagawa.jp/hospital/staff/",
+        "https://recruit.nurse-senka.com/establishment/2017239/summary"
+      ]
+    },
+    {
+      "name": "小田原循環器病院",
+      "area": "小田原市",
+      "beds": "不明",
+      "type": "民間・専門病院（心臓・腎臓）",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師（新卒）",
+          "employment": "常勤",
+          "salary": {
+            "base_salary_with_adjustments": {
+              "大学卒": "222,800円（基本給+調整手当+看護危険手当）",
+              "3年課程卒": "218,600円",
+              "2年課程卒": "215,100円"
+            },
+            "main_allowance": "120,000円（2交替勤務手当+夜勤手当4回分+住宅手当）",
+            "total_monthly": {
+              "大学卒": "342,800円",
+              "3年課程卒": "338,600円",
+              "2年課程卒": "335,100円"
+            }
+          },
+          "bonus": "年2回（6月・12月）",
+          "bonus_months": "不明",
+          "annual_holidays": "4週8休制",
+          "work_hours": {
+            "system": "二交代制",
+            "day_shift": "08:30～17:00",
+            "night_shift": "19:00～09:00"
+          },
+          "allowances": [
+            "2交替勤務手当",
+            "夜間勤務手当（4回分含む）",
+            "住宅手当（寮入居者は支給なし）",
+            "通勤手当（2km圏内は支給なし）",
+            "調整手当",
+            "看護危険手当"
+          ],
+          "other_benefits": [
+            "有給休暇初年度10日（繰越可・最高40日）",
+            "夏季休暇5日",
+            "祝日",
+            "創立記念日",
+            "年末年始休暇",
+            "慶弔特別休暇",
+            "産前産後休暇",
+            "育児休業",
+            "永年勤続休暇"
+          ]
+        }
+      ],
+      "posting_date": "不明",
+      "source_urls": [
+        "http://ojh.or.jp/recruit/index.html",
+        "https://www.kan-naro.jp/hospital/000084/requirements"
+      ]
+    },
+    {
+      "name": "間中病院",
+      "area": "小田原市",
+      "beds": 90,
+      "type": "民間・ケアミックス（地域包括ケア38床+回復期リハ52床）",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "病棟看護師",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": "160,000円",
+            "allowances_total": "125,121円～226,130円",
+            "total_monthly": "285,121円～386,130円",
+            "annual_income_estimate": "4,231,815円～5,746,950円"
+          },
+          "bonus": "年2回（7月・12月）",
+          "bonus_months": "約3ヶ月分（月給×3、夜勤手当・処遇改善・ベースアップ除く）",
+          "bonus_estimate": "810,363円～1,113,390円",
+          "annual_holidays": 111,
+          "work_hours": {
+            "system": "不明（日勤のみの記載）",
+            "day_shift": "08:30～17:00（休憩60分）",
+            "night_shift": "不明"
+          },
+          "allowances": [
+            "職務給: 66,621～167,630円",
+            "地域調整手当: 13,500円",
+            "資格手当: 10,000円",
+            "ベースアップ支給: 3,000円（法人業績により変動）",
+            "処遇改善手当: 12,000円（法人業績により変動）",
+            "認定看護師手当: 20,000円",
+            "通勤手当: 上限50,000円/月",
+            "夜勤手当: 18,000円/回",
+            "年末年始手当: 日勤5,000円、夜勤10,000円（12/30～1/3）"
+          ],
+          "other_benefits": [
+            "月9～11日休み（シフト制）",
+            "有給休暇: 入社6ヶ月後から年間10日間",
+            "特別休暇3日",
+            "産前産後休暇・育児休暇取得実績あり",
+            "慶弔休暇",
+            "プリセプター制度あり",
+            "eラーニング研修制度"
+          ],
+          "notes": "「ほぼ残業ゼロ」を謳っている"
+        },
+        {
+          "job_type": "認知症認定看護師",
+          "employment": "常勤",
+          "salary": "不明（認定看護師手当20,000円あり）"
+        }
+      ],
+      "posting_date": "不明",
+      "source_urls": [
+        "https://www.manaka-hp.jp/recruit/",
+        "https://www.co-medical.com/ns/job451201/"
+      ]
+    },
+    {
+      "name": "西湘病院",
+      "area": "小田原市",
+      "beds": 102,
+      "type": "民間・ケアミックス（一般45床+療養57床）",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師/准看護師（正社員・2交代）",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": "232,000円～317,600円",
+            "total_monthly": "284,000円～359,600円（手当込み）",
+            "total_monthly_reference": "約32.3万円/月（2交代常勤）"
+          },
+          "bonus": "年2回",
+          "bonus_months": "3.8ヶ月（病棟）/ 4ヶ月（外来2交代・オペ室）",
+          "annual_holidays": 120,
+          "work_hours": {
+            "system": "二交代制",
+            "day_shift": "08:30～17:30（休憩60分）",
+            "night_shift": "17:00～09:00（休憩120分）"
+          },
+          "allowances": [
+            "住宅手当: 20,000円",
+            "資格手当: 10,000円",
+            "職能手当: 16,400円～35,000円",
+            "通勤手当: あり"
+          ],
+          "other_benefits": [
+            "リフレッシュ休暇3日",
+            "看護休暇（有給）年5日",
+            "退職金制度（勤続3年以上）",
+            "入居可能住宅（単身用・月額30,000円）",
+            "マイカー通勤可",
+            "育児休業取得実績あり",
+            "プリセプターシップ制度",
+            "財形貯蓄制度"
+          ]
+        },
+        {
+          "job_type": "看護師/准看護師（正社員・日勤のみ）",
+          "employment": "常勤",
+          "salary": {
+            "total_monthly": "約27.1万円～/月"
+          },
+          "bonus": "年2回",
+          "bonus_months": "3.8ヶ月"
+        },
+        {
+          "job_type": "看護師/准看護師（パート）",
+          "employment": "パート",
+          "salary": {
+            "hourly": "1,600円～1,800円"
+          }
+        },
+        {
+          "job_type": "看護師（夜勤パート）",
+          "employment": "パート",
+          "salary": {
+            "per_shift": "30,000円/回"
+          }
+        }
+      ],
+      "posting_date": "不明",
+      "source_urls": [
+        "https://seishou.jbplt.jp/",
+        "http://www.seishou.or.jp/recruit.html",
+        "https://www.kango-roo.com/career/hos-5159/",
+        "https://job-medley.com/ans/84947/"
+      ]
+    },
+    {
+      "name": "小林病院",
+      "area": "小田原市",
+      "beds": 163,
+      "type": "民間・ケアミックス",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師（病棟）",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": "191,600円～214,600円",
+            "allowances_fixed": "98,600円",
+            "total_monthly": "290,200円～313,200円"
+          },
+          "bonus": "年2回",
+          "bonus_months": "3.0ヶ月（前年度実績）",
+          "annual_holidays": 107,
+          "work_hours": {
+            "system": "シフト制（夜勤あり）",
+            "early_shift": "07:00～15:30",
+            "day_shift": "08:30～17:00",
+            "late_shift": "10:30～19:00",
+            "night_shift": "16:30～09:00（月4回程度）",
+            "break": "60分（夜勤90分）"
+          },
+          "allowances": [
+            "技能手当: 22,500円",
+            "調整手当: 22,500円",
+            "夜勤手当: 13,400円/回（月4回で53,600円）",
+            "通勤手当: 月額上限50,000円",
+            "住宅手当: 単身6,000円、世帯8,000円（賃貸のみ）",
+            "扶養手当: 1人目10,000円、2人目以降3,000円/人"
+          ],
+          "other_benefits": [
+            "日曜固定休み",
+            "有給休暇: 入職初日に10日付与",
+            "慶弔休暇、産休育休あり",
+            "昇給年1回",
+            "退職金制度（勤続3年以上）",
+            "24時間院内保育室（月上限15,000円）",
+            "各種社会保険完備"
+          ],
+          "annual_income_reference": "経験10年以上で年収450万円以上（手当込み）"
+        },
+        {
+          "job_type": "看護師（訪問看護）",
+          "employment": "常勤",
+          "salary": "不明（別途募集ページ）"
+        }
+      ],
+      "posting_date": "不明",
+      "source_urls": [
+        "https://kobayashihp.or.jp/saiyo/",
+        "https://www.co-medical.com/ns/job641058/"
+      ]
+    },
+    {
+      "name": "曽我病院",
+      "area": "小田原市",
+      "beds": 399,
+      "type": "民間・精神科",
+      "recruitment_status": "一時募集休止（看護師）",
+      "positions": [
+        {
+          "job_type": "正看護師（病棟・3交代）",
+          "employment": "常勤",
+          "salary": {
+            "total_monthly": "241,000円～/月"
+          },
+          "bonus": "年2回",
+          "bonus_months": "不明",
+          "annual_holidays": "不明",
+          "work_hours": {
+            "system": "三交代制",
+            "day_shift": "08:30～17:00",
+            "night_shift": "不明"
+          },
+          "allowances": "不明",
+          "notes": "2026年2月時点で看護師の正規職員募集は一時休止中。管理栄養士・看護助手・放射線技師・薬剤師は募集中。"
+        }
+      ],
+      "posting_date": "不明（募集休止中）",
+      "source_urls": [
+        "https://www.kango-roo.com/career/hos-2648/",
+        "https://job-medley.com/facility/402172/"
+      ]
+    },
+    {
+      "name": "秦野赤十字病院",
+      "area": "秦野市",
+      "beds": "不明",
+      "type": "赤十字・急性期",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師（新卒・既卒）",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": {
+              "大学卒": "272,526円（公式）/ 231,716円（ナース専科）",
+              "短大3年卒": "268,286円（公式）",
+              "短大2年卒": "264,364円（公式）"
+            },
+            "total_monthly_with_allowances": {
+              "大学卒": "335,360円（諸手当含む：夜勤2交替4回、時間外10h、地域手当）",
+              "短大3年卒": "330,398円",
+              "短大2年卒": "325,804円"
+            }
+          },
+          "bonus": "年2回（期末勤勉手当）",
+          "bonus_months": "不明",
+          "annual_holidays": "4週8休制",
+          "work_hours": {
+            "system_primary": "二交代制",
+            "day_shift": "08:30～17:00（休憩45分）",
+            "night_shift": "16:00～09:00（休憩90分）",
+            "system_secondary": "三交代制も一部あり",
+            "semi_night": "16:30～01:00",
+            "deep_night": "00:30～09:00"
+          },
+          "allowances": [
+            "通勤手当: 最大55,000円/月",
+            "住居手当: 借家賃額により上限28,500円/月",
+            "扶養手当: あり",
+            "時間外手当: あり",
+            "深夜手当: あり",
+            "退職金: 俸給51.5ヶ月分程度"
+          ],
+          "other_benefits": [
+            "定期昇給: 年1回",
+            "年次休暇21日間（4月入社時は15日間）",
+            "夏季休暇あり",
+            "院内保育（火・木、夜間保育あり）",
+            "奨学金制度: 月5万円",
+            "認定看護師取得支援"
+          ],
+          "nurse_count": 203,
+          "certified_nurses": 6
+        }
+      ],
+      "posting_date": "2025年4月1日現在の給与情報",
+      "source_urls": [
+        "https://hadano-med-jrc.jp/pages/87/",
+        "https://recruit.nurse-senka.com/establishment/2013632/summary"
+      ]
+    },
+    {
+      "name": "鶴巻温泉病院",
+      "area": "秦野市",
+      "beds": 446,
+      "type": "民間・回復期リハビリテーション+療養",
+      "bed_detail": "回復期リハ206床、介護保険療養180床、医療一般・神経難病リハセンター60床",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師",
+          "employment": "常勤",
+          "recruitment_count": 15,
+          "salary": {
+            "base_salary": {
+              "大学卒": "234,600円",
+              "短大3年卒": "231,600円",
+              "看護学校3年卒": "231,600円",
+              "高校専攻科卒": "231,600円"
+            },
+            "main_allowance": "69,300円",
+            "total_monthly": {
+              "大学卒": "303,900円",
+              "短大3年卒": "300,900円"
+            },
+            "allowance_detail": "当直13,500円×4回、日直3,000円×2回、BU手当9,300円含む",
+            "annual_income_reference": {
+              "経験3年": "年収440万円（月収29万/賞与80万）",
+              "経験10年": "年収480万円（月収32万/賞与90万）",
+              "経験15年": "年収520万円（月収35万/賞与100万）"
+            }
+          },
+          "bonus": "年2回（7月・12月）",
+          "bonus_months": "3.8ヶ月（2024年度実績）",
+          "annual_holidays": "4週8休制",
+          "work_hours": {
+            "system": "二交代制（早番・遅番あり）",
+            "day_shift": "09:00～17:30",
+            "night_shift": "17:00～09:30"
+          },
+          "allowances": [
+            "当直手当: 13,500円/回",
+            "日直手当: 3,000円/回",
+            "BU手当: 9,300円",
+            "保健師免許取得者: +3,000円"
+          ],
+          "other_benefits": [
+            "有給休暇: 入職時3日（3ヶ月のみ有効）、3ヶ月後10日付与",
+            "夏季休暇4日",
+            "年末年始5日",
+            "リフレッシュ休暇: 初年度7連休、2年目以降最大10日",
+            "育児・介護休業あり",
+            "昇給: 年1回（4月）",
+            "中途採用は2年以上の臨床経験必須"
+          ]
+        }
+      ],
+      "posting_date": "不明（2026年4月入職向け掲載中）",
+      "source_urls": [
+        "https://www.sankikai.or.jp/tc/",
+        "https://recruit.nurse-senka.com/establishment/2016980/summary"
+      ]
+    },
+    {
+      "name": "平塚市民病院",
+      "area": "平塚市",
+      "beds": 416,
+      "type": "公立・急性期",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師",
+          "employment": "常勤",
+          "recruitment_count": 50,
+          "salary": {
+            "base_salary": {
+              "大学卒": "265,100円",
+              "短大3年卒": "261,600円",
+              "短大2年卒": "256,600円",
+              "看護学校3年卒": "261,600円"
+            },
+            "main_allowance": {
+              "大学卒": "42,420円（地域手当）",
+              "短大3年卒": "41,860円",
+              "短大2年卒": "41,060円"
+            },
+            "total_monthly": {
+              "大学卒": "307,520円",
+              "短大3年卒": "303,460円",
+              "短大2年卒": "297,660円"
+            }
+          },
+          "bonus": "年2回",
+          "bonus_months": "4.65ヶ月（令和7年度実績）",
+          "annual_holidays": "4週8休制",
+          "work_hours": {
+            "system": "二交代制",
+            "day_shift": "08:30～17:15",
+            "night_shift": "16:30～09:00",
+            "weekly_hours": "38時間45分",
+            "night_frequency": "月4～5回程度"
+          },
+          "allowances": [
+            "地域手当（令和7年度実績含む）",
+            "深夜看護手当",
+            "夜間勤務手当（準夜勤・深夜勤務時）",
+            "時間外手当",
+            "住宅手当",
+            "通勤手当",
+            "扶養手当"
+          ],
+          "other_benefits": [
+            "年次休暇20日",
+            "夏季休暇7日",
+            "年末年始6日",
+            "リフレッシュ休暇等",
+            "昇給: 年1回",
+            "看護師寮: 月額8,000円（住宅手当8,000円支給で実質無料）",
+            "院内保育所あり（週3回夜間保育対応）"
+          ],
+          "nurse_count": 531
+        },
+        {
+          "job_type": "助産師",
+          "employment": "常勤",
+          "recruitment_count": "若干名",
+          "salary": {
+            "base_salary": "265,100円",
+            "main_allowance": "42,420円",
+            "total_monthly": "307,520円"
+          }
+        }
+      ],
+      "posting_date": "不明（令和8年度採用向け掲載中）",
+      "source_urls": [
+        "https://www.hiratsuka-city-hospital.jp/kangobu/saiyou_01/",
+        "https://recruit.nurse-senka.com/establishment/2018749",
+        "https://recruit.nurse-senka.com/establishment/2017221/summary"
+      ]
+    },
+    {
+      "name": "平塚共済病院",
+      "area": "平塚市",
+      "beds": 400,
+      "type": "共済組合・急性期",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師（新卒）",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": {
+              "大学卒": "260,400円",
+              "短大3年卒": "256,800円"
+            },
+            "main_allowance": {
+              "大学卒": "51,664円（地域手当+処遇改善手当10,000円）",
+              "短大3年卒": "51,088円"
+            },
+            "total_monthly": {
+              "大学卒": "312,064円",
+              "短大3年卒": "307,888円"
+            },
+            "model_monthly_with_night": "352,064円（大卒・夜勤4回の場合）"
+          },
+          "bonus": "年2回（6月・12月）",
+          "bonus_months": "4.5ヶ月（2024年実績）",
+          "annual_holidays": 128,
+          "annual_holidays_note": "完全週休2日制（2025年度）",
+          "work_hours": {
+            "system": "二交代制",
+            "day_shift": "08:30～17:15（休憩1時間）",
+            "night_shift": "17:00～09:00（休憩2時間）",
+            "weekly_hours": "38.75時間（1カ月単位の変形労働制）"
+          },
+          "allowances": [
+            "夜勤手当: 10,000円/回（最低月4回）",
+            "通勤手当: あり",
+            "住宅手当: あり",
+            "扶養手当: あり（支給規則による）",
+            "地域手当: あり",
+            "処遇改善手当: 10,000円"
+          ],
+          "other_benefits": [
+            "年次有給休暇: 初年度15日",
+            "祝日",
+            "年末年始休暇",
+            "夏季休暇4日",
+            "2週間の長期休暇取得可能",
+            "産前産後休暇・育児休暇",
+            "昇給: 年1回（10月）",
+            "退職金制度（勤続2年以上）",
+            "試用期間6ヶ月（本採用後と同待遇）",
+            "24時間保育ルームあり",
+            "平均残業月5時間以内",
+            "職員旅行年1回"
+          ],
+          "model_annual_income": {
+            "経験1年": "年収4,368,800円（月給292,800円）",
+            "経験6年": "年収5,090,000円（月給338,000円）",
+            "経験9年": "年収5,165,600円（月給343,100円）",
+            "夜勤常勤30年": "年収7,064,000円（月給484,000円）"
+          },
+          "nurse_count": 436
+        }
+      ],
+      "posting_date": "不明（2027年度入職者対象を受付中）",
+      "source_urls": [
+        "https://hrt.kkr.or.jp/recruit/",
+        "https://nurse.mynavi.jp/student/hospitals/outline/205319"
+      ]
+    },
+    {
+      "name": "東海大学医学部付属病院",
+      "area": "伊勢原市",
+      "beds": "不明",
+      "type": "大学病院・高度急性期",
+      "recruitment_status": "一時停止中（2026年度は定員到達のため応募受付停止）",
+      "positions": [
+        {
+          "job_type": "看護師",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": {
+              "大学卒": "202,300円",
+              "短大3年卒": "198,700円",
+              "短大2年卒": "195,100円",
+              "看護学校3年卒": "198,700円",
+              "看護学校2年卒": "195,100円"
+            },
+            "main_allowance": {
+              "大学卒": "55,414円（職務調整手当+都市手当+処遇評価手当+ベースアップ手当）",
+              "短大3年卒": "54,766円",
+              "看護学校3年卒": "35,766円"
+            },
+            "total_monthly": {
+              "大学卒": "257,714円",
+              "短大3年卒": "253,466円",
+              "短大2年卒": "249,218円",
+              "看護学校3年卒": "234,466円",
+              "看護学校2年卒": "230,218円"
+            }
+          },
+          "bonus": "年2回",
+          "bonus_months": "4.8ヶ月（初年度3.8ヶ月）",
+          "annual_holidays": "4週6休制",
+          "annual_holidays_note": "夏期特別休暇: 初年度5日、2年目以降11日。年末年始特別休暇あり。",
+          "work_hours": {
+            "system": "二交代制",
+            "day_shift": "08:30～16:30",
+            "night_shift": "16:00～08:45",
+            "day_shift_alt": "08:30～19:00",
+            "night_shift_alt": "18:30～09:00"
+          },
+          "allowances": [
+            "職務調整手当",
+            "都市手当",
+            "処遇評価手当",
+            "ベースアップ手当",
+            "通勤手当",
+            "住宅手当",
+            "家族手当",
+            "資格等級手当"
+          ],
+          "other_benefits": [
+            "昇給: 年1回（4月）",
+            "年次有給休暇あり",
+            "育児短時間勤務制度",
+            "認定看護師・専門看護師制度",
+            "フライトナース（ドクターヘリ）制度",
+            "松前奨学金制度"
+          ],
+          "notes": "2026年度の募集は定員に達し一時停止中。2027年度募集は別途案内予定。"
+        },
+        {
+          "job_type": "助産師",
+          "employment": "常勤",
+          "salary": "不明（看護師に準ずる）"
+        }
+      ],
+      "posting_date": "2026年度募集終了・2027年度募集準備中",
+      "source_urls": [
+        "https://www.fuzoku-hosp.tokai.ac.jp/en/recruit/nurse/",
+        "https://recruit.nurse-senka.com/establishment/2017779/summary"
+      ]
+    },
+    {
+      "name": "藤沢市民病院",
+      "area": "藤沢市",
+      "beds": 536,
+      "type": "公立・急性期",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師",
+          "employment": "常勤（地方公務員）",
+          "salary": {
+            "base_salary": {
+              "4年課程卒": "268,800円",
+              "3年課程卒": "264,400円",
+              "2年課程卒": "260,900円"
+            },
+            "main_allowance": {
+              "4年課程卒": "37,632円（地域手当: 基本給×14%）",
+              "3年課程卒": "37,016円",
+              "2年課程卒": "36,526円"
+            },
+            "total_monthly": {
+              "4年課程卒": "306,432円",
+              "3年課程卒": "301,416円",
+              "2年課程卒": "297,426円"
+            }
+          },
+          "bonus": "年2回（6月・12月）",
+          "bonus_months": "不明",
+          "annual_holidays": "4週8休制",
+          "work_hours": {
+            "system": "二交代制",
+            "day_shift": "08:30～17:15",
+            "night_shift": "16:30～09:30",
+            "weekly_hours": "38.75時間"
+          },
+          "allowances": [
+            "地域手当: 基本給×14%",
+            "夜勤手当: 準夜5,000円/回、深夜5,000円/回、準夜+深夜10,000円/回",
+            "夜間勤務手当: 22:00～翌5:00は給与額の25/100",
+            "通勤手当",
+            "住居手当",
+            "時間外手当",
+            "宿日直手当"
+          ],
+          "other_benefits": [
+            "年次有給休暇: 20日（初年度15日）",
+            "夏季休暇7日",
+            "年末年始6日",
+            "特別休暇あり",
+            "藤沢市職員（地方公務員）としての身分"
+          ],
+          "nurse_count": 554
+        },
+        {
+          "job_type": "助産師",
+          "employment": "常勤（地方公務員）",
+          "salary": {
+            "base_salary": "268,800円",
+            "main_allowance": "37,632円",
+            "total_monthly": "306,432円"
+          }
+        }
+      ],
+      "posting_date": "2025年4月実績の給与（令和8年度採用試験実施中）",
+      "source_urls": [
+        "https://fujisawacity-hosp.jp/medical/recruit/index.html",
+        "https://nurse.mynavi.jp/student/hospitals/outline/202362"
+      ]
+    },
+    {
+      "name": "海老名総合病院",
+      "area": "海老名市",
+      "beds": "不明",
+      "type": "民間・高度急性期",
+      "recruitment_status": "募集中",
+      "positions": [
+        {
+          "job_type": "看護師（新卒）",
+          "employment": "常勤",
+          "salary": {
+            "base_salary": {
+              "4年卒": "219,100円（資格給含む）",
+              "3年卒_2年卒": "214,100円（資格給含む）"
+            },
+            "total_monthly_note": "基本給+手当で想定年収470万円以上（賞与・住宅手当含む）"
+          },
+          "bonus": "年2回（6月・12月）",
+          "bonus_months": "4.3ヶ月（前年度実績）",
+          "annual_holidays": {
+            "ward_icu_er": "110日以上（4週7休制）",
+            "outpatient_or": "120日以上（4週8休制）"
+          },
+          "work_hours": {
+            "system": "二交代制",
+            "ward_icu_er": "実働7.5時間",
+            "outpatient": "実働8時間",
+            "or": "実働8時間（日曜祝日待機当番あり）"
+          },
+          "allowances": [
+            "看護交付金: 12,000円/月",
+            "ベースアップ加算: 7,000円/月",
+            "夜勤手当: 14,000円/回（準夜勤6,500円+深夜勤7,500円）",
+            "通勤手当",
+            "時間外手当",
+            "住宅手当",
+            "手術室待機手当: 平日6,000円～/土曜8,500円～/日祝13,000円～"
+          ],
+          "other_benefits": [
+            "有給休暇あり",
+            "慶弔休暇",
+            "育児・介護休暇",
+            "2023年4月新棟オープン",
+            "研修制度あり",
+            "退職金制度",
+            "託児所あり"
+          ],
+          "notes": "県央地域の救急医療を担う高度急性期病院。2027年度新卒採用選考実施中。"
+        }
+      ],
+      "posting_date": "不明（2027年度新卒採用選考日: 4/11, 4/28, 5/9, 5/16, 5/30, 6/6, 6/27, 7/11）",
+      "source_urls": [
+        "https://job.jinai.jp/recruit/kanagawaken/ebinashi/ebina/693/",
+        "https://job.jinai.jp/nurse/ebina/"
+      ]
+    }
+  ],
+  "summary": {
+    "total_hospitals": 13,
+    "actively_recruiting": 11,
+    "temporarily_paused": 2,
+    "paused_hospitals": ["曽我病院（看護師募集休止中）", "東海大学医学部付属病院（2026年度定員到達で停止中）"],
+    "salary_range_new_grad_monthly": {
+      "lowest": "230,218円（東海大学医学部付属病院・看護学校2年卒・手当込み）",
+      "highest": "342,800円（小田原循環器病院・大学卒・手当込み）"
+    },
+    "bonus_range": {
+      "lowest": "3.0ヶ月（小林病院）",
+      "highest": "4.8ヶ月（東海大学医学部付属病院）/ 4.65ヶ月（平塚市民病院）"
+    },
+    "annual_holidays_range": {
+      "lowest": "107日（小林病院）",
+      "highest": "128日（平塚共済病院）"
+    }
+  }
+}

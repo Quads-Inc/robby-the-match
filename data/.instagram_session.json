@@ -1,0 +1,37 @@
+{
+    "uuids": {
+        "phone_id": "0d3316f8-356d-4c04-84ac-2bc5af218ca0",
+        "uuid": "1ed2feec-a982-4803-9ba5-b1eca8780c6b",
+        "client_session_id": "b48787f6-aed9-44cf-b01c-2788bc0041e6",
+        "advertising_id": "5994b340-1854-4283-81cd-57496a1d2459",
+        "android_device_id": "android-e169cd4778d0b4bc",
+        "request_id": "cee03c66-f4b7-4483-bf37-984b6c2ea283",
+        "tray_session_id": "43f5c714-c9c6-4836-8b28-52b3b3c14867"
+    },
+    "mid": "aaFWDQABAAHmofWhuTVx4gA8rB95",
+    "ig_u_rur": null,
+    "ig_www_claim": null,
+    "authorization_data": {
+        "ds_user_id": "45884164083",
+        "sessionid": "45884164083%3APx7MYILLbwCLYM%3A1%3AAYhShdB_ysGWoONVvkHXrjitI3qOkQk0xjZ9mAezzQ"
+    },
+    "cookies": {},
+    "last_login": 1772181023.848494,
+    "device_settings": {
+        "app_version": "269.0.0.18.75",
+        "android_version": 26,
+        "android_release": "8.0.0",
+        "dpi": "480dpi",
+        "resolution": "1080x1920",
+        "manufacturer": "OnePlus",
+        "device": "devitron",
+        "model": "6T Dev",
+        "cpu": "qcom",
+        "version_code": "314665256"
+    },
+    "user_agent": "Instagram 302.1.0.36.111 Android (33/13; 420dpi; 1080x2400; Google/google; Pixel 7; panther; panther; en_JP; 533450710)",
+    "country": "JP",
+    "country_code": 81,
+    "locale": "ja_JP",
+    "timezone_offset": 32400
+}

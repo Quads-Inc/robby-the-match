@@ -4,10 +4,10 @@
     "health_monitor": "2026-02-27T07:00:06",
     "competitor_analyst": "2026-02-27T10:00:03",
     "content_creator": "2026-02-27T15:00:05",
-    "daily_reviewer": "2026-02-26T23:00:06",
+    "daily_reviewer": "2026-02-27T23:00:00",
     "weekly_strategist": "2026-02-22T06:00:05",
     "slack_commander": null,
-    "sns_poster": "2026-02-26T17:30:15",
+    "sns_poster": "2026-02-27T17:32:16",
     "ai_marketing_orchestrator": "2026-02-27T06:00:13"
   },
   "status": {
@@ -15,7 +15,7 @@
     "health_monitor": "completed",
     "competitor_analyst": "completed",
     "content_creator": "completed",
-    "daily_reviewer": "completed",
+    "daily_reviewer": "running",
     "weekly_strategist": "completed",
     "slack_commander": "pending",
     "sns_poster": "completed",
@@ -41,16 +41,16 @@
       "サービス紹介": 0,
       "トレンド": 0
     },
-    "totalPostsThisWeek": 5,
+    "totalPostsThisWeek": 11,
     "lastDeployTimestamp": null,
     "knownIssues": [],
-    "lastAnalysis": "2026-02-26T23:00:03",
+    "lastAnalysis": "2026-02-27T23:00:03",
     "recommendations": [
       "「転職」カテゴリの投稿が目標より不足。次バッチで重点生成。",
       "「給与」カテゴリの投稿が目標より不足。次バッチで重点生成。",
       "フォロワー0。投稿頻度を上げ、コメント返信でエンゲージメント向上を。"
     ],
-    "queueRemaining": 4,
+    "queueRemaining": 6,
     "lastMarketingPDCA": "2026-02-27 06:00:00",
     "queuePending": 4,
     "dailyGeneratedCount": 0
@@ -60,7 +60,7 @@
       "highPerformingPatterns": [],
       "failedPatterns": [],
       "contentIdCounter": 0,
-      "lastAnalysisDate": "2026-02-26",
+      "lastAnalysisDate": "2026-02-27",
       "bestHookPatterns": [],
       "avgMetrics": {
         "views": 0,
@@ -88,13 +88,13 @@
       "trendingTopics": []
     },
     "sns_poster": {
-      "totalPosted": 5,
+      "totalPosted": 11,
       "lastPostedContentId": null,
       "postingMethod": "tiktok-uploader",
       "authStatus": "cookie_required",
       "queueFile": "data/posting_queue.json",
       "averageViews": 0,
-      "lastAnalysisDate": "2026-02-26"
+      "lastAnalysisDate": "2026-02-27"
     }
   }
 }
