@@ -2812,7 +2812,7 @@ function buildMatchingMessages(entry) {
   });
 
   // 補足テキスト
-  let supplementText = "気になる施設はありますか？\n「詳しく聞く」を押していただければ、さらに詳しい情報をお伝えします！\n\nAIが24時間対応しています。気軽に聞いてくださいね。";
+  let supplementText = "気になる施設はありますか？\n「詳しく聞く」を押していただければ、担当者が最新の求人状況を確認してお伝えします。\n\n※こちらは参考情報です。実際の募集状況とは異なる場合があります。";
   if (externalInfo) {
     supplementText += `\n\nこのエリアの他の求人情報もあります：\n${externalInfo.slice(0, 300)}`;
   }
@@ -3179,7 +3179,7 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
           entry.phase = "matching";
           generateLineMatching(entry);
           replyMessages = [
-            { type: "text", text: "ありがとうございます！\nあなたに合いそうな施設を探しています...少々お待ちくださいね。" },
+            { type: "text", text: "ありがとうございます！\nあなたの条件に近い施設の情報をお探ししますね。\n※現時点での参考情報です。実際の求人状況は変動しますので、詳しくは担当者が確認いたします。" },
             ...buildMatchingMessages(entry),
           ].slice(0, 5);
         } else if (nextPhase === "resume_confirm") {
@@ -3187,7 +3187,7 @@ async function processLineEvents(events, channelAccessToken, env, ctx) {
         } else if (nextPhase === "matching") {
           generateLineMatching(entry);
           replyMessages = [
-            { type: "text", text: "あなたに合いそうな施設を探しています...少々お待ちくださいね。" },
+            { type: "text", text: "あなたの条件に近い施設の情報をお探ししますね。\n※現時点での参考情報です。実際の求人状況は変動しますので、詳しくは担当者が確認いたします。" },
             ...buildMatchingMessages(entry),
           ].slice(0, 5);
         } else if (nextPhase === "matching_more") {
@@ -3360,7 +3360,7 @@ ${userText}`;
             entry.phase = "matching";
             generateLineMatching(entry);
             replyMessages = [
-              { type: "text", text: "あなたに合いそうな施設を探しています...少々お待ちくださいね。" },
+              { type: "text", text: "あなたの条件に近い施設の情報をお探ししますね。\n※現時点での参考情報です。実際の求人状況は変動しますので、詳しくは担当者が確認いたします。" },
               ...buildMatchingMessages(entry),
             ].slice(0, 5);
           } else if (nextPhase === "resume_confirm") {
@@ -3368,7 +3368,7 @@ ${userText}`;
           } else if (nextPhase === "matching") {
             generateLineMatching(entry);
             replyMessages = [
-              { type: "text", text: "あなたに合いそうな施設を探しています...少々お待ちくださいね。" },
+              { type: "text", text: "あなたの条件に近い施設の情報をお探ししますね。\n※現時点での参考情報です。実際の求人状況は変動しますので、詳しくは担当者が確認いたします。" },
               ...buildMatchingMessages(entry),
             ].slice(0, 5);
           } else {
