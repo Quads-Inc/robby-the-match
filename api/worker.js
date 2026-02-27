@@ -3049,17 +3049,30 @@ function handleFreeTextInput(text, entry) {
     return "resume_apply_edit"; // 修正適用フラグ
   }
 
-  // PC対応: テキストからpostbackデータを推定
-  for (const [keyword, postbackData] of Object.entries(TEXT_TO_POSTBACK)) {
-    if (text.includes(keyword)) {
-      entry.unexpectedTextCount = 0;
-      return handleLinePostback(postbackData, entry);
-    }
+  // resume_confirm中の自由テキスト → Quick Replyを再表示（TEXT_TO_POSTBACKに流さない）
+  if (phase === "resume_confirm") {
+    entry.unexpectedTextCount = (entry.unexpectedTextCount || 0) + 1;
+    return null;
   }
 
   // handoffフェーズ中の自由テキスト
   if (phase === "handoff") {
     return "handoff"; // ずっとhandoff
+  }
+
+  // matching中の自由テキスト → Quick Reply再表示
+  if (phase === "matching") {
+    entry.unexpectedTextCount = (entry.unexpectedTextCount || 0) + 1;
+    return null;
+  }
+
+  // PC対応: テキストからpostbackデータを推定
+  // ※ Q9/resume_edit/resume_confirm/handoff/matchingは上で処理済み
+  for (const [keyword, postbackData] of Object.entries(TEXT_TO_POSTBACK)) {
+    if (text.includes(keyword)) {
+      entry.unexpectedTextCount = 0;
+      return handleLinePostback(postbackData, entry);
+    }
   }
 
   // 想定外テキスト
