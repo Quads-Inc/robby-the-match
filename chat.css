@@ -952,10 +952,29 @@
   -webkit-user-select: all;
 }
 
+.handoff-code-copy {
+  display: inline-block;
+  padding: 6px 16px;
+  background: #5B787D;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.handoff-code-copy:hover {
+  background: #4A6368;
+}
+
 .handoff-code-note {
   font-size: 0.68rem;
   color: #A0A0A0;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 /* ---------- Body scroll lock (mobile) ---------- */
