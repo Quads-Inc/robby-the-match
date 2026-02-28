@@ -46,6 +46,11 @@ fi
 
 echo "[INFO] SNS自動投稿 v5.0 開始" >> "$LOG"
 
+# ランダム遅延（0-25分）でbot検出を回避
+RANDOM_DELAY=$((RANDOM % 1500))
+echo "[INFO] ランダム遅延: ${RANDOM_DELAY}秒" >> "$LOG"
+sleep $RANDOM_DELAY
+
 # エージェント状態更新
 update_agent_state "sns_poster" "running"
 

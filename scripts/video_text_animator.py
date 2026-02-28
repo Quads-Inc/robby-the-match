@@ -28,7 +28,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 
 PROJECT_DIR = Path(__file__).parent.parent
 BGM_DIR = PROJECT_DIR / "content" / "bgm"
@@ -135,21 +135,167 @@ def ease_in_out(t):
     return 1 - (-2 * t + 2) ** 2 / 2
 
 
+def ease_out_back(t):
+    """Ease-out with overshoot (bouncy pop effect)."""
+    c1 = 1.70158
+    c3 = c1 + 1
+    return 1 + c3 * pow(t - 1, 3) + c1 * pow(t - 1, 2)
+
+
+def ease_out_bounce(t):
+    """Ease-out with bounce effect."""
+    n1 = 7.5625
+    d1 = 2.75
+    if t < 1 / d1:
+        return n1 * t * t
+    elif t < 2 / d1:
+        t -= 1.5 / d1
+        return n1 * t * t + 0.75
+    elif t < 2.5 / d1:
+        t -= 2.25 / d1
+        return n1 * t * t + 0.9375
+    else:
+        t -= 2.625 / d1
+        return n1 * t * t + 0.984375
+
+
+# ============================================================
+# Glow + Transition helpers
+# ============================================================
+
+# Default accent colors for glow by category theme
+_GLOW_ACCENT_COLORS = {
+    "あるある": (255, 100, 150),      # warm pink
+    "転職": (100, 180, 255),          # cool blue
+    "給与": (255, 200, 80),           # gold
+    "default": (180, 140, 255),       # soft purple
+}
+
+
+def _apply_glow(frame_rgba, overlay, dark=True, accent_color=None):
+    """Apply glow effect: colored glow for dark slides, white glow for light.
+
+    Args:
+        frame_rgba: Base frame as RGBA
+        overlay: Text overlay as RGBA (transparent bg with text)
+        dark: Whether the slide is dark-themed
+        accent_color: RGB tuple for glow color on dark slides
+
+    Returns:
+        Composited RGBA frame with glow + sharp text
+    """
+    if dark:
+        radius = 15
+        glow = overlay.copy()
+        if accent_color:
+            # Use overlay alpha as mask to tint the glow with accent color
+            glow = Image.composite(
+                Image.new("RGBA", overlay.size, (*accent_color, 255)),
+                Image.new("RGBA", overlay.size, (0, 0, 0, 0)),
+                glow.split()[3],
+            )
+        glow = glow.filter(ImageFilter.GaussianBlur(radius=radius))
+        frame_rgba = Image.alpha_composite(frame_rgba, glow)
+        frame_rgba = Image.alpha_composite(frame_rgba, overlay)
+    else:
+        radius = 8
+        # White glow for light slides
+        white_glow = Image.composite(
+            Image.new("RGBA", overlay.size, (255, 255, 255, 255)),
+            Image.new("RGBA", overlay.size, (0, 0, 0, 0)),
+            overlay.split()[3],
+        )
+        white_glow = white_glow.filter(ImageFilter.GaussianBlur(radius=radius))
+        frame_rgba = Image.alpha_composite(frame_rgba, white_glow)
+        frame_rgba = Image.alpha_composite(frame_rgba, overlay)
+    return frame_rgba
+
+
+def directional_wipe(frame1, frame2, progress, direction="left"):
+    """Directional wipe transition between two frames.
+
+    Args:
+        frame1: Outgoing frame (RGB)
+        frame2: Incoming frame (RGB)
+        progress: 0.0 to 1.0
+        direction: 'left' or 'up'
+
+    Returns:
+        Blended RGB frame
+    """
+    w, h = frame1.size
+    mask = Image.new("L", (w, h), 0)
+    mask_draw = ImageDraw.Draw(mask)
+    p = ease_in_out(progress)
+    if direction == "left":
+        mask_draw.rectangle([(0, 0), (int(w * p), h)], fill=255)
+    elif direction == "up":
+        mask_draw.rectangle([(0, 0), (w, int(h * p))], fill=255)
+    else:
+        # fallback to left
+        mask_draw.rectangle([(0, 0), (int(w * p), h)], fill=255)
+    # Soften the wipe edge
+    mask = mask.filter(ImageFilter.GaussianBlur(radius=30))
+    return Image.composite(frame2, frame1, mask)
+
+
+def _color_grade(frame):
+    """Apply subtle warmth / saturation boost to final frame."""
+    enhancer = ImageEnhance.Color(frame)
+    return enhancer.enhance(1.06)
+
+
 # ============================================================
 # Frame renderers for each slide type
 # ============================================================
 
-def render_hook_frame(bg_img, slide_meta, font_path, t, duration):
-    """Render a single frame of the Hook slide with zoom-in animation."""
+def render_hook_frame(bg_img, slide_meta, font_path, t, duration, slide_index=0):
+    """Render a single frame of the Hook slide with smooth zoom-in animation.
+
+    P1b fix: Render text at max size (1.4x) once, then scale layer down
+    per frame using LANCZOS to avoid pixel jitter from font-size changes.
+    P1a: Glow effect applied to text overlay.
+    """
     frame = bg_img.copy()
-    draw = ImageDraw.Draw(frame)
+    w, h = frame.size
 
     text = slide_meta["text"]
     base_size = slide_meta.get("font_size", 120)
     color = tuple(slide_meta.get("color", [255, 255, 255]))
-    w, h = frame.size
+    dark = slide_meta.get("dark", True)
+    category = slide_meta.get("category", "default")
+    accent = _GLOW_ACCENT_COLORS.get(category, _GLOW_ACCENT_COLORS["default"])
 
-    # Zoom-in: 1.4x → 1.0x over 0.5s
+    # --- Render text at MAXIMUM size on an oversized canvas (once per concept) ---
+    max_font_size = int(base_size * 1.4)
+    font = load_font(font_path, max_font_size)
+
+    # Oversized canvas (2x) so scaling down keeps quality
+    canvas_2w = w * 2
+    canvas_2h = h * 2
+    max_text_w = canvas_2w - 240  # safe margins scaled up
+    lines = wrap_text(text, font, max_text_w)
+    line_height = int(max_font_size * 1.3)
+    total_text_h = line_height * len(lines)
+
+    text_layer = Image.new("RGBA", (canvas_2w, canvas_2h), (0, 0, 0, 0))
+    tdraw = ImageDraw.Draw(text_layer)
+
+    # Fade-in: 0→255 over 0.4s
+    fade_dur = 0.4
+    alpha = min(255, int(255 * min(t / fade_dur, 1.0)))
+
+    for i, line in enumerate(lines):
+        bbox = font.getbbox(line)
+        tw = bbox[2] - bbox[0]
+        x = (canvas_2w - tw) // 2
+        y = (canvas_2h - total_text_h) // 2 + i * line_height
+        # Shadow
+        tdraw.text((x + 6, y + 6), line, fill=(0, 0, 0, alpha // 2), font=font)
+        # Main text
+        tdraw.text((x, y), line, fill=(*color, alpha), font=font)
+
+    # --- Zoom-in: scale 1.4 → 1.0 over 0.5s ---
     zoom_dur = 0.5
     if t < zoom_dur:
         progress = ease_out_cubic(t / zoom_dur)
@@ -157,35 +303,27 @@ def render_hook_frame(bg_img, slide_meta, font_path, t, duration):
     else:
         scale = 1.0
 
-    # Fade-in: 0→255 over 0.4s
-    fade_dur = 0.4
-    alpha = min(255, int(255 * min(t / fade_dur, 1.0)))
+    # Scale the pre-rendered text layer
+    # At scale=1.4, show full oversized canvas → at scale=1.0, show 1/1.4 of it
+    new_w = int(canvas_2w * (1.0 / 1.4) * scale)
+    new_h = int(canvas_2h * (1.0 / 1.4) * scale)
+    new_w = max(1, new_w)
+    new_h = max(1, new_h)
+    scaled = text_layer.resize((new_w, new_h), Image.LANCZOS)
 
-    font_size = max(20, int(base_size * scale))
-    font = load_font(font_path, font_size)
+    # Center scaled layer onto frame-sized overlay
+    overlay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    ox = (w - new_w) // 2
+    oy = (h - new_h) // 2
+    overlay.paste(scaled, (ox, oy), scaled)
 
-    # Safe margin (60px each side)
-    max_text_w = w - 120
-    lines = wrap_text(text, font, max_text_w)
-    line_height = int(font_size * 1.3)
-    total_h = line_height * len(lines)
+    # Apply glow
+    frame_rgba = frame.convert("RGBA")
+    frame_rgba = _apply_glow(frame_rgba, overlay, dark=dark, accent_color=accent)
 
-    overlay = Image.new("RGBA", frame.size, (0, 0, 0, 0))
-    odraw = ImageDraw.Draw(overlay)
-
-    for i, line in enumerate(lines):
-        bbox = font.getbbox(line)
-        tw = bbox[2] - bbox[0]
-        x = (w - tw) // 2
-        y = (h - total_h) // 2 + i * line_height
-        # Shadow
-        odraw.text((x + 3, y + 3), line, fill=(0, 0, 0, alpha // 2), font=font)
-        # Main text
-        odraw.text((x, y), line, fill=(*color, alpha), font=font)
-
-    frame = frame.convert("RGBA")
-    frame = Image.alpha_composite(frame, overlay)
-    return frame.convert("RGB")
+    # Color grading
+    result = _color_grade(frame_rgba.convert("RGB"))
+    return result
 
 
 def _draw_card_bg(odraw, x, y, w, h, dark, alpha):
@@ -204,8 +342,15 @@ def _draw_card_bg(odraw, x, y, w, h, dark, alpha):
     odraw.ellipse([(x + w - 2*r, y + h - 2*r), (x + w, y + h)], fill=fill)
 
 
-def render_content_frame(bg_img, slide_meta, font_path, t, duration):
-    """Render a single frame of Content slide with staggered text reveal."""
+def render_content_frame(bg_img, slide_meta, font_path, t, duration, slide_index=0):
+    """Render a single frame of Content slide with animation variety.
+
+    P2a: Three animation styles selected by slide_index:
+      - Style 0: Stagger fade + slide-up (original)
+      - Style 1: Slide-in from left
+      - Style 2: Scale pop (ease_out_back)
+    P1a: Glow effect applied to text overlay.
+    """
     frame = bg_img.copy()
 
     color = tuple(slide_meta.get("color", [255, 255, 255]))
@@ -218,6 +363,11 @@ def render_content_frame(bg_img, slide_meta, font_path, t, duration):
     body_size = slide_meta.get("body_font_size", 44)  # slightly smaller for readability
     hl_num = slide_meta.get("highlight_number")
     dark = slide_meta.get("dark", True)
+    category = slide_meta.get("category", "default")
+    accent = _GLOW_ACCENT_COLORS.get(category, _GLOW_ACCENT_COLORS["default"])
+
+    # Select animation style based on slide index
+    anim_style = slide_index % 3  # 0=stagger, 1=slide_left, 2=scale_pop
 
     overlay = Image.new("RGBA", frame.size, (0, 0, 0, 0))
     odraw = ImageDraw.Draw(overlay)
@@ -285,39 +435,97 @@ def render_content_frame(bg_img, slide_meta, font_path, t, duration):
 
     # Decorative accent line under title
     if title_lines and card_alpha > 50:
-        accent_color = (*color[:3], min(card_alpha, 120))
+        accent_line_color = (*color[:3], min(card_alpha, 120))
         line_y = cursor_y - title_body_gap // 2
         odraw.rectangle(
             [(card_x + card_pad, line_y), (card_x + card_pad + 60, line_y + 3)],
-            fill=accent_color,
+            fill=accent_line_color,
         )
 
-    # --- Body lines staggered ---
+    # --- Body lines with animation variety ---
     body_base_delay = 0.35
-    line_delay = 0.15
     fade_time = 0.3
     body_y = cursor_y
+    w = frame.size[0]
 
     for i, (line, is_para_start) in enumerate(body_items[:8]):
         if is_para_start:
             body_y += para_gap  # extra gap before new paragraph
 
-        line_start = body_base_delay + i * line_delay
-        if t < line_start:
-            body_y += body_line_h
-            continue
-        line_t = t - line_start
-        alpha = min(255, int(255 * min(line_t / fade_time, 1.0)))
+        if anim_style == 0:
+            # Style A: Stagger fade + slide-up (original)
+            line_delay = 0.15
+            line_start = body_base_delay + i * line_delay
+            if t < line_start:
+                body_y += body_line_h
+                continue
+            line_t = t - line_start
+            alpha = min(255, int(255 * min(line_t / fade_time, 1.0)))
+            slide_progress = ease_out_cubic(min(line_t / fade_time, 1.0))
+            y_offset = int(15 * (1 - slide_progress))
+            x_offset = 0
 
-        # Slide up effect
-        slide_progress = ease_out_cubic(min(line_t / fade_time, 1.0))
-        y_offset = int(15 * (1 - slide_progress))
+            lx = card_x + card_pad + x_offset
+            ly = body_y + y_offset
 
-        lx = card_x + card_pad
-        ly = body_y + y_offset
+            odraw.text((lx + 2, ly + 2), line, fill=(0, 0, 0, alpha // 3), font=font_body)
+            odraw.text((lx, ly), line, fill=(*color, alpha), font=font_body)
 
-        odraw.text((lx + 2, ly + 2), line, fill=(0, 0, 0, alpha // 3), font=font_body)
-        odraw.text((lx, ly), line, fill=(*color, alpha), font=font_body)
+        elif anim_style == 1:
+            # Style B: Slide-in from left
+            line_delay = 0.15
+            line_start = body_base_delay + i * line_delay
+            if t < line_start:
+                body_y += body_line_h
+                continue
+            line_t = t - line_start
+            alpha = min(255, int(255 * min(line_t / fade_time, 1.0)))
+            slide_progress = ease_out_cubic(min(line_t / 0.4, 1.0))
+            x_offset = int(-200 * (1 - slide_progress))
+
+            lx = card_x + card_pad + x_offset
+            ly = body_y
+
+            odraw.text((lx + 2, ly + 2), line, fill=(0, 0, 0, alpha // 3), font=font_body)
+            odraw.text((lx, ly), line, fill=(*color, alpha), font=font_body)
+
+        elif anim_style == 2:
+            # Style C: Scale pop (ease_out_back)
+            line_delay = 0.2
+            line_start = body_base_delay + i * line_delay
+            if t < line_start:
+                body_y += body_line_h
+                continue
+            line_t = t - line_start
+            alpha = min(255, int(255 * min(line_t / fade_time, 1.0)))
+
+            # Scale from 0.5x to 1.0x with overshoot
+            scale_progress = min(line_t / 0.35, 1.0)
+            scale = 0.5 + 0.5 * ease_out_back(scale_progress)
+            # Clamp scale to avoid excessive overshoot
+            scale = min(scale, 1.15)
+
+            # Render line on a temporary layer, then scale it
+            lx = card_x + card_pad
+            line_bbox = font_body.getbbox(line)
+            line_w = line_bbox[2] - line_bbox[0]
+            line_h_px = line_bbox[3] - line_bbox[1]
+            pad = 20
+            line_layer = Image.new("RGBA", (line_w + pad * 2, line_h_px + pad * 2), (0, 0, 0, 0))
+            ll_draw = ImageDraw.Draw(line_layer)
+            ll_draw.text((pad + 2, pad + 2), line, fill=(0, 0, 0, alpha // 3), font=font_body)
+            ll_draw.text((pad, pad), line, fill=(*color, alpha), font=font_body)
+
+            # Scale the line layer
+            new_lw = max(1, int(line_layer.width * scale))
+            new_lh = max(1, int(line_layer.height * scale))
+            scaled_line = line_layer.resize((new_lw, new_lh), Image.LANCZOS)
+
+            # Center the scaled line at the original position
+            paste_x = lx - (new_lw - line_layer.width) // 2 - pad
+            paste_y = body_y - (new_lh - line_layer.height) // 2
+
+            overlay.paste(scaled_line, (paste_x, paste_y), scaled_line)
 
         body_y += body_line_h
 
@@ -331,47 +539,73 @@ def render_content_frame(bg_img, slide_meta, font_path, t, duration):
             hl_text = str(hl_num)
             hl_bbox = font_hl.getbbox(hl_text)
             hl_w = hl_bbox[2] - hl_bbox[0]
-            hl_x = (frame.size[0] - hl_w) // 2
+            hl_x = (w - hl_w) // 2
             hl_y = body_y + 20
 
+            # P1b fix: Render at max size and scale down
+            max_hl_size = int(96 * 1.3)
+            font_hl_max = load_font(font_path, max_hl_size)
+            hl_layer = Image.new("RGBA", (w, 200), (0, 0, 0, 0))
+            hl_draw = ImageDraw.Draw(hl_layer)
+            hl_bbox_max = font_hl_max.getbbox(hl_text)
+            hl_w_max = hl_bbox_max[2] - hl_bbox_max[0]
+            hl_draw.text(((w - hl_w_max) // 2, 20), hl_text,
+                         fill=(*color, hl_alpha), font=font_hl_max)
+
             scale_progress = ease_out_cubic(min(hl_t / 0.3, 1.0))
-            hl_font_size = int(96 * (1.3 - 0.3 * scale_progress))
-            font_hl_scaled = load_font(font_path, hl_font_size)
+            hl_scale = 1.3 - 0.3 * scale_progress  # 1.3 → 1.0
+            new_hl_w = max(1, int(w * (1.0 / 1.3) * hl_scale))
+            new_hl_h = max(1, int(200 * (1.0 / 1.3) * hl_scale))
+            scaled_hl = hl_layer.resize((new_hl_w, new_hl_h), Image.LANCZOS)
 
-            odraw.text((hl_x, hl_y), hl_text, fill=(*color, hl_alpha), font=font_hl_scaled)
+            hl_paste_x = (w - new_hl_w) // 2
+            hl_paste_y = hl_y - (new_hl_h - 200) // 2
+            overlay.paste(scaled_hl, (hl_paste_x, hl_paste_y), scaled_hl)
 
-    frame = frame.convert("RGBA")
-    frame = Image.alpha_composite(frame, overlay)
-    return frame.convert("RGB")
+    # Apply glow + composite
+    frame_rgba = frame.convert("RGBA")
+    frame_rgba = _apply_glow(frame_rgba, overlay, dark=dark, accent_color=accent)
+
+    # Color grading
+    result = _color_grade(frame_rgba.convert("RGB"))
+    return result
 
 
-def render_cta_frame(bg_img, slide_meta, font_path, t, duration):
-    """Render CTA frame with pulse animation."""
+def render_cta_frame(bg_img, slide_meta, font_path, t, duration, slide_index=0):
+    """Render CTA frame with smooth pulse animation.
+
+    P1b fix: Render text at max pulse size, then scale layer for pulse
+    instead of changing font size per frame.
+    P1a: Glow effect applied.
+    """
     frame = bg_img.copy()
+    w, h = frame.size
 
     texts = slide_meta.get("texts", ["保存してね"])
     base_size = slide_meta.get("font_size", 56)
+    dark = slide_meta.get("dark", True)
+    category = slide_meta.get("category", "default")
+    accent = _GLOW_ACCENT_COLORS.get(category, _GLOW_ACCENT_COLORS["default"])
 
     # Fade in over 0.4s
     fade_dur = 0.4
     alpha = min(255, int(255 * min(t / fade_dur, 1.0)))
 
-    # Pulse after fade: ±3px at 1.5Hz
+    # Pulse after fade: ±3px equivalent scale at 1.5Hz
+    max_pulse_font = base_size + 3  # max size during pulse
     if t > fade_dur:
-        pulse = 3 * math.sin(2 * math.pi * 1.5 * (t - fade_dur))
+        pulse_val = math.sin(2 * math.pi * 1.5 * (t - fade_dur))
+        # scale ranges from (base-3)/max to (base+3)/max
+        scale = (base_size + 3 * pulse_val) / max_pulse_font
     else:
-        pulse = 0
+        scale = base_size / max_pulse_font
 
-    overlay = Image.new("RGBA", frame.size, (0, 0, 0, 0))
-    odraw = ImageDraw.Draw(overlay)
-    w, h = frame.size
-
+    # Render text at MAX pulse size on a text layer
+    font = load_font(font_path, max_pulse_font)
     max_text_w = w - 160
-    font_size = max(20, int(base_size + pulse))
-    font = load_font(font_path, font_size)
-    line_h = int(font_size * 1.8)
+    line_h = int(max_pulse_font * 1.8)
 
-    # Pre-wrap all text lines
+    # Pre-wrap all text lines at max size
     all_lines = []
     para_gaps = []  # indices where paragraph gaps occur
     for ti, text in enumerate(texts):
@@ -384,6 +618,10 @@ def render_cta_frame(bg_img, slide_meta, font_path, t, duration):
     total_h = len(all_lines) * line_h + len(para_gaps) * int(line_h * 0.5)
     start_y = (h - total_h) // 2 - 40  # slightly above center
 
+    # Draw on oversized text layer
+    text_layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    tdraw = ImageDraw.Draw(text_layer)
+
     current_y = start_y
     for i, wl in enumerate(all_lines):
         if i in para_gaps:
@@ -393,8 +631,8 @@ def render_cta_frame(bg_img, slide_meta, font_path, t, duration):
         tw = bbox[2] - bbox[0]
         x = (w - tw) // 2
 
-        odraw.text((x + 2, current_y + 2), wl, fill=(0, 0, 0, alpha // 3), font=font)
-        odraw.text((x, current_y), wl, fill=(255, 255, 255, alpha), font=font)
+        tdraw.text((x + 2, current_y + 2), wl, fill=(0, 0, 0, alpha // 3), font=font)
+        tdraw.text((x, current_y), wl, fill=(255, 255, 255, alpha), font=font)
         current_y += line_h
 
     # Brand watermark (bottom area)
@@ -403,11 +641,27 @@ def render_cta_frame(bg_img, slide_meta, font_path, t, duration):
     brand_bbox = font_brand.getbbox(brand)
     brand_w = brand_bbox[2] - brand_bbox[0]
     brand_y = h - 520  # above TikTok bottom UI
-    odraw.text(((w - brand_w) // 2, brand_y), brand, fill=(255, 255, 255, int(alpha * 0.5)), font=font_brand)
+    tdraw.text(((w - brand_w) // 2, brand_y), brand,
+               fill=(255, 255, 255, int(alpha * 0.5)), font=font_brand)
 
-    frame = frame.convert("RGBA")
-    frame = Image.alpha_composite(frame, overlay)
-    return frame.convert("RGB")
+    # Scale the text layer for pulse effect
+    new_w = max(1, int(w * scale))
+    new_h = max(1, int(h * scale))
+    scaled = text_layer.resize((new_w, new_h), Image.LANCZOS)
+
+    # Center scaled layer
+    overlay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    ox = (w - new_w) // 2
+    oy = (h - new_h) // 2
+    overlay.paste(scaled, (ox, oy), scaled)
+
+    # Apply glow
+    frame_rgba = frame.convert("RGBA")
+    frame_rgba = _apply_glow(frame_rgba, overlay, dark=dark, accent_color=accent)
+
+    # Color grading
+    result = _color_grade(frame_rgba.convert("RGB"))
+    return result
 
 
 # ============================================================
@@ -460,8 +714,12 @@ def generate_animated_video(metadata_path, output_path=None, with_bgm=True):
         tmpdir = Path(tmpdir)
         frame_pattern = tmpdir / "frame_%05d.jpg"
 
-        # Transition: cross-fade between slides (0.3s overlap)
+        # Transition: cross-fade / directional wipe between slides (0.3s overlap)
         xfade_dur = 0.3
+
+        # P2b: Transition type per slide boundary
+        # Pattern: fade → wipe_left → wipe_up → fade → ...
+        _TRANSITION_TYPES = ["fade", "wipe_left", "wipe_up"]
 
         for frame_idx in range(total_frames):
             t = frame_idx / FPS
@@ -487,22 +745,33 @@ def generate_animated_video(metadata_path, output_path=None, with_bgm=True):
             time_to_end = (slide_timings[slide_idx][0] + cur_dur) - t
 
             if slide_idx < len(slides_meta) - 1 and time_to_end < xfade_dur:
-                # Crossfade: blend current and next slide
+                # Transition zone: blend current and next slide
                 next_idx = slide_idx + 1
                 blend_factor = 1.0 - (time_to_end / xfade_dur)
 
                 # Render current frame
-                frame1 = _render_slide_frame(bg, sm, font_path, local_t, dur)
+                frame1 = _render_slide_frame(bg, sm, font_path, local_t, dur,
+                                             slide_index=slide_idx)
                 # Render next frame (t=0 for next)
                 next_bg = backgrounds[next_idx]
                 next_sm = slides_meta[next_idx]
                 next_dur = next_sm.get("duration", 3.0)
-                frame2 = _render_slide_frame(next_bg, next_sm, font_path, 0, next_dur)
+                frame2 = _render_slide_frame(next_bg, next_sm, font_path, 0, next_dur,
+                                             slide_index=next_idx)
 
-                # Blend
-                frame = Image.blend(frame1, frame2, blend_factor)
+                # P2b: Select transition type
+                trans_type = _TRANSITION_TYPES[slide_idx % len(_TRANSITION_TYPES)]
+                if trans_type == "fade":
+                    frame = Image.blend(frame1, frame2, blend_factor)
+                elif trans_type == "wipe_left":
+                    frame = directional_wipe(frame1, frame2, blend_factor, direction="left")
+                elif trans_type == "wipe_up":
+                    frame = directional_wipe(frame1, frame2, blend_factor, direction="up")
+                else:
+                    frame = Image.blend(frame1, frame2, blend_factor)
             else:
-                frame = _render_slide_frame(bg, sm, font_path, local_t, dur)
+                frame = _render_slide_frame(bg, sm, font_path, local_t, dur,
+                                            slide_index=slide_idx)
 
             # Save frame
             frame_path = tmpdir / f"frame_{frame_idx:05d}.jpg"
@@ -526,8 +795,12 @@ def generate_animated_video(metadata_path, output_path=None, with_bgm=True):
 
         cmd.extend([
             "-c:v", "libx264",
+            "-profile:v", "high",
+            "-level", "4.2",
             "-preset", "medium",
             "-crf", "18",
+            "-maxrate", "15M",
+            "-bufsize", "20M",
             "-pix_fmt", "yuv420p",
             "-r", str(FPS),
             "-movflags", "+faststart",
@@ -552,15 +825,15 @@ def generate_animated_video(metadata_path, output_path=None, with_bgm=True):
     return str(output_path)
 
 
-def _render_slide_frame(bg, slide_meta, font_path, t, duration):
+def _render_slide_frame(bg, slide_meta, font_path, t, duration, slide_index=0):
     """Dispatch to the correct renderer based on slide type."""
     slide_type = slide_meta.get("type", "content")
     if slide_type == "hook":
-        return render_hook_frame(bg, slide_meta, font_path, t, duration)
+        return render_hook_frame(bg, slide_meta, font_path, t, duration, slide_index=slide_index)
     elif slide_type == "cta":
-        return render_cta_frame(bg, slide_meta, font_path, t, duration)
+        return render_cta_frame(bg, slide_meta, font_path, t, duration, slide_index=slide_index)
     else:
-        return render_content_frame(bg, slide_meta, font_path, t, duration)
+        return render_content_frame(bg, slide_meta, font_path, t, duration, slide_index=slide_index)
 
 
 # ============================================================

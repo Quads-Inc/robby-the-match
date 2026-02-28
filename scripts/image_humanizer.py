@@ -89,6 +89,23 @@ DEVICE_PROFILES = [
 
 
 # ============================================================
+# AI Metadata Stripping (C2PA/IPTC/XMP removal)
+# ============================================================
+
+def strip_ai_metadata(img):
+    """C2PA/IPTC/XMPメタデータを完全除去（AI検出回避）
+
+    Re-create image from pixel data only, which strips ALL metadata
+    including C2PA provenance, IPTC, XMP, and any AI generation markers.
+    This must be called BEFORE any other transformations.
+    """
+    data = list(img.getdata())
+    clean = Image.new(img.mode, img.size)
+    clean.putdata(data)
+    return clean
+
+
+# ============================================================
 # Noise generation
 # ============================================================
 
@@ -235,6 +252,9 @@ def humanize_image(input_path, output_path, intensity="medium"):
         intensity: "light", "medium", or "heavy"
     """
     img = Image.open(input_path)
+
+    # Step 0: Strip ALL metadata (C2PA/IPTC/XMP) — must be first
+    img = strip_ai_metadata(img)
 
     # Ensure RGB mode
     if img.mode == "RGBA":

@@ -30,6 +30,7 @@ import os
 import random
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime
 from pathlib import Path
@@ -85,6 +86,32 @@ DEVICE_PROFILES = [
 # Utilities
 # ============================================================
 
+def atomic_json_write(filepath, data, indent=2):
+    """アトミックJSON書き込み（書き込み中クラッシュによるデータ破損を防止）"""
+    filepath = Path(filepath)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        # Write to temp file in same directory (same filesystem for atomic rename)
+        fd, tmp_path = tempfile.mkstemp(
+            dir=filepath.parent,
+            suffix='.tmp',
+            prefix=filepath.stem + '_'
+        )
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=indent, ensure_ascii=False)
+            f.flush()
+            os.fsync(f.fileno())
+        # Atomic rename
+        os.replace(tmp_path, filepath)
+    except Exception:
+        # Clean up temp file on failure
+        try:
+            os.unlink(tmp_path)
+        except (OSError, UnboundLocalError):
+            pass
+        raise
+
+
 def load_env():
     """Load .env file."""
     if ENV_FILE.exists():
@@ -111,15 +138,18 @@ def slack_notify(message: str):
 def load_post_log() -> List[Dict]:
     """Load post log."""
     if POST_LOG_FILE.exists():
-        with open(POST_LOG_FILE) as f:
-            return json.load(f)
+        try:
+            with open(POST_LOG_FILE) as f:
+                return json.load(f)
+        except json.JSONDecodeError as e:
+            print(f"[WARN] post_log.json破損: {e}")
+            return []
     return []
 
 
 def save_post_log(log: List[Dict]):
-    """Save post log."""
-    with open(POST_LOG_FILE, "w") as f:
-        json.dump(log, f, indent=2, ensure_ascii=False)
+    """Save post log（アトミック書き込み）."""
+    atomic_json_write(POST_LOG_FILE, log)
 
 
 def get_ready_dirs() -> List[Path]:

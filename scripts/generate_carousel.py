@@ -6,7 +6,7 @@ generate_carousel.py -- TikTok/Instagramカルーセルスライド生成エン�
 外部画像素材不使用、プログラマティックデザイン。
 
 v3.0 改善点:
-  - スライド枚数を5枚（Hook + Content x3 + CTA）に最適化
+  - スライド枚数を8枚（Hook + Content x6 + CTA）に最適化
   - 1枚目フック: 超大文字（120pt+）、10文字以内、完全中央配置
   - カラーパレット刷新（ピンクコーラル系 / クリーンブルー系）
   - NumPyベース高速グラデーション
@@ -70,8 +70,8 @@ CONTENT_Y = SAFE_TOP
 CONTENT_W = CANVAS_W - SAFE_LEFT - SAFE_RIGHT  # 920
 CONTENT_H = CANVAS_H - SAFE_TOP - SAFE_BOTTOM  # 1520
 
-# Default slide count (Hook + 3 Content + CTA)
-DEFAULT_SLIDE_COUNT = 5
+# Default slide count (Hook + 6 Content + CTA)
+DEFAULT_SLIDE_COUNT = 8
 
 # Text constraints
 MAX_HOOK_CHARS = 10           # 1枚目は10文字以内
@@ -664,7 +664,7 @@ def generate_slide_content(
     total_slides: int = DEFAULT_SLIDE_COUNT,
 ) -> Image.Image:
     """
-    Slides 2-4 - CONTENT: Card-based layout.
+    Slides 2-7 - CONTENT: Card-based layout.
     Title at top, body in rounded card with left accent bar.
     Alternating dark/light backgrounds.
     """
@@ -1148,14 +1148,14 @@ def generate_carousel(
     reveal: dict = None,   # kept for backward compat, merged into last content slide
 ) -> list[str]:
     """
-    Generate a 5-slide carousel set (Hook + 3 Content + CTA).
+    Generate an 8-slide carousel set (Hook + 6 Content + CTA).
 
     Args:
         content_id: Unique ID (e.g. "A01")
         hook: Text for slide 1 (10 chars ideal)
         slides: List of dicts for content slides:
                 [{title, body, highlight_number?, highlight_label?}, ...]
-                Up to 3 slides used. If 4+ provided, last is merged or truncated.
+                Up to 6 slides used. If 7+ provided, last is merged or truncated.
         output_dir: Directory to save PNG files
         category: Content category for color scheme
         cta_type: "soft" or "hard"
@@ -1185,8 +1185,8 @@ def generate_carousel(
             "highlight_label": reveal.get("label"),
         })
 
-    # Limit to 3 content slides for 5-slide total
-    content_slides = content_slides[:3]
+    # Limit to 6 content slides for 8-slide total
+    content_slides = content_slides[:6]
 
     total_slides_count = 1 + len(content_slides) + 1  # Hook + Content + CTA
     saved_paths: list[str] = []
@@ -1200,10 +1200,10 @@ def generate_carousel(
     saved_paths.append(str(p1))
     print(f"    slide 01 (HOOK): {hook[:30]}...")
 
-    # --- Slides 2-4: CONTENT (alternating dark/light) ---
+    # --- Slides 2-7: CONTENT (alternating dark/light) ---
     for i, slide_data in enumerate(content_slides):
         slide_num = i + 2
-        dark = (i % 2 == 0)  # 2=dark, 3=light, 4=dark
+        dark = (i % 2 == 0)  # 2=dark, 3=light, 4=dark, 5=light, 6=dark, 7=light
 
         title = slide_data.get("title", "")
         body = slide_data.get("body", "")
@@ -1311,10 +1311,10 @@ def _extract_carousel_content(json_path: str) -> Optional[dict]:
 
     hook = data.get("hook", slide_texts[0])
 
-    # Build content slides (up to 3 for 5-slide format)
+    # Build content slides (up to 6 for 8-slide format)
     middle = slide_texts[1:]
     content_slides: list[dict] = []
-    for i in range(min(3, len(middle))):
+    for i in range(min(6, len(middle))):
         text = middle[i]
         title, body = _split_title_body(text)
         content_slides.append({"title": title, "body": body})
@@ -1478,7 +1478,7 @@ def generate_carousel_backgrounds(
     safe = SAFE_ZONES.get(platform, SAFE_ZONES["tiktok"])
 
     theme = CATEGORY_THEMES.get(category, DEFAULT_THEME)
-    content_slides = list(slides)[:3]
+    content_slides = list(slides)[:6]
     total = 1 + len(content_slides) + 1
 
     bg_paths = []
@@ -1599,7 +1599,7 @@ def generate_carousel_backgrounds(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="TikTok/Instagram carousel slide generator v3.0 (5 slides)",
+        description="TikTok/Instagram carousel slide generator v3.0 (8 slides)",
     )
     parser.add_argument("--demo", action="store_true", help="Generate a demo carousel set for review")
     parser.add_argument("--demo-aruaru", action="store_true", help="Generate aruaru-themed demo")

@@ -19,8 +19,10 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 from datetime import datetime
@@ -35,6 +37,36 @@ ENV_FILE = PROJECT_DIR / ".env"
 VENV_PYTHON = PROJECT_DIR / ".venv" / "bin" / "python3"
 TIKTOK_USERNAME = "robby15051"
 LOG_DIR = PROJECT_DIR / "logs"
+
+
+# ============================================================
+# アトミック書き込みユーティリティ
+# ============================================================
+
+def atomic_json_write(filepath, data, indent=2):
+    """アトミックJSON書き込み（書き込み中クラッシュによるデータ破損を防止）"""
+    filepath = Path(filepath)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        # Write to temp file in same directory (same filesystem for atomic rename)
+        fd, tmp_path = tempfile.mkstemp(
+            dir=filepath.parent,
+            suffix='.tmp',
+            prefix=filepath.stem + '_'
+        )
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=indent, ensure_ascii=False)
+            f.flush()
+            os.fsync(f.fileno())
+        # Atomic rename
+        os.replace(tmp_path, filepath)
+    except Exception:
+        # Clean up temp file on failure
+        try:
+            os.unlink(tmp_path)
+        except (OSError, UnboundLocalError):
+            pass
+        raise
 
 
 def load_env():
@@ -134,8 +166,7 @@ def record_upload_attempt(content_id, success, method="tiktokautouploader", erro
     # 最新100件のみ保持
     if len(log["uploads"]) > 100:
         log["uploads"] = log["uploads"][-100:]
-    with open(UPLOAD_VERIFICATION_FILE, 'w') as f:
-        json.dump(log, f, indent=2, ensure_ascii=False)
+    atomic_json_write(UPLOAD_VERIFICATION_FILE, log)
 
 
 # ============================================================
@@ -257,26 +288,27 @@ def verify_post(pre_count, max_wait=120):
 def _get_slide_durations(n):
     """スライド枚数に応じた表示時間を返す（秒）
 
-    5枚構成（Hook + Content x3 + CTA）に最適化:
-      1枚目（Hook）:    2.5秒 — 短いフックで引き込む
-      2-4枚目（Content）: 3.5秒 — 情報をしっかり読ませる
-      5枚目（CTA）:     3.0秒 — CTAを認識させてアクション促す
-      トランジション:    0.5秒 x 4 = 2.0秒
-      合計: 約16秒
+    8枚構成（Hook + Content x6 + CTA）に最適化:
+      1枚目（Hook）:    3.0秒 — フックを認識させる時間
+      2-7枚目（Content）: 4.0秒 — 情報をしっかり読ませる
+      8枚目（CTA）:     4.0秒 — CTAを認識させてアクション促す
+      トランジション:    0.5秒 x 7 = 3.5秒
+      合計: 約34.5秒（30-45秒ターゲット内）
 
-    5枚以外の場合も汎用的に動作する。
+    TikTok 2026アルゴリズムは6-10枚・30-60秒の動画を優遇。
+    8枚以外の場合も汎用的に動作する。
     """
     if n <= 0:
         return []
     if n == 1:
         return [4.0]
     if n == 2:
-        return [2.5, 3.0]
-    # 3枚以上: 先頭2.5秒、中間3.5秒、末尾3.0秒
-    durations = [2.5]  # 1枚目（Hook）
+        return [3.0, 4.0]
+    # 3枚以上: 先頭3.0秒、中間4.0秒、末尾4.0秒
+    durations = [3.0]  # 1枚目（Hook）
     for _ in range(n - 2):
-        durations.append(3.5)  # 中間スライド（Content）
-    durations.append(3.0)  # 最終スライド（CTA）
+        durations.append(4.0)  # 中間スライド（Content）
+    durations.append(4.0)  # 最終スライド（CTA）
     return durations
 
 
@@ -309,8 +341,9 @@ _XFADE_TRANSITIONS = [
 def create_video_slideshow(slide_dir, output_path, duration_per_slide=None):
     """PNG スライドからプロ品質動画スライドショーを生成
 
-    v3.0 改善点:
-    - スライド別表示時間（フック2秒/中間3秒/CTA4秒）
+    v4.0 改善点:
+    - 8枚構成対応（Hook 3秒/Content x6 4秒/CTA 4秒 = 約34.5秒）
+    - TikTok 2026アルゴリズム最適化（6-10枚・30-60秒優遇）
     - xfadeトランジション（フェード/スライド系をランダム選択）
     - 軽量モーション（scale+crop式の微妙なズーム）
     - BGMミックス対応（content/bgm/に配置、なくても動作）
@@ -446,6 +479,8 @@ def create_video_slideshow(slide_dir, output_path, duration_per_slide=None):
         "-profile:v", "high",
         "-level", "4.2",
         "-crf", "18",
+        "-maxrate", "15M",
+        "-bufsize", "20M",
         "-preset", "medium",
         "-pix_fmt", "yuv420p",
         "-r", str(fps),
@@ -995,17 +1030,39 @@ def init_queue():
 
 
 def load_queue():
+    """キュー読み込み（破損時のバックアップ復旧付き）"""
     if not QUEUE_FILE.exists():
         print("キューファイルがありません。--init-queue で初期化してください。")
         return None
-    with open(QUEUE_FILE, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        with open(QUEUE_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        # Try backup
+        backup = QUEUE_FILE.with_suffix('.json.bak')
+        if backup.exists():
+            print(f"[WARN] キュー破損、バックアップから復旧: {e}")
+            try:
+                with open(backup, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                print("[ERROR] バックアップも破損しています")
+                return None
+        print(f"[ERROR] キュー破損、バックアップなし: {e}")
+        return None
 
 
 def save_queue(queue):
+    """キュー保存（バックアップ + アトミック書き込み）"""
     queue["updated"] = datetime.now().isoformat()
-    with open(QUEUE_FILE, 'w', encoding='utf-8') as f:
-        json.dump(queue, f, ensure_ascii=False, indent=2)
+    # Create backup of current file
+    if QUEUE_FILE.exists():
+        backup = QUEUE_FILE.with_suffix('.json.bak')
+        try:
+            shutil.copy2(QUEUE_FILE, backup)
+        except Exception:
+            pass
+    atomic_json_write(QUEUE_FILE, queue)
 
 
 def find_ready_dir_post():

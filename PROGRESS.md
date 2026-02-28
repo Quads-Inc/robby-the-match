@@ -433,3 +433,6 @@ AI Marketing PDCA:
 
 [NOTE] pending (3) < threshold (7) -- --auto で自動補充が実行されます
 
+### sns_post（20:00:00）
+SNS自動投稿: IG済6件 / 未投稿5件 (IG=0, TK=0)
+

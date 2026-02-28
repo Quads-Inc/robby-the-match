@@ -1,7 +1,7 @@
 {
   "version": 2,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-28T15:00:15.887509",
+  "updated": "2026-02-28T20:03:17.455719",
   "posts": [
     {
       "id": 1,
@@ -9,11 +9,10 @@
       "batch": "standalone",
       "slide_dir": "content/generated/20260220_A01",
       "json_path": "content/generated/test_script_A01.json",
-      "caption": "看護師の転職相談、AIに整理してもらうと説得力が違う。師長も納得の論理的説明。#看護師 #転職 #AI #看護師あるある #神奈川",
+      "caption": "看護師の転職相談、AIに整理してもらうと説得力が違う。師長も納得の論理的説明。#看護師 #転職 #看護師あるある #神奈川",
       "hashtags": [
         "#看護師",
         "#転職",
-        "#AI",
         "#看護師あるある",
         "#神奈川"
       ],
@@ -44,7 +43,6 @@
         "#看護師あるある",
         "#夜勤明け",
         "#看護師の日常",
-        "#AIやってみた",
         "#ナースロビー"
       ],
       "cta_type": "soft",
@@ -74,7 +72,6 @@
         "#看護師あるある",
         "#退職",
         "#師長",
-        "#AI",
         "#看護師転職"
       ],
       "cta_type": "soft",
@@ -301,7 +298,6 @@
       "hashtags": [
         "#看護師",
         "#お母さん",
-        "#AI",
         "#転職",
         "#相談"
       ],
@@ -345,7 +341,6 @@
         "#看護師あるある",
         "#夜勤",
         "#ナースコール",
-        "#AI",
         "#神奈川"
       ],
       "cta_type": "soft",
@@ -520,9 +515,9 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "ready",
-      "video_path": "content/temp_videos/tiktok_day5_fri_A05.mp4",
-      "posted_at": null,
+      "status": "posted",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day5_fri_A05_20260228.mp4",
+      "posted_at": "2026-02-28T20:03:17.455700",
       "tiktok_url": null,
       "error": null,
       "performance": {
@@ -543,7 +538,9 @@
           "ハッシュタグが5個以内ではない"
         ],
         "suggestion": "ハッシュタグを調整し、より具体的なCTAを追加することで、投稿の効果を高めることができる"
-      }
+      },
+      "verified": true,
+      "video_type": "animated"
     },
     {
       "id": 15,

@@ -24,6 +24,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import traceback
 from datetime import datetime, timedelta
@@ -136,6 +137,48 @@ HASHTAG_SETS = {
         ["#県西部", "#夜勤あるある", "#看護師あるある", "#ナース"],
     ],
 }
+
+# ============================================================
+# Hashtag Rotation & Validation (2026-02-28)
+# ============================================================
+
+BANNED_HASHTAGS = {"#AI", "#fyp", "#foryou", "#viral", "#foryoupage", "#AIやってみた"}
+
+
+def get_rotated_hashtags():
+    """ハッシュタグローテーション（data/hashtag_rotation.json）"""
+    rotation_file = PROJECT_DIR / "data" / "hashtag_rotation.json"
+    if rotation_file.exists():
+        try:
+            with open(rotation_file, "r", encoding="utf-8") as f:
+                rotation = json.load(f)
+            combos = rotation.get("combos", [])
+            if combos:
+                day_idx = datetime.now().timetuple().tm_yday % len(combos)
+                combo = combos[day_idx]
+                return validate_hashtags(combo["tags"])
+        except Exception as e:
+            print(f"[WARN] Failed to load hashtag rotation: {e}")
+    # Fallback
+    return ["#看護師あるある", "#看護師の日常", "#神奈川看護師", "#ナースロビー"]
+
+
+def validate_hashtags(tags):
+    """禁止タグの除去 + 個数制限"""
+    # Load banned tags from rotation file if available
+    banned = set(BANNED_HASHTAGS)
+    rotation_file = PROJECT_DIR / "data" / "hashtag_rotation.json"
+    if rotation_file.exists():
+        try:
+            with open(rotation_file, "r", encoding="utf-8") as f:
+                rotation = json.load(f)
+            for tag in rotation.get("banned_tags", []):
+                banned.add(tag)
+        except Exception:
+            pass
+    clean = [t for t in tags if t not in banned]
+    return clean[:5]  # max 5 tags
+
 
 # Content stock ideas for planning context
 # 2026-02-28 改定: アンチジェネリック基準で全面刷新
@@ -481,11 +524,41 @@ def _call_cf_ai_urllib(
 
 
 # ============================================================
+# アトミック書き込みユーティリティ
+# ============================================================
+
+def atomic_json_write(filepath, data, indent=2):
+    """アトミックJSON書き込み（書き込み中クラッシュによるデータ破損を防止）"""
+    filepath = Path(filepath)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        # Write to temp file in same directory (same filesystem for atomic rename)
+        fd, tmp_path = tempfile.mkstemp(
+            dir=filepath.parent,
+            suffix='.tmp',
+            prefix=filepath.stem + '_'
+        )
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=indent, ensure_ascii=False)
+            f.flush()
+            os.fsync(f.fileno())
+        # Atomic rename
+        os.replace(tmp_path, filepath)
+    except Exception:
+        # Clean up temp file on failure
+        try:
+            os.unlink(tmp_path)
+        except (OSError, UnboundLocalError):
+            pass
+        raise
+
+
+# ============================================================
 # Queue I/O
 # ============================================================
 
 def load_queue() -> dict:
-    """Load posting_queue.json."""
+    """Load posting_queue.json（破損時のバックアップ復旧付き）."""
     if not QUEUE_PATH.exists():
         return {
             "version": 2,
@@ -493,16 +566,39 @@ def load_queue() -> dict:
             "updated": None,
             "posts": [],
         }
-    with open(QUEUE_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    try:
+        with open(QUEUE_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        backup = QUEUE_PATH.with_suffix('.json.bak')
+        if backup.exists():
+            print(f"[WARN] キュー破損、バックアップから復旧: {e}")
+            try:
+                with open(backup, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                print("[ERROR] バックアップも破損しています")
+        else:
+            print(f"[ERROR] キュー破損、バックアップなし: {e}")
+        return {
+            "version": 2,
+            "created": datetime.now().isoformat(),
+            "updated": None,
+            "posts": [],
+        }
 
 
 def save_queue(queue: dict):
-    """Save posting_queue.json."""
+    """Save posting_queue.json（バックアップ + アトミック書き込み）."""
     queue["updated"] = datetime.now().isoformat()
-    QUEUE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(QUEUE_PATH, "w", encoding="utf-8") as f:
-        json.dump(queue, f, ensure_ascii=False, indent=2)
+    # Create backup of current file
+    if QUEUE_PATH.exists():
+        backup = QUEUE_PATH.with_suffix('.json.bak')
+        try:
+            shutil.copy2(QUEUE_PATH, backup)
+        except Exception:
+            pass
+    atomic_json_write(QUEUE_PATH, queue)
 
 
 def load_plan() -> dict:
@@ -514,11 +610,9 @@ def load_plan() -> dict:
 
 
 def save_plan(plan: dict):
-    """Save content_plan.json."""
+    """Save content_plan.json（アトミック書き込み）."""
     plan["updated"] = datetime.now().isoformat()
-    PLAN_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(PLAN_PATH, "w", encoding="utf-8") as f:
-        json.dump(plan, f, ensure_ascii=False, indent=2)
+    atomic_json_write(PLAN_PATH, plan)
 
 
 def get_next_queue_id(queue: dict) -> int:
@@ -588,12 +682,15 @@ else:
 すべての投稿に「看護師のリアル × 鋭い洞察 × 地域」の3要素を含めること。
 地域名: 神奈川県 / 小田原 / 県西部 / 湘南 / 平塚 / 秦野 / 南足柄
 
-## スライド構成（5枚 — 映像作品として設計）
-1枚目: Hook — 認知的不協和、違和感（10文字以内）
-2枚目: Escalation — フックの張力を強める展開。超具体的シーン+地域
-3枚目: Shift — 視点・トーンの転換点。事実で殴る
-4枚目: Core — この動画が存在する唯一の理由。鋭い洞察1つ
-5枚目: Ending — 余韻を残す。5秒間スクロールの手を止めるCTA
+## スライド構成（8枚 — 映像作品として設計）
+1枚目: Hook（フック） — 認知的不協和、違和感（10文字以内）
+2枚目: Escalation（エスカレーション） — 状況の深掘り、具体的な描写+地域
+3枚目: Data（データ） — 数字・データ・事実で裏付け
+4枚目: Shift（シフト） — 視点の転換、意外な角度
+5枚目: Core（コア） — 本質的なメッセージ。鋭い洞察1つ
+6枚目: Reveal（リビール） — 深い気づき、結論
+7枚目: Reflection（リフレクション） — 共感を呼ぶ一言、感情の着地
+8枚目: CTA — 余韻を残す。5秒間スクロールの手を止めるCTA
 
 ## キャプション（200文字以内）
 - 1行目: 感情フック+地域名
@@ -984,7 +1081,7 @@ def _generate_content_with_ai(
     cta_instruction = ""
     if cta_type == "soft":
         cta_instruction = (
-            "5枚目のCTAはソフトCTA（バリエーション豊富に）:\n"
+            "8枚目のCTAはソフトCTA（バリエーション豊富に）:\n"
             "  - 保存系: 「この表、保存しといて損ないよ」「あとで見返したい人は保存」\n"
             "  - フォロー系: 「フォローしたら毎日こういう情報届くよ」「続きはフォローして待ってて」\n"
             "  - 共感系: 「わかる！って人はいいね押してほしい」「同じ経験ある人コメントで教えて」\n"
@@ -993,7 +1090,7 @@ def _generate_content_with_ai(
         )
     else:
         cta_instruction = (
-            "5枚目のCTAはハードCTA（でも自然に）:\n"
+            "8枚目のCTAはハードCTA（でも自然に）:\n"
             "  - 相談誘導: 「気になる人はプロフのリンクから相談できるよ」\n"
             "  - LINE誘導: 「もっと詳しく知りたい人はLINEで聞いてみて」\n"
             "  - 情報提供: 「手数料10%で転職サポートしてるんだ。プロフ見てみて」\n"
@@ -1066,14 +1163,17 @@ def _generate_content_with_ai(
 - {cta_instruction}
 {hint_text}{template_context}{robby_context}
 
-## 構成（5枚: Hook → Escalation → Shift → Core → Ending）
+## 構成（8枚: Hook → Escalation → Data → Shift → Core → Reveal → Reflection → CTA）
 - hook: 1枚目（10文字以内。認知的不協和または違和感を生むこと。「ロビー」の名前を含める）
-- slides: 5枚分のテキスト（配列）
-  - slides[0]: Hook — スクロールを止める違和感（10文字以内）
-  - slides[1]: Escalation — フックの張力を強める展開。超具体的なシーン描写+地域要素
-  - slides[2]: Shift — 視点・トーン・テンポの転換点。「知らなかった」を生む事実
-  - slides[3]: Core — この動画が存在する唯一の理由。感情のピーク。鋭い1つの洞察
-  - slides[4]: Ending — CTAだが余韻を残す。見た人が5秒間スクロールの手を止める一文
+- slides: 8枚分のテキスト（配列）
+  - slides[0]: Hook（フック） — スクロールを止める違和感（10文字以内）
+  - slides[1]: Escalation（エスカレーション） — 状況の深掘り、具体的な描写。超具体的なシーン+地域要素
+  - slides[2]: Data（データ） — 数字・データ・事実で裏付け。説得力を持たせる
+  - slides[3]: Shift（シフト） — 視点の転換、意外な角度。「知らなかった」を生む事実
+  - slides[4]: Core（コア） — 本質的なメッセージ。感情のピーク。鋭い1つの洞察
+  - slides[5]: Reveal（リビール） — 深い気づき、結論。構造的な真実を暴く
+  - slides[6]: Reflection（リフレクション） — 共感を呼ぶ一言、感情の着地。余韻を残す
+  - slides[7]: CTA — CTAだが余韻を残す。見た人が5秒間スクロールの手を止める一文
 - caption: SNSキャプション:
   1行目: 感情フック（質問形式推奨。地域名含む）
   2-3行目: 核心（短文で区切る）
@@ -1115,10 +1215,13 @@ JSON形式のみ出力。マークダウン記法、コードフェンス、説�
   "emotion_vector": "{chosen_emotion}",
   "slides": [
     "1枚目: Hook（10文字以内。違和感を生む）",
-    "2枚目: Escalation。張力を強める。超具体的場面+地域",
-    "3枚目: Shift。視点の転換。事実で殴る",
-    "4枚目: Core。この動画の存在理由。鋭い洞察1つ",
-    "5枚目: Ending。余韻を残すCTA"
+    "2枚目: Escalation。状況の深掘り。超具体的場面+地域",
+    "3枚目: Data。数字・データ・事実で裏付け",
+    "4枚目: Shift。視点の転換。事実で殴る",
+    "5枚目: Core。この動画の存在理由。鋭い洞察1つ",
+    "6枚目: Reveal。深い気づき、構造的な真実",
+    "7枚目: Reflection。共感を呼ぶ一言、感情の着地",
+    "8枚目: CTA。余韻を残すCTA"
   ],
   "caption": "感情フック+地域名\\n\\n核心。\\n\\n自然なCTA",
   "hashtags": ["#地域タグ", "#ニッチタグ", "#中規模タグ", "#一般タグ"],
@@ -1150,11 +1253,11 @@ JSON形式のみ出力。マークダウン記法、コードフェンス、説�
         if _validate_content(data, content_id):
             # Assign curated hashtags if AI-generated ones are poor
             if not data.get("hashtags") or len(data["hashtags"]) < 2:
-                data["hashtags"] = random.choice(HASHTAG_SETS.get(category, HASHTAG_SETS["あるある"]))
+                # Use rotation grid first, fallback to HASHTAG_SETS
+                data["hashtags"] = get_rotated_hashtags()
 
-            # Trim hashtags to max 5
-            if len(data.get("hashtags", [])) > 5:
-                data["hashtags"] = data["hashtags"][:5]
+            # Validate hashtags: remove banned tags + enforce max 5
+            data["hashtags"] = validate_hashtags(data.get("hashtags", []))
 
             # Ensure category and id are correct
             data["id"] = content_id
@@ -1197,7 +1300,7 @@ def _validate_content(data: dict, content_id: str) -> bool:
 
     hook = data.get("hook", "")
     if len(hook) > 10:
-        # Auto-trim hook to 10 chars (5枚構成の短フック)
+        # Auto-trim hook to 10 chars (8枚構成の短フック)
         data["hook"] = hook[:10]
         print(f"  [WARN] Hook trimmed to 10 chars")
 
@@ -1206,10 +1309,10 @@ def _validate_content(data: dict, content_id: str) -> bool:
         print(f"  [WARN] slides must have at least 3 items, got {len(slides) if isinstance(slides, list) else 'N/A'}")
         return False
 
-    # Pad to 5 slides if needed (Hook + Content x3 + CTA)
-    while len(slides) < 5:
+    # Pad to 8 slides if needed (Hook + Content x6 + CTA)
+    while len(slides) < 8:
         slides.append(slides[-1] if slides else "...")
-    data["slides"] = slides[:5]
+    data["slides"] = slides[:8]
 
     caption = data.get("caption", "")
     if len(caption) > 200:
@@ -1865,8 +1968,7 @@ def cmd_feedback_loop():
         "mix_ratios_used": MIX_RATIOS,
         "posted_count": len(posted),
     }
-    with open(analysis_file, "w", encoding="utf-8") as f:
-        json.dump(analysis, f, indent=2, ensure_ascii=False)
+    atomic_json_write(analysis_file, analysis)
 
     print(f"\n[FEEDBACK] Complete. Analysis saved to {analysis_file}")
 
