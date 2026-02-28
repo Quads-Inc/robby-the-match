@@ -3,5 +3,7 @@ Allow: /
 
 Sitemap: https://quads-nurse.com/sitemap.xml
 
-# Disallow API endpoints
+# Disallow API endpoints and internal pages
 Disallow: /api/
+Disallow: /dashboard.html
+Disallow: /proposal.html
