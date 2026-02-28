@@ -337,37 +337,164 @@ def fallback_profile_from_html(html):
 # Full data fetch orchestration
 # ============================================================
 
+def fetch_profile_via_browser():
+    """Playwright fallback: render TikTok profile with JavaScript for full data.
+
+    TikTok increasingly requires JS rendering. This uses the .venv Playwright
+    to fully render the page and extract data.
+    """
+    VENV_PYTHON = PROJECT_DIR / ".venv" / "bin" / "python3"
+    if not VENV_PYTHON.exists():
+        print("  [BROWSER] .venv not found")
+        return None
+
+    script = PROJECT_DIR / "content" / "temp_videos" / "_analytics_browser.py"
+    script.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(script, "w", encoding="utf-8") as f:
+        f.write(f"""
+import json, sys
+try:
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+        page.goto("https://www.tiktok.com/@{TIKTOK_USERNAME}", wait_until="networkidle", timeout=30000)
+        page.wait_for_timeout(3000)
+        html = page.content()
+        browser.close()
+        print("BROWSER_HTML_START")
+        print(html)
+        print("BROWSER_HTML_END")
+except Exception as e:
+    print(f"BROWSER_ERROR: {{e}}", file=sys.stderr)
+""")
+
+    try:
+        result = subprocess.run(
+            [str(VENV_PYTHON), str(script)],
+            capture_output=True, text=True, timeout=60,
+            env={**os.environ, "DISPLAY": ":0"}
+        )
+        script.unlink(missing_ok=True)
+
+        stdout = result.stdout or ""
+        if "BROWSER_HTML_START" in stdout and "BROWSER_HTML_END" in stdout:
+            start = stdout.index("BROWSER_HTML_START") + len("BROWSER_HTML_START")
+            end = stdout.index("BROWSER_HTML_END")
+            return stdout[start:end].strip()
+        return None
+    except Exception as e:
+        print(f"  [BROWSER] Exception: {e}")
+        script.unlink(missing_ok=True)
+        return None
+
+
 def fetch_tiktok_data():
-    """Fetch and parse all TikTok data. Returns (profile_dict, video_list) or (None, [])."""
-    print(f"Fetching TikTok profile for @{TIKTOK_USERNAME}...")
-    html = fetch_profile_html()
-    if not html:
-        print("[ERROR] Failed to fetch profile page")
-        return None, []
+    """Fetch and parse all TikTok data with retry + browser fallback.
 
-    # Try the rehydration JSON first
-    rehydration = extract_rehydration_json(html)
+    Returns (profile_dict, video_list) or (None, []).
 
+    v2.0: Added retry logic (3 attempts) and Playwright browser fallback.
+    """
+    import time as _time
+
+    max_retries = 3
     profile = None
     videos = []
 
-    if rehydration:
-        profile = extract_profile_data(rehydration)
-        videos = extract_video_list(rehydration)
-        if profile:
-            print(f"  Parsed rehydration JSON successfully")
-    else:
-        print("  [WARN] __UNIVERSAL_DATA_FOR_REHYDRATION__ not found, using regex fallback")
+    for attempt in range(max_retries):
+        if attempt > 0:
+            wait = 10 * (2 ** (attempt - 1))  # 10s, 20s
+            print(f"  [RETRY] Attempt {attempt + 1}/{max_retries} (waiting {wait}s)")
+            _time.sleep(wait)
 
-    # Fallback if rehydration JSON didn't yield profile
-    if not profile:
+        print(f"Fetching TikTok profile for @{TIKTOK_USERNAME}... (attempt {attempt + 1})")
+        html = fetch_profile_html()
+        if not html:
+            continue
+
+        rehydration = extract_rehydration_json(html)
+        if rehydration:
+            profile = extract_profile_data(rehydration)
+            videos = extract_video_list(rehydration)
+            if profile:
+                print(f"  Parsed rehydration JSON successfully")
+                break
+
+        # Regex fallback
         profile = fallback_profile_from_html(html)
-        if profile and profile["video_count"] > 0:
+        if profile and profile.get("video_count", 0) > 0:
             print(f"  Used regex fallback for profile data")
+            break
+
+        print(f"  [WARN] Attempt {attempt + 1} yielded no data")
+
+    # Browser fallback if curl failed
+    if not profile or (not videos and profile.get("video_count", 0) > 0):
+        print("  [BROWSER] Trying Playwright browser fallback...")
+        browser_html = fetch_profile_via_browser()
+        if browser_html:
+            rehydration = extract_rehydration_json(browser_html)
+            if rehydration:
+                browser_profile = extract_profile_data(rehydration)
+                browser_videos = extract_video_list(rehydration)
+                if browser_profile:
+                    profile = browser_profile
+                    videos = browser_videos
+                    print(f"  [BROWSER] Success: {len(videos)} videos found")
+                else:
+                    print("  [BROWSER] Rehydration found but no profile data")
+            else:
+                # Try regex fallback on browser HTML
+                if not profile:
+                    profile = fallback_profile_from_html(browser_html)
+                print("  [BROWSER] No rehydration JSON in browser output")
         else:
-            print(f"  [WARN] Fallback also found limited data")
+            print("  [BROWSER] Browser fallback failed")
+
+    if not profile:
+        print("[ERROR] All methods failed to fetch profile data")
+        log_event("analytics_fetch_failed", {"attempts": max_retries, "browser_tried": True})
+
+    # Log match rate if we have queue data
+    if videos:
+        _log_match_rate(videos)
 
     return profile, videos
+
+
+def _log_match_rate(videos):
+    """Check how many queue posts can be matched to scraped videos."""
+    if not QUEUE_FILE.exists():
+        return
+    try:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
+            queue = json.load(f)
+        posted = [p for p in queue.get("posts", []) if p.get("status") == "posted"]
+        if not posted:
+            return
+
+        matched = 0
+        for post in posted:
+            caption = post.get("caption", "")[:30]
+            for v in videos:
+                desc = v.get("desc", "")[:30] if isinstance(v, dict) else ""
+                if caption and desc and caption[:15] in desc:
+                    matched += 1
+                    break
+
+        rate = matched / len(posted) * 100 if posted else 0
+        print(f"  Match rate: {matched}/{len(posted)} posted ({rate:.0f}%)")
+
+        if rate < 50 and len(posted) >= 3:
+            slack_notify(
+                f"⚠️ TikTok Analytics: Low match rate ({rate:.0f}%)\n"
+                f"Only {matched}/{len(posted)} posted videos could be matched.\n"
+                f"Consider adding tiktok_video_id to queue entries."
+            )
+    except Exception:
+        pass
 
 
 # ============================================================

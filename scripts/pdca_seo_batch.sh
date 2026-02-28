@@ -30,11 +30,12 @@ STATE.mdを読め。これが現状だ。他を探し回るな。CLAUDE.mdも読
 12. PROGRESS.mdに施策詳細を追記
 13. Search Consoleにping: curl -s 'https://www.google.com/ping?sitemap=サイトURL/sitemap.xml'
 " 30
+JOB_EXIT=$?
 
 git_sync "seo: ${TODAY} SEO改善+子ページ追加" "true"
 update_state "SEO朝サイクル"
 update_progress "🔍 SEO朝サイクル" "$(git log -1 --pretty=%s 2>/dev/null)"
 update_agent_state "seo_optimizer" "completed"
 slack_notify "🔍 SEO改善完了。STATE.md参照。" "seo"
-write_heartbeat "seo_batch" $?
-echo "[$TODAY] pdca_seo_batch完了" >> "$LOG"
+write_heartbeat "seo_batch" $JOB_EXIT
+echo "[$TODAY] pdca_seo_batch完了 (exit=$JOB_EXIT)" >> "$LOG"

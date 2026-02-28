@@ -131,5 +131,10 @@ else
 fi
 
 update_agent_state "health_monitor" "completed"
-write_heartbeat "healthcheck" $?
+# heartbeat: 0=正常(問題なし), 1=問題検出(ただしスクリプト自体は正常完了)
+if [ -n "$ISSUES" ]; then
+  write_heartbeat "healthcheck" 1
+else
+  write_heartbeat "healthcheck" 0
+fi
 echo "[$TODAY] healthcheck完了" >> "$LOG"

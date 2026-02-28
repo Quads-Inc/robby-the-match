@@ -78,24 +78,74 @@ def log_event(event_type, data):
 # ============================================================
 
 def get_tiktok_video_count():
-    """TikTokプロフィールからvideoCountを取得して投稿数を検証"""
+    """TikTokプロフィールからvideoCountを取得して投稿数を検証
+
+    Returns:
+        int >= 0: 正常取得（実際の投稿数）
+        -1: curlでデータ取得失敗（タイムアウト等）
+        -2: HTMLは取得できたがvideoCount抽出失敗（JS-only/ブロック等）
+        -3: ブラウザフォールバックも含め全手段失敗
+    """
+    # --- Step 1: curl で取得を試みる ---
     try:
+        cookie_args = []
+        if COOKIE_FILE.exists():
+            cookie_args = ['-b', str(COOKIE_FILE)]
+        elif COOKIE_JSON.exists():
+            # JSON cookieからヘッダー文字列を構築
+            try:
+                with open(COOKIE_JSON) as f:
+                    cookies = json.load(f)
+                pairs = [f"{c['name']}={c['value']}" for c in cookies if c.get('name') and c.get('value')]
+                if pairs:
+                    cookie_args = ['-b', '; '.join(pairs)]
+            except Exception:
+                pass
+
         result = subprocess.run([
-            'curl', '-s', '-b', str(COOKIE_FILE),
+            'curl', '-s', '-L', '--max-time', '30',
             '-H', 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
                    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            '-H', 'Accept-Language: ja,en-US;q=0.9,en;q=0.8',
+        ] + cookie_args + [
             f'https://www.tiktok.com/@{TIKTOK_USERNAME}'
-        ], capture_output=True, text=True, timeout=30)
+        ], capture_output=True, text=True, timeout=45)
 
         html = result.stdout
-        matches = re.findall(r'videoCount["\':]+\s*(\d+)', html)
-        if matches:
-            count = max(int(m) for m in matches)
-            return count
-        return 0
+        if not html or len(html) < 500:
+            print(f"[WARN] curl応答が短すぎる ({len(html) if html else 0} bytes) - TikTokがブロックしている可能性")
+        else:
+            matches = re.findall(r'videoCount["\':]+\s*(\d+)', html)
+            if matches:
+                count = max(int(m) for m in matches)
+                print(f"[INFO] curl成功: videoCount={count}")
+                return count
+            print(f"[WARN] HTMLにvideoCountが見つからない ({len(html)} bytes) - JS-onlyページの可能性")
+
+    except subprocess.TimeoutExpired:
+        print(f"[WARN] curl タイムアウト (45s)")
     except Exception as e:
-        print(f"[WARN] videoCount取得失敗: {e}")
-        return -1
+        print(f"[WARN] curl例外: {e}")
+
+    # --- Step 2: tiktok_analytics.py の fetch_tiktok_data() をインポートして使う ---
+    print("[INFO] curlフォールバック: tiktok_analytics.fetch_tiktok_data() を試行...")
+    try:
+        sys.path.insert(0, str(PROJECT_DIR / "scripts"))
+        from tiktok_analytics import fetch_tiktok_data
+        profile, _videos = fetch_tiktok_data()
+        if profile and profile.get("video_count") is not None:
+            count = profile["video_count"]
+            print(f"[INFO] analytics fallback成功: videoCount={count}")
+            return count
+        print("[WARN] analytics fallbackでもprofileデータ取得失敗")
+    except ImportError as e:
+        print(f"[WARN] tiktok_analytics インポート失敗: {e}")
+    except Exception as e:
+        print(f"[WARN] analytics fallback例外: {e}")
+
+    print("[ERROR] 全手段でvideoCount取得失敗")
+    return -3
 
 
 def verify_post(pre_count, max_wait=120):
@@ -425,6 +475,87 @@ def _create_simple_slideshow(slides, output_path, durations=None):
     except Exception as e:
         print(f"   ❌ ffmpegエラー: {e}")
         return False
+
+
+# ============================================================
+# アニメーション付き動画生成（v3.0 新機能）
+# ============================================================
+
+def create_video_animated(slide_dir, output_path, json_path=None):
+    """テキストアニメーション付き動画生成（Pillow + ffmpeg）
+
+    generate_carousel.py --background-only でBG画像を生成し、
+    video_text_animator.py でアニメーション動画を作成。
+    失敗時は従来のcreate_video_slideshowにフォールバック。
+    """
+    import importlib.util
+
+    slide_dir = Path(slide_dir)
+    output_path = Path(output_path)
+
+    # Check if text metadata already exists
+    meta_files = list(slide_dir.glob("*_text_metadata.json"))
+    if meta_files:
+        meta_path = str(meta_files[0])
+        print(f"   🎬 アニメーション動画生成 (既存メタデータ使用)")
+    else:
+        # Need to generate backgrounds + metadata from JSON
+        if not json_path or not Path(json_path).exists():
+            print(f"   ⚠️ メタデータなし、通常版にフォールバック")
+            return create_video_slideshow(slide_dir, output_path)
+
+        print(f"   🎬 アニメーション動画生成 (BG + メタデータ生成中)")
+        try:
+            scripts_dir = Path(__file__).parent
+            spec = importlib.util.spec_from_file_location(
+                "generate_carousel", scripts_dir / "generate_carousel.py")
+            gc_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(gc_module)
+
+            with open(json_path, encoding="utf-8") as f:
+                data = json.load(f)
+
+            # Extract content for background generation
+            content = gc_module._extract_carousel_content(json_path)
+            if not content:
+                print(f"   ⚠️ コンテンツ抽出失敗、通常版にフォールバック")
+                return create_video_slideshow(slide_dir, output_path)
+
+            bg_dir = slide_dir / "animated_bg"
+            result = gc_module.generate_carousel_backgrounds(
+                content_id=content["content_id"],
+                hook=content["hook"],
+                slides=content["slides"],
+                output_dir=str(bg_dir),
+                category=content.get("category", "あるある"),
+                cta_type=content.get("cta_type", "soft"),
+            )
+            meta_path = result["metadata"]
+        except Exception as e:
+            print(f"   ⚠️ BG生成失敗 ({e})、通常版にフォールバック")
+            return create_video_slideshow(slide_dir, output_path)
+
+    # Generate animated video
+    try:
+        scripts_dir = Path(__file__).parent
+        spec = importlib.util.spec_from_file_location(
+            "video_text_animator", scripts_dir / "video_text_animator.py")
+        vta_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(vta_module)
+
+        result = vta_module.generate_animated_video(
+            meta_path, str(output_path), with_bgm=True
+        )
+        if result:
+            file_size = output_path.stat().st_size / (1024 * 1024)
+            print(f"   ✅ アニメーション動画完了: {output_path.name} ({file_size:.1f}MB)")
+            return True
+        else:
+            print(f"   ⚠️ アニメーション動画失敗、通常版にフォールバック")
+            return create_video_slideshow(slide_dir, output_path)
+    except Exception as e:
+        print(f"   ⚠️ アニメーターエラー ({e})、通常版にフォールバック")
+        return create_video_slideshow(slide_dir, output_path)
 
 
 # ============================================================
@@ -906,14 +1037,16 @@ def post_next():
     print(f"投稿 #{next_post['id']}: {next_post['content_id']}")
     print(f"{'='*50}")
 
-    # Step 1: 動画生成
+    # Step 1: 動画生成（アニメーション優先、フォールバックあり）
     TEMP_DIR.mkdir(parents=True, exist_ok=True)
     video_filename = f"tiktok_{next_post['content_id']}_{datetime.now().strftime('%Y%m%d')}.mp4"
     video_path = TEMP_DIR / video_filename
 
     if not video_path.exists():
-        success = create_video_slideshow(
-            next_post["slide_dir"], video_path
+        # Try animated version first, fallback to static slideshow
+        success = create_video_animated(
+            next_post["slide_dir"], video_path,
+            json_path=next_post.get("json_path")
         )
         if not success:
             next_post["status"] = "failed"
@@ -926,7 +1059,7 @@ def post_next():
     next_post["status"] = "video_created"
     save_queue(queue)
 
-    # Step 2: TikTokにアップロード（検証付き）
+    # Step 2: TikTokにアップロード
     success = upload_to_tiktok(
         video_path, next_post["caption"], next_post["hashtags"]
     )
@@ -935,6 +1068,7 @@ def post_next():
         next_post["status"] = "posted"
         next_post["posted_at"] = datetime.now().isoformat()
         next_post["verified"] = True
+        next_post["video_type"] = "animated"  # Track video type for analytics
         save_queue(queue)
 
         pending_count = sum(1 for p in queue["posts"] if p["status"] == "pending")
@@ -993,9 +1127,27 @@ def heartbeat():
     print("📊 TikTok投稿数...")
     video_count = get_tiktok_video_count()
     status["tiktok_videos"] = video_count
-    print(f"   TikTok公開投稿: {video_count}件")
-    if video_count == 0:
-        issues.append("⚠️ TikTok投稿が0件")
+
+    # キューから posted 数を取得して比較判定
+    queue_for_check = load_queue()
+    posted_in_queue = 0
+    if queue_for_check:
+        posted_in_queue = sum(1 for p in queue_for_check["posts"] if p["status"] == "posted")
+
+    if video_count >= 0:
+        print(f"   TikTok公開投稿: {video_count}件 (キューposted: {posted_in_queue}件)")
+        if video_count == 0 and posted_in_queue > 0:
+            issues.append(f"🚨 TikTok投稿0件だがキューに{posted_in_queue}件posted — 投稿が実際には失敗している可能性大")
+        elif video_count == 0:
+            issues.append("⚠️ TikTok投稿が0件（キューにもpostedなし）")
+        elif video_count < posted_in_queue:
+            issues.append(f"⚠️ TikTok実投稿{video_count}件 < キューposted{posted_in_queue}件 — 不整合あり")
+    else:
+        # video_count < 0 = フェッチ失敗
+        error_desc = {-1: "curl失敗", -2: "HTML解析失敗(JS-only)", -3: "全手段失敗"}
+        desc = error_desc.get(video_count, f"不明エラー({video_count})")
+        print(f"   ❌ TikTokプロフィール取得失敗: {desc}")
+        issues.append(f"🚨 TikTokプロフィール取得失敗({desc}) — curlがブロックされている可能性。キューposted: {posted_in_queue}件の検証不能")
 
     # 3. キュー状態
     print("📋 投稿キュー...")

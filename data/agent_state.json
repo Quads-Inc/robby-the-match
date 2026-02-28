@@ -1,19 +1,19 @@
 {
   "lastRun": {
-    "seo_optimizer": "2026-02-28T04:00:01",
-    "health_monitor": "2026-02-27T07:00:06",
-    "competitor_analyst": "2026-02-27T10:00:03",
+    "seo_optimizer": "2026-02-28T04:00:04",
+    "health_monitor": "2026-02-28T07:00:06",
+    "competitor_analyst": "2026-02-28T10:00:00",
     "content_creator": "2026-02-27T15:00:05",
     "daily_reviewer": "2026-02-27T23:00:08",
     "weekly_strategist": "2026-02-22T06:00:05",
     "slack_commander": null,
     "sns_poster": "2026-02-27T17:32:16",
-    "ai_marketing_orchestrator": "2026-02-27T06:00:13"
+    "ai_marketing_orchestrator": "2026-02-28T06:00:08"
   },
   "status": {
-    "seo_optimizer": "running",
+    "seo_optimizer": "completed",
     "health_monitor": "completed",
-    "competitor_analyst": "completed",
+    "competitor_analyst": "running",
     "content_creator": "completed",
     "daily_reviewer": "completed",
     "weekly_strategist": "completed",
@@ -51,8 +51,8 @@
       "フォロワー0。投稿頻度を上げ、コメント返信でエンゲージメント向上を。"
     ],
     "queueRemaining": 6,
-    "lastMarketingPDCA": "2026-02-27 06:00:00",
-    "queuePending": 4,
+    "lastMarketingPDCA": "2026-02-28 06:00:00",
+    "queuePending": 6,
     "dailyGeneratedCount": 0
   },
   "agentMemory": {

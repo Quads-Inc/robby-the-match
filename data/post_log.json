@@ -60,5 +60,20 @@
     "media_id": "3841655496823237804_45884164083",
     "code": "DVQTVIFk2ys",
     "url": "https://www.instagram.com/p/DVQTVIFk2ys/"
+  },
+  {
+    "platform": "instagram",
+    "dir": "20260225_day2_tue_B01",
+    "timestamp": "2026-02-28T09:22:28.410915",
+    "status": "dry_run",
+    "slides": 6,
+    "format": "story"
+  },
+  {
+    "platform": "instagram",
+    "dir": "20260225_day2_tue_B01",
+    "timestamp": "2026-02-28T09:23:45.720282",
+    "status": "success",
+    "format": "story"
   }
 ]

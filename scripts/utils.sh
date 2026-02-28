@@ -175,7 +175,7 @@ check_instructions() {
   # Slack指示キューに自分宛の指示があるか確認
   local agent_name="$1"
   python3 -c "
-import json
+import json, sys
 try:
     with open('$PROJECT_DIR/data/slack_instructions.json', 'r') as f:
         data = json.load(f)
@@ -187,9 +187,11 @@ try:
             print(f'  - {i.get(\"message\", \"\")}')
 except FileNotFoundError:
     pass
+except json.JSONDecodeError as e:
+    print(f'[WARN] 指示キューJSON解析エラー: {e}', file=sys.stderr)
 except Exception as e:
-    print(f'[WARN] 指示チェック失敗: {e}')
-" 2>> "$LOG"
+    print(f'[WARN] 指示チェック失敗: {e}', file=sys.stderr)
+" 2>> "$LOG" || echo "[WARN] check_instructions python実行失敗 (agent=$agent_name)" >> "$LOG"
 }
 
 # ==========================================
@@ -199,19 +201,26 @@ except Exception as e:
 write_heartbeat() {
   local job_name="$1"
   local exit_code="${2:-0}"
-  mkdir -p "$PROJECT_DIR/data/heartbeats"
+  if ! mkdir -p "$PROJECT_DIR/data/heartbeats" 2>> "$LOG"; then
+    echo "[ERROR] heartbeat: data/heartbeats ディレクトリ作成失敗" >> "$LOG"
+    return 1
+  fi
   python3 -c "
-import json
+import json, sys
 from datetime import datetime
-hb = {
-    'ts': datetime.now().isoformat(),
-    'exit_code': $exit_code,
-    'job': '$job_name',
-    'date': datetime.now().strftime('%Y-%m-%d')
-}
-with open('$PROJECT_DIR/data/heartbeats/${job_name}.json', 'w') as f:
-    json.dump(hb, f, indent=2, ensure_ascii=False)
-" 2>/dev/null || echo "[WARN] heartbeat書き込み失敗" >> "$LOG"
+try:
+    hb = {
+        'ts': datetime.now().isoformat(),
+        'exit_code': $exit_code,
+        'job': '$job_name',
+        'date': datetime.now().strftime('%Y-%m-%d')
+    }
+    with open('$PROJECT_DIR/data/heartbeats/${job_name}.json', 'w') as f:
+        json.dump(hb, f, indent=2, ensure_ascii=False)
+except Exception as e:
+    print(f'[ERROR] heartbeat書き込み失敗 ({job_name}): {e}', file=sys.stderr)
+    sys.exit(1)
+" 2>> "$LOG" || echo "[WARN] heartbeat書き込み失敗: $job_name (exit_code=$exit_code)" >> "$LOG"
 }
 
 # ==========================================
@@ -222,15 +231,20 @@ read_agent_memory() {
   local agent_name="$1"
   local key="$2"
   python3 -c "
-import json
-with open('$AGENT_STATE_FILE') as f:
-    state = json.load(f)
-val = state.get('agentMemory', {}).get('$agent_name', {}).get('$key', '')
-if isinstance(val, (dict, list)):
-    print(json.dumps(val, ensure_ascii=False))
-else:
-    print(val)
-" 2>/dev/null
+import json, sys
+try:
+    with open('$AGENT_STATE_FILE') as f:
+        state = json.load(f)
+    val = state.get('agentMemory', {}).get('$agent_name', {}).get('$key', '')
+    if isinstance(val, (dict, list)):
+        print(json.dumps(val, ensure_ascii=False))
+    else:
+        print(val)
+except FileNotFoundError:
+    print(f'[WARN] agent_state.json not found', file=sys.stderr)
+except Exception as e:
+    print(f'[WARN] read_agent_memory failed ({agent_name}/{key}): {e}', file=sys.stderr)
+" 2>> "${LOG:-/dev/stderr}"
 }
 
 write_agent_memory() {

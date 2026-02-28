@@ -45,11 +45,24 @@ except ImportError:
 CANVAS_W = 1080
 CANVAS_H = 1920
 
+# Platform-specific dimensions
+PLATFORM_SIZES = {
+    "tiktok": (1080, 1920),     # 9:16
+    "instagram": (1080, 1350),  # 4:5 (feed)
+    "instagram_story": (1080, 1920),  # 9:16 (stories/reels)
+}
+
 # TikTok UI safe zones
 SAFE_TOP = 150
 SAFE_BOTTOM = 250
 SAFE_RIGHT = 100
 SAFE_LEFT = 60
+
+# Instagram safe zones (less restrictive)
+SAFE_ZONES = {
+    "tiktok": {"top": 150, "bottom": 250, "left": 60, "right": 100},
+    "instagram": {"top": 60, "bottom": 60, "left": 60, "right": 60},
+}
 
 # Derived safe content area
 CONTENT_X = SAFE_LEFT
@@ -1442,15 +1455,161 @@ def generate_demo_aruaru(output_dir: str = "content/generated/carousel_demo_arua
 # CLI
 # ===========================================================================
 
+def generate_carousel_backgrounds(
+    content_id: str,
+    hook: str,
+    slides: list[dict],
+    output_dir: str,
+    category: str = "あるある",
+    cta_type: str = "soft",
+    platform: str = "tiktok",
+) -> dict:
+    """
+    Generate background-only slides (no text) + metadata JSON for animated video.
+
+    Returns dict with 'backgrounds' (list of paths) and 'metadata' (text positioning info).
+    Used by video_text_animator.py to create dynamic text animations with ffmpeg.
+    """
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    # Platform dimensions
+    canvas_w, canvas_h = PLATFORM_SIZES.get(platform, (CANVAS_W, CANVAS_H))
+    safe = SAFE_ZONES.get(platform, SAFE_ZONES["tiktok"])
+
+    theme = CATEGORY_THEMES.get(category, DEFAULT_THEME)
+    content_slides = list(slides)[:3]
+    total = 1 + len(content_slides) + 1
+
+    bg_paths = []
+    metadata = {
+        "content_id": content_id,
+        "platform": platform,
+        "canvas": {"w": canvas_w, "h": canvas_h},
+        "safe_zones": safe,
+        "total_slides": total,
+        "category": category,
+        "cta_type": cta_type,
+        "slides": [],
+    }
+
+    # Slide 1: Hook background
+    bg1 = _build_dark_bg(theme)
+    if canvas_h != CANVAS_H:
+        bg1 = bg1.resize((canvas_w, canvas_h), Image.LANCZOS)
+    p1 = out / f"{content_id}_bg_01_hook.png"
+    bg1.save(str(p1), "PNG")
+    bg_paths.append(str(p1))
+
+    font_hook = load_font(bold=True, size=120)
+    hook_bbox = font_hook.getbbox(hook[:MAX_HOOK_CHARS])
+    hook_w = hook_bbox[2] - hook_bbox[0]
+    hook_h = hook_bbox[3] - hook_bbox[1]
+
+    metadata["slides"].append({
+        "type": "hook",
+        "text": hook[:MAX_HOOK_CHARS],
+        "font_size": 120,
+        "font_bold": True,
+        "color": list(theme["text_primary"]),
+        "x": (canvas_w - hook_w) // 2,
+        "y": (canvas_h - hook_h) // 2,
+        "animation": "zoom_in",
+        "duration": 2.5,
+    })
+
+    # Content slides
+    for i, slide_data in enumerate(content_slides):
+        slide_num = i + 2
+        dark = (i % 2 == 0)
+
+        if dark:
+            bg = _build_dark_bg(theme)
+        else:
+            bg = _build_light_bg(theme)
+
+        if canvas_h != CANVAS_H:
+            bg = bg.resize((canvas_w, canvas_h), Image.LANCZOS)
+
+        p = out / f"{content_id}_bg_{slide_num:02d}_content.png"
+        bg.save(str(p), "PNG")
+        bg_paths.append(str(p))
+
+        title = slide_data.get("title", "")
+        body = slide_data.get("body", "")
+        text_color = list(theme["text_primary"]) if dark else list(theme["text_on_light"])
+
+        # Calculate card area for text positioning
+        card_x = safe["left"] + 20
+        card_y = safe["top"] + 80
+        card_w = canvas_w - safe["left"] - safe["right"] - 40
+
+        title_font_size = 64
+        body_font_size = 48
+
+        metadata["slides"].append({
+            "type": "content",
+            "dark": dark,
+            "title": title,
+            "title_font_size": title_font_size,
+            "body": body,
+            "body_font_size": body_font_size,
+            "color": text_color,
+            "card_x": card_x,
+            "card_y": card_y,
+            "card_w": card_w,
+            "highlight_number": slide_data.get("highlight_number"),
+            "highlight_label": slide_data.get("highlight_label"),
+            "animation": "fade_in_stagger",
+            "duration": 3.5,
+        })
+
+    # CTA background
+    bg_cta = _build_brand_gradient_bg()
+    if canvas_h != CANVAS_H:
+        bg_cta = bg_cta.resize((canvas_w, canvas_h), Image.LANCZOS)
+    p_cta = out / f"{content_id}_bg_{total:02d}_cta.png"
+    bg_cta.save(str(p_cta), "PNG")
+    bg_paths.append(str(p_cta))
+
+    cta_texts = {
+        "soft": ["保存してね", "フォローで続き見れるよ"],
+        "hard": ["LINEで相談してみて", "プロフのリンクから"],
+    }
+    cta = cta_texts.get(cta_type, cta_texts["soft"])
+
+    metadata["slides"].append({
+        "type": "cta",
+        "cta_type": cta_type,
+        "texts": cta,
+        "font_size": 56,
+        "color": [255, 255, 255],
+        "animation": "pulse",
+        "duration": 3.0,
+    })
+
+    # Save metadata
+    meta_path = out / f"{content_id}_text_metadata.json"
+    with open(meta_path, "w", encoding="utf-8") as f:
+        json.dump(metadata, f, indent=2, ensure_ascii=False)
+
+    print(f"  [{content_id}] Backgrounds: {len(bg_paths)} + metadata saved")
+    return {"backgrounds": bg_paths, "metadata": str(meta_path)}
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description="TikTok/Instagram carousel slide generator v3.0 (5 slides, 1080x1920)",
+        description="TikTok/Instagram carousel slide generator v3.0 (5 slides)",
     )
     parser.add_argument("--demo", action="store_true", help="Generate a demo carousel set for review")
     parser.add_argument("--demo-aruaru", action="store_true", help="Generate aruaru-themed demo")
     parser.add_argument("--queue", help="Path to posting_queue.json")
     parser.add_argument("--output", default="content/generated/", help="Output base directory")
     parser.add_argument("--single-json", help="Generate carousel from a single slide JSON file")
+    parser.add_argument("--background-only", action="store_true",
+                       help="Generate background-only PNGs + text metadata JSON (for animated video)")
+    parser.add_argument("--platform", choices=["tiktok", "instagram", "instagram_story"],
+                       default="tiktok", help="Target platform for dimensions")
 
     args = parser.parse_args()
 
@@ -1487,14 +1646,28 @@ def main():
                 output = project_root / output
             today = datetime.now().strftime("%Y%m%d")
             out_dir = output / f"carousel_{today}_{content['content_id']}"
-            generate_carousel(
-                content_id=content["content_id"],
-                hook=content["hook"],
-                slides=content["slides"],
-                output_dir=str(out_dir),
-                category=content["category"],
-                cta_type=content.get("cta_type", "soft"),
-            )
+
+            if args.background_only:
+                result = generate_carousel_backgrounds(
+                    content_id=content["content_id"],
+                    hook=content["hook"],
+                    slides=content["slides"],
+                    output_dir=str(out_dir),
+                    category=content["category"],
+                    cta_type=content.get("cta_type", "soft"),
+                    platform=args.platform,
+                )
+                print(f"\nBackgrounds: {len(result['backgrounds'])} files")
+                print(f"Metadata: {result['metadata']}")
+            else:
+                generate_carousel(
+                    content_id=content["content_id"],
+                    hook=content["hook"],
+                    slides=content["slides"],
+                    output_dir=str(out_dir),
+                    category=content["category"],
+                    cta_type=content.get("cta_type", "soft"),
+                )
         else:
             print("ERROR: Could not extract carousel content from JSON.")
             sys.exit(1)

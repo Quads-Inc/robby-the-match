@@ -1,19 +1,50 @@
 #!/bin/bash
 # ===========================================
-# ナースロビー SNS自動投稿 v4.1
-# cron: 30 17 * * 1-6（月-土 17:30）
+# ナースロビー SNS自動投稿 v5.0
+# cron: 0 12,17,18,20,21 * * 1-6
+#   → 各時間帯でposting_schedule.jsonを確認し、
+#     当日の投稿時間でなければ即exit
 #
-# v4.1: tiktok_post.py (tiktokautouploader) を主力に復帰
-# - auto_post.py でInstagramに自動投稿
-# - tiktok_post.py --post-next でTikTok動画自動投稿（主力）
-# - tiktok_carousel.py はUPLOADPOST_API_KEY設定時のみフォールバック
-# - キュー枯渇時はコンテンツ自動生成をトリガー
+# v5.0: 投稿時間A/Bテスト対応
+# - posting_schedule.json で曜日別投稿時間を管理
+# - auto_post.py v2.0: humanizer + 行動パターン擬態
+# - tiktok_post.py: アニメーション動画優先
+# - キュー枯渇時はcalendar自動補充
 # ===========================================
 
 source "$(dirname "$0")/utils.sh"
 init_log "sns_post"
 
-echo "[INFO] SNS自動投稿 v4.1 開始" >> "$LOG"
+# Check if now is the scheduled time for today
+SCHEDULE_FILE="$PROJECT_DIR/data/posting_schedule.json"
+if [ -f "$SCHEDULE_FILE" ]; then
+    CURRENT_HOUR=$(date +%H)
+    CURRENT_MIN=$(date +%M)
+    CURRENT_TIME="${CURRENT_HOUR}:${CURRENT_MIN}"
+    DAY_NAME=$(date +%a)
+
+    SCHEDULED_TIME=$(python3 -c "
+import json
+with open('$SCHEDULE_FILE') as f:
+    s = json.load(f)
+print(s.get('schedule', {}).get('$DAY_NAME', ''))
+" 2>/dev/null)
+
+    if [ -z "$SCHEDULED_TIME" ]; then
+        echo "[INFO] 本日(${DAY_NAME})は投稿休止日" >> "$LOG"
+        exit 0
+    fi
+
+    SCHEDULED_HOUR=$(echo "$SCHEDULED_TIME" | cut -d: -f1)
+    if [ "$CURRENT_HOUR" != "$SCHEDULED_HOUR" ]; then
+        echo "[INFO] 今は${CURRENT_TIME}。本日の投稿は${SCHEDULED_TIME}。スキップ。" >> "$LOG"
+        exit 0
+    fi
+
+    echo "[INFO] 投稿時間一致 (${CURRENT_TIME} ≈ ${SCHEDULED_TIME})" >> "$LOG"
+fi
+
+echo "[INFO] SNS自動投稿 v5.0 開始" >> "$LOG"
 
 # エージェント状態更新
 update_agent_state "sns_poster" "running"
@@ -100,11 +131,12 @@ print(len(dirs))
 " 2>/dev/null || echo "0")
 
 if [ "$UNPOSTED" -lt 3 ]; then
-    echo "[WARN] 未投稿コンテンツ残り${UNPOSTED}件 → 追加生成が必要" >> "$LOG"
-    # コンテンツ生成パイプラインをトリガー
+    echo "[WARN] 未投稿コンテンツ残り${UNPOSTED}件 → カレンダー自動補充" >> "$LOG"
+    # ai_content_engine --calendar でローリング2週間分を自動補充
+    python3 "$PROJECT_DIR/scripts/ai_content_engine.py" --calendar >> "$LOG" 2>&1
+    # フォールバック: sns_workflow も実行
     python3 "$PROJECT_DIR/scripts/sns_workflow.py" --prepare-next >> "$LOG" 2>&1
-    create_agent_task "sns_poster" "content_creator" "generate_batch" "未投稿コンテンツ残り${UNPOSTED}件。追加生成が必要。"
-    slack_notify "[SNS] 未投稿コンテンツ残り${UNPOSTED}件。追加コンテンツ生成を要請しました。"
+    slack_notify "[SNS] 未投稿コンテンツ残り${UNPOSTED}件。カレンダー自動補充を実行。"
 fi
 
 # Step 6: 進捗記録
