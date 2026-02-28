@@ -5,16 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 - ページが見つかりません | ナースロビー</title>
   <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4G2BYW13B"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-X4G2BYW13B');</script>
+
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/chat.css">
   <style>
     .error-page {
-      min-height: 100vh;
+      min-height: 80vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 20px 80px;
+      padding: 120px 20px 40px;
     }
 
     .error-code {
@@ -39,8 +45,76 @@
       color: var(--text-secondary);
       font-size: 1rem;
       line-height: 1.8;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
       max-width: 480px;
+    }
+
+    .error-links {
+      max-width: 480px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .error-links h2 {
+      font-size: 1.1rem;
+      color: var(--text-heading);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .error-links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .error-links-grid a {
+      display: block;
+      padding: 14px 16px;
+      background: var(--bg-card, #f8f9fa);
+      border-radius: 8px;
+      color: var(--text-heading);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .error-links-grid a:hover {
+      background: var(--accent-light, #e8f4f8);
+      transform: translateY(-2px);
+    }
+
+    .error-line-cta {
+      margin-top: 32px;
+      padding: 24px;
+      background: var(--bg-card, #f8f9fa);
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .error-line-cta p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .error-line-btn {
+      display: inline-block;
+      background: #06C755;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+
+    .error-line-btn:hover {
+      opacity: 0.9;
     }
 
     @media (min-width: 640px) {
@@ -50,6 +124,12 @@
 
       .error-heading {
         font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .error-links-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -72,8 +152,25 @@
   <main class="error-page">
     <div class="error-code">404</div>
     <h1 class="error-heading">ページが見つかりません</h1>
-    <p class="error-description">お探しのページは存在しないか、移動した可能性があります。</p>
+    <p class="error-description">お探しのページは存在しないか、移動した可能性があります。<br>以下のページから目的の情報をお探しください。</p>
     <a href="/" class="btn btn-primary">トップページに戻る</a>
+
+    <div class="error-links">
+      <h2>人気のページ</h2>
+      <div class="error-links-grid">
+        <a href="/">トップページ</a>
+        <a href="/lp/job-seeker/">看護師の方へ</a>
+        <a href="/lp/job-seeker/guide/salary-simulator.html">年収シミュレーター</a>
+        <a href="/lp/job-seeker/guide/">お役立ちガイド</a>
+        <a href="/lp/job-seeker/area/">エリア別求人</a>
+        <a href="/blog/">ブログ</a>
+      </div>
+    </div>
+
+    <div class="error-line-cta">
+      <p>転職のご相談はLINEからお気軽にどうぞ。<br>手数料10%で、あなたの転職をサポートします。</p>
+      <a href="https://lin.ee/oUgDB3x" target="_blank" rel="noopener" class="error-line-btn" onclick="gtag('event','line_click',{'event_category':'cta','event_label':'404_page'});">LINEで無料相談する</a>
+    </div>
   </main>
 
   <footer class="footer">
@@ -83,5 +180,7 @@
       </div>
     </div>
   </footer>
+
+  <script src="/chat.js" defer></script>
 </body>
 </html>
