@@ -25,3 +25,40 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cache control: HTML pages (1 hour, stale-while-revalidate 24 hours)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
+
+# Cache control: Static assets (1 year, immutable)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache control: CSS files (1 week)
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Cache control: JS files (1 week)
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Cache control: Blog pages (1 day, stale-while-revalidate 1 week)
+[[headers]]
+  for = "/blog/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+# Redirect: salary-simulator pretty URL to HTML file
+[[redirects]]
+  from = "/lp/job-seeker/guide/salary-simulator"
+  to = "/lp/job-seeker/guide/salary-simulator.html"
+  status = 301
