@@ -1,36 +1,28 @@
 {
   "lastRun": {
     "seo_optimizer": "2026-02-28T04:00:04",
-    "health_monitor": "2026-02-28T07:00:06",
-    "competitor_analyst": "2026-02-28T10:00:00",
-    "content_creator": "2026-02-27T15:00:05",
+    "health_monitor": "2026-02-28T11:00:07",
+    "competitor_analyst": "2026-02-28T10:00:03",
+    "content_creator": "2026-02-28T15:00:16",
     "daily_reviewer": "2026-02-27T23:00:08",
     "weekly_strategist": "2026-02-22T06:00:05",
-    "slack_commander": null,
     "sns_poster": "2026-02-27T17:32:16",
-    "ai_marketing_orchestrator": "2026-02-28T06:00:08"
+    "ai_marketing_orchestrator": "2026-02-28T10:05:02",
+    "weekly_content_planner": null
   },
   "status": {
     "seo_optimizer": "completed",
     "health_monitor": "completed",
-    "competitor_analyst": "running",
+    "competitor_analyst": "completed",
     "content_creator": "completed",
     "daily_reviewer": "completed",
     "weekly_strategist": "completed",
-    "slack_commander": "pending",
     "sns_poster": "completed",
-    "ai_marketing_orchestrator": "completed"
+    "ai_marketing_orchestrator": "completed",
+    "weekly_content_planner": "pending"
   },
   "pendingTasks": {
-    "content_creator": [
-      {
-        "from": "sns_poster",
-        "type": "generate_batch",
-        "details": "未投稿コンテンツ残り2件。追加生成が必要。",
-        "created": "2026-02-25T17:30:14.915573",
-        "status": "processing"
-      }
-    ]
+    "content_creator": []
   },
   "sharedContext": {
     "topPerformingTags": [],
@@ -51,8 +43,8 @@
       "フォロワー0。投稿頻度を上げ、コメント返信でエンゲージメント向上を。"
     ],
     "queueRemaining": 6,
-    "lastMarketingPDCA": "2026-02-28 06:00:00",
-    "queuePending": 6,
+    "lastMarketingPDCA": "2026-02-28 10:04:59",
+    "queuePending": 4,
     "dailyGeneratedCount": 0
   },
   "agentMemory": {

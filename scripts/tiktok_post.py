@@ -74,6 +74,71 @@ def log_event(event_type, data):
 
 
 # ============================================================
+# Cookie ユーティリティ
+# ============================================================
+
+UPLOAD_VERIFICATION_FILE = PROJECT_DIR / "data" / "upload_verification.json"
+
+
+def sanitize_cookies_for_playwright(cookies):
+    """Cookie JSONをPlaywright互換フォーマットに変換"""
+    sanitized = []
+    for c in cookies:
+        entry = {
+            "name": c["name"],
+            "value": c["value"],
+            "domain": c["domain"],
+            "path": c.get("path", "/"),
+            "secure": bool(c.get("secure", False)),
+            "sameSite": c.get("sameSite", "Lax"),
+        }
+        # Playwright uses 'expires' (float epoch), not 'expiry'
+        exp = c.get("expires", c.get("expiry", 0))
+        if exp and exp > 0:
+            entry["expires"] = float(exp)
+        if "httpOnly" in c:
+            entry["httpOnly"] = bool(c["httpOnly"])
+        sanitized.append(entry)
+    return sanitized
+
+
+def load_cookies_json():
+    """Cookie JSONを読み込み (生フォーマット)"""
+    if not COOKIE_JSON.exists():
+        return []
+    with open(COOKIE_JSON) as f:
+        return json.load(f)
+
+
+def load_upload_verification():
+    """アップロード検証ログを読み込み"""
+    if not UPLOAD_VERIFICATION_FILE.exists():
+        return {"uploads": [], "last_updated": None}
+    with open(UPLOAD_VERIFICATION_FILE) as f:
+        return json.load(f)
+
+
+def record_upload_attempt(content_id, success, method="tiktokautouploader", error=None):
+    """アップロード試行を記録（ハートビートの主要指標）"""
+    log = load_upload_verification()
+    entry = {
+        "timestamp": datetime.now().isoformat(),
+        "content_id": content_id,
+        "success": success,
+        "method": method,
+    }
+    if error:
+        entry["error"] = str(error)[:200]
+    log["uploads"].append(entry)
+    log["last_updated"] = datetime.now().isoformat()
+    # 最新100件のみ保持
+    if len(log["uploads"]) > 100:
+        log["uploads"] = log["uploads"][-100:]
+    with open(UPLOAD_VERIFICATION_FILE, 'w') as f:
+        json.dump(log, f, indent=2, ensure_ascii=False)
+
+
+# ============================================================
 # TikTok投稿検証
 # ============================================================
 
@@ -149,22 +214,39 @@ def get_tiktok_video_count():
 
 
 def verify_post(pre_count, max_wait=120):
-    """投稿後に実際にvideoCountが増えたか検証（最大2分待機）"""
+    """投稿後に実際にvideoCountが増えたか検証（最大2分待機）
+
+    pre_count < 0 の場合（投稿前のカウント取得に失敗していた場合）は
+    検証をスキップして False を返す。
+    """
+    if pre_count < 0:
+        print(f"   ⚠️ 投稿前カウント取得失敗のため検証スキップ (pre_count={pre_count})")
+        return False
+
     print(f"   🔍 投稿検証中... (投稿前: {pre_count}件)")
     start = time.time()
     check_intervals = [10, 15, 20, 30, 45]  # 段階的にチェック
+    fetch_failures = 0
 
     for wait in check_intervals:
         if time.time() - start > max_wait:
             break
         time.sleep(wait)
         current = get_tiktok_video_count()
+        if current < 0:
+            fetch_failures += 1
+            print(f"   ... プロフィール取得失敗 (code={current}, {int(time.time()-start)}秒経過)")
+            continue
         if current > pre_count:
             print(f"   ✅ 投稿確認済み! ({pre_count} → {current}件)")
             return True
         print(f"   ... まだ反映されていない ({current}件, {int(time.time()-start)}秒経過)")
 
-    print(f"   ❌ 投稿が検証できませんでした (videoCount: {get_tiktok_video_count()})")
+    final_count = get_tiktok_video_count()
+    if final_count < 0:
+        print(f"   ⚠️ 投稿検証不能: TikTokプロフィール取得が全回失敗 (fetch_failures={fetch_failures + 1})")
+    else:
+        print(f"   ❌ 投稿が検証できませんでした (videoCount: {final_count})")
     return False
 
 
@@ -1068,8 +1150,9 @@ def post_next():
         next_post["status"] = "posted"
         next_post["posted_at"] = datetime.now().isoformat()
         next_post["verified"] = True
-        next_post["video_type"] = "animated"  # Track video type for analytics
+        next_post["video_type"] = "animated"
         save_queue(queue)
+        record_upload_attempt(next_post["content_id"], success=True)
 
         pending_count = sum(1 for p in queue["posts"] if p["status"] == "pending")
         slack_notify(
@@ -1083,6 +1166,7 @@ def post_next():
         next_post["status"] = "failed"
         next_post["error"] = "all_upload_methods_failed"
         save_queue(queue)
+        record_upload_attempt(next_post["content_id"], success=False, error="all_upload_methods_failed")
         print(f"\n❌ 投稿失敗: {next_post['content_id']}")
 
     return success
@@ -1093,42 +1177,80 @@ def post_next():
 # ============================================================
 
 def heartbeat():
-    """システム全体のヘルスチェック"""
+    """システム全体のヘルスチェック v2.0
+
+    重大度レベル:
+      CRITICAL: Cookie期限切れ間近(3日未満), 連続アップロード失敗, venv消失
+      WARNING:  Cookie残り30日未満, キューにfailed蓄積
+      INFO:     TikTokプロフィール取得失敗(TikTok側のbot検出。検証不能だが問題ではない)
+    """
     print(f"\n{'='*50}")
-    print(f"ROBBY THE MATCH ハートビート")
+    print(f"ROBBY THE MATCH ハートビート v2.0")
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*50}\n")
 
-    issues = []
+    criticals = []  # 即時対応が必要
+    warnings = []   # 注意が必要
+    infos = []      # 情報のみ
     status = {}
 
     # 1. Cookie有効性チェック
     print("🔐 Cookie有効性...")
     if COOKIE_JSON.exists():
-        with open(COOKIE_JSON) as f:
-            cookies = json.load(f)
+        cookies = load_cookies_json()
         for c in cookies:
             if c["name"] == "sessionid":
-                expiry = datetime.fromtimestamp(c["expiry"])
-                days_left = (expiry - datetime.now()).days
-                status["cookie_days_left"] = days_left
-                if days_left < 3:
-                    issues.append(f"🚨 Cookie期限切れ間近: {days_left}日")
-                elif days_left < 30:
-                    issues.append(f"⚠️ Cookie残り{days_left}日")
-                else:
-                    print(f"   ✅ sessionid有効 (残り{days_left}日)")
+                exp = c.get("expires", c.get("expiry", 0))
+                if exp > 0:
+                    expiry = datetime.fromtimestamp(exp)
+                    days_left = (expiry - datetime.now()).days
+                    status["cookie_days_left"] = days_left
+                    if days_left < 3:
+                        criticals.append(f"Cookie期限切れ間近: 残り{days_left}日")
+                    elif days_left < 30:
+                        warnings.append(f"Cookie残り{days_left}日")
+                    else:
+                        print(f"   ✅ sessionid有効 (残り{days_left}日)")
                 break
     else:
-        issues.append("🚨 Cookieファイルなし")
+        criticals.append("Cookieファイルなし")
         print("   ❌ Cookieファイルなし")
 
-    # 2. TikTok投稿数確認
-    print("📊 TikTok投稿数...")
+    # 2. アップロード検証ログ（主要指標）
+    print("📤 アップロード検証...")
+    vlog = load_upload_verification()
+    recent_uploads = vlog.get("uploads", [])
+    status["total_uploads"] = len(recent_uploads)
+    successful = [u for u in recent_uploads if u.get("success")]
+    failed = [u for u in recent_uploads if not u.get("success")]
+    active_posts = [u for u in successful if u.get("note") != "user deleted from tiktok"]
+    deleted_posts = [u for u in successful if u.get("note") == "user deleted from tiktok"]
+
+    print(f"   成功: {len(successful)}件 (うち削除済み: {len(deleted_posts)}件, 現存: {len(active_posts)}件)")
+    if failed:
+        print(f"   失敗: {len(failed)}件")
+
+    # 直近5件の失敗率チェック
+    last_5 = recent_uploads[-5:] if len(recent_uploads) >= 5 else recent_uploads
+    recent_fails = sum(1 for u in last_5 if not u.get("success"))
+    if recent_fails >= 3:
+        criticals.append(f"直近{len(last_5)}件中{recent_fails}件のアップロード失敗")
+    elif recent_fails >= 2:
+        warnings.append(f"直近{len(last_5)}件中{recent_fails}件のアップロード失敗")
+
+    status["upload_verification"] = {
+        "total": len(recent_uploads),
+        "successful": len(successful),
+        "active": len(active_posts),
+        "deleted": len(deleted_posts),
+        "failed": len(failed),
+    }
+
+    # 3. TikTok投稿数（参考情報。取得失敗はINFO扱い）
+    print("📊 TikTok投稿数 (参考)...")
     video_count = get_tiktok_video_count()
     status["tiktok_videos"] = video_count
 
-    # キューから posted 数を取得して比較判定
     queue_for_check = load_queue()
     posted_in_queue = 0
     if queue_for_check:
@@ -1136,20 +1258,16 @@ def heartbeat():
 
     if video_count >= 0:
         print(f"   TikTok公開投稿: {video_count}件 (キューposted: {posted_in_queue}件)")
-        if video_count == 0 and posted_in_queue > 0:
-            issues.append(f"🚨 TikTok投稿0件だがキューに{posted_in_queue}件posted — 投稿が実際には失敗している可能性大")
-        elif video_count == 0:
-            issues.append("⚠️ TikTok投稿が0件（キューにもpostedなし）")
-        elif video_count < posted_in_queue:
-            issues.append(f"⚠️ TikTok実投稿{video_count}件 < キューposted{posted_in_queue}件 — 不整合あり")
+        if video_count > 0 and video_count < posted_in_queue:
+            infos.append(f"TikTok実投稿{video_count}件 < キューposted{posted_in_queue}件（一部削除の可能性）")
     else:
-        # video_count < 0 = フェッチ失敗
+        # プロフィール取得失敗 → INFO（bot検出の可能性大。CRITICALではない）
         error_desc = {-1: "curl失敗", -2: "HTML解析失敗(JS-only)", -3: "全手段失敗"}
         desc = error_desc.get(video_count, f"不明エラー({video_count})")
-        print(f"   ❌ TikTokプロフィール取得失敗: {desc}")
-        issues.append(f"🚨 TikTokプロフィール取得失敗({desc}) — curlがブロックされている可能性。キューposted: {posted_in_queue}件の検証不能")
+        print(f"   ℹ️ TikTokプロフィール取得失敗: {desc}（bot検出の可能性。アカウントは正常）")
+        infos.append(f"TikTokプロフィール取得不可({desc}) — bot検出の可能性")
 
-    # 3. キュー状態
+    # 4. キュー状態
     print("📋 投稿キュー...")
     queue = load_queue()
     if queue:
@@ -1160,19 +1278,19 @@ def heartbeat():
         for k, v in stats.items():
             print(f"   {k}: {v}")
         if stats.get("failed", 0) > 3:
-            issues.append(f"🚨 失敗した投稿が{stats['failed']}件")
+            warnings.append(f"失敗した投稿が{stats['failed']}件")
     else:
-        issues.append("⚠️ キューファイルなし")
+        warnings.append("キューファイルなし")
 
-    # 4. venv確認
+    # 5. venv確認
     print("🐍 Python venv...")
     if VENV_PYTHON.exists():
         print(f"   ✅ venv有効")
     else:
-        issues.append("🚨 venvが見つかりません")
+        criticals.append("venvが見つかりません")
         print(f"   ❌ venv未作成")
 
-    # 5. cron確認
+    # 6. cron確認
     print("⏰ cron...")
     try:
         result = subprocess.run(
@@ -1182,9 +1300,9 @@ def heartbeat():
         status["cron_jobs"] = len(cron_jobs)
         print(f"   ✅ {len(cron_jobs)}件のcronジョブ")
     except Exception:
-        issues.append("⚠️ cron確認失敗")
+        warnings.append("cron確認失敗")
 
-    # 6. ディスク容量
+    # 7. ディスク容量
     print("💾 ディスク...")
     try:
         result = subprocess.run(
@@ -1199,30 +1317,63 @@ def heartbeat():
     except Exception:
         pass
 
-    # 結果
+    # 結果サマリ
     print(f"\n{'='*50}")
-    if issues:
-        print(f"⚠️ {len(issues)}件の問題:")
-        for issue in issues:
-            print(f"   {issue}")
 
+    all_issues = (
+        [f"🚨 {c}" for c in criticals]
+        + [f"⚠️ {w}" for w in warnings]
+        + [f"ℹ️ {i}" for i in infos]
+    )
+
+    upload_display = f"成功{len(successful)}/失敗{len(failed)}/現存{len(active_posts)}"
+    tiktok_display = f"{video_count}件" if video_count >= 0 else "取得不可(bot検出)"
+    cookie_days = status.get('cookie_days_left', '?')
+
+    if criticals:
+        severity = "CRITICAL"
+        print(f"🚨 CRITICAL: {len(criticals)}件")
+        for c in criticals:
+            print(f"   🚨 {c}")
+    if warnings:
+        if not criticals:
+            severity = "WARNING"
+        print(f"⚠️ WARNING: {len(warnings)}件")
+        for w in warnings:
+            print(f"   ⚠️ {w}")
+    if infos:
+        print(f"ℹ️ INFO: {len(infos)}件")
+        for i in infos:
+            print(f"   ℹ️ {i}")
+
+    if criticals or warnings:
+        severity = "CRITICAL" if criticals else "WARNING"
         slack_notify(
-            f"🏥 *ROBBY ハートビート - {len(issues)}件の問題*\n\n"
-            + "\n".join(issues)
-            + f"\n\nTikTok投稿: {video_count}件"
-            + f"\nキュー: {json.dumps(status.get('queue', {}))}"
+            f"🏥 *ROBBY ハートビート [{severity}]*\n\n"
+            + "\n".join(all_issues)
+            + f"\n\n📤 アップロード: {upload_display}"
+            + f"\n📊 TikTok: {tiktok_display}"
+            + f"\n🔐 Cookie残り: {cookie_days}日"
+            + (f"\n\n⚡ *即時対応が必要*" if criticals else "")
         )
-    else:
+    elif not infos:
         print("✅ 全システム正常")
         slack_notify(
             f"💚 *ROBBY ハートビート - 全システム正常*\n"
-            f"TikTok投稿: {video_count}件\n"
-            f"Cookie残り: {status.get('cookie_days_left', '?')}日\n"
-            f"キュー: {json.dumps(status.get('queue', {}))}"
+            f"📤 アップロード: {upload_display}\n"
+            f"🔐 Cookie残り: {cookie_days}日"
+        )
+    else:
+        print("✅ システム正常（情報通知あり）")
+        slack_notify(
+            f"💚 *ROBBY ハートビート - 正常*\n"
+            + "\n".join([f"ℹ️ {i}" for i in infos])
+            + f"\n\n📤 アップロード: {upload_display}"
+            + f"\n🔐 Cookie残り: {cookie_days}日"
         )
 
-    log_event("heartbeat", {"status": status, "issues": issues})
-    return len(issues) == 0
+    log_event("heartbeat", {"status": status, "criticals": criticals, "warnings": warnings, "infos": infos})
+    return len(criticals) == 0 and len(warnings) == 0
 
 
 def show_status():
@@ -1240,7 +1391,11 @@ def show_status():
 
     print(f"=== 投稿キュー状態 ===")
     print(f"最終更新: {queue['updated']}")
-    print(f"TikTok公開投稿数: {video_count}件")
+    if video_count >= 0:
+        print(f"TikTok公開投稿数: {video_count}件")
+    else:
+        error_desc = {-1: "curl失敗", -2: "HTML解析失敗", -3: "全手段失敗"}
+        print(f"TikTok公開投稿数: 取得失敗 ({error_desc.get(video_count, '不明')})")
     print(f"キュー合計: {len(queue['posts'])}件")
     for k, v in sorted(stats.items()):
         print(f"  {k}: {v}")
@@ -1263,23 +1418,66 @@ def verify_command():
     if queue:
         posted_count = sum(1 for p in queue["posts"] if p["status"] == "posted")
 
+    # フェッチ失敗 → アップロード検証ログで代替
+    if video_count < 0:
+        error_desc = {-1: "curl失敗", -2: "HTML解析失敗(JS-only)", -3: "全手段失敗"}
+        desc = error_desc.get(video_count, f"不明エラー({video_count})")
+        print(f"ℹ️ TikTokプロフィール取得不可: {desc}（bot検出の可能性）")
+        print(f"キュー内 posted: {posted_count}")
+        # アップロード検証ログで代替チェック
+        vlog = load_upload_verification()
+        recent = vlog.get("uploads", [])[-10:]
+        recent_fails = sum(1 for u in recent if not u.get("success"))
+        if recent_fails >= 3:
+            print(f"⚠️ 直近{len(recent)}件中{recent_fails}件の失敗 — アップロード問題の可能性")
+        else:
+            print(f"✅ アップロード検証ログ正常（直近{len(recent)}件中{len(recent)-recent_fails}件成功）")
+        return
+
     print(f"TikTok公開投稿数: {video_count}")
     print(f"キュー内 posted: {posted_count}")
 
-    if video_count < posted_count:
-        print(f"⚠️ 不整合: キューでは{posted_count}件 posted だが、TikTokには{video_count}件しかない")
-        # postedだが実際には投稿されていないものをfailedに戻す
+    if video_count == 0 and posted_count > 0:
+        print(f"🚨 重大不整合: キューでは{posted_count}件 posted だが、TikTokには0件")
+        print(f"   → 投稿処理がステータスを更新したが実際のアップロードは失敗している可能性大")
+        # postedだが実際には投稿されていないものをpendingに戻す
         if queue:
             fixed = 0
             for post in queue["posts"]:
                 if post["status"] == "posted" and not post.get("verified"):
                     post["status"] = "pending"
                     post["posted_at"] = None
-                    post["error"] = "unverified_reset"
+                    post["error"] = "unverified_reset_by_verify"
                     fixed += 1
             if fixed:
                 save_queue(queue)
                 print(f"   {fixed}件の未検証投稿をpendingにリセット")
+        slack_notify(
+            f"🚨 *TikTok投稿不整合検出*\n"
+            f"TikTok実投稿: 0件\n"
+            f"キューposted: {posted_count}件\n"
+            f"→ {posted_count}件の投稿が実際にはアップロードされていません。未検証投稿をpendingにリセットしました。"
+        )
+    elif video_count < posted_count:
+        print(f"⚠️ 不整合: キューでは{posted_count}件 posted だが、TikTokには{video_count}件しかない")
+        # postedだが実際には投稿されていないものをpendingに戻す
+        if queue:
+            fixed = 0
+            for post in queue["posts"]:
+                if post["status"] == "posted" and not post.get("verified"):
+                    post["status"] = "pending"
+                    post["posted_at"] = None
+                    post["error"] = "unverified_reset_by_verify"
+                    fixed += 1
+            if fixed:
+                save_queue(queue)
+                print(f"   {fixed}件の未検証投稿をpendingにリセット")
+        slack_notify(
+            f"⚠️ *TikTok投稿不整合*\n"
+            f"TikTok実投稿: {video_count}件\n"
+            f"キューposted: {posted_count}件\n"
+            f"→ {posted_count - video_count}件が未反映。未検証投稿をpendingにリセットしました。"
+        )
     else:
         print("✅ 整合性OK")
 

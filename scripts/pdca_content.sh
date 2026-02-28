@@ -50,5 +50,5 @@ update_progress "content" "コンテンツ生成: $QUEUE_STATUS"
 git_sync "content: ${TODAY} コンテンツ生成"
 update_state "コンテンツ生成"
 
-write_heartbeat "content" $?
-echo "[$TODAY] pdca_content完了" >> "$LOG"
+write_heartbeat "content" $PIPELINE_EXIT
+echo "[$TODAY] pdca_content完了 (exit=$PIPELINE_EXIT)" >> "$LOG"

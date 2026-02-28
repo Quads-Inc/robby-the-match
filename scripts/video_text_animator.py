@@ -66,27 +66,61 @@ def load_font(font_path, size):
 
 
 def wrap_text(text, font, max_width):
-    """Wrap text to fit within max_width pixels. Returns list of lines."""
+    """Wrap text to fit within max_width pixels.
+    Breaks at natural Japanese break points (punctuation, particles).
+    Returns list of lines."""
     if not text:
         return []
     # Try single line first
     bbox = font.getbbox(text)
     if (bbox[2] - bbox[0]) <= max_width:
         return [text]
-    # Character-by-character wrapping for CJK text
+
+    # Characters that should NOT start a line (禁則処理 - 行頭禁止)
+    no_start = set("、。！？）」』】〉》〕,.!?):;>}ー〜っゃゅょぁぃぅぇぉ")
+    # Characters that should NOT end a line (行末禁止)
+    no_end = set("（「『【〈《〔(<{")
+    # Good break points (break AFTER these)
+    good_break = set("、。！？）」』】〉》〕,.!?):;>}　 ")
+
     lines = []
     current = ""
+    last_good_break = ""  # text up to last good break point
+
     for ch in text:
         test = current + ch
         bbox = font.getbbox(test)
-        if (bbox[2] - bbox[0]) > max_width and current:
-            lines.append(current)
-            current = ch
+        width = bbox[2] - bbox[0]
+
+        if width > max_width and current:
+            # Try to break at last good break point
+            if last_good_break and len(last_good_break) > 1:
+                lines.append(last_good_break)
+                remaining = current[len(last_good_break):] + ch
+                current = remaining
+                last_good_break = ""
+            else:
+                # No good break point - break at current position
+                # But avoid breaking before no_start chars
+                if ch in no_start and len(current) > 1:
+                    lines.append(current[:-1])
+                    current = current[-1] + ch
+                else:
+                    lines.append(current)
+                    current = ch
+                last_good_break = ""
         else:
             current = test
+            if ch in good_break:
+                last_good_break = current
+
     if current:
         lines.append(current)
     return lines
+
+
+# Paragraph break marker for tracking paragraph gaps in wrapped text
+_PARA_BREAK = "\x00"
 
 
 def ease_out_cubic(t):
@@ -154,6 +188,22 @@ def render_hook_frame(bg_img, slide_meta, font_path, t, duration):
     return frame.convert("RGB")
 
 
+def _draw_card_bg(odraw, x, y, w, h, dark, alpha):
+    """Draw a rounded-corner semi-transparent card background for readability."""
+    if dark:
+        fill = (0, 0, 0, int(alpha * 0.45))
+    else:
+        fill = (255, 255, 255, int(alpha * 0.35))
+    r = 24  # corner radius
+    # Simple rounded rect via rectangles + circles
+    odraw.rectangle([(x + r, y), (x + w - r, y + h)], fill=fill)
+    odraw.rectangle([(x, y + r), (x + w, y + h - r)], fill=fill)
+    odraw.ellipse([(x, y), (x + 2*r, y + 2*r)], fill=fill)
+    odraw.ellipse([(x + w - 2*r, y), (x + w, y + 2*r)], fill=fill)
+    odraw.ellipse([(x, y + h - 2*r), (x + 2*r, y + h)], fill=fill)
+    odraw.ellipse([(x + w - 2*r, y + h - 2*r), (x + w, y + h)], fill=fill)
+
+
 def render_content_frame(bg_img, slide_meta, font_path, t, duration):
     """Render a single frame of Content slide with staggered text reveal."""
     frame = bg_img.copy()
@@ -165,66 +215,113 @@ def render_content_frame(bg_img, slide_meta, font_path, t, duration):
     title = slide_meta.get("title", "")
     body = slide_meta.get("body", "")
     title_size = slide_meta.get("title_font_size", 64)
-    body_size = slide_meta.get("body_font_size", 48)
+    body_size = slide_meta.get("body_font_size", 44)  # slightly smaller for readability
     hl_num = slide_meta.get("highlight_number")
+    dark = slide_meta.get("dark", True)
 
     overlay = Image.new("RGBA", frame.size, (0, 0, 0, 0))
     odraw = ImageDraw.Draw(overlay)
 
     # Available text width (card_w minus padding)
     card_w = slide_meta.get("card_w", 880)
-    text_max_w = card_w - 80  # 40px padding each side
+    card_pad = 50  # padding inside card
+    text_max_w = card_w - card_pad * 2
 
-    # Title fade in (0 → 0.4s)
-    title_fade = 0.4
-    title_lines_count = 0
-    if title:
+    # --- Pre-calculate all text layout for card height ---
+    font_title = load_font(font_path, title_size)
+    font_body = load_font(font_path, body_size)
+    title_line_h = int(title_size * 1.4)
+    body_line_h = int(body_size * 1.8)  # generous line height for readability
+    para_gap = int(body_size * 0.7)     # extra gap between paragraphs
+
+    title_lines = wrap_text(title, font_title, text_max_w) if title else []
+
+    # Split body by \n for paragraph breaks, then wrap each paragraph
+    raw_paras = body.split("\n") if "\n" in body else [body] if body else []
+    body_items = []  # list of (line_text, is_para_start)
+    for pi, para in enumerate(raw_paras):
+        para = para.strip()
+        if not para:
+            continue
+        wrapped = wrap_text(para, font_body, text_max_w)
+        for li, wl in enumerate(wrapped):
+            body_items.append((wl, li == 0 and pi > 0))  # para_start if not first para
+
+    # Calculate total content height for card background
+    title_block_h = len(title_lines) * title_line_h if title_lines else 0
+    title_body_gap = 30 if title_lines else 0
+    body_block_h = 0
+    for i, (_, is_para_start) in enumerate(body_items):
+        if is_para_start:
+            body_block_h += para_gap
+        body_block_h += body_line_h
+    hl_block_h = 120 if hl_num else 0
+    total_content_h = title_block_h + title_body_gap + body_block_h + hl_block_h + card_pad * 2
+
+    # Center card vertically in safe area
+    canvas_h = frame.size[1]
+    safe_top = 150
+    safe_bottom = 250
+    available_h = canvas_h - safe_top - safe_bottom
+    card_y_centered = safe_top + max(0, (available_h - total_content_h) // 2)
+
+    # --- Draw card background (fades in with title) ---
+    card_alpha = min(255, int(255 * min(t / 0.3, 1.0)))
+    _draw_card_bg(odraw, card_x, card_y_centered, card_w, total_content_h, dark, card_alpha)
+
+    # --- Title ---
+    cursor_y = card_y_centered + card_pad
+    title_lines_count = len(title_lines)
+    if title_lines:
+        title_fade = 0.4
         title_alpha = min(255, int(255 * min(t / title_fade, 1.0)))
-        font_title = load_font(font_path, title_size)
-        tx = card_x + 40
-        ty = card_y + 80
-        title_lines = wrap_text(title, font_title, text_max_w)
-        title_lines_count = len(title_lines)
+        tx = card_x + card_pad
         for j, tl in enumerate(title_lines):
-            tly = ty + j * int(title_size * 1.3)
+            tly = cursor_y + j * title_line_h
+            # Shadow
             odraw.text((tx + 2, tly + 2), tl, fill=(0, 0, 0, title_alpha // 3), font=font_title)
             odraw.text((tx, tly), tl, fill=(*color, title_alpha), font=font_title)
+        cursor_y += title_lines_count * title_line_h + title_body_gap
 
-    # Body lines staggered (delay=0.3s, each line +0.2s)
-    body_base_delay = 0.3
-    line_delay = 0.2
+    # Decorative accent line under title
+    if title_lines and card_alpha > 50:
+        accent_color = (*color[:3], min(card_alpha, 120))
+        line_y = cursor_y - title_body_gap // 2
+        odraw.rectangle(
+            [(card_x + card_pad, line_y), (card_x + card_pad + 60, line_y + 3)],
+            fill=accent_color,
+        )
+
+    # --- Body lines staggered ---
+    body_base_delay = 0.35
+    line_delay = 0.15
     fade_time = 0.3
+    body_y = cursor_y
 
-    # Split body into lines, then wrap each
-    raw_lines = body.split("\n") if "\n" in body else [body] if body else []
-    font_body = load_font(font_path, body_size)
-    wrapped_body = []
-    for rl in raw_lines:
-        rl = rl.strip()
-        if rl:
-            wrapped_body.extend(wrap_text(rl, font_body, text_max_w))
+    for i, (line, is_para_start) in enumerate(body_items[:8]):
+        if is_para_start:
+            body_y += para_gap  # extra gap before new paragraph
 
-    # Offset body start based on title height
-    body_y_start = card_y + 200 + (title_lines_count - 1) * int(title_size * 1.0)
-
-    for i, line in enumerate(wrapped_body[:6]):
         line_start = body_base_delay + i * line_delay
         if t < line_start:
+            body_y += body_line_h
             continue
         line_t = t - line_start
         alpha = min(255, int(255 * min(line_t / fade_time, 1.0)))
 
-        # Slide up effect: start 20px below, move to final position
+        # Slide up effect
         slide_progress = ease_out_cubic(min(line_t / fade_time, 1.0))
-        y_offset = int(20 * (1 - slide_progress))
+        y_offset = int(15 * (1 - slide_progress))
 
-        lx = card_x + 40
-        ly = body_y_start + i * int(body_size * 1.5) + y_offset
+        lx = card_x + card_pad
+        ly = body_y + y_offset
 
         odraw.text((lx + 2, ly + 2), line, fill=(0, 0, 0, alpha // 3), font=font_body)
         odraw.text((lx, ly), line, fill=(*color, alpha), font=font_body)
 
-    # Highlight number (large, centered, delayed)
+        body_y += body_line_h
+
+    # --- Highlight number (large, centered, delayed) ---
     if hl_num:
         hl_delay = 0.6
         if t >= hl_delay:
@@ -235,9 +332,8 @@ def render_content_frame(bg_img, slide_meta, font_path, t, duration):
             hl_bbox = font_hl.getbbox(hl_text)
             hl_w = hl_bbox[2] - hl_bbox[0]
             hl_x = (frame.size[0] - hl_w) // 2
-            hl_y = card_y + 550
+            hl_y = body_y + 20
 
-            # Scale effect
             scale_progress = ease_out_cubic(min(hl_t / 0.3, 1.0))
             hl_font_size = int(96 * (1.3 - 0.3 * scale_progress))
             font_hl_scaled = load_font(font_path, hl_font_size)
@@ -270,27 +366,44 @@ def render_cta_frame(bg_img, slide_meta, font_path, t, duration):
     odraw = ImageDraw.Draw(overlay)
     w, h = frame.size
 
-    max_text_w = w - 160  # 80px margin each side
-    line_idx = 0
-    for text in texts:
-        font_size = max(20, int(base_size + pulse))
-        font = load_font(font_path, font_size)
-        wrapped = wrap_text(text, font, max_text_w)
-        for wl in wrapped:
-            bbox = font.getbbox(wl)
-            tw = bbox[2] - bbox[0]
-            x = (w - tw) // 2
-            y = 700 + line_idx * int(font_size * 1.6)
-            odraw.text((x + 2, y + 2), wl, fill=(0, 0, 0, alpha // 3), font=font)
-            odraw.text((x, y), wl, fill=(255, 255, 255, alpha), font=font)
-            line_idx += 1
+    max_text_w = w - 160
+    font_size = max(20, int(base_size + pulse))
+    font = load_font(font_path, font_size)
+    line_h = int(font_size * 1.8)
 
-    # Brand watermark
+    # Pre-wrap all text lines
+    all_lines = []
+    para_gaps = []  # indices where paragraph gaps occur
+    for ti, text in enumerate(texts):
+        wrapped = wrap_text(text, font, max_text_w)
+        if ti > 0:
+            para_gaps.append(len(all_lines))
+        all_lines.extend(wrapped)
+
+    # Calculate total height and center vertically
+    total_h = len(all_lines) * line_h + len(para_gaps) * int(line_h * 0.5)
+    start_y = (h - total_h) // 2 - 40  # slightly above center
+
+    current_y = start_y
+    for i, wl in enumerate(all_lines):
+        if i in para_gaps:
+            current_y += int(line_h * 0.5)  # paragraph gap
+
+        bbox = font.getbbox(wl)
+        tw = bbox[2] - bbox[0]
+        x = (w - tw) // 2
+
+        odraw.text((x + 2, current_y + 2), wl, fill=(0, 0, 0, alpha // 3), font=font)
+        odraw.text((x, current_y), wl, fill=(255, 255, 255, alpha), font=font)
+        current_y += line_h
+
+    # Brand watermark (bottom area)
     font_brand = load_font(font_path, 36)
     brand = "ナースロビー"
     brand_bbox = font_brand.getbbox(brand)
     brand_w = brand_bbox[2] - brand_bbox[0]
-    odraw.text(((w - brand_w) // 2, 1400), brand, fill=(255, 255, 255, int(alpha * 0.5)), font=font_brand)
+    brand_y = h - 520  # above TikTok bottom UI
+    odraw.text(((w - brand_w) // 2, brand_y), brand, fill=(255, 255, 255, int(alpha * 0.5)), font=font_brand)
 
     frame = frame.convert("RGBA")
     frame = Image.alpha_composite(frame, overlay)

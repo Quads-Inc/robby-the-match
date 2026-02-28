@@ -505,13 +505,14 @@ def handle_agents(channel: str, **kwargs):
         }
         agent_names = {
             "seo_optimizer": "SEO Optimizer (04:00)",
+            "ai_marketing_orchestrator": "AI Marketing (06:00)",
             "health_monitor": "Health Monitor (07:00)",
             "competitor_analyst": "Competitor (10:00)",
             "content_creator": "Content Creator (15:00)",
-            "sns_poster": "SNS Poster (17:30)",
+            "sns_poster": "SNS Poster (schedule)",
             "daily_reviewer": "Daily Reviewer (23:00)",
-            "weekly_strategist": "Weekly (日曜06:00)",
-            "slack_commander": "Slack Commander (*/5分)",
+            "weekly_content_planner": "Weekly Content (日曜05:00)",
+            "weekly_strategist": "Weekly Strategy (日曜06:00)",
         }
 
         lines = []

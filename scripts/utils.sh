@@ -149,18 +149,45 @@ update_agent_state() {
   local agent_name="$1"
   local status="$2"
   python3 -c "
-import json
+import json, os
 from datetime import datetime
+
+state_file = '$AGENT_STATE_FILE'
+default_state = {
+    'lastRun': {},
+    'status': {},
+    'pendingTasks': {},
+    'sharedContext': {},
+    'agentMemory': {}
+}
+
 try:
-    with open('$AGENT_STATE_FILE', 'r') as f:
-        state = json.load(f)
+    if os.path.exists(state_file) and os.path.getsize(state_file) > 0:
+        with open(state_file, 'r') as f:
+            content = f.read().strip()
+        try:
+            state = json.loads(content)
+            if not isinstance(state, dict):
+                raise ValueError('state is not a dict')
+        except (json.JSONDecodeError, ValueError) as e:
+            print(f'[WARN] agent_state.json corrupted, backing up and reinitializing: {e}')
+            import shutil
+            shutil.copy2(state_file, state_file + '.bak')
+            state = default_state
+    else:
+        os.makedirs(os.path.dirname(state_file), exist_ok=True)
+        state = default_state
+
+    state.setdefault('lastRun', {})
+    state.setdefault('status', {})
     state['lastRun']['$agent_name'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
     state['status']['$agent_name'] = '$status'
-    with open('$AGENT_STATE_FILE', 'w') as f:
+
+    with open(state_file, 'w') as f:
         json.dump(state, f, indent=2, ensure_ascii=False)
 except Exception as e:
-    print(f'[WARN] agent_state更新失敗: {e}')
-" 2>> "$LOG" || echo "[WARN] agent_state更新失敗" >> "$LOG"
+    print(f'[WARN] agent_state update failed: {e}')
+" 2>> "${LOG:-/dev/null}" || echo "[WARN] agent_state update failed" >> "${LOG:-/dev/null}"
 }
 
 handle_failure() {

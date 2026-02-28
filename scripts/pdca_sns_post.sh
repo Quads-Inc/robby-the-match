@@ -140,8 +140,17 @@ if [ "$UNPOSTED" -lt 3 ]; then
 fi
 
 # Step 6: 進捗記録
-update_progress "sns_post" "SNS自動投稿: IG済${POSTED_COUNT}件 / 未投稿${UNPOSTED}件"
+# Determine overall job exit code from critical steps (IG + TK)
+if [ $IG_EXIT -ne 0 ] && [ $TK_EXIT -ne 0 ]; then
+  SNS_JOB_EXIT=1
+elif [ $IG_EXIT -ne 0 ] || [ $TK_EXIT -ne 0 ]; then
+  SNS_JOB_EXIT=2  # partial failure
+else
+  SNS_JOB_EXIT=0
+fi
+
+update_progress "sns_post" "SNS自動投稿: IG済${POSTED_COUNT}件 / 未投稿${UNPOSTED}件 (IG=$IG_EXIT, TK=$TK_EXIT)"
 update_agent_state "sns_poster" "completed"
 
-write_heartbeat "sns_post" $?
-echo "=== [$TODAY $NOW] sns_post 完了 ===" >> "$LOG"
+write_heartbeat "sns_post" $SNS_JOB_EXIT
+echo "=== [$TODAY $NOW] sns_post 完了 (IG=$IG_EXIT, TK=$TK_EXIT, overall=$SNS_JOB_EXIT) ===" >> "$LOG"

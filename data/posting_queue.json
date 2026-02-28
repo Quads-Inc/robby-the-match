@@ -1,7 +1,7 @@
 {
   "version": 2,
   "created": "2026-02-21T15:32:19.570003",
-  "updated": "2026-02-28T09:22:22.422844",
+  "updated": "2026-02-28T15:00:15.887509",
   "posts": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_20260220_A01_20260225.mp4",
       "posted_at": "2026-02-25T07:43:35.157241",
       "tiktok_url": null,
@@ -30,7 +30,8 @@
         "saves": null,
         "comments": null
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 2,
@@ -48,7 +49,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_20260220_A02_20260225.mp4",
       "posted_at": "2026-02-25T07:44:40.217525",
       "tiktok_url": null,
@@ -59,7 +60,8 @@
         "saves": null,
         "comments": null
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 3,
@@ -77,7 +79,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day1_20260225.mp4",
       "posted_at": "2026-02-25T07:45:48.446100",
       "tiktok_url": null,
@@ -88,7 +90,8 @@
         "saves": null,
         "comments": null
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 4,
@@ -105,7 +108,7 @@
       ],
       "cta_type": "soft",
       "content_type": "career",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day2_20260226.mp4",
       "posted_at": "2026-02-26T23:22:44.615257",
       "tiktok_url": null,
@@ -116,7 +119,8 @@
         "saves": null,
         "comments": null
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 5,
@@ -133,7 +137,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day3_20260226.mp4",
       "posted_at": "2026-02-26T23:23:35.896733",
       "tiktok_url": null,
@@ -157,7 +161,8 @@
         ],
         "suggestion": "CTAをよりナースロビーのサービスに結び付けることで、ソフトなアプローチながらも効果的な導線を実現できる"
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 6,
@@ -174,7 +179,7 @@
       ],
       "cta_type": "hard",
       "content_type": "service",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day4_20260227.mp4",
       "posted_at": "2026-02-27T09:30:19.472805",
       "tiktok_url": null,
@@ -198,7 +203,8 @@
         ],
         "suggestion": "ハッシュタグを3-4個に絞り、より具体的で関連性の高いものを選ぶと効果的"
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 7,
@@ -215,7 +221,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day5_20260227.mp4",
       "posted_at": "2026-02-27T09:31:29.048149",
       "tiktok_url": null,
@@ -240,7 +246,8 @@
         ],
         "suggestion": "CTAをよりソフトにし、ハッシュタグを調整することで投稿の品質を向上させることができる"
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 8,
@@ -257,7 +264,7 @@
       ],
       "cta_type": "soft",
       "content_type": "salary",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day6_20260227.mp4",
       "posted_at": "2026-02-27T09:32:21.575926",
       "tiktok_url": null,
@@ -281,7 +288,8 @@
         ],
         "suggestion": "より具体的なデータやグラフィカルな表現を追加して、看護師の関心を引き付けることを検討してください"
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 9,
@@ -299,7 +307,7 @@
       ],
       "cta_type": "hard",
       "content_type": "trend",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day7_20260225.mp4",
       "posted_at": "2026-02-25T07:47:04.752512",
       "tiktok_url": null,
@@ -323,7 +331,8 @@
         ],
         "suggestion": "ソフトCTAを追加して8:2のバランスを取る"
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 10,
@@ -341,7 +350,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day1_mon_A03_20260225.mp4",
       "posted_at": "2026-02-25T07:48:41.855979",
       "tiktok_url": null,
@@ -365,7 +374,8 @@
         ],
         "suggestion": "夜勤看護師のストレスをさらに具体的に描写し、CTAでナースロビーへの導線を強化する"
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 11,
@@ -382,7 +392,7 @@
       ],
       "cta_type": "soft",
       "content_type": "career",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day2_tue_B01_20260227.mp4",
       "posted_at": "2026-02-27T17:32:14.960314",
       "tiktok_url": null,
@@ -407,7 +417,8 @@
         ],
         "suggestion": "CTAを少しハードにし、スライド6のフォローの呼びかけを明確にする"
       },
-      "verified": true
+      "verified": true,
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 12,
@@ -424,7 +435,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "posted",
+      "status": "deleted_from_tiktok",
       "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day3_wed_A04_20260228.mp4",
       "posted_at": "2026-02-28T09:22:22.422837",
       "tiktok_url": null,
@@ -449,7 +460,8 @@
         "suggestion": "CTAをよりソフトに調整して、共感から信頼への導線を強化する"
       },
       "verified": true,
-      "video_type": "animated"
+      "video_type": "animated",
+      "deleted_reason": "テキストはみ出し - ユーザーが手動削除"
     },
     {
       "id": 13,
@@ -466,9 +478,9 @@
       ],
       "cta_type": "soft",
       "content_type": "career",
-      "status": "ready",
-      "video_path": "content/temp_videos/tiktok_day4_thu_B02.mp4",
-      "posted_at": null,
+      "status": "posted",
+      "video_path": "/Users/robby2/robby-the-match/content/temp_videos/tiktok_day4_thu_B02_20260228.mp4",
+      "posted_at": "2026-02-28T10:09:07.702236",
       "tiktok_url": null,
       "error": null,
       "performance": {
@@ -489,7 +501,9 @@
           "CTAがソフトすぎる"
         ],
         "suggestion": "CTAを少しハードに調整して、ユーザーに具体的な行動を促す"
-      }
+      },
+      "verified": true,
+      "video_type": "animated"
     },
     {
       "id": 14,
@@ -546,7 +560,7 @@
       ],
       "cta_type": "hard",
       "content_type": "salary",
-      "status": "pending",
+      "status": "ready",
       "video_path": "content/temp_videos/tiktok_day6_sat_C01.mp4",
       "posted_at": null,
       "tiktok_url": null,
@@ -586,7 +600,7 @@
       ],
       "cta_type": "soft",
       "content_type": "aruaru",
-      "status": "pending",
+      "status": "ready",
       "video_path": "content/temp_videos/tiktok_day7_sun_T01.mp4",
       "posted_at": null,
       "tiktok_url": null,

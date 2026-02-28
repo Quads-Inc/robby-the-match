@@ -1,0 +1,95 @@
+{
+  "uploads": [
+    {
+      "timestamp": "2026-02-25T07:43:35.157241",
+      "content_id": "20260220_A01",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-25T07:44:40.217525",
+      "content_id": "20260220_A02",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-25T07:45:48.446100",
+      "content_id": "day1",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-25T07:47:04.752512",
+      "content_id": "day7",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-25T07:48:41.855979",
+      "content_id": "day1_mon_A03",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-26T23:22:44.615257",
+      "content_id": "day2",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-26T23:23:35.896733",
+      "content_id": "day3",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-27T09:30:19.472805",
+      "content_id": "day4",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-27T09:31:29.048149",
+      "content_id": "day5",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-27T09:32:21.575926",
+      "content_id": "day6",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-27T17:32:14.960314",
+      "content_id": "day2_tue_B01",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-28T09:22:22.422837",
+      "content_id": "day3_wed_A04",
+      "success": true,
+      "method": "tiktokautouploader",
+      "note": "user deleted from tiktok"
+    },
+    {
+      "timestamp": "2026-02-28T10:09:07.702236",
+      "content_id": "day4_thu_B02",
+      "success": true,
+      "method": "tiktokautouploader"
+    }
+  ],
+  "last_updated": "2026-02-28T10:09:07.702236"
+}
